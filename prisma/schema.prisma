@@ -1,0 +1,174 @@
+  datasource db {
+    provider = "sqlite"
+    url      = env("DATABASE_URL")
+  }
+
+  generator client {
+    provider = "prisma-client-js"
+  }
+
+  model Pengaduan {
+    id_tiket         String     @id
+    nama_pelapor     String
+    is_anonim        Boolean    @default(false)
+    nomor_whatsapp   String
+    kategori_masalah String
+    kronologi        String
+    latitude         String
+    longitude        String
+    foto_bukti       String?
+    status_laporan   String     @default("Pending")
+    bidang_disposisi String?
+    waktu_kirim      DateTime   @default(now())
+    disposisi        Disposisi?
+  }
+
+  model Disposisi {
+    no_urut          Int      @id @default(autoincrement())
+    id_tiket         String   @unique
+    nama_admin       String
+    waktu_verifikasi DateTime @default(now())
+    bidang_tujuan    String
+    kedaruratan      String
+    catatan          String
+    waktu_dikirim    DateTime @default(now())
+
+    pengaduan        Pengaduan @relation(fields: [id_tiket], references: [id_tiket], onDelete: Cascade)
+  }
+
+  model Satlinmas {
+    id                   Int      @id @default(autoincrement())
+    kecamatan            String
+    desa                 String
+    anggota_pria         Int
+    anggota_wanita       Int
+    nama_kades           String
+    nama_kasi            String
+    kontak_perangkat     String
+    jumlah_pos_kamling   Int
+    status_pakaian_dinas String
+    ket_pakaian_dinas    String
+    jumlah_senter        Int
+    jumlah_pentungan     Int
+    jumlah_ht            Int
+    anggaran_honor       Float
+    status_sk_satlinmas  String
+    peraturan_desa       String
+    status_struktur      String
+    pelatihan_anggota    String
+    status_kta           String
+    petugas_pendata      String
+    tanggal_pendataan    DateTime @default(now())
+  }
+
+  model PenertibanTrantibum {
+    id                    Int      @id @default(autoincrement())
+    id_tiket              String?
+    tanggal_ditemukan     DateTime @default(now())
+    lokasi_ditemukan      String
+    nama_pelaku           String   @default("Tanpa Nama")
+    alamat_asal           String
+    jenis_kelamin         String
+    status_identitas      String
+    no_ktp                String   @default("-")
+    kategori_masalah      String
+    no_rekam_medis        String   @default("Nihil")
+    keterangan_penanganan String
+  }
+
+  model KegiatanLinmas {
+    id               Int      @id @default(autoincrement())
+    id_tiket         String?
+    tanggal_kegiatan DateTime @default(now())
+    kecamatan        String
+    desa             String
+    latitude         String?
+    longitude        String?
+    jenis_kegiatan   String
+    uraian_kegiatan  String
+    jumlah_personel  Int      @default(1)
+    foto_kegiatan    String?
+  }
+
+  model ReguPatroli {
+    id                Int            @id @default(autoincrement())
+    no_spt            String         @unique // Format: SPT/TRANTIB/2026/001
+    tanggal_penugasan DateTime       @default(now())
+    shift_kerja       String         // Pagi, Siang, Malam
+    komandan_regu     String         // Nama Danru
+    anggota_regu      String         // Daftar anggota regu (Comma-separated string)
+    wilayah_patroli   String         // Daftar zona wilayah sasaran (Comma-separated string)
+    kendaraan_dinas   String         // Kendaraan dinas operasional
+    createdAt         DateTime       @default(now())
+    penertiban        PenertibanK3[] // Relasi 1-to-many ke Log Penertiban
+  }
+
+  model PenertibanK3 {
+    id                    Int          @id @default(autoincrement())
+    no_formulir           String       @unique // Format: FORM-TEGURAN/TRANTIB/YYYY/XXX
+    id_tiket              String?      // nullable, jika terhubung tiket aduan
+    no_spt                String?      // nullable, jika terhubung dengan regu patroli
+    tanggal_kejadian      DateTime     @default(now())
+    lokasi                String       // Alamat/Lokasi penertiban
+    latitude              String?
+    longitude             String?
+    jenis_pelanggaran     String       // Pedagang Kaki Lima (PKL) Melanggar Zonasi, Reklame Liar / Kedaluwarsa, Pelanggaran Ketertiban Umum Lainnya
+    nama_pelanggar        String       // Nama pedagang, nama usaha, atau nama pemilik reklame
+    tindakan_diambil      String       // Teguran Lisan, Teguran Tertulis (Surat Peringatan), Penyitaan barang bukti
+    jumlah_pelanggar      Int          @default(1) // Jumlah total orang/lapak usaha yang ditertibkan
+    keterangan            String       // Uraian narasi kejadian lapangan
+    foto_bukti            String?      // Base64 image string
+    createdAt             DateTime     @default(now())
+
+    patroli               ReguPatroli? @relation(fields: [no_spt], references: [no_spt], onDelete: SetNull)
+  }
+
+  model PerdaPerbup {
+    id               Int                  @id @default(autoincrement())
+    kode_regulasi    String               @unique // Format: REG-PERDA-YYYY-XXX atau REG-PERBUP-YYYY-XXX
+    jenis_peraturan  String               // Perda, Perbup/Perkada
+    nomor_peraturan  String
+    tahun_peraturan  Int
+    judul_tentang    String
+    berkas_pdf       String?              // Base64 PDF string
+    createdAt        DateTime             @default(now())
+    pelanggaran      KatalogPelanggaran[]
+    penegakan        PenegakanPerada[]
+  }
+
+  model KatalogPelanggaran {
+    id               Int          @id @default(autoincrement())
+    kode_regulasi    String
+    pasal            String       // Contoh: Pasal 5 Ayat 1
+    jenis_pelanggaran String       // Deskripsi jenis pelanggaran
+    sanksi_maksimal  String       @default("Denda") // Pilihan: Denda, Kurungan, Pencabutan Izin
+    denda_maksimal   Float        // Batas denda maksimal
+    createdAt        DateTime     @default(now())
+    regulasi         PerdaPerbup  @relation(fields: [kode_regulasi], references: [kode_regulasi], onDelete: Cascade)
+  }
+
+  model PenegakanPerada {
+    id               Int          @id @default(autoincrement())
+    no_kejadian      String       @unique // Format Baru: BAP/PERADA/YYYY/XXX
+    id_tiket         String?      // nullable, jika terhubung tiket aduan
+    tanggal_tindakan DateTime     @default(now())
+    nama_pelanggar   String       // Nama pelanggar perorangan/badan usaha
+    nik_pelanggar    String?      // 16 digit NIK Pelanggar (wajib jika perorangan)
+    alamat_pelanggar String?      // Alamat domisili/tempat usaha milik pelanggar
+    lokasi_kejadian  String       // Alamat/Lokasi penindakan lapangan (TKP)
+    kode_regulasi    String
+    pasal_dilanggar  String       // Pasal yang dilanggar
+    jenis_tindakan   String       // Yustisial, Tipiring
+    status_sidang    String       @default("Penyelidikan / Pemanggilan") // Penyelidikan / Pemanggilan, Proses Sidang Tipiring, Kasus Selesai (Clear)
+    tanggal_sidang   DateTime?
+    lokasi_sidang    String?
+    denda_dijatuhkan Float?
+    no_bukti_setor   String?      // Kode bukti transfer denda kas daerah
+    scan_dokumen     String?      // Base64 scan dokumen BAP & Putusan resmi
+    bukti_setor_kas  String?      // Menjaga kompatibilitas Base64 bukti setor lama jika ada
+    kronologi_singkat String?     // Catatan kronologi/temuan di TKP
+    barang_bukti     String?      // Daftar barang bukti yang disita sementara
+    catatan          String       // Keterangan / Catatan sidang tambahan
+    createdAt        DateTime     @default(now())
+    regulasi         PerdaPerbup  @relation(fields: [kode_regulasi], references: [kode_regulasi], onDelete: Cascade)
+  }
