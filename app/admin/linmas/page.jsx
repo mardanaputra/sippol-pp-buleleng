@@ -605,36 +605,36 @@ export default function LinmasAdmin() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 p-6 relative overflow-hidden font-sans">
+    <div className="min-h-screen bg-[#e0e5ec] text-slate-700 p-6 relative overflow-hidden font-sans">
       
       {/* Decorative Glow */}
-      <div className="bg-indigo-500/5 w-[40rem] h-[40rem] rounded-full blur-[160px] absolute -top-48 -left-48 pointer-events-none z-0" />
-      <div className="bg-purple-500/5 w-[40rem] h-[40rem] rounded-full blur-[160px] absolute -bottom-48 -right-48 pointer-events-none z-0" />
+      <div className="bg-[#e0e5ec] shadow-[16px_16px_32px_#b8bec5,-16px_-16px_32px_#ffffff] rounded-full w-[40rem] h-[40rem] absolute -top-48 -left-48 pointer-events-none opacity-50 z-0" />
+      <div className="bg-[#e0e5ec] shadow-[16px_16px_32px_#b8bec5,-16px_-16px_32px_#ffffff] rounded-full w-[40rem] h-[40rem] absolute -bottom-48 -right-48 pointer-events-none opacity-50 z-0" />
 
       <div className="max-w-6xl mx-auto space-y-6 relative z-10">
 
         {/* Back and Navigation Header */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-slate-900/80 backdrop-blur border border-slate-800 p-6 rounded-2xl shadow-xl">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-[#e0e5ec] shadow-[8px_8px_16px_#b8bec5,-8px_-8px_16px_#ffffff] p-6 rounded-2xl">
           <div className="flex items-center space-x-4">
             <button 
               onClick={() => window.location.href = '/admin/dashboard'}
-              className="p-2.5 bg-slate-950 hover:bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800 hover:border-slate-700 rounded-xl cursor-pointer transition-all"
+              className="p-2.5 bg-[#e0e5ec] hover:bg-[#d5dae2] text-slate-500 hover:text-slate-700 shadow-[4px_4px_8px_#b8bec5,-4px_-4px_8px_#ffffff] active:shadow-[inset_3px_3px_6px_#b8bec5,inset_-3px_-3px_6px_#ffffff] rounded-xl cursor-pointer transition-all"
             >
               <ArrowLeft className="w-5 h-5" />
             </button>
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-[10px] bg-indigo-500/20 text-indigo-400 font-bold px-2 py-0.5 rounded-full border border-indigo-500/30 uppercase tracking-wider">
+                <span className="text-[10px] bg-[#e0e5ec] text-blue-800 font-bold px-2 py-0.5 rounded-full shadow-[2px_2px_4px_#b8bec5,-2px_-2px_4px_#ffffff] border-none uppercase tracking-wider">
                   Bidang Linmas
                 </span>
-                <span className="text-[10px] bg-emerald-500/20 text-emerald-400 font-bold px-2 py-0.5 rounded-full border border-emerald-500/30 uppercase tracking-wider">
+                <span className="text-[10px] bg-[#e0e5ec] text-emerald-600 font-bold px-2 py-0.5 rounded-full shadow-[2px_2px_4px_#b8bec5,-2px_-2px_4px_#ffffff] border-none uppercase tracking-wider">
                   Active SQLite
                 </span>
               </div>
-              <h1 className="text-xl md:text-2xl font-black bg-gradient-to-r from-slate-100 to-indigo-200 bg-clip-text text-transparent mt-1">
+              <h1 className="text-xl md:text-2xl font-black text-blue-900 mt-1">
                 PORTAL ADMINISTRASI & LINMAS BULELENG
               </h1>
-              <p className="text-xs text-slate-400 font-medium">
+              <p className="text-xs text-slate-500 font-medium">
                 Pencatatan Satlinmas Desa, Operasi Penertiban Trantibum & Tindak Lanjut Aduan Warga
               </p>
             </div>
@@ -648,7 +648,7 @@ export default function LinmasAdmin() {
                 fetchActivities();
                 fetchDelegatedReports();
               }}
-              className="px-4 py-2 bg-slate-950 hover:bg-slate-900 border border-slate-850 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 shadow-inner cursor-pointer"
+              className="px-4 py-2 bg-[#e0e5ec] hover:bg-[#d5dae2] shadow-[4px_4px_8px_#b8bec5,-4px_-4px_8px_#ffffff] active:shadow-[inset_3px_3px_6px_#b8bec5,inset_-3px_-3px_6px_#ffffff] rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
               <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} /> Refresh Portal
             </button>
@@ -656,13 +656,13 @@ export default function LinmasAdmin() {
         </div>
 
         {/* Dynamic Division Tabs Navigation */}
-        <div className="flex border-b border-slate-850 bg-slate-900/40 p-1.5 rounded-2xl border border-slate-850/80 backdrop-blur-md">
+        <div className="flex bg-[#e0e5ec] p-1.5 rounded-2xl shadow-[8px_8px_16px_#b8bec5,-8px_-8px_16px_#ffffff]">
           <button
             onClick={() => setActiveTab('satlinmas')}
             className={`flex-1 py-3 px-4 rounded-xl text-xs font-black transition-all flex items-center justify-center gap-2 cursor-pointer ${
               activeTab === 'satlinmas'
-                ? 'bg-indigo-600 text-white shadow-lg border border-indigo-500/30'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/40'
+                ? 'bg-[#e0e5ec] text-blue-800 shadow-[inset_3px_3px_6px_#b8bec5,inset_-3px_-3px_6px_#ffffff]'
+                : 'text-slate-500 bg-[#e0e5ec] shadow-[4px_4px_8px_#b8bec5,-4px_-4px_8px_#ffffff] hover:shadow-[2px_2px_4px_#b8bec5,-2px_-2px_4px_#ffffff]'
             }`}
           >
             <Users className="w-4 h-4" /> Administrasi Satlinmas ({satlinmasList.length})
@@ -671,8 +671,8 @@ export default function LinmasAdmin() {
             onClick={() => setActiveTab('trantibum')}
             className={`flex-1 py-3 px-4 rounded-xl text-xs font-black transition-all flex items-center justify-center gap-2 cursor-pointer ${
               activeTab === 'trantibum'
-                ? 'bg-indigo-600 text-white shadow-lg border border-indigo-500/30'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/40'
+                ? 'bg-[#e0e5ec] text-blue-800 shadow-[inset_3px_3px_6px_#b8bec5,inset_-3px_-3px_6px_#ffffff]'
+                : 'text-slate-500 bg-[#e0e5ec] shadow-[4px_4px_8px_#b8bec5,-4px_-4px_8px_#ffffff] hover:shadow-[2px_2px_4px_#b8bec5,-2px_-2px_4px_#ffffff]'
             }`}
           >
             <AlertOctagon className="w-4 h-4" /> Penertiban Trantibum ({trantibumList.length})
@@ -681,8 +681,8 @@ export default function LinmasAdmin() {
             onClick={() => setActiveTab('activities')}
             className={`flex-1 py-3 px-4 rounded-xl text-xs font-black transition-all flex items-center justify-center gap-2 cursor-pointer ${
               activeTab === 'activities'
-                ? 'bg-indigo-600 text-white shadow-lg border border-indigo-500/30'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/40'
+                ? 'bg-[#e0e5ec] text-blue-800 shadow-[inset_3px_3px_6px_#b8bec5,inset_-3px_-3px_6px_#ffffff]'
+                : 'text-slate-500 bg-[#e0e5ec] shadow-[4px_4px_8px_#b8bec5,-4px_-4px_8px_#ffffff] hover:shadow-[2px_2px_4px_#b8bec5,-2px_-2px_4px_#ffffff]'
             }`}
           >
             <FileText className="w-4 h-4" /> Kegiatan & Aduan Warga ({activitiesList.length})
@@ -695,40 +695,40 @@ export default function LinmasAdmin() {
             
             {/* Quick Stats Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div className="bg-slate-900/40 border border-slate-850 p-5 rounded-2xl shadow-md">
-                <div className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Total Desa Terdata</div>
-                <div className="text-2xl font-black text-slate-100 mt-1 flex items-baseline gap-1.5">
-                  {satlinmasList.length} <span className="text-xs font-normal text-slate-500">Desa/Kelurahan</span>
+              <div className="bg-[#e0e5ec] shadow-[6px_6px_12px_#b8bec5,-6px_-6px_12px_#ffffff] p-5 rounded-2xl">
+                <div className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Total Desa Terdata</div>
+                <div className="text-2xl font-black text-slate-700 mt-1 flex items-baseline gap-1.5">
+                  {satlinmasList.length} <span className="text-xs font-normal text-slate-400">Desa/Kelurahan</span>
                 </div>
               </div>
-              <div className="bg-slate-900/40 border border-slate-850 p-5 rounded-2xl shadow-md">
-                <div className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Total Anggota Aktif</div>
-                <div className="text-2xl font-black text-indigo-400 mt-1 flex items-baseline gap-1.5">
+              <div className="bg-[#e0e5ec] shadow-[6px_6px_12px_#b8bec5,-6px_-6px_12px_#ffffff] p-5 rounded-2xl">
+                <div className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Total Anggota Aktif</div>
+                <div className="text-2xl font-black text-blue-800 mt-1 flex items-baseline gap-1.5">
                   {satlinmasList.reduce((acc, curr) => acc + curr.anggota_pria + curr.anggota_wanita, 0)}{' '}
-                  <span className="text-xs font-normal text-slate-500">
+                  <span className="text-xs font-normal text-slate-400">
                     ({satlinmasList.reduce((acc, curr) => acc + curr.anggota_pria, 0)} L | {satlinmasList.reduce((acc, curr) => acc + curr.anggota_wanita, 0)} P)
                   </span>
                 </div>
               </div>
-              <div className="bg-slate-900/40 border border-slate-850 p-5 rounded-2xl shadow-md">
-                <div className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Total Pos Kamling</div>
-                <div className="text-2xl font-black text-emerald-400 mt-1 flex items-baseline gap-1.5">
+              <div className="bg-[#e0e5ec] shadow-[6px_6px_12px_#b8bec5,-6px_-6px_12px_#ffffff] p-5 rounded-2xl">
+                <div className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Total Pos Kamling</div>
+                <div className="text-2xl font-black text-emerald-600 mt-1 flex items-baseline gap-1.5">
                   {satlinmasList.reduce((acc, curr) => acc + curr.jumlah_pos_kamling, 0)}{' '}
-                  <span className="text-xs font-normal text-slate-500">Titik Aktif</span>
+                  <span className="text-xs font-normal text-slate-400">Titik Aktif</span>
                 </div>
               </div>
             </div>
 
             {/* List & Controls */}
-            <div className="bg-slate-900/60 backdrop-blur-xl border border-slate-800 p-6 rounded-2xl shadow-xl space-y-4">
+            <div className="bg-[#e0e5ec] rounded-2xl shadow-[8px_8px_16px_#b8bec5,-8px_-8px_16px_#ffffff] p-6 space-y-4">
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
-                  <h3 className="text-sm font-bold text-slate-200">Daftar Administrasi Satlinmas</h3>
-                  <p className="text-[11px] text-slate-400">Tabel manajemen logistik dan perlengkapan Satlinmas per desa</p>
+                  <h3 className="text-sm font-bold text-slate-700">Daftar Administrasi Satlinmas</h3>
+                  <p className="text-[11px] text-slate-500">Tabel manajemen logistik dan perlengkapan Satlinmas per desa</p>
                 </div>
                 <button
                   onClick={() => handleOpenSatlinmasModal('create')}
-                  className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold flex items-center gap-2 cursor-pointer transition-colors shadow-lg shadow-indigo-600/20"
+                  className="px-4 py-2 bg-blue-700 hover:bg-blue-600 text-white rounded-xl text-xs font-bold flex items-center gap-2 cursor-pointer transition-colors shadow-[4px_4px_8px_#b8bec5,-4px_-4px_8px_#ffffff]"
                 >
                   <Plus className="w-4 h-4" /> Tambah Data Desa
                 </button>
@@ -736,16 +736,16 @@ export default function LinmasAdmin() {
 
               {/* Table List of Satlinmas */}
               {satlinmasList.length === 0 ? (
-                <div className="text-center py-16 border border-dashed border-slate-850 rounded-xl text-slate-500 space-y-2 text-xs">
+                <div className="text-center py-16 border border-dashed border-[#b8bec5]/30 rounded-xl text-slate-400 space-y-2 text-xs">
                   <Users className="w-10 h-10 mx-auto text-slate-700" />
-                  <p className="font-bold text-slate-400">Belum ada rekaman Satlinmas masuk</p>
+                  <p className="font-bold text-slate-500">Belum ada rekaman Satlinmas masuk</p>
                   <p className="text-[10px]">Silakan klik tombol "Tambah Data Desa" untuk memulai administrasi.</p>
                 </div>
               ) : (
-                <div className="overflow-x-auto rounded-xl border border-slate-850 bg-slate-950/40">
+                <div className="overflow-x-auto rounded-xl bg-[#e0e5ec] shadow-[inset_4px_4px_8px_#b8bec5,inset_-4px_-4px_8px_#ffffff] border border-white/10">
                   <table className="w-full text-left border-collapse text-xs">
                     <thead>
-                      <tr className="bg-slate-950/90 border-b border-slate-850 text-slate-400 font-bold">
+                      <tr className="bg-[#d5dae2] border-b border-[#b8bec5]/20 text-slate-500 font-bold">
                         <th className="p-3">Kecamatan</th>
                         <th className="p-3">Desa / Kelurahan</th>
                         <th className="p-3">Total Anggota</th>
@@ -754,21 +754,21 @@ export default function LinmasAdmin() {
                         <th className="p-3 text-center">Aksi</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-900">
+                    <tbody className="divide-y divide-[#b8bec5]/20">
                       {satlinmasList.map((record) => (
-                        <tr key={record.id} className="hover:bg-slate-900/30 transition-colors">
-                          <td className="p-3 font-semibold text-slate-300">{record.kecamatan}</td>
-                          <td className="p-3 font-bold text-indigo-400">{record.desa}</td>
+                        <tr key={record.id} className="hover:bg-[#d5dae2] transition-colors">
+                          <td className="p-3 font-semibold text-slate-600">{record.kecamatan}</td>
+                          <td className="p-3 font-bold text-blue-800">{record.desa}</td>
                           <td className="p-3">
-                            <div className="font-semibold text-slate-200">
+                            <div className="font-semibold text-slate-700">
                               {record.anggota_pria + record.anggota_wanita} Orang
                             </div>
-                            <div className="text-[10px] text-slate-500">
+                            <div className="text-[10px] text-slate-400">
                               L: {record.anggota_pria} | P: {record.anggota_wanita}
                             </div>
                           </td>
                           <td className="p-3">
-                            <span className="text-slate-300 font-medium">
+                            <span className="text-slate-600 font-medium">
                               {record.jumlah_ht} HT / {record.jumlah_senter} Senter / {record.jumlah_pentungan} Ptg
                             </span>
                           </td>
@@ -776,12 +776,12 @@ export default function LinmasAdmin() {
                             <div className="flex items-center gap-1.5">
                               <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold ${
                                 record.status_sk_satlinmas === 'Ada' 
-                                  ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' 
-                                  : 'bg-rose-500/10 text-rose-400 border border-rose-500/20'
+                                  ? 'bg-[#e0e5ec] text-emerald-600 shadow-[2px_2px_4px_#b8bec5,-2px_-2px_4px_#ffffff] border-none' 
+                                  : 'bg-[#e0e5ec] text-rose-600 shadow-[2px_2px_4px_#b8bec5,-2px_-2px_4px_#ffffff] border-none'
                               }`}>
                                 SK: {record.status_sk_satlinmas}
                               </span>
-                              <span className="text-[10px] text-slate-500 max-w-[120px] truncate" title={record.peraturan_desa}>
+                              <span className="text-[10px] text-slate-400 max-w-[120px] truncate" title={record.peraturan_desa}>
                                 {record.peraturan_desa || 'Tidak ada Perdes'}
                               </span>
                             </div>
@@ -790,21 +790,21 @@ export default function LinmasAdmin() {
                             <div className="flex items-center justify-center gap-1.5">
                               <button
                                 onClick={() => handleOpenSatlinmasModal('view', record)}
-                                className="p-1.5 bg-slate-900 hover:bg-slate-850 text-indigo-400 rounded-lg border border-slate-800 cursor-pointer"
+                                className="p-1.5 bg-[#e0e5ec] hover:bg-[#d5dae2] text-blue-800 rounded-lg shadow-[3px_3px_6px_#b8bec5,-3px_-3px_6px_#ffffff] cursor-pointer"
                                 title="Lihat Detail (21 Field)"
                               >
                                 <Eye className="w-3.5 h-3.5" />
                               </button>
                               <button
                                 onClick={() => handleOpenSatlinmasModal('edit', record)}
-                                className="p-1.5 bg-slate-900 hover:bg-slate-850 text-amber-400 rounded-lg border border-slate-800 cursor-pointer"
+                                className="p-1.5 bg-[#e0e5ec] hover:bg-[#d5dae2] text-amber-600 rounded-lg shadow-[3px_3px_6px_#b8bec5,-3px_-3px_6px_#ffffff] cursor-pointer"
                                 title="Edit Data"
                               >
                                 <Edit3 className="w-3.5 h-3.5" />
                               </button>
                               <button
                                 onClick={() => handleDeleteSatlinmas(record.id)}
-                                className="p-1.5 bg-slate-900 hover:bg-rose-950/30 text-slate-500 hover:text-rose-400 rounded-lg border border-slate-800 cursor-pointer"
+                                className="p-1.5 bg-[#e0e5ec] hover:bg-[#d5dae2] text-slate-400 hover:text-rose-600 rounded-lg shadow-[3px_3px_6px_#b8bec5,-3px_-3px_6px_#ffffff] cursor-pointer"
                                 title="Hapus Data"
                               >
                                 <Trash2 className="w-3.5 h-3.5" />

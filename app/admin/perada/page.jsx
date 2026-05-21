@@ -600,34 +600,34 @@ export default function PeradaAdmin() {
   );
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 p-4 md:p-6 relative overflow-hidden font-sans">
+    <div className="min-h-screen bg-[#e0e5ec] text-slate-700 p-4 md:p-6 relative overflow-hidden font-sans">
       
       {/* Decorative Blur Backgrounds */}
-      <div className="bg-indigo-500/5 w-[35rem] h-[35rem] rounded-full blur-[140px] absolute -top-48 -left-48 pointer-events-none z-0" />
-      <div className="bg-amber-500/5 w-[35rem] h-[35rem] rounded-full blur-[140px] absolute -bottom-48 -right-48 pointer-events-none z-0" />
+      <div className="bg-[#e0e5ec] shadow-[16px_16px_32px_#b8bec5,-16px_-16px_32px_#ffffff] w-[35rem] h-[35rem] rounded-full absolute -top-48 -left-48 pointer-events-none opacity-50 z-0" />
+      <div className="bg-[#e0e5ec] shadow-[16px_16px_32px_#b8bec5,-16px_-16px_32px_#ffffff] w-[35rem] h-[35rem] rounded-full absolute -bottom-48 -right-48 pointer-events-none opacity-50 z-0" />
 
       <div className="max-w-6xl mx-auto space-y-6 relative z-10">
 
         {/* Header Section */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-slate-900/80 backdrop-blur border border-slate-800/80 p-5 md:p-6 rounded-2xl shadow-xl gap-4">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-[#e0e5ec] shadow-[8px_8px_16px_#b8bec5,-8px_-8px_16px_#ffffff] p-5 md:p-6 rounded-2xl gap-4">
           <div className="flex items-center space-x-4">
             <button
               onClick={() => window.location.href = '/admin/dashboard'}
-              className="p-2.5 bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 rounded-xl text-slate-400 hover:text-slate-100 transition-all cursor-pointer shadow-inner"
+              className="p-2.5 bg-[#e0e5ec] hover:bg-[#d5dae2] rounded-xl text-slate-500 hover:text-slate-700 transition-all cursor-pointer shadow-[4px_4px_8px_#b8bec5,-4px_-4px_8px_#ffffff] active:shadow-[inset_3px_3px_6px_#b8bec5,inset_-3px_-3px_6px_#ffffff]"
               title="Kembali ke Dashboard Utama"
             >
               <ArrowLeft className="w-5 h-5" />
             </button>
             <div>
               <div className="flex items-center gap-2">
-                <span className="px-2 py-0.5 text-[10px] font-black tracking-widest text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 rounded">
+                <span className="px-2 py-0.5 text-[10px] font-black tracking-widest text-blue-800 bg-[#e0e5ec] shadow-[2px_2px_4px_#b8bec5,-2px_-2px_4px_#ffffff] border-none rounded">
                   PORTAL BIDANG PERADA
                 </span>
               </div>
-              <h1 className="text-xl md:text-2xl font-black bg-gradient-to-r from-slate-50 to-indigo-200 bg-clip-text text-transparent flex items-center gap-2">
+              <h1 className="text-xl md:text-2xl font-black text-blue-900 flex items-center gap-2">
                 PENEGAKAN PERDA & SIDANG YUSTISIAL
               </h1>
-              <p className="text-xs text-slate-400 font-medium">
+              <p className="text-xs text-slate-500 font-medium">
                 Seksi Penegakan Perundang-undangan Daerah & Perda/Perbup - Kabupaten Buleleng
               </p>
             </div>
@@ -639,7 +639,7 @@ export default function PeradaAdmin() {
               else if (activeTab === 'pelanggaran') openCreatePelanggaran();
               else if (activeTab === 'penegakan') openCreatePenegakan();
             }}
-            className="w-full sm:w-auto px-4 py-2.5 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white rounded-xl transition-all flex items-center justify-center gap-2 text-xs font-bold shadow-lg shadow-indigo-900/20 cursor-pointer"
+            className="w-full sm:w-auto px-4 py-2.5 bg-blue-700 hover:bg-blue-600 text-white rounded-xl transition-all flex items-center justify-center gap-2 text-xs font-bold shadow-[4px_4px_8px_#b8bec5,-4px_-4px_8px_#ffffff] active:shadow-[inset_3px_3px_6px_#b8bec5,inset_-3px_-3px_6px_#ffffff] cursor-pointer"
           >
             <Plus className="w-4.5 h-4.5" />
             {activeTab === 'regulasi' ? 'Registrasi Regulasi' : activeTab === 'pelanggaran' ? 'Tambah Pasal Katalog' : 'Catat Penegakan/Sidang'}
@@ -647,13 +647,13 @@ export default function PeradaAdmin() {
         </div>
 
         {/* Tab Navigation Menu */}
-        <div className="flex border-b border-slate-800 bg-slate-900/40 p-1 rounded-xl backdrop-blur">
+        <div className="flex border-b border-[#b8bec5]/30 bg-[#e0e5ec] p-1 rounded-xl shadow-[6px_6px_12px_#b8bec5,-6px_-6px_12px_#ffffff]">
           <button
             onClick={() => { setActiveTab('regulasi'); setSearchQuery(''); }}
             className={`flex-1 py-3 text-xs md:text-sm font-bold rounded-lg transition-all flex items-center justify-center gap-2 cursor-pointer ${
               activeTab === 'regulasi' 
-                ? 'bg-gradient-to-r from-indigo-600/10 to-violet-600/10 border border-indigo-500/30 text-indigo-400' 
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-[#e0e5ec] text-blue-800 font-black shadow-[inset_3px_3px_6px_#b8bec5,inset_-3px_-3px_6px_#ffffff]' 
+                : 'text-slate-500 shadow-[4px_4px_8px_#b8bec5,-4px_-4px_8px_#ffffff] hover:shadow-[2px_2px_4px_#b8bec5,-2px_-2px_4px_#ffffff]'
             }`}
           >
             <BookOpen className="w-4 h-4" /> Kamus Hukum (Perda/Perbup)
@@ -662,8 +662,8 @@ export default function PeradaAdmin() {
             onClick={() => { setActiveTab('pelanggaran'); setSearchQuery(''); }}
             className={`flex-1 py-3 text-xs md:text-sm font-bold rounded-lg transition-all flex items-center justify-center gap-2 cursor-pointer ${
               activeTab === 'pelanggaran' 
-                ? 'bg-gradient-to-r from-indigo-600/10 to-violet-600/10 border border-indigo-500/30 text-indigo-400' 
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-[#e0e5ec] text-blue-800 font-black shadow-[inset_3px_3px_6px_#b8bec5,inset_-3px_-3px_6px_#ffffff]' 
+                : 'text-slate-500 shadow-[4px_4px_8px_#b8bec5,-4px_-4px_8px_#ffffff] hover:shadow-[2px_2px_4px_#b8bec5,-2px_-2px_4px_#ffffff]'
             }`}
           >
             <FileText className="w-4 h-4" /> Katalog Pasal & Denda
@@ -672,8 +672,8 @@ export default function PeradaAdmin() {
             onClick={() => { setActiveTab('penegakan'); setSearchQuery(''); }}
             className={`flex-1 py-3 text-xs md:text-sm font-bold rounded-lg transition-all flex items-center justify-center gap-2 cursor-pointer relative ${
               activeTab === 'penegakan' 
-                ? 'bg-gradient-to-r from-indigo-600/10 to-violet-600/10 border border-indigo-500/30 text-indigo-400' 
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-[#e0e5ec] text-blue-800 font-black shadow-[inset_3px_3px_6px_#b8bec5,inset_-3px_-3px_6px_#ffffff]' 
+                : 'text-slate-500 shadow-[4px_4px_8px_#b8bec5,-4px_-4px_8px_#ffffff] hover:shadow-[2px_2px_4px_#b8bec5,-2px_-2px_4px_#ffffff]'
             }`}
           >
             <Gavel className="w-4 h-4" /> Penegakan Perda & Sidang
@@ -693,13 +693,13 @@ export default function PeradaAdmin() {
             placeholder={`Cari data ${activeTab === 'regulasi' ? 'regulasi Perda/Perbup' : activeTab === 'pelanggaran' ? 'pasal/pelanggaran' : 'pelanggar/sidang'} berdasarkan judul, kode, atau pasal...`}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-slate-900/40 border border-slate-800 rounded-xl pl-12 pr-4 py-3 text-xs font-semibold text-slate-350 focus:outline-none focus:border-indigo-500 placeholder:text-slate-650"
+            className="w-full bg-[#e0e5ec] rounded-xl pl-12 pr-4 py-3 text-xs font-semibold text-slate-700 focus:outline-none shadow-[inset_3px_3px_6px_#b8bec5,inset_-3px_-3px_6px_#ffffff] focus:shadow-[inset_4px_4px_8px_#b8bec5,inset_-4px_-4px_8px_#ffffff] placeholder:text-slate-400"
           />
         </div>
 
         {/* LOADING INDICATOR */}
         {loading && (
-          <div className="text-center py-16 bg-slate-900/30 border border-slate-900 rounded-2xl flex flex-col items-center justify-center gap-3">
+          <div className="text-center py-16 bg-[#e0e5ec] shadow-[6px_6px_12px_#b8bec5,-6px_-6px_12px_#ffffff] rounded-2xl flex flex-col items-center justify-center gap-3">
             <RefreshCw className="w-8 h-8 text-indigo-500 animate-spin" />
             <div className="text-sm font-semibold text-slate-450">Memuat data dari SQLite dev.db...</div>
           </div>
@@ -711,43 +711,43 @@ export default function PeradaAdmin() {
             
             {/* Stats Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-4 flex items-center justify-between">
+              <div className="bg-[#e0e5ec] shadow-[6px_6px_12px_#b8bec5,-6px_-6px_12px_#ffffff] rounded-xl p-4 flex items-center justify-between">
                 <div>
                   <p className="text-[10px] uppercase font-bold text-slate-500">Total Regulasi Terdaftar</p>
-                  <p className="text-2xl font-black text-slate-100">{regulasiList.length}</p>
+                  <p className="text-2xl font-black text-slate-700">{regulasiList.length}</p>
                 </div>
-                <div className="p-3 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 rounded-lg">
+                <div className="p-3 bg-[#e0e5ec] shadow-[4px_4px_8px_#b8bec5,-4px_-4px_8px_#ffffff] text-blue-800 rounded-lg">
                   <BookOpen className="w-6 h-6" />
                 </div>
               </div>
-              <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-4 flex items-center justify-between">
+              <div className="bg-[#e0e5ec] shadow-[6px_6px_12px_#b8bec5,-6px_-6px_12px_#ffffff] rounded-xl p-4 flex items-center justify-between">
                 <div>
                   <p className="text-[10px] uppercase font-bold text-slate-500">Peraturan Daerah (Perda)</p>
-                  <p className="text-2xl font-black text-indigo-400">
+                  <p className="text-2xl font-black text-blue-800">
                     {regulasiList.filter(r => r.jenis_peraturan === 'Perda').length} Regulasi
                   </p>
                 </div>
-                <div className="p-3 bg-violet-500/10 border border-violet-500/20 text-violet-400 rounded-lg">
+                <div className="p-3 bg-[#e0e5ec] shadow-[4px_4px_8px_#b8bec5,-4px_-4px_8px_#ffffff] text-violet-700 rounded-lg">
                   <Scale className="w-6 h-6" />
                 </div>
               </div>
-              <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-4 flex items-center justify-between">
+              <div className="bg-[#e0e5ec] shadow-[6px_6px_12px_#b8bec5,-6px_-6px_12px_#ffffff] rounded-xl p-4 flex items-center justify-between">
                 <div>
                   <p className="text-[10px] uppercase font-bold text-slate-500">Perbup / Perkada</p>
-                  <p className="text-2xl font-black text-amber-400">
+                  <p className="text-2xl font-black text-amber-600">
                     {regulasiList.filter(r => r.jenis_peraturan?.includes('Perbup')).length} Regulasi
                   </p>
                 </div>
-                <div className="p-3 bg-amber-500/10 border border-amber-500/20 text-amber-400 rounded-lg">
+                <div className="p-3 bg-[#e0e5ec] shadow-[4px_4px_8px_#b8bec5,-4px_-4px_8px_#ffffff] text-amber-600 rounded-lg">
                   <FileText className="w-6 h-6" />
                 </div>
               </div>
             </div>
 
             {/* List Kamus Hukum */}
-            <div className="bg-slate-900/60 border border-slate-800/80 rounded-2xl overflow-hidden shadow-xl">
+            <div className="bg-[#e0e5ec] shadow-[8px_8px_16px_#b8bec5,-8px_-8px_16px_#ffffff] rounded-2xl overflow-hidden">
               {filteredRegulasi.length === 0 ? (
-                <div className="text-center p-12 text-slate-400 space-y-2">
+                <div className="text-center p-12 text-slate-500 space-y-2">
                   <BookOpen className="w-12 h-12 text-slate-700 mx-auto" />
                   <p className="font-bold">Belum ada regulasi terdaftar</p>
                   <p className="text-xs text-slate-500">Silakan klik tombol "Registrasi Regulasi" di atas untuk mendaftarkan!</p>
@@ -756,7 +756,7 @@ export default function PeradaAdmin() {
                 <div className="overflow-x-auto">
                   <table className="w-full text-left border-collapse">
                     <thead>
-                      <tr className="border-b border-slate-800 bg-slate-900/50 text-[10px] uppercase font-bold text-slate-400 tracking-wider">
+                      <tr className="border-b border-[#b8bec5]/30 bg-[#d5dae2] text-[10px] uppercase font-bold text-slate-500 tracking-wider">
                         <th className="py-4 px-6">Kode / Jenis</th>
                         <th className="py-4 px-6">Nomor / Tahun</th>
                         <th className="py-4 px-6">Judul / Tentang Regulasi Resmi</th>
@@ -764,32 +764,32 @@ export default function PeradaAdmin() {
                         <th className="py-4 px-6 text-center">Aksi</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-800/60 text-xs">
+                    <tbody className="divide-y divide-[#b8bec5]/30 text-xs">
                       {filteredRegulasi.map((reg) => (
-                        <tr key={reg.id} className="hover:bg-slate-900/30 transition-all duration-150">
+                        <tr key={reg.id} className="hover:bg-[#d5dae2] transition-all duration-150">
                           <td className="py-4 px-6 space-y-1">
-                            <div className="font-mono font-black text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-2 py-0.5 rounded inline-block">
+                            <div className="font-mono font-black text-blue-800 bg-[#e0e5ec] shadow-[2px_2px_4px_#b8bec5,-2px_-2px_4px_#ffffff] border-none px-2 py-0.5 rounded inline-block">
                               {reg.kode_regulasi}
                             </div>
                             <div>
                               <span className={`px-1.5 py-0.5 rounded text-[8px] font-extrabold uppercase ${
-                                reg.jenis_peraturan === 'Perda' ? 'bg-indigo-500/15 text-indigo-400 border border-indigo-500/20' : 'bg-amber-500/15 text-amber-400 border border-amber-500/20'
+                                reg.jenis_peraturan === 'Perda' ? 'bg-[#e0e5ec] text-blue-800 shadow-[2px_2px_4px_#b8bec5,-2px_-2px_4px_#ffffff] border-none' : 'bg-[#e0e5ec] text-amber-600 shadow-[2px_2px_4px_#b8bec5,-2px_-2px_4px_#ffffff] border-none'
                               }`}>
                                 {reg.jenis_peraturan}
                               </span>
                             </div>
                           </td>
-                          <td className="py-4 px-6 font-bold text-slate-200">
+                          <td className="py-4 px-6 font-bold text-slate-700">
                             No. {reg.nomor_peraturan} Tahun {reg.tahun_peraturan}
                           </td>
-                          <td className="py-4 px-6 max-w-[320px] text-slate-350 leading-relaxed font-semibold italic">
+                          <td className="py-4 px-6 max-w-[320px] text-slate-600 leading-relaxed font-semibold italic">
                             "{reg.judul_tentang}"
                           </td>
                           <td className="py-4 px-6">
                             {reg.berkas_pdf ? (
                               <button
                                 onClick={() => openPdfViewer(reg)}
-                                className="px-2.5 py-1 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 rounded-lg text-[10px] font-bold flex items-center gap-1 transition"
+                                className="px-2.5 py-1 bg-[#e0e5ec] hover:bg-[#d5dae2] shadow-[3px_3px_6px_#b8bec5,-3px_-3px_6px_#ffffff] text-emerald-600 rounded-lg text-[10px] font-bold flex items-center gap-1 transition"
                                 title="Buka berkas lembaran daerah"
                               >
                                 <Eye className="w-3.5 h-3.5" /> Buka PDF
@@ -802,14 +802,14 @@ export default function PeradaAdmin() {
                             <div className="flex items-center justify-center gap-2">
                               <button
                                 onClick={() => openEditRegulasi(reg)}
-                                className="p-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-750 text-slate-300 hover:text-slate-100 rounded-lg transition"
+                                className="p-1.5 bg-[#e0e5ec] hover:bg-[#d5dae2] shadow-[3px_3px_6px_#b8bec5,-3px_-3px_6px_#ffffff] text-slate-600 hover:text-slate-700 rounded-lg transition"
                                 title="Edit Regulasi"
                               >
                                 <Edit3 className="w-4 h-4" />
                               </button>
                               <button
                                 onClick={() => handleDeleteRegulasi(reg.id, reg.kode_regulasi)}
-                                className="p-1.5 bg-slate-800 hover:bg-red-950 border border-slate-750 text-slate-300 hover:text-red-400 rounded-lg transition"
+                                className="p-1.5 bg-[#e0e5ec] hover:bg-[#d5dae2] shadow-[3px_3px_6px_#b8bec5,-3px_-3px_6px_#ffffff] text-slate-600 hover:text-rose-600 rounded-lg transition"
                                 title="Hapus Regulasi"
                               >
                                 <Trash2 className="w-4 h-4" />

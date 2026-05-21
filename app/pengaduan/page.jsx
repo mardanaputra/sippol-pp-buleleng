@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef } from 'react';
+import Link from 'next/link';
 import { 
   ShieldAlert, 
   Send, 
@@ -14,8 +15,10 @@ import {
   FileText, 
   Trash2, 
   AlertCircle,
-  HelpCircle
+  HelpCircle,
+  ArrowLeft
 } from 'lucide-react';
+import Footer from '../components/Footer';
 
 export default function PengaduanWarga() {
   const [formData, setFormData] = useState({
@@ -204,39 +207,58 @@ export default function PengaduanWarga() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col items-center justify-center py-12 px-4 relative overflow-hidden font-sans">
+    <div className="min-h-screen bg-[#e0e5ec] text-slate-700 flex flex-col items-center justify-center py-12 px-4 relative overflow-hidden font-sans select-none">
       
-      {/* Background Decorative Blur Gradients */}
-      <div className="bg-indigo-500/10 w-[30rem] h-[30rem] rounded-full blur-[120px] absolute -top-24 -right-24 pointer-events-none z-0" />
-      <div className="bg-emerald-500/10 w-[30rem] h-[30rem] rounded-full blur-[120px] absolute -bottom-24 -left-24 pointer-events-none z-0" />
+      {/* Neumorphic Soft UI Floating Geometry Elements */}
+      <div className="absolute top-16 -left-12 w-64 h-64 rounded-full bg-[#e0e5ec] shadow-[16px_16px_32px_#b8bec5,-16px_-16px_32px_#ffffff] pointer-events-none opacity-60 z-0" />
+      <div className="absolute bottom-24 -right-16 w-80 h-80 rounded-full bg-[#e0e5ec] shadow-[inset_16px_16px_32px_#b8bec5,inset_-16px_-16px_32px_#ffffff] pointer-events-none opacity-60 z-0" />
+      <div className="absolute top-[40%] right-[5%] w-32 h-32 rounded-3xl bg-[#e0e5ec] shadow-[10px_10px_20px_#b8bec5,-10px_-10px_20px_#ffffff] rotate-12 pointer-events-none opacity-50 z-0" />
 
       {/* Main Container */}
-      <div className="max-w-2xl w-full relative z-10 transition-all duration-500">
+      <div className="max-w-2xl w-full relative z-10 transition-all duration-500 space-y-6">
         
         {/* Header Branding */}
-        <div className="text-center mb-8 space-y-3">
-          <div className="inline-flex p-3 bg-slate-900 border border-slate-800 rounded-2xl shadow-inner text-indigo-400">
-            <ShieldAlert className="w-10 h-10 animate-pulse" />
+        <div className="text-center mb-6 space-y-4">
+          <div className="inline-flex p-4 bg-[#e0e5ec] rounded-2xl shadow-[6px_6px_12px_#b8bec5,-6px_-6px_12px_#ffffff] text-blue-800">
+            <ShieldAlert className="w-10 h-10" />
           </div>
           <div>
-            <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-slate-100 via-indigo-200 to-emerald-300 bg-clip-text text-transparent">
+            <h1 className="text-2xl md:text-3xl font-black tracking-wider text-blue-900 leading-none">
               SIPP-OL PP BULELENG
             </h1>
-            <p className="text-xs md:text-sm text-slate-400 font-medium">
+            <p className="text-xs md:text-sm text-slate-500 font-bold uppercase tracking-wider mt-2">
               Sistem Informasi Pelayanan & Pengaduan Online Satpol PP Kab. Buleleng
             </p>
           </div>
         </div>
 
+        {/* Navigation Bar / Quick Links */}
+        <div className="flex justify-center items-center gap-4 text-xs font-bold relative z-10">
+          <Link 
+            href="/" 
+            className="px-4 py-2 bg-[#e0e5ec] text-slate-700 hover:text-slate-800 rounded-xl shadow-[4px_4px_8px_#b8bec5,-4px_-4px_8px_#ffffff] hover:shadow-[2px_2px_4px_#b8bec5,-2px_-2px_4px_#ffffff] active:shadow-[inset_2px_2px_4px_#b8bec5,inset_-2px_-2px_4px_#ffffff] transition-all flex items-center gap-1.5 cursor-pointer border border-[#ffffff]/25"
+            id="nav-to-home"
+          >
+            <ArrowLeft className="w-3.5 h-3.5 text-slate-550" /> Halaman Utama
+          </Link>
+          <Link 
+            href="/status" 
+            className="px-4 py-2 bg-[#e0e5ec] text-slate-750 hover:text-slate-850 rounded-xl shadow-[4px_4px_8px_#b8bec5,-4px_-4px_8px_#ffffff] hover:shadow-[2px_2px_4px_#b8bec5,-2px_-2px_4px_#ffffff] active:shadow-[inset_2px_2px_4px_#b8bec5,inset_-2px_-2px_4px_#ffffff] transition-all flex items-center gap-1.5 cursor-pointer border border-[#ffffff]/25"
+            id="nav-to-status"
+          >
+            Lacak Status Laporan
+          </Link>
+        </div>
+
         {/* Conditional Screen View */}
         {!isSubmitted ? (
-          <div className="bg-slate-900/60 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 md:p-8 shadow-2xl space-y-6">
+          <div className="bg-[#e0e5ec] rounded-3xl p-6 md:p-8 shadow-[8px_8px_16px_#b8bec5,-8px_-8px_16px_#ffffff] space-y-6 border border-[#ffffff]/10">
             
-            <div className="border-b border-slate-800 pb-4">
-              <h2 className="text-lg font-bold text-slate-200 flex items-center gap-2">
+            <div className="border-b border-slate-300/60 pb-4">
+              <h2 className="text-lg font-black text-slate-800 flex items-center gap-2">
                 Formulir Pengaduan Masyarakat
               </h2>
-              <p className="text-xs text-slate-400 mt-1">
+              <p className="text-xs text-slate-500 mt-1 font-semibold">
                 Silakan isi data laporan Anda di bawah ini dengan lengkap dan jujur. Informasi Anda dilindungi hukum.
               </p>
             </div>
@@ -244,10 +266,10 @@ export default function PengaduanWarga() {
             <form onSubmit={handleSubmit} className="space-y-5">
               
               {/* Box Anonimitas */}
-              <div className="bg-slate-950/50 p-4 rounded-xl border border-slate-800/60 flex items-start gap-3">
-                <Info className="w-5 h-5 text-indigo-400 shrink-0 mt-0.5" />
+              <div className="bg-[#e0e5ec] p-4 rounded-2xl shadow-[inset_4px_4px_8px_#b8bec5,inset_-4px_-4px_8px_#ffffff] flex items-start gap-3 border border-[#ffffff]/10">
+                <Info className="w-5 h-5 text-blue-800 shrink-0 mt-0.5" />
                 <div className="space-y-2">
-                  <p className="text-xs font-medium text-slate-300">
+                  <p className="text-xs font-semibold text-slate-655">
                     Ingin mengirim laporan secara rahasia/tanpa nama asli?
                   </p>
                   <label className="inline-flex items-center cursor-pointer gap-2">
@@ -262,9 +284,9 @@ export default function PengaduanWarga() {
                         }));
                         if (errors.namaPelapor) setErrors(prev => ({ ...prev, namaPelapor: null }));
                       }}
-                      className="w-4 h-4 rounded text-indigo-600 bg-slate-800 border-slate-700 focus:ring-indigo-500 focus:ring-offset-slate-900 focus:ring-2 cursor-pointer"
+                      className="w-4 h-4 rounded text-blue-800 bg-[#e0e5ec] border-slate-350 focus:ring-blue-700 cursor-pointer"
                     />
-                    <span className="text-xs font-bold text-indigo-400 select-none">
+                    <span className="text-xs font-black text-blue-800 select-none">
                       Kirim Sebagai Anonim (Nama disembunyikan)
                     </span>
                   </label>
@@ -274,8 +296,8 @@ export default function PengaduanWarga() {
               {/* Nama Pelapor */}
               {!formData.isAnonim && (
                 <div className="space-y-2">
-                  <label className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
-                    <User className="w-3.5 h-3.5 text-slate-400" /> Nama Pelapor <span className="text-rose-500">*</span>
+                  <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                    <User className="w-3.5 h-3.5 text-slate-500" /> Nama Pelapor <span className="text-rose-600">*</span>
                   </label>
                   <input
                     type="text"
@@ -285,10 +307,10 @@ export default function PengaduanWarga() {
                       setFormData(prev => ({ ...prev, namaPelapor: e.target.value }));
                       if (errors.namaPelapor) setErrors(prev => ({ ...prev, namaPelapor: null }));
                     }}
-                    className={`w-full bg-slate-950/70 border ${errors.namaPelapor ? 'border-rose-500/50 focus:border-rose-500 focus:ring-rose-500/20' : 'border-slate-800 focus:border-indigo-500 focus:ring-indigo-500/20'} rounded-xl px-4 py-2.5 text-sm outline-none transition-all focus:ring-4`}
+                    className={`w-full bg-[#e0e5ec] rounded-xl px-4 py-2.5 text-sm outline-none transition-all text-slate-700 placeholder-slate-400/80 border-none focus:ring-2 focus:ring-blue-850/20 ${errors.namaPelapor ? 'shadow-[inset_5px_5px_10px_#e5b8b8,inset_-5px_-5px_10px_#ffffff]' : 'shadow-[inset_5px_5px_10px_#b8bec5,inset_-5px_-5px_10px_#ffffff]'}`}
                   />
                   {errors.namaPelapor && (
-                    <p className="text-rose-400 text-[11px] flex items-center gap-1">
+                    <p className="text-rose-600 text-[11px] font-bold flex items-center gap-1">
                       <AlertCircle className="w-3.5 h-3.5" /> {errors.namaPelapor}
                     </p>
                   )}
@@ -297,8 +319,8 @@ export default function PengaduanWarga() {
 
               {/* WhatsApp */}
               <div className="space-y-2">
-                <label className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
-                  <Phone className="w-3.5 h-3.5 text-slate-400" /> Nomor WhatsApp Aktif <span className="text-rose-500">*</span>
+                <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                  <Phone className="w-3.5 h-3.5 text-slate-500" /> Nomor WhatsApp Aktif <span className="text-rose-600">*</span>
                 </label>
                 <input
                   type="text"
@@ -308,14 +330,14 @@ export default function PengaduanWarga() {
                     setFormData(prev => ({ ...prev, nomorWhatsapp: e.target.value }));
                     if (errors.nomorWhatsapp) setErrors(prev => ({ ...prev, nomorWhatsapp: null }));
                   }}
-                  className={`w-full bg-slate-950/70 border ${errors.nomorWhatsapp ? 'border-rose-500/50 focus:border-rose-500 focus:ring-rose-500/20' : 'border-slate-800 focus:border-indigo-500 focus:ring-indigo-500/20'} rounded-xl px-4 py-2.5 text-sm outline-none transition-all focus:ring-4`}
+                  className={`w-full bg-[#e0e5ec] rounded-xl px-4 py-2.5 text-sm outline-none transition-all text-slate-700 placeholder-slate-400/80 border-none focus:ring-2 focus:ring-blue-850/20 ${errors.nomorWhatsapp ? 'shadow-[inset_5px_5px_10px_#e5b8b8,inset_-5px_-5px_10px_#ffffff]' : 'shadow-[inset_5px_5px_10px_#b8bec5,inset_-5px_-5px_10px_#ffffff]'}`}
                 />
                 {errors.nomorWhatsapp ? (
-                  <p className="text-rose-400 text-[11px] flex items-center gap-1">
+                  <p className="text-rose-600 text-[11px] font-bold flex items-center gap-1">
                     <AlertCircle className="w-3.5 h-3.5" /> {errors.nomorWhatsapp}
                   </p>
                 ) : (
-                  <p className="text-slate-500 text-[10px]">
+                  <p className="text-slate-500 text-[10px] font-semibold">
                     Nomor WhatsApp dibutuhkan agar petugas dapat berkoordinasi dan memvalidasi laporan Anda.
                   </p>
                 )}
@@ -323,8 +345,8 @@ export default function PengaduanWarga() {
 
               {/* Kategori Masalah */}
               <div className="space-y-2">
-                <label className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
-                  <HelpCircle className="w-3.5 h-3.5 text-slate-400" /> Kategori Laporan <span className="text-rose-500">*</span>
+                <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                  <HelpCircle className="w-3.5 h-3.5 text-slate-500" /> Kategori Laporan <span className="text-rose-600">*</span>
                 </label>
                 <select
                   value={formData.kategoriMasalah}
@@ -332,17 +354,17 @@ export default function PengaduanWarga() {
                     setFormData(prev => ({ ...prev, kategoriMasalah: e.target.value }));
                     if (errors.kategoriMasalah) setErrors(prev => ({ ...prev, kategoriMasalah: null }));
                   }}
-                  className={`w-full bg-slate-950/70 border ${errors.kategoriMasalah ? 'border-rose-500/50 focus:border-rose-500 focus:ring-rose-500/20' : 'border-slate-800 focus:border-indigo-500 focus:ring-indigo-500/20'} rounded-xl px-4 py-2.5 text-sm outline-none transition-all focus:ring-4 text-slate-300 cursor-pointer`}
+                  className={`w-full bg-[#e0e5ec] rounded-xl px-4 py-2.5 text-sm outline-none transition-all text-slate-700 border-none focus:ring-2 focus:ring-blue-850/20 cursor-pointer ${errors.kategoriMasalah ? 'shadow-[inset_5px_5px_10px_#e5b8b8,inset_-5px_-5px_10px_#ffffff]' : 'shadow-[inset_5px_5px_10px_#b8bec5,inset_-5px_-5px_10px_#ffffff]'}`}
                 >
-                  <option value="" disabled className="bg-slate-900 text-slate-500">-- Pilih Kategori Masalah --</option>
-                  <option value="Bidang Ketertiban Umum" className="bg-slate-900 text-slate-200">Ketertiban Umum (PKL Liar, Reklame Ilegal, Kebisingan, dsb.)</option>
-                  <option value="Bidang Penegakan Perda" className="bg-slate-900 text-slate-200">Pelanggaran Perda (Izin Usaha, Konstruksi Liar, Limbah, dsb.)</option>
-                  <option value="Bidang Linmas" className="bg-slate-900 text-slate-200">Perlindungan Masyarakat (Linmas, Bencana, Gangguan Warga, dsb.)</option>
-                  <option value="Bidang Peningkatan SDM" className="bg-slate-900 text-slate-200">SDM & Sarana (Pengembangan Kapasitas, Aduan Petugas, dsb.)</option>
-                  <option value="Lainnya" className="bg-slate-900 text-slate-200">Masalah Lainnya</option>
+                  <option value="" disabled className="bg-[#e0e5ec] text-slate-400">-- Pilih Kategori Masalah --</option>
+                  <option value="Bidang Ketertiban Umum" className="bg-[#e0e5ec] text-slate-700">Ketertiban Umum (PKL Liar, Reklame Ilegal, Kebisingan, dsb.)</option>
+                  <option value="Bidang Penegakan Perda" className="bg-[#e0e5ec] text-slate-700">Pelanggaran Perda (Izin Usaha, Konstruksi Liar, Limbah, dsb.)</option>
+                  <option value="Bidang Linmas" className="bg-[#e0e5ec] text-slate-700">Perlindungan Masyarakat (Linmas, Bencana, Gangguan Warga, dsb.)</option>
+                  <option value="Bidang Peningkatan SDM" className="bg-[#e0e5ec] text-slate-700">SDM & Sarana (Pengembangan Kapasitas, Aduan Petugas, dsb.)</option>
+                  <option value="Lainnya" className="bg-[#e0e5ec] text-slate-700">Masalah Lainnya</option>
                 </select>
                 {errors.kategoriMasalah && (
-                  <p className="text-rose-400 text-[11px] flex items-center gap-1">
+                  <p className="text-rose-600 text-[11px] font-bold flex items-center gap-1">
                     <AlertCircle className="w-3.5 h-3.5" /> {errors.kategoriMasalah}
                   </p>
                 )}
@@ -350,8 +372,8 @@ export default function PengaduanWarga() {
 
               {/* Kronologi */}
               <div className="space-y-2">
-                <label className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
-                  <FileText className="w-3.5 h-3.5 text-slate-400" /> Kronologi Kejadian <span className="text-rose-500">*</span>
+                <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                  <FileText className="w-3.5 h-3.5 text-slate-500" /> Kronologi Kejadian <span className="text-rose-600">*</span>
                 </label>
                 <textarea
                   rows="4"
@@ -361,14 +383,14 @@ export default function PengaduanWarga() {
                     setFormData(prev => ({ ...prev, kronologi: e.target.value }));
                     if (errors.kronologi) setErrors(prev => ({ ...prev, kronologi: null }));
                   }}
-                  className={`w-full bg-slate-950/70 border ${errors.kronologi ? 'border-rose-500/50 focus:border-rose-500 focus:ring-rose-500/20' : 'border-slate-800 focus:border-indigo-500 focus:ring-indigo-500/20'} rounded-xl px-4 py-2.5 text-sm outline-none transition-all focus:ring-4 resize-y`}
+                  className={`w-full bg-[#e0e5ec] rounded-xl px-4 py-2.5 text-sm outline-none transition-all text-slate-700 placeholder-slate-400/80 border-none focus:ring-2 focus:ring-blue-850/20 resize-y ${errors.kronologi ? 'shadow-[inset_5px_5px_10px_#e5b8b8,inset_-5px_-5px_10px_#ffffff]' : 'shadow-[inset_5px_5px_10px_#b8bec5,inset_-5px_-5px_10px_#ffffff]'}`}
                 />
                 {errors.kronologi ? (
-                  <p className="text-rose-400 text-[11px] flex items-center gap-1">
+                  <p className="text-rose-600 text-[11px] font-bold flex items-center gap-1">
                     <AlertCircle className="w-3.5 h-3.5" /> {errors.kronologi}
                   </p>
                 ) : (
-                  <div className="flex justify-between text-[10px] text-slate-500">
+                  <div className="flex justify-between text-[10px] text-slate-500 font-semibold">
                     <span>Min. 20 karakter untuk deskripsi detail.</span>
                     <span>{formData.kronologi.length} karakter</span>
                   </div>
@@ -376,16 +398,16 @@ export default function PengaduanWarga() {
               </div>
 
               {/* Lokasi Kejadian (Latitude, Longitude) */}
-              <div className="space-y-3 bg-slate-950/30 p-4 rounded-xl border border-slate-800/80">
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-slate-800/50 pb-2">
-                  <label className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
-                    <MapPin className="w-3.5 h-3.5 text-slate-400" /> Lokasi Geografis (GPS) <span className="text-rose-500">*</span>
+              <div className="space-y-3 bg-[#e0e5ec] p-4 rounded-2xl shadow-[inset_4px_4px_8px_#b8bec5,inset_-4px_-4px_8px_#ffffff] border border-[#ffffff]/10">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-slate-300/40 pb-2">
+                  <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                    <MapPin className="w-3.5 h-3.5 text-slate-550" /> Lokasi Geografis (GPS) <span className="text-rose-600">*</span>
                   </label>
                   <button
                     type="button"
                     onClick={handleGetLocation}
                     disabled={locationLoading}
-                    className="px-3 py-1 bg-indigo-600/10 hover:bg-indigo-600/25 border border-indigo-500/20 text-indigo-400 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors disabled:opacity-50"
+                    className="px-3 py-1.5 bg-[#e0e5ec] text-blue-800 hover:text-blue-900 rounded-lg text-xs font-extrabold flex items-center gap-1.5 shadow-[3px_3px_6px_#b8bec5,-3px_-3px_6px_#ffffff] hover:shadow-[1px_1px_3px_#b8bec5,-1px_-1px_3px_#ffffff] active:shadow-[inset_2px_2px_4px_#b8bec5,inset_-2px_-2px_4px_#ffffff] transition-all disabled:opacity-50 cursor-pointer border border-[#ffffff]/15"
                   >
                     <MapPin className={`w-3.5 h-3.5 ${locationLoading ? 'animate-bounce' : ''}`} />
                     {locationLoading ? "Mendapatkan Koordinat..." : "Dapatkan Lokasi Saya"}
@@ -394,7 +416,7 @@ export default function PengaduanWarga() {
                 
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="text-[10px] font-semibold text-slate-400 mb-1 block">Latitude</label>
+                    <label className="text-[10px] font-semibold text-slate-500 mb-1 block">Latitude</label>
                     <input
                       type="text"
                       placeholder="Contoh: -8.114712"
@@ -403,11 +425,11 @@ export default function PengaduanWarga() {
                         setFormData(prev => ({ ...prev, latitude: e.target.value }));
                         if (errors.lokasi) setErrors(prev => ({ ...prev, lokasi: null }));
                       }}
-                      className="w-full bg-slate-950/70 border border-slate-800 rounded-xl px-3 py-2 text-xs outline-none focus:border-indigo-500 transition-colors"
+                      className="w-full bg-[#e0e5ec] rounded-xl px-3 py-2 text-xs outline-none shadow-[inset_3px_3px_6px_#b8bec5,inset_-3px_-3px_6px_#ffffff] border-none text-slate-700 focus:ring-1 focus:ring-blue-850/20"
                     />
                   </div>
                   <div>
-                    <label className="text-[10px] font-semibold text-slate-400 mb-1 block">Longitude</label>
+                    <label className="text-[10px] font-semibold text-slate-500 mb-1 block">Longitude</label>
                     <input
                       type="text"
                       placeholder="Contoh: 115.090124"
@@ -416,13 +438,13 @@ export default function PengaduanWarga() {
                         setFormData(prev => ({ ...prev, longitude: e.target.value }));
                         if (errors.lokasi) setErrors(prev => ({ ...prev, lokasi: null }));
                       }}
-                      className="w-full bg-slate-950/70 border border-slate-800 rounded-xl px-3 py-2 text-xs outline-none focus:border-indigo-500 transition-colors"
+                      className="w-full bg-[#e0e5ec] rounded-xl px-3 py-2 text-xs outline-none shadow-[inset_3px_3px_6px_#b8bec5,inset_-3px_-3px_6px_#ffffff] border-none text-slate-700 focus:ring-1 focus:ring-blue-850/20"
                     />
                   </div>
                 </div>
                 
                 {errors.lokasi && (
-                  <p className="text-rose-400 text-[11px] flex items-center gap-1 mt-1">
+                  <p className="text-rose-600 text-[11px] font-bold flex items-center gap-1 mt-1">
                     <AlertCircle className="w-3.5 h-3.5" /> {errors.lokasi}
                   </p>
                 )}
@@ -430,11 +452,11 @@ export default function PengaduanWarga() {
 
               {/* Upload Foto Bukti */}
               <div className="space-y-2">
-                <label className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
-                  <Camera className="w-3.5 h-3.5 text-slate-400" /> Foto Bukti Kejadian <span className="text-slate-500">(Opsional)</span>
+                <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                  <Camera className="w-3.5 h-3.5 text-slate-500" /> Foto Bukti Kejadian <span className="text-slate-400">(Opsional)</span>
                 </label>
                 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 items-center">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
                   {/* File Input Box */}
                   <div className="relative">
                     <input
@@ -447,16 +469,16 @@ export default function PengaduanWarga() {
                     />
                     <label
                       htmlFor="fotoBukti"
-                      className="flex flex-col items-center justify-center p-6 bg-slate-950/70 hover:bg-slate-900 border border-slate-800 border-dashed rounded-xl cursor-pointer hover:border-indigo-500/50 transition-all text-center group"
+                      className="flex flex-col items-center justify-center p-6 bg-[#e0e5ec] rounded-2xl cursor-pointer shadow-[4px_4px_8px_#b8bec5,-4px_-4px_8px_#ffffff] active:shadow-[inset_3px_3px_6px_#b8bec5,inset_-3px_-3px_6px_#ffffff] hover:text-blue-800 transition-all text-center border border-[#ffffff]/20 group"
                     >
-                      <Camera className="w-6 h-6 text-slate-500 group-hover:text-indigo-400 mb-2 transition-colors" />
-                      <span className="text-xs font-bold text-slate-300">Pilih Foto</span>
-                      <span className="text-[10px] text-slate-500 mt-1">PNG, JPG (Maks. 2MB)</span>
+                      <Camera className="w-6 h-6 text-slate-500 group-hover:text-blue-800 mb-2 transition-colors" />
+                      <span className="text-xs font-black text-slate-750">Pilih Foto</span>
+                      <span className="text-[10px] text-slate-500 mt-1 font-semibold">PNG, JPG (Maks. 2MB)</span>
                     </label>
                   </div>
                   
                   {/* Image Preview Box */}
-                  <div className="h-28 bg-slate-950/50 border border-slate-800 rounded-xl flex items-center justify-center relative overflow-hidden">
+                  <div className="h-28 bg-[#e0e5ec] rounded-2xl flex items-center justify-center relative overflow-hidden shadow-[inset_4px_4px_8px_#b8bec5,inset_-4px_-4px_8px_#ffffff] border border-[#ffffff]/10">
                     {imagePreview ? (
                       <>
                         <img 
@@ -467,20 +489,20 @@ export default function PengaduanWarga() {
                         <button
                           type="button"
                           onClick={handleRemoveImage}
-                          className="absolute top-1.5 right-1.5 p-1 bg-rose-600/90 text-white rounded-lg hover:bg-rose-500 transition-colors shadow"
+                          className="absolute top-1.5 right-1.5 p-1.5 bg-[#e0e5ec] text-red-650 hover:text-red-700 rounded-lg shadow-[2px_2px_4px_#b8bec5,-2px_-2px_4px_#ffffff] hover:shadow-[1px_1px_2px_#b8bec5,-1px_-1px_2px_#ffffff] active:shadow-[inset_2px_2px_4px_#b8bec5,inset_-2px_-2px_4px_#ffffff] transition-all cursor-pointer border border-[#ffffff]/10"
                           title="Hapus Foto"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
                       </>
                     ) : (
-                      <span className="text-[11px] text-slate-600 italic">Belum ada foto terpilih</span>
+                      <span className="text-[11px] text-slate-500 italic font-semibold">Belum ada foto terpilih</span>
                     )}
                   </div>
                 </div>
                 
                 {errors.foto && (
-                  <p className="text-rose-400 text-[11px] flex items-center gap-1 mt-1">
+                  <p className="text-rose-600 text-[11px] font-bold flex items-center gap-1 mt-1">
                     <AlertCircle className="w-3.5 h-3.5" /> {errors.foto}
                   </p>
                 )}
@@ -490,7 +512,7 @@ export default function PengaduanWarga() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full mt-4 bg-gradient-to-r from-indigo-600 to-emerald-600 hover:from-indigo-500 hover:to-emerald-500 text-white py-3 px-4 rounded-xl font-bold text-sm shadow-lg shadow-indigo-950/50 hover:shadow-indigo-900/30 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 active:scale-[0.99] z-10"
+                className="w-full mt-4 py-3.5 bg-[#e28a1c] hover:bg-[#d07b14] active:bg-[#e28a1c] text-white text-sm font-extrabold rounded-2xl shadow-[6px_6px_12px_#b8bec5,-6px_-6px_12px_#ffffff] active:shadow-[inset_4px_4px_8px_#b8bec5,inset_-4px_-4px_8px_#ffffff] transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 z-10 border-none"
               >
                 {isSubmitting ? (
                   <>
@@ -511,71 +533,74 @@ export default function PengaduanWarga() {
           </div>
         ) : (
           /* SUCCESS SCREEN STATE */
-          <div className="bg-slate-900/60 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-8 shadow-2xl text-center space-y-6 animate-fade-in relative overflow-hidden">
+          <div className="bg-[#e0e5ec] rounded-3xl p-8 shadow-[8px_8px_16px_#b8bec5,-8px_-8px_16px_#ffffff] text-center space-y-6 relative overflow-hidden border border-[#ffffff]/10">
             
-            {/* Glowing success top gradient */}
-            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-indigo-500 via-purple-500 to-emerald-500" />
-            
-            <div className="inline-flex p-4 bg-emerald-600/10 border border-emerald-500/30 rounded-full text-emerald-400 mx-auto">
+            <div className="inline-flex p-4 bg-[#e0e5ec] rounded-full shadow-[inset_4px_4px_8px_#b8bec5,inset_-4px_-4px_8px_#ffffff] text-emerald-600 mx-auto">
               <Check className="w-12 h-12" />
             </div>
 
             <div className="space-y-2">
-              <h2 className="text-xl md:text-2xl font-black text-slate-100">
+              <h2 className="text-xl md:text-2xl font-black text-slate-800">
                 PENGADUAN BERHASIL TERKIRIM!
               </h2>
-              <p className="text-xs md:text-sm text-slate-400 max-w-md mx-auto">
+              <p className="text-xs md:text-sm text-slate-500 font-semibold max-w-md mx-auto">
                 Terima kasih atas kepedulian Anda. Laporan telah tercatat secara resmi di basis data Satpol PP Kabupaten Buleleng.
               </p>
             </div>
 
             {/* Ticket Box */}
-            <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-5 max-w-sm mx-auto space-y-2 relative shadow-inner">
+            <div className="bg-[#e0e5ec] rounded-2xl p-5 max-w-sm mx-auto space-y-2 relative shadow-[inset_4px_4px_8px_#b8bec5,inset_-4px_-4px_8px_#ffffff] border border-[#ffffff]/10">
               <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">
                 NOMOR TIKET PENGADUAN
               </span>
-              <div className="text-2xl font-mono font-black text-indigo-400 tracking-wider">
+              <div className="text-2xl font-mono font-black text-blue-900 tracking-wider">
                 {ticketNumber}
               </div>
               
               <button
                 onClick={handleCopyTicket}
-                className="mt-2 inline-flex items-center gap-1.5 px-3 py-1 bg-slate-900 hover:bg-slate-800 text-[11px] text-slate-300 rounded border border-slate-800/80 transition-colors cursor-pointer"
+                className="mt-2 inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#e0e5ec] text-xs text-slate-700 font-extrabold rounded-lg shadow-[3px_3px_6px_#b8bec5,-3px_-3px_6px_#ffffff] hover:shadow-[1px_1px_3px_#b8bec5,-1px_-1px_3px_#ffffff] active:shadow-[inset_2px_2px_4px_#b8bec5,inset_-2px_-2px_4px_#ffffff] transition-all cursor-pointer border border-[#ffffff]/10"
               >
                 {copied ? (
                   <>
-                    <Check className="w-3.5 h-3.5 text-emerald-400" />
-                    <span className="text-emerald-400 font-semibold">Tersalin!</span>
+                    <Check className="w-3.5 h-3.5 text-emerald-650" />
+                    <span className="text-emerald-655 font-black">Tersalin!</span>
                   </>
                 ) : (
                   <>
-                    <Copy className="w-3.5 h-3.5 text-slate-400" />
+                    <Copy className="w-3.5 h-3.5 text-slate-500" />
                     <span>Salin Nomor Tiket</span>
                   </>
                 )}
               </button>
             </div>
 
-            <div className="bg-slate-950/30 border border-slate-800/50 p-4 rounded-xl text-left max-w-md mx-auto flex gap-3 items-start">
-              <Info className="w-5 h-5 text-indigo-400 shrink-0 mt-0.5" />
+            <div className="bg-[#e0e5ec] p-4 rounded-2xl text-left max-w-md mx-auto flex gap-3 items-start shadow-[inset_4px_4px_8px_#b8bec5,inset_-4px_-4px_8px_#ffffff] border border-[#ffffff]/10">
+              <Info className="w-5 h-5 text-blue-800 shrink-0 mt-0.5" />
               <div className="space-y-1">
-                <h4 className="text-xs font-bold text-slate-200">Informasi Penting</h4>
-                <p className="text-[11px] text-slate-400 leading-relaxed">
+                <h4 className="text-xs font-black text-slate-800">Informasi Penting</h4>
+                <p className="text-[11px] text-slate-500 leading-relaxed font-semibold">
                   Harap catat atau salin nomor tiket di atas. Nomor tiket ini berfungsi sebagai bukti pelaporan sah yang dapat digunakan untuk melacak status penanganan berkas pengaduan Anda.
                 </p>
               </div>
             </div>
 
-            <div className="pt-4 border-t border-slate-800/50 flex flex-col sm:flex-row justify-center gap-3">
+            <div className="pt-4 border-t border-slate-350/40 flex flex-col sm:flex-row justify-center gap-3">
               <button
                 onClick={handleReset}
-                className="px-5 py-2.5 bg-slate-950 hover:bg-slate-900 border border-slate-800 text-slate-300 rounded-xl text-xs font-bold transition-colors cursor-pointer"
+                className="px-5 py-3 bg-[#e0e5ec] text-slate-700 hover:text-slate-850 font-bold rounded-xl text-xs shadow-[4px_4px_8px_#b8bec5,-4px_-4px_8px_#ffffff] hover:shadow-[2px_2px_4px_#b8bec5,-2px_-2px_4px_#ffffff] active:shadow-[inset_2px_2px_4px_#b8bec5,inset_-2px_-2px_4px_#ffffff] transition-all cursor-pointer border border-[#ffffff]/25 animate-none"
               >
                 Buat Pengaduan Lainnya
               </button>
+              <Link
+                href={`/status?id_tiket=${ticketNumber}`}
+                className="px-5 py-3 bg-[#e28a1c] hover:bg-[#d07b14] text-white rounded-xl text-xs font-extrabold shadow-[4px_4px_8px_#b8bec5,-4px_-4px_8px_#ffffff] hover:shadow-[2px_2px_4px_#b8bec5,-2px_-2px_4px_#ffffff] active:shadow-[inset_2px_2px_4px_#b8bec5,inset_-2px_-2px_4px_#ffffff] transition-all flex items-center justify-center gap-1.5 cursor-pointer border-none"
+              >
+                Lacak Status Laporan
+              </Link>
               <a
                 href="/admin/dashboard"
-                className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition-colors shadow flex items-center justify-center gap-1.5"
+                className="px-5 py-3 bg-[#e0e5ec] text-blue-800 hover:text-blue-900 rounded-xl text-xs font-extrabold shadow-[4px_4px_8px_#b8bec5,-4px_-4px_8px_#ffffff] hover:shadow-[2px_2px_4px_#b8bec5,-2px_-2px_4px_#ffffff] active:shadow-[inset_2px_2px_4px_#b8bec5,inset_-2px_-2px_4px_#ffffff] transition-all flex items-center justify-center gap-1.5 border border-[#ffffff]/25"
               >
                 Ke Dashboard Admin
               </a>
@@ -584,12 +609,9 @@ export default function PengaduanWarga() {
           </div>
         )}
 
-        {/* Footer info */}
-        <p className="text-center text-[10px] text-slate-600 mt-8 relative z-10 font-medium">
-          &copy; 2026 Satuan Polisi Pamong Praja Kabupaten Buleleng. All Rights Reserved.
-        </p>
-
       </div>
+      {/* Page Footer */}
+      <Footer />
     </div>
   );
 }

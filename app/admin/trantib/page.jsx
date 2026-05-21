@@ -505,34 +505,34 @@ export default function TrantibAdmin() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 p-4 md:p-6 relative overflow-hidden font-sans">
+    <div className="min-h-screen bg-[#e0e5ec] text-slate-700 p-4 md:p-6 relative overflow-hidden font-sans">
       
       {/* Decorative Glow Elements */}
-      <div className="bg-purple-500/5 w-[35rem] h-[35rem] rounded-full blur-[140px] absolute -top-48 -left-48 pointer-events-none z-0" />
-      <div className="bg-pink-500/5 w-[35rem] h-[35rem] rounded-full blur-[140px] absolute -bottom-48 -right-48 pointer-events-none z-0" />
+      <div className="bg-[#e0e5ec] shadow-[16px_16px_32px_#b8bec5,-16px_-16px_32px_#ffffff] w-[35rem] h-[35rem] rounded-full absolute -top-48 -left-48 pointer-events-none opacity-50 z-0" />
+      <div className="bg-[#e0e5ec] shadow-[16px_16px_32px_#b8bec5,-16px_-16px_32px_#ffffff] w-[35rem] h-[35rem] rounded-full absolute -bottom-48 -right-48 pointer-events-none opacity-50 z-0" />
 
       <div className="max-w-6xl mx-auto space-y-6 relative z-10">
 
         {/* Header Section */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-slate-900/80 backdrop-blur border border-slate-800/80 p-5 md:p-6 rounded-2xl shadow-xl gap-4">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-[#e0e5ec] shadow-[8px_8px_16px_#b8bec5,-8px_-8px_16px_#ffffff] p-5 md:p-6 rounded-2xl gap-4">
           <div className="flex items-center space-x-4">
             <button
               onClick={() => window.location.href = '/admin/dashboard'}
-              className="p-2.5 bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 rounded-xl text-slate-400 hover:text-slate-100 transition-all cursor-pointer shadow-inner"
+              className="p-2.5 bg-[#e0e5ec] hover:bg-[#d5dae2] rounded-xl text-slate-500 hover:text-slate-700 transition-all cursor-pointer shadow-[4px_4px_8px_#b8bec5,-4px_-4px_8px_#ffffff] active:shadow-[inset_3px_3px_6px_#b8bec5,inset_-3px_-3px_6px_#ffffff]"
               title="Kembali ke Dashboard Utama"
             >
               <ArrowLeft className="w-5 h-5" />
             </button>
             <div>
               <div className="flex items-center gap-2">
-                <span className="px-2 py-0.5 text-[10px] font-black tracking-widest text-purple-400 bg-purple-500/10 border border-purple-500/20 rounded">
+                <span className="px-2 py-0.5 text-[10px] font-black tracking-widest text-purple-700 bg-[#e0e5ec] shadow-[2px_2px_4px_#b8bec5,-2px_-2px_4px_#ffffff] border-none rounded">
                   PORTAL BIDANG TRANTIB
                 </span>
               </div>
-              <h1 className="text-xl md:text-2xl font-black bg-gradient-to-r from-slate-50 to-purple-200 bg-clip-text text-transparent">
+              <h1 className="text-xl md:text-2xl font-black text-blue-900">
                 PENGENDALIAN OPERASIONAL & K3
               </h1>
-              <p className="text-xs text-slate-400 font-medium">
+              <p className="text-xs text-slate-500 font-medium">
                 Seksi Ketenteraman dan Ketertiban Umum - Kabupaten Buleleng
               </p>
             </div>
@@ -543,7 +543,7 @@ export default function TrantibAdmin() {
               if (activeTab === 'patroli') openCreatePatrol();
               else if (activeTab === 'penertiban') openCreateEnforcement();
             }}
-            className={`w-full sm:w-auto px-4 py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white rounded-xl transition-all flex items-center justify-center gap-2 text-xs font-bold shadow-lg shadow-purple-900/20 cursor-pointer ${
+            className={`w-full sm:w-auto px-4 py-2.5 bg-purple-700 hover:bg-purple-600 text-white rounded-xl transition-all flex items-center justify-center gap-2 text-xs font-bold shadow-[4px_4px_8px_#b8bec5,-4px_-4px_8px_#ffffff] active:shadow-[inset_3px_3px_6px_#b8bec5,inset_-3px_-3px_6px_#ffffff] cursor-pointer ${
               activeTab === 'disposisi' ? 'opacity-0 pointer-events-none' : ''
             }`}
           >
@@ -553,13 +553,13 @@ export default function TrantibAdmin() {
         </div>
 
         {/* Tab Navigation Menu */}
-        <div className="flex border-b border-slate-800 bg-slate-900/40 p-1 rounded-xl backdrop-blur">
+        <div className="flex border-b border-[#b8bec5]/30 bg-[#e0e5ec] p-1 rounded-xl shadow-[6px_6px_12px_#b8bec5,-6px_-6px_12px_#ffffff]">
           <button
             onClick={() => setActiveTab('patroli')}
             className={`flex-1 py-3 text-xs md:text-sm font-bold rounded-lg transition-all flex items-center justify-center gap-2 cursor-pointer ${
               activeTab === 'patroli' 
-                ? 'bg-gradient-to-r from-purple-600/10 to-indigo-600/10 border border-purple-500/30 text-purple-400' 
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-[#e0e5ec] text-purple-800 font-black shadow-[inset_3px_3px_6px_#b8bec5,inset_-3px_-3px_6px_#ffffff]' 
+                : 'text-slate-500 shadow-[4px_4px_8px_#b8bec5,-4px_-4px_8px_#ffffff] hover:shadow-[2px_2px_4px_#b8bec5,-2px_-2px_4px_#ffffff]'
             }`}
           >
             <Users className="w-4 h-4" /> Plotting & Regu Patroli
@@ -568,8 +568,8 @@ export default function TrantibAdmin() {
             onClick={() => setActiveTab('penertiban')}
             className={`flex-1 py-3 text-xs md:text-sm font-bold rounded-lg transition-all flex items-center justify-center gap-2 cursor-pointer ${
               activeTab === 'penertiban' 
-                ? 'bg-gradient-to-r from-purple-600/10 to-indigo-600/10 border border-purple-500/30 text-purple-400' 
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-[#e0e5ec] text-purple-800 font-black shadow-[inset_3px_3px_6px_#b8bec5,inset_-3px_-3px_6px_#ffffff]' 
+                : 'text-slate-500 shadow-[4px_4px_8px_#b8bec5,-4px_-4px_8px_#ffffff] hover:shadow-[2px_2px_4px_#b8bec5,-2px_-2px_4px_#ffffff]'
             }`}
           >
             <AlertOctagon className="w-4 h-4" /> Log Penertiban K3
@@ -578,8 +578,8 @@ export default function TrantibAdmin() {
             onClick={() => setActiveTab('disposisi')}
             className={`flex-1 py-3 text-xs md:text-sm font-bold rounded-lg transition-all flex items-center justify-center gap-2 cursor-pointer relative ${
               activeTab === 'disposisi' 
-                ? 'bg-gradient-to-r from-purple-600/10 to-indigo-600/10 border border-purple-500/30 text-purple-400' 
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-[#e0e5ec] text-purple-800 font-black shadow-[inset_3px_3px_6px_#b8bec5,inset_-3px_-3px_6px_#ffffff]' 
+                : 'text-slate-500 shadow-[4px_4px_8px_#b8bec5,-4px_-4px_8px_#ffffff] hover:shadow-[2px_2px_4px_#b8bec5,-2px_-2px_4px_#ffffff]'
             }`}
           >
             <Clipboard className="w-4 h-4" /> Disposisi Aduan
@@ -593,9 +593,9 @@ export default function TrantibAdmin() {
 
         {/* LOADING INDICATOR */}
         {loading && (
-          <div className="text-center py-16 bg-slate-900/30 border border-slate-900 rounded-2xl flex flex-col items-center justify-center gap-3">
+          <div className="text-center py-16 bg-[#e0e5ec] shadow-[6px_6px_12px_#b8bec5,-6px_-6px_12px_#ffffff] rounded-2xl flex flex-col items-center justify-center gap-3">
             <RefreshCw className="w-8 h-8 text-purple-500 animate-spin" />
-            <div className="text-sm font-semibold text-slate-400">Sinkronisasi data SQLite dev.db...</div>
+            <div className="text-sm font-semibold text-slate-500">Sinkronisasi data SQLite dev.db...</div>
           </div>
         )}
 
@@ -605,43 +605,43 @@ export default function TrantibAdmin() {
             
             {/* Stats Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-4 flex items-center justify-between">
+              <div className="bg-[#e0e5ec] shadow-[6px_6px_12px_#b8bec5,-6px_-6px_12px_#ffffff] rounded-xl p-4 flex items-center justify-between">
                 <div>
-                  <p className="text-[10px] uppercase font-bold text-slate-500">Total Regu Penugasan</p>
-                  <p className="text-2xl font-black text-slate-100">{patrolList.length}</p>
+                  <p className="text-[10px] uppercase font-bold text-slate-400">Total Regu Penugasan</p>
+                  <p className="text-2xl font-black text-slate-700">{patrolList.length}</p>
                 </div>
-                <div className="p-3 bg-purple-500/10 border border-purple-500/20 text-purple-400 rounded-lg">
+                <div className="p-3 bg-[#e0e5ec] shadow-[4px_4px_8px_#b8bec5,-4px_-4px_8px_#ffffff] text-purple-700 rounded-lg">
                   <Users className="w-6 h-6" />
                 </div>
               </div>
-              <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-4 flex items-center justify-between">
+              <div className="bg-[#e0e5ec] shadow-[6px_6px_12px_#b8bec5,-6px_-6px_12px_#ffffff] rounded-xl p-4 flex items-center justify-between">
                 <div>
-                  <p className="text-[10px] uppercase font-bold text-slate-500">Patroli Terjadwal</p>
-                  <p className="text-2xl font-black text-slate-100">
+                  <p className="text-[10px] uppercase font-bold text-slate-400">Patroli Terjadwal</p>
+                  <p className="text-2xl font-black text-slate-700">
                     {patrolList.filter(p => new Date(p.tanggal_penugasan).toDateString() === new Date().toDateString()).length} Hari Ini
                   </p>
                 </div>
-                <div className="p-3 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 rounded-lg">
+                <div className="p-3 bg-[#e0e5ec] shadow-[4px_4px_8px_#b8bec5,-4px_-4px_8px_#ffffff] text-blue-800 rounded-lg">
                   <Calendar className="w-6 h-6" />
                 </div>
               </div>
-              <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-4 flex items-center justify-between">
+              <div className="bg-[#e0e5ec] shadow-[6px_6px_12px_#b8bec5,-6px_-6px_12px_#ffffff] rounded-xl p-4 flex items-center justify-between">
                 <div>
-                  <p className="text-[10px] uppercase font-bold text-slate-500">Siklus Shift Kerja</p>
-                  <p className="text-base font-black text-emerald-400 flex items-center gap-1.5 mt-1">
+                  <p className="text-[10px] uppercase font-bold text-slate-400">Siklus Shift Kerja</p>
+                  <p className="text-base font-black text-emerald-600 flex items-center gap-1.5 mt-1">
                     <Clock className="w-4 h-4" /> 3 Shift Kerja (24H)
                   </p>
                 </div>
-                <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-lg">
+                <div className="p-3 bg-[#e0e5ec] shadow-[4px_4px_8px_#b8bec5,-4px_-4px_8px_#ffffff] text-emerald-600 rounded-lg">
                   <Clock className="w-6 h-6" />
                 </div>
               </div>
             </div>
 
             {/* List Table */}
-            <div className="bg-slate-900/60 border border-slate-800/80 rounded-2xl overflow-hidden shadow-xl">
+            <div className="bg-[#e0e5ec] rounded-2xl shadow-[8px_8px_16px_#b8bec5,-8px_-8px_16px_#ffffff] overflow-hidden">
               {patrolList.length === 0 ? (
-                <div className="text-center p-12 text-slate-400 space-y-2">
+                <div className="text-center p-12 text-slate-500 space-y-2">
                   <Users className="w-12 h-12 text-slate-700 mx-auto" />
                   <p className="font-bold">Belum ada plotting regu patroli</p>
                   <p className="text-xs text-slate-500">Silakan klik tombol "+ Plotting Regu Baru" di atas untuk menambahkan!</p>
@@ -650,7 +650,7 @@ export default function TrantibAdmin() {
                 <div className="overflow-x-auto">
                   <table className="w-full text-left border-collapse">
                     <thead>
-                      <tr className="border-b border-slate-800 bg-slate-900/50 text-[10px] uppercase font-bold text-slate-400 tracking-wider">
+                      <tr className="border-b border-[#b8bec5]/30 bg-[#d5dae2] text-[10px] uppercase font-bold text-slate-500 tracking-wider">
                         <th className="py-4 px-6">No. SPT / Tanggal</th>
                         <th className="py-4 px-6">Shift Kerja</th>
                         <th className="py-4 px-6">Komandan Regu</th>
@@ -660,7 +660,7 @@ export default function TrantibAdmin() {
                         <th className="py-4 px-6 text-center">Aksi</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-800/60 text-xs">
+                    <tbody className="divide-y divide-[#b8bec5]/30 text-xs">
                       {patrolList.map((patrol) => {
                         const dateFormatted = new Date(patrol.tanggal_penugasan).toLocaleDateString('id-ID', {
                           weekday: 'long',
@@ -670,44 +670,44 @@ export default function TrantibAdmin() {
                         });
                         
                         return (
-                          <tr key={patrol.id} className="hover:bg-slate-900/30 transition-all duration-155">
+                          <tr key={patrol.id} className="hover:bg-[#d5dae2] transition-all duration-155">
                             <td className="py-4 px-6 space-y-1">
-                              <div className="font-mono font-black text-purple-400 bg-purple-500/10 border border-purple-500/20 px-2 py-0.5 rounded inline-block">
+                              <div className="font-mono font-black text-purple-700 bg-[#e0e5ec] shadow-[2px_2px_4px_#b8bec5,-2px_-2px_4px_#ffffff] border-none px-2 py-0.5 rounded inline-block">
                                 {patrol.no_spt}
                               </div>
-                              <div className="text-[10px] text-slate-400 font-semibold">{dateFormatted}</div>
+                              <div className="text-[10px] text-slate-500 font-semibold">{dateFormatted}</div>
                             </td>
                             <td className="py-4 px-6">
                               <span className={`px-2.5 py-0.5 rounded text-[10px] font-extrabold ${
-                                patrol.shift_kerja === 'Pagi' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' :
-                                patrol.shift_kerja === 'Siang' ? 'bg-orange-500/10 text-orange-400 border border-orange-500/20' :
-                                'bg-indigo-500/10 text-indigo-400 border border-indigo-500/20'
+                                patrol.shift_kerja === 'Pagi' ? 'bg-[#e0e5ec] text-amber-600 shadow-[2px_2px_4px_#b8bec5,-2px_-2px_4px_#ffffff] border-none' :
+                                patrol.shift_kerja === 'Siang' ? 'bg-[#e0e5ec] text-orange-600 shadow-[2px_2px_4px_#b8bec5,-2px_-2px_4px_#ffffff] border-none' :
+                                'bg-[#e0e5ec] text-blue-800 shadow-[2px_2px_4px_#b8bec5,-2px_-2px_4px_#ffffff] border-none'
                               }`}>
                                 {patrol.shift_kerja}
                               </span>
                             </td>
-                            <td className="py-4 px-6 font-bold text-slate-200">{patrol.komandan_regu}</td>
-                            <td className="py-4 px-6 max-w-[200px] text-slate-300 truncate" title={patrol.anggota_regu}>
+                            <td className="py-4 px-6 font-bold text-slate-700">{patrol.komandan_regu}</td>
+                            <td className="py-4 px-6 max-w-[200px] text-slate-600 truncate" title={patrol.anggota_regu}>
                               {patrol.anggota_regu}
                             </td>
-                            <td className="py-4 px-6 max-w-[200px] text-slate-300 truncate" title={patrol.wilayah_patroli}>
+                            <td className="py-4 px-6 max-w-[200px] text-slate-600 truncate" title={patrol.wilayah_patroli}>
                               {patrol.wilayah_patroli}
                             </td>
-                            <td className="py-4 px-6 text-slate-300 font-semibold flex items-center gap-1.5 mt-2.5">
-                              <Car className="w-3.5 h-3.5 text-slate-400" /> {patrol.kendaraan_dinas}
+                            <td className="py-4 px-6 text-slate-600 font-semibold flex items-center gap-1.5 mt-2.5">
+                              <Car className="w-3.5 h-3.5 text-slate-500" /> {patrol.kendaraan_dinas}
                             </td>
                             <td className="py-4 px-6 text-center">
                               <div className="flex items-center justify-center gap-2">
                                 <button
                                   onClick={() => openEditPatrol(patrol)}
-                                  className="p-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-750 text-slate-300 hover:text-slate-100 rounded-lg transition"
+                                  className="p-1.5 bg-[#e0e5ec] hover:bg-[#d5dae2] shadow-[3px_3px_6px_#b8bec5,-3px_-3px_6px_#ffffff] text-slate-600 hover:text-slate-700 rounded-lg transition"
                                   title="Edit Data Regu"
                                 >
                                   <Edit3 className="w-4 h-4" />
                                 </button>
                                 <button
                                   onClick={() => handleDeletePatrol(patrol.id, patrol.no_spt)}
-                                  className="p-1.5 bg-slate-800 hover:bg-red-950 border border-slate-750 text-slate-300 hover:text-red-400 rounded-lg transition"
+                                  className="p-1.5 bg-[#e0e5ec] hover:bg-[#d5dae2] shadow-[3px_3px_6px_#b8bec5,-3px_-3px_6px_#ffffff] text-slate-600 hover:text-rose-600 rounded-lg transition"
                                   title="Hapus Penugasan"
                                 >
                                   <Trash2 className="w-4 h-4" />
@@ -732,45 +732,45 @@ export default function TrantibAdmin() {
             
             {/* Stats Cards */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-4 flex items-center justify-between">
+              <div className="bg-[#e0e5ec] shadow-[6px_6px_12px_#b8bec5,-6px_-6px_12px_#ffffff] rounded-xl p-4 flex items-center justify-between">
                 <div>
-                  <p className="text-[10px] uppercase font-bold text-slate-500">Total Tindakan K3</p>
-                  <p className="text-2xl font-black text-slate-100">{enforcementList.length}</p>
+                  <p className="text-[10px] uppercase font-bold text-slate-400">Total Tindakan K3</p>
+                  <p className="text-2xl font-black text-slate-700">{enforcementList.length}</p>
                 </div>
-                <div className="p-3 bg-purple-500/10 border border-purple-500/20 text-purple-400 rounded-lg">
+                <div className="p-3 bg-[#e0e5ec] shadow-[4px_4px_8px_#b8bec5,-4px_-4px_8px_#ffffff] text-purple-700 rounded-lg">
                   <AlertOctagon className="w-6 h-6" />
                 </div>
               </div>
-              <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-4 flex items-center justify-between">
+              <div className="bg-[#e0e5ec] shadow-[6px_6px_12px_#b8bec5,-6px_-6px_12px_#ffffff] rounded-xl p-4 flex items-center justify-between">
                 <div>
-                  <p className="text-[10px] uppercase font-bold text-slate-500">PKL Melanggar Zonasi</p>
-                  <p className="text-2xl font-black text-rose-400">
+                  <p className="text-[10px] uppercase font-bold text-slate-400">PKL Melanggar Zonasi</p>
+                  <p className="text-2xl font-black text-rose-600">
                     {enforcementList.filter(e => e.jenis_pelanggaran?.includes('PKL') || e.jenis_pelanggaran?.includes('Kaki Lima')).length}
                   </p>
                 </div>
-                <div className="p-3 bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded-lg">
+                <div className="p-3 bg-[#e0e5ec] shadow-[4px_4px_8px_#b8bec5,-4px_-4px_8px_#ffffff] text-rose-600 rounded-lg">
                   <Users className="w-6 h-6" />
                 </div>
               </div>
-              <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-4 flex items-center justify-between">
+              <div className="bg-[#e0e5ec] shadow-[6px_6px_12px_#b8bec5,-6px_-6px_12px_#ffffff] rounded-xl p-4 flex items-center justify-between">
                 <div>
-                  <p className="text-[10px] uppercase font-bold text-slate-500">Reklame Liar</p>
-                  <p className="text-2xl font-black text-amber-400">
+                  <p className="text-[10px] uppercase font-bold text-slate-400">Reklame Liar</p>
+                  <p className="text-2xl font-black text-amber-600">
                     {enforcementList.filter(e => e.jenis_pelanggaran?.includes('Reklame')).length}
                   </p>
                 </div>
-                <div className="p-3 bg-amber-500/10 border border-amber-500/20 text-amber-400 rounded-lg">
+                <div className="p-3 bg-[#e0e5ec] shadow-[4px_4px_8px_#b8bec5,-4px_-4px_8px_#ffffff] text-amber-600 rounded-lg">
                   <FileText className="w-6 h-6" />
                 </div>
               </div>
-              <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-4 flex items-center justify-between">
+              <div className="bg-[#e0e5ec] shadow-[6px_6px_12px_#b8bec5,-6px_-6px_12px_#ffffff] rounded-xl p-4 flex items-center justify-between">
                 <div>
-                  <p className="text-[10px] uppercase font-bold text-slate-500">Total Pelanggar Ditertibkan</p>
-                  <p className="text-2xl font-black text-emerald-400">
+                  <p className="text-[10px] uppercase font-bold text-slate-400">Total Pelanggar Ditertibkan</p>
+                  <p className="text-2xl font-black text-emerald-600">
                     {enforcementList.reduce((acc, curr) => acc + (curr.jumlah_pelanggar || 1), 0)} Pelanggar
                   </p>
                 </div>
-                <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-lg">
+                <div className="p-3 bg-[#e0e5ec] shadow-[4px_4px_8px_#b8bec5,-4px_-4px_8px_#ffffff] text-emerald-600 rounded-lg">
                   <Check className="w-6 h-6" />
                 </div>
               </div>
@@ -778,7 +778,7 @@ export default function TrantibAdmin() {
 
             {/* List Logs (Grid Cards) */}
             {enforcementList.length === 0 ? (
-              <div className="text-center p-16 bg-slate-900/40 border border-slate-850 rounded-2xl text-slate-400 space-y-2">
+              <div className="text-center p-16 bg-[#e0e5ec] shadow-[6px_6px_12px_#b8bec5,-6px_-6px_12px_#ffffff] rounded-2xl text-slate-500 space-y-2">
                 <AlertOctagon className="w-12 h-12 text-slate-700 mx-auto" />
                 <p className="font-bold">Belum ada log penertiban K3 lapangan</p>
                 <p className="text-xs text-slate-500">Silakan klik "+ Catat Penertiban K3" untuk memasukkan data penertiban!</p>
@@ -798,39 +798,39 @@ export default function TrantibAdmin() {
                   return (
                     <div 
                       key={item.id} 
-                      className="bg-slate-900/60 backdrop-blur border border-slate-800/80 rounded-2xl p-5 hover:border-slate-700 transition duration-300 shadow-xl flex flex-col justify-between"
+                      className="bg-[#e0e5ec] shadow-[8px_8px_16px_#b8bec5,-8px_-8px_16px_#ffffff] rounded-2xl p-5 hover:shadow-[6px_6px_12px_#b8bec5,-6px_-6px_12px_#ffffff] transition duration-300 flex flex-col justify-between"
                     >
                       <div className="space-y-4">
                         
                         {/* Badges / Top bar */}
-                        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800/60 pb-3">
+                        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#b8bec5]/30 pb-3">
                           <span className={`px-2.5 py-0.5 rounded text-[10px] font-extrabold ${
-                            item.jenis_pelanggaran?.includes('PKL') || item.jenis_pelanggaran?.includes('Kaki Lima') ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20' :
-                            item.jenis_pelanggaran?.includes('Reklame') ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' :
-                            'bg-violet-500/10 text-violet-400 border border-violet-500/20'
+                            item.jenis_pelanggaran?.includes('PKL') || item.jenis_pelanggaran?.includes('Kaki Lima') ? 'bg-[#e0e5ec] text-rose-600 shadow-[2px_2px_4px_#b8bec5,-2px_-2px_4px_#ffffff] border-none' :
+                            item.jenis_pelanggaran?.includes('Reklame') ? 'bg-[#e0e5ec] text-amber-600 shadow-[2px_2px_4px_#b8bec5,-2px_-2px_4px_#ffffff] border-none' :
+                            'bg-[#e0e5ec] text-violet-600 shadow-[2px_2px_4px_#b8bec5,-2px_-2px_4px_#ffffff] border-none'
                           }`}>
                             {item.jenis_pelanggaran}
                           </span>
 
                           <span className={`px-2 py-0.5 rounded text-[10px] font-bold border ${
-                            item.tindakan_diambil === 'Teguran Lisan' ? 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20' :
-                            item.tindakan_diambil?.includes('Tertulis') ? 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20' :
-                            'bg-red-500/10 text-red-400 border-red-500/20'
+                            item.tindakan_diambil === 'Teguran Lisan' ? 'bg-[#e0e5ec] text-cyan-600 shadow-[2px_2px_4px_#b8bec5,-2px_-2px_4px_#ffffff] border-none' :
+                            item.tindakan_diambil?.includes('Tertulis') ? 'bg-[#e0e5ec] text-yellow-600 shadow-[2px_2px_4px_#b8bec5,-2px_-2px_4px_#ffffff] border-none' :
+                            'bg-[#e0e5ec] text-red-600 shadow-[2px_2px_4px_#b8bec5,-2px_-2px_4px_#ffffff] border-none'
                           }`}>
                             {item.tindakan_diambil}
                           </span>
                         </div>
 
                         {/* Unique generated Form Serial Number Badge */}
-                        <div className="flex justify-between items-center bg-slate-950/60 px-3 py-2 rounded-xl border border-slate-800">
+                        <div className="flex justify-between items-center bg-[#e0e5ec] shadow-[inset_4px_4px_8px_#b8bec5,inset_-4px_-4px_8px_#ffffff] px-3 py-2 rounded-xl border border-white/10">
                           <div className="space-y-0.5">
-                            <span className="text-[8px] uppercase font-black text-slate-500">Nomor Formulir Teguran (Cetak)</span>
-                            <p className="text-xs font-mono font-bold text-slate-200">{item.no_formulir}</p>
+                            <span className="text-[8px] uppercase font-black text-slate-400">Nomor Formulir Teguran (Cetak)</span>
+                            <p className="text-xs font-mono font-bold text-slate-700">{item.no_formulir}</p>
                           </div>
                           
                           <button
                             onClick={() => openPrinterModal(item)}
-                            className="p-1.5 bg-purple-600 hover:bg-purple-500 text-white rounded-lg transition-all flex items-center justify-center gap-1 text-[10px] font-bold shadow cursor-pointer"
+                            className="p-1.5 bg-purple-700 hover:bg-purple-600 text-white rounded-lg transition-all flex items-center justify-center gap-1 text-[10px] font-bold shadow-[4px_4px_8px_#b8bec5,-4px_-4px_8px_#ffffff] cursor-pointer"
                             title="Cetak struk mobile printer"
                           >
                             <Printer className="w-3.5 h-3.5" /> Cetak
@@ -840,13 +840,13 @@ export default function TrantibAdmin() {
                         {/* Details */}
                         <div className="space-y-3">
                           <div className="flex items-start gap-2.5 text-xs">
-                            <MapPin className="w-4 h-4 text-purple-400 shrink-0 mt-0.5" />
+                            <MapPin className="w-4 h-4 text-purple-700 shrink-0 mt-0.5" />
                             <div className="space-y-1">
-                              <p className="font-bold text-slate-200">{item.lokasi}</p>
+                              <p className="font-bold text-slate-700">{item.lokasi}</p>
                               {item.latitude && item.longitude && (
                                 <button
                                   onClick={() => openGoogleMaps(item.latitude, item.longitude)}
-                                  className="text-[10px] text-purple-400 hover:text-purple-300 font-extrabold flex items-center gap-1 transition animate-pulse"
+                                  className="text-[10px] text-purple-700 hover:text-purple-600 font-extrabold flex items-center gap-1 transition animate-pulse"
                                 >
                                   ({item.latitude}, {item.longitude}) <ExternalLink className="w-3 h-3" /> Peta GPS Locked
                                 </button>
@@ -854,14 +854,14 @@ export default function TrantibAdmin() {
                             </div>
                           </div>
 
-                          <div className="grid grid-cols-3 gap-2 bg-slate-950/40 p-2.5 rounded-lg border border-slate-900 text-[11px] font-semibold text-slate-400">
+                          <div className="grid grid-cols-3 gap-2 bg-[#e0e5ec] shadow-[inset_4px_4px_8px_#b8bec5,inset_-4px_-4px_8px_#ffffff] p-2.5 rounded-lg border border-white/10 text-[11px] font-semibold text-slate-500">
                             <div className="col-span-2">
-                              <p className="text-[9px] uppercase font-bold text-slate-500">Nama Pelanggar / Usaha</p>
-                              <p className="text-slate-200 mt-0.5 truncate" title={item.nama_pelanggar}>{item.nama_pelanggar}</p>
+                              <p className="text-[9px] uppercase font-bold text-slate-400">Nama Pelanggar / Usaha</p>
+                              <p className="text-slate-700 mt-0.5 truncate" title={item.nama_pelanggar}>{item.nama_pelanggar}</p>
                             </div>
                             <div>
-                              <p className="text-[9px] uppercase font-bold text-slate-500">Jumlah Lapak</p>
-                              <p className="text-slate-200 mt-0.5 font-bold">{item.jumlah_pelanggar || 1} Pelanggar</p>
+                              <p className="text-[9px] uppercase font-bold text-slate-400">Jumlah Lapak</p>
+                              <p className="text-slate-700 mt-0.5 font-bold">{item.jumlah_pelanggar || 1} Pelanggar</p>
                             </div>
                           </div>
                           
@@ -870,7 +870,7 @@ export default function TrantibAdmin() {
                           </div>
 
                           {/* Keterangan */}
-                          <div className="text-xs text-slate-300 leading-relaxed bg-slate-950/20 p-3 rounded-lg border border-slate-900/60 font-medium">
+                          <div className="text-xs text-slate-600 leading-relaxed bg-[#e0e5ec] shadow-[inset_3px_3px_6px_#b8bec5,inset_-3px_-3px_6px_#ffffff] p-3 rounded-lg border border-white/10 font-medium">
                             {item.keterangan}
                           </div>
 
@@ -878,12 +878,12 @@ export default function TrantibAdmin() {
                           {(item.no_spt || item.id_tiket) && (
                             <div className="flex flex-wrap gap-2 pt-1 text-[10px] font-mono">
                               {item.no_spt && (
-                                <span className="bg-purple-950/40 text-purple-400 border border-purple-900/50 px-2 py-0.5 rounded">
+                                <span className="bg-[#e0e5ec] text-purple-700 shadow-[2px_2px_4px_#b8bec5,-2px_-2px_4px_#ffffff] px-2 py-0.5 rounded">
                                   Regu: {item.no_spt}
                                 </span>
                               )}
                               {item.id_tiket && (
-                                <span className="bg-indigo-950/40 text-indigo-400 border border-indigo-900/50 px-2 py-0.5 rounded">
+                                <span className="bg-[#e0e5ec] text-blue-800 shadow-[2px_2px_4px_#b8bec5,-2px_-2px_4px_#ffffff] px-2 py-0.5 rounded">
                                   Tiket: {item.id_tiket}
                                 </span>
                               )}
@@ -893,7 +893,7 @@ export default function TrantibAdmin() {
                           {/* Photo Evidence */}
                           {item.foto_bukti ? (
                             <div 
-                              className="relative h-44 rounded-xl overflow-hidden border border-slate-800 group cursor-zoom-in"
+                              className="relative h-44 rounded-xl overflow-hidden bg-[#e0e5ec] shadow-[inset_2px_2px_4px_#b8bec5,inset_-2px_-2px_4px_#ffffff] group cursor-zoom-in"
                               onClick={() => openZoom(item.foto_bukti)}
                             >
                               <img 
@@ -901,14 +901,14 @@ export default function TrantibAdmin() {
                                 alt="Dokumentasi Penertiban" 
                                 className="w-full h-full object-cover transition duration-300 group-hover:scale-105"
                               />
-                              <div className="absolute inset-0 bg-slate-950/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                                <span className="px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-xs font-bold flex items-center gap-1.5">
-                                  <Maximize2 className="w-3.5 h-3.5 text-purple-400" /> Zoom Dokumentasi
+                              <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                                <span className="px-3 py-1.5 bg-[#e0e5ec] shadow-[4px_4px_8px_#b8bec5,-4px_-4px_8px_#ffffff] rounded-lg text-xs font-bold flex items-center gap-1.5">
+                                  <Maximize2 className="w-3.5 h-3.5 text-purple-700" /> Zoom Dokumentasi
                                 </span>
                               </div>
                             </div>
                           ) : (
-                            <div className="h-24 bg-slate-950/40 border border-dashed border-slate-850 rounded-xl flex flex-col items-center justify-center text-slate-500 text-xs">
+                            <div className="h-24 bg-[#e0e5ec] shadow-[inset_3px_3px_6px_#b8bec5,inset_-3px_-3px_6px_#ffffff] border border-dashed border-[#b8bec5]/30 rounded-xl flex flex-col items-center justify-center text-slate-400 text-xs">
                               <ImageIcon className="w-6 h-6 text-slate-700 mb-1" />
                               Tidak ada dokumentasi foto
                             </div>
@@ -918,16 +918,16 @@ export default function TrantibAdmin() {
                       </div>
 
                       {/* Footer Actions */}
-                      <div className="mt-5 border-t border-slate-800/60 pt-3 flex justify-end gap-2">
+                      <div className="mt-5 border-t border-[#b8bec5]/30 pt-3 flex justify-end gap-2">
                         <button
                           onClick={() => openEditEnforcement(item)}
-                          className="px-3 py-1.5 bg-slate-800/80 hover:bg-slate-700/80 border border-slate-750 text-slate-300 hover:text-slate-100 rounded-lg text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer"
+                          className="px-3 py-1.5 bg-[#e0e5ec] hover:bg-[#d5dae2] shadow-[3px_3px_6px_#b8bec5,-3px_-3px_6px_#ffffff] text-slate-600 hover:text-slate-700 rounded-lg text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer"
                         >
                           <Edit3 className="w-3.5 h-3.5" /> Edit Log
                         </button>
                         <button
                           onClick={() => handleDeleteEnforcement(item.id)}
-                          className="px-3 py-1.5 bg-slate-800/80 hover:bg-red-950/80 border border-slate-750 text-slate-400 hover:text-red-400 rounded-lg text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer"
+                          className="px-3 py-1.5 bg-[#e0e5ec] hover:bg-[#d5dae2] shadow-[3px_3px_6px_#b8bec5,-3px_-3px_6px_#ffffff] text-slate-500 hover:text-rose-600 rounded-lg text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer"
                         >
                           <Trash2 className="w-3.5 h-3.5" /> Hapus Log
                         </button>
