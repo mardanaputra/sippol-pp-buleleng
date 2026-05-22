@@ -17,41 +17,40 @@ import Footer from './components/Footer';
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#e0e5ec] text-slate-700 flex flex-col justify-between relative overflow-hidden font-sans select-none">
+    <div className="min-h-screen bg-slate-50 text-slate-800 flex flex-col justify-between relative overflow-hidden font-sans select-none">
       
-      {/* Neumorphic Soft UI Floating Geometry Elements */}
-      <div className="absolute top-16 -left-12 w-64 h-64 rounded-full bg-[#e0e5ec] shadow-[16px_16px_32px_#b8bec5,-16px_-16px_32px_#ffffff] pointer-events-none opacity-60 z-0" />
-      <div className="absolute bottom-24 -right-16 w-80 h-80 rounded-full bg-[#e0e5ec] shadow-[inset_16px_16px_32px_#b8bec5,inset_-16px_-16px_32px_#ffffff] pointer-events-none opacity-60 z-0" />
-      <div className="absolute top-[40%] right-[10%] w-32 h-32 rounded-3xl bg-[#e0e5ec] shadow-[10px_10px_20px_#b8bec5,-10px_-10px_20px_#ffffff] rotate-12 pointer-events-none opacity-50 z-0" />
+      {/* Decorative Elegant Soft Gradients */}
+      <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-blue-100/30 rounded-full blur-3xl pointer-events-none -z-10" />
+      <div className="absolute bottom-10 left-0 w-[30rem] h-[30rem] bg-amber-100/20 rounded-full blur-3xl pointer-events-none -z-10" />
 
-      {/* Header / Navbar (Molded Soft Plastic Style) */}
-      <header className="sticky top-0 z-50 bg-[#e0e5ec] px-6 py-4 shadow-[4px_4px_10px_#b8bec5,-4px_-4px_10px_#ffffff]">
+      {/* Header / Navbar (Modern Crisp Style) */}
+      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md px-6 py-4 shadow-sm border-b border-slate-200/80">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           
           {/* Logo Branding */}
           <div className="flex items-center gap-3">
-            <div className="p-2.5 bg-[#e0e5ec] rounded-xl shadow-[4px_4px_8px_#b8bec5,-4px_-4px_8px_#ffffff] text-blue-800">
-              <Shield className="w-6 h-6" />
+            <div className="p-2 bg-slate-100 rounded-xl text-[#0B1E43] border border-slate-200/60">
+              <Shield className="w-6 h-6 fill-[#0B1E43]/10" />
             </div>
             <div>
-              <h1 className="font-extrabold text-base md:text-lg tracking-wider text-blue-900 leading-none">
+              <h1 className="font-extrabold text-base md:text-lg tracking-wider text-[#0B1E43] leading-none">
                 LAPORBULELENG
               </h1>
-              <p className="text-[9px] text-slate-500 font-black uppercase tracking-widest mt-0.5">
+              <p className="text-[9px] text-[#E28A1C] font-black uppercase tracking-widest mt-1">
                 SATPOL PP KAB. BULELENG
               </p>
             </div>
           </div>
           
           {/* Right Action Menu */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <Link 
               href="/admin/dashboard" 
-              className="px-5 py-2 bg-[#e0e5ec] text-blue-800 text-xs font-bold rounded-full shadow-[4px_4px_8px_#b8bec5,-4px_-4px_8px_#ffffff] hover:shadow-[2px_2px_4px_#b8bec5,-2px_-2px_4px_#ffffff] active:shadow-[inset_2px_2px_4px_#b8bec5,inset_-2px_-2px_4px_#ffffff] transition-all flex items-center gap-1.5 cursor-pointer"
+              className="px-5 py-2.5 bg-[#0B1E43] hover:bg-[#07132B] text-white text-xs font-bold rounded-lg shadow-sm transition-all duration-200 flex items-center gap-1.5 cursor-pointer active:scale-[0.97]"
             >
-              Login
+              Login Admin
             </Link>
-            <button className="p-2.5 bg-[#e0e5ec] rounded-full shadow-[4px_4px_8px_#b8bec5,-4px_-4px_8px_#ffffff] text-slate-650 hover:shadow-[2px_2px_4px_#b8bec5,-2px_-2px_4px_#ffffff] active:shadow-[inset_2px_2px_4px_#b8bec5,inset_-2px_-2px_4px_#ffffff] transition-all cursor-pointer">
+            <button className="p-2.5 bg-slate-100 hover:bg-slate-200 rounded-lg text-slate-700 transition-all duration-200 cursor-pointer active:scale-[0.95] border border-slate-200/50">
               <Menu className="w-4 h-4" />
             </button>
           </div>
@@ -67,14 +66,14 @@ export default function Home() {
           
           {/* Left Text & CTA */}
           <div className="lg:col-span-7 space-y-6 text-left">
-            <div className="inline-flex px-4 py-1.5 bg-[#e0e5ec] rounded-full shadow-[inset_3px_3px_6px_#b8bec5,inset_-3px_-3px_6px_#ffffff] text-xs font-bold text-blue-800 tracking-wider">
-              📍 Kabupaten Buleleng
+            <div className="inline-flex items-center px-4 py-1.5 bg-blue-50 text-blue-900 border border-blue-200/50 rounded-lg text-xs font-bold tracking-wider">
+              <span className="mr-1.5">📍</span> Kabupaten Buleleng
             </div>
             
             <div className="space-y-4">
-              <h2 className="text-3xl md:text-5xl font-black tracking-tight leading-tight text-slate-800 uppercase">
+              <h2 className="text-3xl md:text-5xl font-black tracking-tight leading-tight text-slate-900 uppercase">
                 Layanan Publik? <br />
-                <span className="text-blue-800">Anda Berhak Lapor</span>
+                <span className="text-[#0B1E43]">Anda Berhak Lapor</span>
               </h2>
               <p className="text-xs md:text-sm text-slate-500 leading-relaxed font-semibold max-w-xl">
                 Sistem pelaporan gangguan ketertiban umum dan perlindungan masyarakat yang cepat, transparan, dan terintegrasi langsung ke petugas lapangan Kabupaten Buleleng.
@@ -84,54 +83,57 @@ export default function Home() {
             <div className="pt-4 flex flex-wrap gap-4">
               <Link
                 href="/pengaduan"
-                className="px-6 py-3.5 bg-[#e28a1c] hover:bg-[#d07b14] active:bg-[#e28a1c] text-white text-sm font-extrabold rounded-2xl shadow-[6px_6px_12px_#b8bec5,-6px_-6px_12px_#ffffff] active:shadow-[inset_4px_4px_8px_#b8bec5,inset_-4px_-4px_8px_#ffffff] transition-all flex items-center justify-center gap-2 cursor-pointer"
+                className="px-6 py-3.5 bg-[#E28A1C] hover:bg-[#C9720C] text-white text-sm font-extrabold rounded-xl shadow-md transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer active:scale-[0.98]"
               >
                 Buat Laporan Sekarang <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
                 href="/status"
-                className="px-6 py-3.5 bg-[#e0e5ec] text-slate-700 hover:text-slate-800 text-sm font-extrabold rounded-2xl shadow-[6px_6px_12px_#b8bec5,-6px_-6px_12px_#ffffff] active:shadow-[inset_4px_4px_8px_#b8bec5,inset_-4px_-4px_8px_#ffffff] transition-all flex items-center justify-center gap-2 cursor-pointer border border-[#ffffff]/20"
+                className="px-6 py-3.5 bg-white text-[#0B1E43] hover:bg-slate-50 text-sm font-extrabold rounded-xl shadow-sm border border-slate-200 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer active:scale-[0.98]"
               >
                 Lacak Status Laporan
               </Link>
             </div>
           </div>
 
-          {/* Right Molded Neumorphic Visual (Floating Elements, Molded Plastic Ring) */}
+          {/* Right Premium Visual Badge */}
           <div className="lg:col-span-5 flex justify-center items-center relative py-6">
-            
-            {/* Soft UI Large Molded Outer Sphere */}
-            <div className="w-[18rem] h-[18rem] md:w-[22rem] md:h-[22rem] bg-[#e0e5ec] rounded-full shadow-[12px_12px_24px_#b8bec5,-12px_-12px_24px_#ffffff] flex items-center justify-center p-6 relative">
+            <div className="w-[18rem] h-[18rem] md:w-[22rem] md:h-[22rem] bg-white rounded-full shadow-lg border border-slate-200/50 flex items-center justify-center p-5 relative">
+              {/* Outer Golden/Amber Ring */}
+              <div className="absolute inset-2 rounded-full border-2 border-dashed border-[#E28A1C]/30 animate-[spin_100s_linear_infinite]" />
               
-              {/* Inner Inset Dark Circle */}
-              <div className="w-full h-full bg-[#1b3e83] rounded-full shadow-[inset_8px_8px_16px_rgba(0,0,0,0.4)] flex items-center justify-center p-6 text-center">
-                <div className="space-y-3">
-                  <div className="w-16 h-16 rounded-full bg-[#e0e5ec] shadow-[6px_6px_12px_#0b1a38] mx-auto flex items-center justify-center text-blue-900">
+              {/* Inner Rich Deep Navy Circle */}
+              <div className="w-full h-full bg-[#0B1E43] rounded-full flex flex-col items-center justify-center p-6 text-center shadow-inner relative overflow-hidden">
+                {/* Subtle decorative glow in navy circle */}
+                <div className="absolute w-32 h-32 -top-10 -right-10 bg-blue-500/10 rounded-full blur-xl pointer-events-none" />
+                
+                <div className="space-y-4 relative z-10">
+                  <div className="w-16 h-16 rounded-full bg-white/10 mx-auto flex items-center justify-center text-[#E28A1C] border border-white/20">
                     <ShieldAlert className="w-8 h-8" />
                   </div>
-                  <span className="text-white text-xs font-black tracking-widest uppercase block">
-                    [Ilustrasi Warga Melapor]
-                  </span>
-                  <p className="text-blue-200 text-[10px] max-w-[14rem] mx-auto leading-normal">
-                    Aman, Rahasia, & Cepat Ditanggapi Oleh Petugas
+                  <div>
+                    <span className="text-[#E28A1C] text-[10px] font-black tracking-widest uppercase block">
+                      LAYANAN INTEGRASI ADUAN
+                    </span>
+                    <h3 className="text-white text-lg font-black mt-1 leading-tight">
+                      SIPP-OL PP
+                    </h3>
+                  </div>
+                  <p className="text-slate-300 text-[10px] max-w-[14rem] mx-auto leading-relaxed">
+                    Aman, Rahasia, & Cepat Ditanggapi Langsung Oleh Petugas Lapangan Satpol PP
                   </p>
                 </div>
               </div>
-
-              {/* Molded Ring Accent */}
-              <div className="absolute inset-2 border-4 border-[#ffffff]/40 rounded-full pointer-events-none" />
-
             </div>
-
           </div>
 
         </div>
 
         {/* FOUR PILLARS SECTION */}
-        <div className="space-y-10 pt-8 border-t border-slate-300/40">
+        <div className="space-y-10 pt-8 border-t border-slate-200">
           
           <div className="text-center space-y-3 max-w-2xl mx-auto">
-            <h3 className="text-2xl md:text-3xl font-black text-blue-900 tracking-tight">
+            <h3 className="text-2xl md:text-3xl font-black text-[#0B1E43] tracking-tight">
               Empat Pilar Satpol PP Buleleng
             </h3>
             <p className="text-xs text-slate-500 leading-relaxed font-semibold">
@@ -139,21 +141,21 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Pillars Cards Grid - Changed to Full-Width Stacked Sections */}
-          <div className="space-y-12">
+          {/* Pillars Cards Grid */}
+          <div className="space-y-8">
             
             {/* Card 1: Bidang Linmas */}
-            <div className="bg-[#e0e5ec] rounded-3xl p-8 shadow-[8px_8px_16px_#b8bec5,-8px_-8px_16px_#ffffff] hover:shadow-[4px_4px_8px_#b8bec5,-4px_-4px_8px_#ffffff] transition-all">
+            <div className="bg-white rounded-2xl p-8 shadow-sm border border-slate-200/80 hover:shadow-md transition-all duration-200">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div className="lg:col-span-8 space-y-4">
-                  <span className="inline-block px-3 py-1 bg-[#e0e5ec] rounded-full shadow-[inset_2px_2px_4px_#b8bec5,inset_-2px_-2px_4px_#ffffff] text-[10px] font-bold text-blue-800 uppercase tracking-widest">
+                  <span className="inline-block px-3 py-1 bg-blue-50 border border-blue-200/60 text-[10px] font-black text-blue-900 rounded-lg uppercase tracking-wider">
                     Pilar Pertama
                   </span>
                   <h4 className="text-xl font-extrabold text-slate-800">Bidang Linmas</h4>
-                  <p className="text-sm text-slate-500 leading-relaxed">
+                  <p className="text-sm text-slate-550 leading-relaxed font-medium">
                     Bertugas mengelola administrasi Satuan Perlindungan Masyarakat (Satlinmas) di tingkat desa dan kelurahan se-Kabupaten Buleleng. Bidang ini juga menjadi garda terdepan dalam penertiban gangguan Trantibum yang bersifat masalah sosial.
                   </p>
-                  <ul className="text-[11px] sm:text-xs text-slate-600 font-bold grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-slate-300/30">
+                  <ul className="text-[11px] sm:text-xs text-slate-500 font-semibold grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-slate-200">
                     <li className="flex items-center gap-2">✓ Penanganan Orang Dengan Gangguan Jiwa (ODGJ)</li>
                     <li className="flex items-center gap-2">✓ Penertiban Gepeng (Gelandangan & Pengemis)</li>
                     <li className="flex items-center gap-2">✓ Pembinaan Satlinmas Tingkat Desa</li>
@@ -161,12 +163,12 @@ export default function Home() {
                 </div>
                 <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col items-center justify-center gap-6">
                   {/* Molded Icon Frame */}
-                  <div className="w-20 h-20 rounded-2xl bg-[#e0e5ec] shadow-[5px_5px_10px_#b8bec5,-5px_-5px_10px_#ffffff] flex items-center justify-center text-blue-850">
-                    <Shield className="w-10 h-10" />
+                  <div className="w-16 h-16 rounded-xl bg-slate-100 flex items-center justify-center text-[#0B1E43] border border-slate-200/50">
+                    <Shield className="w-8 h-8" />
                   </div>
                   <Link
                     href="/admin/linmas"
-                    className="w-full max-w-[240px] py-3.5 bg-[#e0e5ec] text-blue-850 hover:text-blue-900 text-xs font-black rounded-2xl shadow-[5px_5px_10px_#b8bec5,-5px_-5px_10px_#ffffff] active:shadow-[inset_3px_3px_6px_#b8bec5,inset_-3px_-3px_6px_#ffffff] transition-all flex items-center justify-center gap-2 cursor-pointer border border-[#ffffff]/10"
+                    className="w-full max-w-[240px] py-3 bg-[#0B1E43] hover:bg-[#07132B] text-white text-xs font-black rounded-lg shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-[0.98]"
                   >
                     Masuk Dashboard Linmas <ArrowRight className="w-4 h-4" />
                   </Link>
@@ -175,17 +177,17 @@ export default function Home() {
             </div>
 
             {/* Card 2: Bidang Trantib */}
-            <div className="bg-[#e0e5ec] rounded-3xl p-8 shadow-[8px_8px_16px_#b8bec5,-8px_-8px_16px_#ffffff] hover:shadow-[4px_4px_8px_#b8bec5,-4px_-4px_8px_#ffffff] transition-all">
+            <div className="bg-white rounded-2xl p-8 shadow-sm border border-slate-200/80 hover:shadow-md transition-all duration-200">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div className="lg:col-span-8 space-y-4">
-                  <span className="inline-block px-3 py-1 bg-[#e0e5ec] rounded-full shadow-[inset_2px_2px_4px_#b8bec5,inset_-2px_-2px_4px_#ffffff] text-[10px] font-bold text-orange-750 uppercase tracking-widest">
+                  <span className="inline-block px-3 py-1 bg-amber-50 border border-amber-200/60 text-[10px] font-black text-amber-800 rounded-lg uppercase tracking-wider">
                     Pilar Kedua
                   </span>
                   <h4 className="text-xl font-extrabold text-slate-800">Bidang Trantib</h4>
-                  <p className="text-sm text-slate-500 leading-relaxed">
+                  <p className="text-sm text-slate-550 leading-relaxed font-medium">
                     Fokus pada penanganan operasional patroli berkala di wilayah rawan (seperti pusat kota dan kawasan pariwisata), serta eksekusi langsung di lapangan terhadap gangguan ketenteraman masyarakat.
                   </p>
-                  <ul className="text-[11px] sm:text-xs text-slate-600 font-bold grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-slate-300/30">
+                  <ul className="text-[11px] sm:text-xs text-slate-500 font-semibold grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-slate-200">
                     <li className="flex items-center gap-2">✓ Penertiban Pedagang Kaki Lima (PKL)</li>
                     <li className="flex items-center gap-2">✓ Penindakan Reklame Liar & Kedaluwarsa</li>
                     <li className="flex items-center gap-2">✓ Plotting & Manajemen Regu Patroli Harian</li>
@@ -193,12 +195,12 @@ export default function Home() {
                 </div>
                 <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col items-center justify-center gap-6">
                   {/* Molded Icon Frame */}
-                  <div className="w-20 h-20 rounded-2xl bg-[#e0e5ec] shadow-[5px_5px_10px_#b8bec5,-5px_-5px_10px_#ffffff] flex items-center justify-center text-orange-600">
-                    <ShieldAlert className="w-10 h-10" />
+                  <div className="w-16 h-16 rounded-xl bg-slate-100 flex items-center justify-center text-[#E28A1C] border border-slate-200/50">
+                    <ShieldAlert className="w-8 h-8" />
                   </div>
                   <Link
                     href="/admin/trantib"
-                    className="w-full max-w-[240px] py-3.5 bg-[#e0e5ec] text-orange-750 hover:text-orange-850 text-xs font-black rounded-2xl shadow-[5px_5px_10px_#b8bec5,-5px_-5px_10px_#ffffff] active:shadow-[inset_3px_3px_6px_#b8bec5,inset_-3px_-3px_6px_#ffffff] transition-all flex items-center justify-center gap-2 cursor-pointer border border-[#ffffff]/10"
+                    className="w-full max-w-[240px] py-3 bg-[#0B1E43] hover:bg-[#07132B] text-white text-xs font-black rounded-lg shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-[0.98]"
                   >
                     Masuk Dashboard Trantib <ArrowRight className="w-4 h-4" />
                   </Link>
@@ -207,17 +209,17 @@ export default function Home() {
             </div>
 
             {/* Card 3: Bidang Perada */}
-            <div className="bg-[#e0e5ec] rounded-3xl p-8 shadow-[8px_8px_16px_#b8bec5,-8px_-8px_16px_#ffffff] hover:shadow-[4px_4px_8px_#b8bec5,-4px_-4px_8px_#ffffff] transition-all">
+            <div className="bg-white rounded-2xl p-8 shadow-sm border border-slate-200/80 hover:shadow-md transition-all duration-200">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div className="lg:col-span-8 space-y-4">
-                  <span className="inline-block px-3 py-1 bg-[#e0e5ec] rounded-full shadow-[inset_2px_2px_4px_#b8bec5,inset_-2px_-2px_4px_#ffffff] text-[10px] font-bold text-fuchsia-750 uppercase tracking-widest">
+                  <span className="inline-block px-3 py-1 bg-fuchsia-50 border border-fuchsia-200/60 text-[10px] font-black text-fuchsia-850 rounded-lg uppercase tracking-wider">
                     Pilar Ketiga
                   </span>
                   <h4 className="text-xl font-extrabold text-slate-800">Bidang Perada</h4>
-                  <p className="text-sm text-slate-500 leading-relaxed">
+                  <p className="text-sm text-slate-550 leading-relaxed font-medium">
                     Kamus hukum digital Satpol PP Buleleng. Bertanggung jawab atas pendaftaran regulasi resmi, rincian pasal pelanggaran, serta administrasi eksekusi penegakan Peraturan Daerah (Perda) dan BAP Yustisial.
                   </p>
-                  <ul className="text-[11px] sm:text-xs text-slate-600 font-bold grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-slate-300/30">
+                  <ul className="text-[11px] sm:text-xs text-slate-500 font-semibold grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-slate-200">
                     <li className="flex items-center gap-2">✓ Master Data Regulasi (Perda & Perbup)</li>
                     <li className="flex items-center gap-2">✓ Penindakan Yustisial / Sidang Tipiring</li>
                     <li className="flex items-center gap-2">✓ Pelacakan Bukti Setor Kas Daerah (Denda)</li>
@@ -225,12 +227,12 @@ export default function Home() {
                 </div>
                 <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col items-center justify-center gap-6">
                   {/* Molded Icon Frame */}
-                  <div className="w-20 h-20 rounded-2xl bg-[#e0e5ec] shadow-[5px_5px_10px_#b8bec5,-5px_-5px_10px_#ffffff] flex items-center justify-center text-fuchsia-600">
-                    <Scale className="w-10 h-10" />
+                  <div className="w-16 h-16 rounded-xl bg-slate-100 flex items-center justify-center text-fuchsia-600 border border-slate-200/50">
+                    <Scale className="w-8 h-8" />
                   </div>
                   <Link
                     href="/admin/perada"
-                    className="w-full max-w-[240px] py-3.5 bg-[#e0e5ec] text-fuchsia-750 hover:text-fuchsia-850 text-xs font-black rounded-2xl shadow-[5px_5px_10px_#b8bec5,-5px_-5px_10px_#ffffff] active:shadow-[inset_3px_3px_6px_#b8bec5,inset_-3px_-3px_6px_#ffffff] transition-all flex items-center justify-center gap-2 cursor-pointer border border-[#ffffff]/10"
+                    className="w-full max-w-[240px] py-3 bg-[#0B1E43] hover:bg-[#07132B] text-white text-xs font-black rounded-lg shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-[0.98]"
                   >
                     Masuk Dashboard Perada <ArrowRight className="w-4 h-4" />
                   </Link>
@@ -244,10 +246,10 @@ export default function Home() {
 
       </main>
 
-      {/* Neumorphic Access Floating Buttons (stick figure accessibility representation) */}
+      {/* Accessibility Floating Button */}
       <div className="fixed bottom-6 left-6 z-50">
-        <button className="w-12 h-12 bg-blue-700 rounded-full shadow-[4px_4px_10px_#b8bec5,-4px_-4px_10px_#ffffff] active:shadow-[inset_4px_4px_8px_#0d1d3d,inset_-4px_-4px_8px_#224fa8] text-white flex items-center justify-center hover:scale-105 transition-all cursor-pointer">
-          <Accessibility className="w-6 h-6" />
+        <button className="w-12 h-12 bg-[#0B1E43] hover:bg-[#07132B] rounded-full shadow-md text-white flex items-center justify-center hover:scale-105 active:scale-95 transition-all cursor-pointer border border-slate-700/50">
+          <Accessibility className="w-5 h-5" />
         </button>
       </div>
 
