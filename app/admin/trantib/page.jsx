@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { 
   Shield, 
   Users, 
@@ -27,7 +28,8 @@ import {
   ExternalLink,
   Maximize2,
   Printer,
-  Compass
+  Compass,
+  Moon
 } from 'lucide-react';
 
 // Realistic Buleleng Prepopulated Data
@@ -505,48 +507,140 @@ export default function TrantibAdmin() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-700 p-4 md:p-6 relative overflow-hidden font-sans">
+    <div className="min-h-screen bg-slate-100 text-slate-800 font-sans pb-12 select-none relative overflow-x-hidden">
       
-      {/* Decorative Glow Elements */}
-      <div className="absolute top-0 right-0 -z-10 w-96 h-96 bg-blue-100 rounded-full blur-3xl opacity-35 pointer-events-none" />
-      <div className="absolute bottom-0 left-0 -z-10 w-96 h-96 bg-amber-100 rounded-full blur-3xl opacity-25 pointer-events-none" />
-
-      <div className="max-w-6xl mx-auto space-y-6 relative z-10">
-
-        {/* Header Section */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white border border-slate-200 shadow-sm p-5 md:p-6 rounded-2xl gap-4 relative overflow-hidden">
-          {/* Side Brand Accent Line */}
-          <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#0B1E43]" />
+      {/* 1. Header Banner Top Bar (Kemendagri Gradient Style) */}
+      <div className="bg-gradient-to-r from-[#212260] via-[#522a98] via-[#8e2de2] to-[#ec008c] text-white p-6 rounded-b-3xl shadow-lg relative overflow-hidden">
+        {/* Glowing Decorative Backgrounds */}
+        <div className="absolute top-[-50px] right-[-50px] w-48 h-48 bg-white/10 rounded-full blur-xl pointer-events-none" />
+        <div className="absolute bottom-[-50px] left-[15%] w-36 h-36 bg-pink-500/20 rounded-full blur-xl pointer-events-none" />
+        
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 relative z-10">
           
-          <div className="flex items-center space-x-4 pl-2">
-            <button
-              onClick={() => window.location.href = '/admin/dashboard'}
-              className="p-2.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl text-slate-500 hover:text-[#0B1E43] transition-all cursor-pointer shadow-sm"
-              title="Kembali ke Dashboard Utama"
-            >
-              <ArrowLeft className="w-5 h-5" />
-            </button>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="px-2 py-0.5 text-[10px] font-bold tracking-widest text-[#E28A1C] bg-amber-50 border border-amber-200 rounded">
-                  PORTAL BIDANG TRANTIB
-                </span>
+          {/* Sisi Kiri: Logo bulat SIP POLPP & Identitas */}
+          <div className="flex items-center gap-4 text-center md:text-left flex-col md:flex-row">
+            <div className="w-16 h-16 rounded-full bg-white border-2 border-[#ffb800] p-1 flex items-center justify-center shadow-md shrink-0">
+              <div className="w-full h-full rounded-full bg-gradient-to-tr from-blue-700 to-indigo-900 flex items-center justify-center text-white">
+                <Shield className="w-8 h-8 text-[#ffb800] fill-[#ffb800]/10" />
               </div>
-              <h1 className="text-xl md:text-2xl font-black text-[#0B1E43]">
-                PENGENDALIAN OPERASIONAL & K3
+            </div>
+            <div>
+              <h1 className="text-2xl md:text-3xl font-black tracking-wider leading-none text-white drop-shadow-md">
+                SIP POLPP
               </h1>
-              <p className="text-xs text-slate-500 font-medium">
-                Seksi Ketenteraman dan Ketertiban Umum - Kabupaten Buleleng
+              <p className="text-[10px] text-yellow-350 font-bold uppercase tracking-widest mt-1.5">
+                Sistem Informasi Pelayanan & Operasional Pol PP Kemendagri
               </p>
             </div>
           </div>
           
+          {/* Sisi Kanan: Night mode & Profil Admin Buleleng */}
+          <div className="flex items-center gap-4">
+            <button 
+              onClick={() => alert("Fitur Mode Malam akan segera hadir!")}
+              className="p-2.5 bg-white/10 hover:bg-white/20 rounded-full transition-all text-white border border-white/20 active:scale-95 cursor-pointer"
+              title="Toggle Night Mode"
+              type="button"
+            >
+              <Moon className="w-5 h-5 fill-white/10" />
+            </button>
+            
+            <div className="flex items-center gap-3 bg-white/15 backdrop-blur-md px-4 py-2 rounded-2xl border border-white/20 shadow-sm">
+              <div className="w-9 h-9 rounded-full bg-slate-200 border-2 border-white/60 flex items-center justify-center text-slate-700 font-extrabold shadow-inner shrink-0">
+                KB
+              </div>
+              <div className="text-left text-white leading-none">
+                <h4 className="text-xs font-black tracking-wide">Kabupaten Buleleng</h4>
+                <span className="text-[8px] bg-yellow-450 text-[#0B1E43] font-black uppercase tracking-widest px-1.5 py-0.5 rounded mt-1.5 inline-block">
+                  Admin
+                </span>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+
+      {/* 2. Horizontal Admin Navbar (Sticky / Persistent) */}
+      <nav className="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-40">
+        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between overflow-x-auto whitespace-nowrap scrollbar-none">
+          <div className="flex items-center space-x-1">
+            <Link 
+              href="/" 
+              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#212260] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
+              title="Kembali ke halaman utama warga"
+            >
+              Portal Warga
+            </Link>
+            
+            <Link 
+              href="/admin/dashboard" 
+              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-blue-600 hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
+            >
+              Dashboard
+            </Link>
+            
+            <Link 
+              href="/admin/dashboard?tab=disposisi" 
+              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-blue-600 hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
+            >
+              Disposisi
+            </Link>
+            
+            <Link 
+              href="/admin/trantib" 
+              className="px-4 py-4 text-xs font-black text-blue-600 bg-blue-50/50 transition-all uppercase tracking-wider border-b-2 border-blue-600 flex items-center gap-1.5"
+            >
+              Portal Trantib
+            </Link>
+
+            <Link 
+              href="/admin/perada" 
+              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-blue-600 hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
+            >
+              Portal Perada
+            </Link>
+
+            <Link 
+              href="/admin/linmas" 
+              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-blue-600 hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
+            >
+              Portal Linmas
+            </Link>
+          </div>
+          
           <button
+            onClick={() => {
+              if (activeTab === 'patroli') fetchPatrols();
+              else if (activeTab === 'penertiban') { fetchEnforcements(); fetchPatrols(); fetchDelegatedReports(); }
+              else if (activeTab === 'disposisi') fetchDelegatedReports();
+            }}
+            className="px-3.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 rounded-lg transition-all flex items-center gap-1.5 text-[11px] font-bold cursor-pointer active:scale-95 my-2"
+            type="button"
+          >
+            <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} /> Refresh Portal
+          </button>
+        </div>
+      </nav>
+
+      {/* Main Grid Content */}
+      <div className="max-w-7xl mx-auto px-6 mt-8 space-y-6">
+        
+        {/* Page Title & Actions */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-left">
+          <div>
+            <h2 className="text-2xl font-black text-slate-900 uppercase tracking-tight">PORTAL BIDANG TRANTIB</h2>
+            <p className="text-xs text-slate-500 font-bold uppercase tracking-wider mt-1">
+              PENGENDALIAN OPERASIONAL & K3 • SEKSI KETENTERAMAN DAN KETERTIBAN UMUM
+            </p>
+          </div>
+          <button
+            type="button"
             onClick={() => {
               if (activeTab === 'patroli') openCreatePatrol();
               else if (activeTab === 'penertiban') openCreateEnforcement();
             }}
-            className={`w-full sm:w-auto px-5 py-2.5 bg-[#0B1E43] hover:bg-[#0B1E43]/90 text-white rounded-xl transition-all flex items-center justify-center gap-2 text-xs font-bold shadow-sm hover:shadow cursor-pointer ${
+            className={`w-full sm:w-auto px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition-all flex items-center justify-center gap-2 text-xs font-bold shadow-sm hover:shadow cursor-pointer active:scale-95 ${
               activeTab === 'disposisi' ? 'opacity-0 pointer-events-none' : ''
             }`}
           >

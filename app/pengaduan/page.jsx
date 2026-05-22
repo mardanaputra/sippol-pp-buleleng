@@ -16,9 +16,13 @@ import {
   Trash2, 
   AlertCircle,
   HelpCircle,
-  ArrowLeft
+  ArrowLeft,
+  Menu,
+  X,
+  Shield
 } from 'lucide-react';
 import Footer from '../components/Footer';
+import Navbar from '../components/Navbar';
 
 export default function PengaduanWarga() {
   const [formData, setFormData] = useState({
@@ -207,78 +211,55 @@ export default function PengaduanWarga() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800 flex flex-col justify-between relative overflow-hidden font-sans select-none">
+    <div className="min-h-screen bg-slate-50 text-slate-800 flex flex-col justify-between relative overflow-x-hidden font-sans select-none">
       
       {/* Decorative Elegant Soft Gradients */}
       <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-blue-100/30 rounded-full blur-3xl pointer-events-none -z-10" />
       <div className="absolute bottom-10 left-0 w-[30rem] h-[30rem] bg-amber-100/20 rounded-full blur-3xl pointer-events-none -z-10" />
 
-      {/* Header / Navbar (Modern Crisp Style) */}
-      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md px-6 py-4 shadow-sm border-b border-slate-200/80">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
-          
-          {/* Logo Branding */}
-          <Link href="/" className="flex items-center gap-3 cursor-pointer group">
-            <div className="p-2 bg-slate-100 group-hover:bg-slate-200 rounded-xl text-[#0B1E43] border border-slate-200/60 transition-colors">
-              <ShieldAlert className="w-6 h-6 text-[#0B1E43]" />
-            </div>
-            <div>
-              <h1 className="font-extrabold text-base md:text-lg tracking-wider text-[#0B1E43] leading-none">
-                LAPORBULELENG
-              </h1>
-              <p className="text-[9px] text-[#E28A1C] font-black uppercase tracking-widest mt-1">
-                LAYANAN PENGADUAN WARGA
-              </p>
-            </div>
-          </Link>
-          
-          {/* Navigation Buttons */}
-          <div className="flex items-center gap-3">
-            <Link 
-              href="/" 
-              className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-lg transition-all duration-200 flex items-center gap-1.5 cursor-pointer border border-slate-200/60 active:scale-[0.97]"
-              id="nav-to-home"
-            >
-              <ArrowLeft className="w-3.5 h-3.5" /> Beranda
-            </Link>
-            <Link 
-              href="/status" 
-              className="px-4 py-2 bg-white hover:bg-slate-50 text-[#0B1E43] text-xs font-bold rounded-lg shadow-sm transition-all duration-200 flex items-center gap-1.5 cursor-pointer border border-slate-200 active:scale-[0.97]"
-              id="nav-to-status"
-            >
-              Lacak Laporan
-            </Link>
-          </div>
-
-        </div>
-      </header>
+      {/* Reusable Navbar Component */}
+      <Navbar activePage="pengaduan" />
 
       {/* Main Container */}
-      <main className="max-w-2xl w-full mx-auto px-4 py-12 flex-1 relative z-10 transition-all duration-500 space-y-6">
+      <main className="max-w-2xl w-full mx-auto px-4 pt-28 pb-12 flex-1 relative z-10 transition-all duration-500 space-y-6">
         
         {/* Conditional Screen View */}
         {!isSubmitted ? (
           <div className="bg-white rounded-2xl p-6 md:p-8 shadow-md border border-slate-200/80 space-y-6">
             
-            <div className="border-b border-slate-200 pb-4">
-              <h2 className="text-lg font-black text-slate-900 flex items-center gap-2">
+            <div className="border-b border-slate-200/85 pb-5">
+              <h2 className="text-xl font-extrabold text-[#0B1E43] flex items-center gap-2.5">
+                <div className="p-2 bg-amber-50 rounded-xl border border-amber-200/60 text-[#E28A1C]">
+                  <ShieldAlert className="w-5 h-5 animate-pulse" />
+                </div>
                 Formulir Pengaduan Masyarakat
               </h2>
-              <p className="text-xs text-slate-500 mt-1 font-semibold">
-                Silakan isi data laporan Anda di bawah ini dengan lengkap dan jujur. Informasi Anda dilindungi hukum.
+              <p className="text-xs text-slate-500 mt-2.5 font-semibold leading-relaxed">
+                Silakan isi data laporan Anda di bawah ini dengan lengkap dan jujur. Setiap aduan dijamin kerahasiaannya dan dilindungi oleh Undang-Undang.
               </p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-5">
               
               {/* Box Anonimitas */}
-              <div className="bg-slate-50 p-4 rounded-xl border border-slate-200/60 flex items-start gap-3">
-                <Info className="w-5 h-5 text-[#0B1E43] shrink-0 mt-0.5" />
-                <div className="space-y-2">
-                  <p className="text-xs font-semibold text-slate-655">
-                    Ingin mengirim laporan secara rahasia/tanpa nama asli?
-                  </p>
-                  <label className="inline-flex items-center cursor-pointer gap-2">
+              <div className={`p-4 md:p-5 rounded-2xl border transition-all duration-300 flex items-start gap-4 ${
+                formData.isAnonim 
+                  ? 'bg-blue-50/40 border-blue-200/80 shadow-sm' 
+                  : 'bg-slate-50 border-slate-200/60'
+              }`}>
+                <div className={`p-2.5 rounded-xl transition-all duration-300 ${
+                  formData.isAnonim ? 'bg-blue-100 text-[#0B1E43]' : 'bg-slate-100 text-slate-500'
+                }`}>
+                  <Shield className="w-5 h-5" />
+                </div>
+                <div className="space-y-2.5 flex-1">
+                  <div>
+                    <h4 className="text-xs font-black text-slate-800">Mode Kerahasiaan Laporan</h4>
+                    <p className="text-[11px] text-slate-500 font-semibold mt-0.5">
+                      Ingin mengirim pengaduan secara rahasia tanpa mengungkapkan identitas asli Anda?
+                    </p>
+                  </div>
+                  <label className="inline-flex items-center cursor-pointer gap-2.5 group">
                     <input 
                       type="checkbox"
                       checked={formData.isAnonim}
@@ -290,10 +271,10 @@ export default function PengaduanWarga() {
                         }));
                         if (errors.namaPelapor) setErrors(prev => ({ ...prev, namaPelapor: null }));
                       }}
-                      className="w-4 h-4 rounded text-[#0B1E43] bg-white border-slate-300 focus:ring-[#0B1E43] cursor-pointer"
+                      className="w-4.5 h-4.5 rounded text-[#0B1E43] bg-white border-slate-355 focus:ring-[#0B1E43] cursor-pointer transition-all"
                     />
-                    <span className="text-xs font-black text-[#0B1E43] select-none">
-                      Kirim Sebagai Anonim (Nama disembunyikan)
+                    <span className="text-xs font-extrabold text-[#0B1E43] select-none group-hover:text-[#E28A1C] transition-colors">
+                      Kirim Sebagai Anonim (Identitas Dirahasiakan)
                     </span>
                   </label>
                 </div>
@@ -313,10 +294,10 @@ export default function PengaduanWarga() {
                       setFormData(prev => ({ ...prev, namaPelapor: e.target.value }));
                       if (errors.namaPelapor) setErrors(prev => ({ ...prev, namaPelapor: null }));
                     }}
-                    className={`w-full bg-slate-50 rounded-xl px-4 py-2.5 text-sm outline-none transition-all text-slate-800 placeholder-slate-400/80 border ${
+                    className={`w-full bg-slate-50/70 rounded-xl px-4 py-3 text-sm outline-none transition-all duration-200 text-slate-800 placeholder-slate-400/70 border ${
                       errors.namaPelapor 
-                        ? 'border-rose-350 focus:ring-2 focus:ring-rose-500 focus:border-rose-500' 
-                        : 'border-slate-200 focus:bg-white focus:ring-2 focus:ring-[#0B1E43] focus:border-[#0B1E43]'
+                        ? 'border-rose-300 focus:bg-white focus:ring-4 focus:ring-rose-100 focus:border-rose-500' 
+                        : 'border-slate-200 focus:bg-white focus:ring-4 focus:ring-blue-100 focus:border-[#0B1E43]'
                     }`}
                   />
                   {errors.namaPelapor && (
@@ -340,10 +321,10 @@ export default function PengaduanWarga() {
                     setFormData(prev => ({ ...prev, nomorWhatsapp: e.target.value }));
                     if (errors.nomorWhatsapp) setErrors(prev => ({ ...prev, nomorWhatsapp: null }));
                   }}
-                  className={`w-full bg-slate-50 rounded-xl px-4 py-2.5 text-sm outline-none transition-all text-slate-800 placeholder-slate-400/80 border ${
+                  className={`w-full bg-slate-50/70 rounded-xl px-4 py-3 text-sm outline-none transition-all duration-200 text-slate-800 placeholder-slate-400/70 border ${
                     errors.nomorWhatsapp 
-                      ? 'border-rose-350 focus:ring-2 focus:ring-rose-500 focus:border-rose-500' 
-                      : 'border-slate-200 focus:bg-white focus:ring-2 focus:ring-[#0B1E43] focus:border-[#0B1E43]'
+                      ? 'border-rose-300 focus:bg-white focus:ring-4 focus:ring-rose-100 focus:border-rose-500' 
+                      : 'border-slate-200 focus:bg-white focus:ring-4 focus:ring-blue-100 focus:border-[#0B1E43]'
                   }`}
                 />
                 {errors.nomorWhatsapp ? (
@@ -368,10 +349,10 @@ export default function PengaduanWarga() {
                     setFormData(prev => ({ ...prev, kategoriMasalah: e.target.value }));
                     if (errors.kategoriMasalah) setErrors(prev => ({ ...prev, kategoriMasalah: null }));
                   }}
-                  className={`w-full bg-slate-50 rounded-xl px-4 py-2.5 text-sm outline-none transition-all text-slate-800 cursor-pointer border ${
+                  className={`w-full bg-slate-50/70 rounded-xl px-4 py-3 text-sm outline-none transition-all duration-200 text-slate-800 cursor-pointer border ${
                     errors.kategoriMasalah 
-                      ? 'border-rose-350 focus:ring-2 focus:ring-rose-500 focus:border-rose-500' 
-                      : 'border-slate-200 focus:bg-white focus:ring-2 focus:ring-[#0B1E43] focus:border-[#0B1E43]'
+                      ? 'border-rose-300 focus:bg-white focus:ring-4 focus:ring-rose-100 focus:border-rose-500' 
+                      : 'border-slate-200 focus:bg-white focus:ring-4 focus:ring-blue-100 focus:border-[#0B1E43]'
                   }`}
                 >
                   <option value="" disabled className="text-slate-400">-- Pilih Kategori Masalah --</option>
@@ -401,10 +382,10 @@ export default function PengaduanWarga() {
                     setFormData(prev => ({ ...prev, kronologi: e.target.value }));
                     if (errors.kronologi) setErrors(prev => ({ ...prev, kronologi: null }));
                   }}
-                  className={`w-full bg-slate-50 rounded-xl px-4 py-2.5 text-sm outline-none transition-all text-slate-800 placeholder-slate-400/80 resize-y border ${
+                  className={`w-full bg-slate-50/70 rounded-xl px-4 py-3 text-sm outline-none transition-all duration-200 text-slate-800 placeholder-slate-400/70 resize-y border ${
                     errors.kronologi 
-                      ? 'border-rose-350 focus:ring-2 focus:ring-rose-500 focus:border-rose-500' 
-                      : 'border-slate-200 focus:bg-white focus:ring-2 focus:ring-[#0B1E43] focus:border-[#0B1E43]'
+                      ? 'border-rose-300 focus:bg-white focus:ring-4 focus:ring-rose-100 focus:border-rose-500' 
+                      : 'border-slate-200 focus:bg-white focus:ring-4 focus:ring-blue-100 focus:border-[#0B1E43]'
                   }`}
                 />
                 {errors.kronologi ? (
@@ -419,63 +400,118 @@ export default function PengaduanWarga() {
                 )}
               </div>
 
-              {/* Lokasi Kejadian (Latitude, Longitude) */}
-              <div className="space-y-3 bg-slate-50 p-4 rounded-xl border border-slate-200/60">
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-slate-200 pb-2">
-                  <label className="text-xs font-bold text-slate-750 flex items-center gap-1.5">
-                    <MapPin className="w-3.5 h-3.5 text-[#0B1E43]" /> Lokasi Geografis (GPS) <span className="text-rose-600">*</span>
-                  </label>
+              {/* Lokasi Kejadian (Latitude, Longitude) dengan Telemetri GPS Radar Premium */}
+              <div className="space-y-4 bg-slate-50 p-5 rounded-2xl border border-slate-200/80 transition-all duration-300">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-200/60 pb-3">
+                  <div className="space-y-0.5 text-left">
+                    <label className="text-xs font-black text-[#0B1E43] flex items-center gap-1.5">
+                      <MapPin className="w-4 h-4 text-[#0B1E43]" /> Lokasi Geografis (GPS) <span className="text-rose-600">*</span>
+                    </label>
+                    <p className="text-[10px] text-slate-500 font-medium">Petugas memerlukan koordinat presisi untuk peninjauan lapangan</p>
+                  </div>
                   <button
                     type="button"
                     onClick={handleGetLocation}
                     disabled={locationLoading}
-                    className="px-3 py-1.5 bg-white text-[#0B1E43] hover:bg-slate-100 active:bg-slate-200 rounded-lg text-xs font-extrabold flex items-center gap-1.5 shadow-sm border border-slate-200 transition-all disabled:opacity-50 cursor-pointer active:scale-[0.97]"
+                    className="px-4 py-2 bg-white text-[#0B1E43] hover:bg-slate-50 active:bg-slate-100 rounded-xl text-xs font-black flex items-center gap-2 shadow-sm border border-slate-200/80 transition-all disabled:opacity-50 cursor-pointer active:scale-[0.97] shrink-0"
                   >
                     <MapPin className={`w-3.5 h-3.5 text-[#0B1E43] ${locationLoading ? 'animate-bounce' : ''}`} />
-                    {locationLoading ? "Mendapatkan Koordinat..." : "Dapatkan Lokasi Saya"}
+                    {locationLoading ? "Membaca Satelit GPS..." : "Dapatkan Lokasi Saya"}
                   </button>
                 </div>
-                
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="text-[10px] font-semibold text-slate-500 mb-1 block">Latitude</label>
-                    <input
-                      type="text"
-                      placeholder="Contoh: -8.114712"
-                      value={formData.latitude}
-                      onChange={(e) => {
-                        setFormData(prev => ({ ...prev, latitude: e.target.value }));
-                        if (errors.lokasi) setErrors(prev => ({ ...prev, lokasi: null }));
-                      }}
-                      className="w-full bg-white rounded-xl px-3 py-2 text-xs outline-none border border-slate-200 text-slate-800 focus:ring-1 focus:ring-[#0B1E43]"
-                    />
+
+                {/* Radar Grid Telemetry Panel */}
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+                  
+                  {/* Visual Radar Container */}
+                  <div className="md:col-span-5 h-32 bg-slate-900 rounded-xl flex flex-col items-center justify-center relative overflow-hidden border border-slate-800 shadow-inner group">
+                    {/* Simulated Radar Circular Waves */}
+                    <div className="absolute inset-0 flex items-center justify-center opacity-30 pointer-events-none">
+                      <div className="w-24 h-24 rounded-full border border-emerald-500/40 absolute animate-ping" style={{ animationDuration: '3s' }} />
+                      <div className="w-16 h-16 rounded-full border border-emerald-500/50 absolute" />
+                      <div className="w-8 h-8 rounded-full border border-emerald-500/60 absolute" />
+                      <div className="w-full h-[1px] bg-emerald-500/20 absolute" />
+                      <div className="h-full w-[1px] bg-emerald-500/20 absolute" />
+                      
+                      {/* Radar Line Sweep Animation */}
+                      <div className={`w-full h-full absolute rounded-full border-t border-emerald-500/40 origin-center ${locationLoading ? 'animate-spin' : ''}`} style={{ animationDuration: '2s' }} />
+                    </div>
+
+                    {/* Telemetry Status text */}
+                    {locationLoading ? (
+                      <div className="text-center space-y-1.5 z-10">
+                        <span className="inline-flex h-2.5 w-2.5 rounded-full bg-amber-500 animate-pulse" />
+                        <p className="text-[10px] font-mono font-black text-amber-400 tracking-wider">SCANNING SATELLITES...</p>
+                        <p className="text-[8px] font-mono text-slate-500">Mencari sinyal GPS terdekat...</p>
+                      </div>
+                    ) : (formData.latitude && formData.longitude) ? (
+                      <div className="text-center space-y-1.5 z-10">
+                        <span className="inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500 animate-ping absolute" />
+                        <span className="inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
+                        <p className="text-[10px] font-mono font-black text-emerald-400 tracking-wider">GPS TELEMETRY ACTIVE</p>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const url = `https://www.google.com/maps?q=${formData.latitude},${formData.longitude}`;
+                            window.open(url, '_blank');
+                          }}
+                          className="px-2 py-0.5 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 rounded text-[9px] font-mono font-bold text-emerald-400 cursor-pointer active:scale-95 transition-all"
+                        >
+                          Buka Google Maps →
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="text-center space-y-1.5 z-10">
+                        <span className="inline-flex h-2 w-2 rounded-full bg-slate-500" />
+                        <p className="text-[10px] font-mono font-black text-slate-400 tracking-wider">GPS OFFLINE</p>
+                        <p className="text-[8px] font-mono text-slate-500">Klik "Dapatkan Lokasi Saya" di atas</p>
+                      </div>
+                    )}
                   </div>
-                  <div>
-                    <label className="text-[10px] font-semibold text-slate-500 mb-1 block">Longitude</label>
-                    <input
-                      type="text"
-                      placeholder="Contoh: 115.090124"
-                      value={formData.longitude}
-                      onChange={(e) => {
-                        setFormData(prev => ({ ...prev, longitude: e.target.value }));
-                        if (errors.lokasi) setErrors(prev => ({ ...prev, lokasi: null }));
-                      }}
-                      className="w-full bg-white rounded-xl px-3 py-2 text-xs outline-none border border-slate-200 text-slate-800 focus:ring-1 focus:ring-[#0B1E43]"
-                    />
+
+                  {/* Latitude/Longitude Fields */}
+                  <div className="md:col-span-7 grid grid-cols-2 gap-3">
+                    <div className="space-y-1 text-left">
+                      <label className="text-[10px] font-bold text-slate-500 block">Latitude</label>
+                      <input
+                        type="text"
+                        placeholder="Contoh: -8.114712"
+                        value={formData.latitude}
+                        onChange={(e) => {
+                          setFormData(prev => ({ ...prev, latitude: e.target.value }));
+                          if (errors.lokasi) setErrors(prev => ({ ...prev, lokasi: null }));
+                        }}
+                        className="w-full bg-white rounded-xl px-3.5 py-2.5 text-xs outline-none border border-slate-200 text-slate-800 font-mono font-bold transition-all focus:ring-4 focus:ring-blue-100 focus:border-[#0B1E43]"
+                      />
+                    </div>
+                    <div className="space-y-1 text-left">
+                      <label className="text-[10px] font-bold text-slate-500 block">Longitude</label>
+                      <input
+                        type="text"
+                        placeholder="Contoh: 115.090124"
+                        value={formData.longitude}
+                        onChange={(e) => {
+                          setFormData(prev => ({ ...prev, longitude: e.target.value }));
+                          if (errors.lokasi) setErrors(prev => ({ ...prev, lokasi: null }));
+                        }}
+                        className="w-full bg-white rounded-xl px-3.5 py-2.5 text-xs outline-none border border-slate-200 text-slate-800 font-mono font-bold transition-all focus:ring-4 focus:ring-blue-100 focus:border-[#0B1E43]"
+                      />
+                    </div>
                   </div>
+
                 </div>
-                
+
                 {errors.lokasi && (
-                  <p className="text-rose-600 text-[11px] font-bold flex items-center gap-1 mt-1">
+                  <p className="text-rose-600 text-[11px] font-bold flex items-center gap-1">
                     <AlertCircle className="w-3.5 h-3.5" /> {errors.lokasi}
                   </p>
                 )}
               </div>
 
-              {/* Upload Foto Bukti */}
-              <div className="space-y-2">
+              {/* Upload Foto Bukti Premium */}
+              <div className="space-y-3">
                 <label className="text-xs font-bold text-slate-750 flex items-center gap-1.5">
-                  <Camera className="w-3.5 h-3.5 text-slate-500" /> Foto Bukti Kejadian <span className="text-slate-400">(Opsional)</span>
+                  <Camera className="w-4 h-4 text-slate-500" /> Foto Bukti Kejadian <span className="text-slate-400 font-medium">(Opsional)</span>
                 </label>
                 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
@@ -491,50 +527,58 @@ export default function PengaduanWarga() {
                     />
                     <label
                       htmlFor="fotoBukti"
-                      className="flex flex-col items-center justify-center p-6 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer border border-dashed border-slate-350 hover:border-[#0B1E43] hover:text-[#0B1E43] transition-all text-center group"
+                      className="flex flex-col items-center justify-center p-6 bg-slate-50 hover:bg-slate-100/70 rounded-2xl cursor-pointer border-2 border-dashed border-slate-200 hover:border-[#0B1E43]/60 hover:shadow-sm transition-all duration-300 text-center group relative overflow-hidden"
                     >
-                      <Camera className="w-6 h-6 text-slate-400 group-hover:text-[#0B1E43] mb-2 transition-colors" />
-                      <span className="text-xs font-black text-slate-700">Pilih Foto</span>
-                      <span className="text-[10px] text-slate-500 mt-1 font-semibold">PNG, JPG (Maks. 2MB)</span>
+                      <div className="absolute inset-0 bg-blue-50/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+                      
+                      <div className="p-2 bg-white rounded-xl shadow-sm border border-slate-100 group-hover:scale-105 transition-transform duration-300 mb-2 text-slate-400 group-hover:text-[#0B1E43] group-hover:border-blue-100">
+                        <Camera className="w-5 h-5 transition-colors" />
+                      </div>
+                      <span className="text-xs font-extrabold text-[#0B1E43]">Pilih Foto Terbaik</span>
+                      <span className="text-[9px] text-slate-500 mt-1 font-semibold">Format JPG, PNG (Maksimal 2MB)</span>
                     </label>
                   </div>
                   
                   {/* Image Preview Box */}
-                  <div className="h-28 bg-slate-50 rounded-xl flex items-center justify-center relative overflow-hidden border border-slate-200 shadow-inner">
+                  <div className="h-28 bg-slate-50 rounded-2xl flex items-center justify-center relative overflow-hidden border border-slate-200 shadow-inner group">
                     {imagePreview ? (
                       <>
                         <img 
                           src={imagePreview} 
                           alt="Preview Laporan" 
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                         />
+                        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                         <button
                           type="button"
                           onClick={handleRemoveImage}
-                          className="absolute top-1.5 right-1.5 p-1.5 bg-white text-rose-600 hover:text-rose-700 rounded-lg shadow-sm border border-slate-200 transition-all cursor-pointer hover:scale-105 active:scale-95"
+                          className="absolute top-2 right-2 p-1.5 bg-white/95 text-rose-600 hover:text-white hover:bg-rose-600 rounded-lg shadow-md border border-slate-100 transition-all cursor-pointer hover:scale-105 active:scale-95"
                           title="Hapus Foto"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
                       </>
                     ) : (
-                      <span className="text-[11px] text-slate-550 italic font-semibold">Belum ada foto terpilih</span>
+                      <div className="text-center space-y-1">
+                        <span className="text-[10px] text-slate-400 italic font-bold uppercase tracking-wider block">PREVIEW GAMBAR</span>
+                        <span className="text-[10px] text-slate-400 font-semibold block">Belum ada foto terpilih</span>
+                      </div>
                     )}
                   </div>
                 </div>
                 
                 {errors.foto && (
-                  <p className="text-rose-600 text-[11px] font-bold flex items-center gap-1 mt-1">
+                  <p className="text-rose-600 text-[11px] font-bold flex items-center gap-1">
                     <AlertCircle className="w-3.5 h-3.5" /> {errors.foto}
                   </p>
                 )}
               </div>
 
-              {/* Submit Button */}
+              {/* Submit Button Premium */}
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full mt-4 py-3.5 bg-[#E28A1C] hover:bg-[#C9720C] text-white text-sm font-extrabold rounded-xl shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 active:scale-[0.98]"
+                className="w-full mt-5 py-4 bg-gradient-to-r from-[#E28A1C] to-[#C9720C] hover:from-[#C9720C] hover:to-[#B06008] text-white text-sm font-black rounded-xl shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 active:scale-[0.98] select-none"
               >
                 {isSubmitting ? (
                   <>
@@ -542,11 +586,11 @@ export default function PengaduanWarga() {
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
-                    Memproses Laporan...
+                    Memproses & Menyimpan Laporan...
                   </>
                 ) : (
                   <>
-                    Kirim Pengaduan Sekarang <Send className="w-4 h-4" />
+                    Kirim Pengaduan Resmi <Send className="w-4 h-4 text-white" />
                   </>
                 )}
               </button>
