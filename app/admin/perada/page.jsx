@@ -602,62 +602,10 @@ export default function PeradaAdmin() {
   );
 
   return (
-    <div className="min-h-screen bg-slate-100 text-slate-800 font-sans pb-12 select-none relative overflow-x-hidden">
+    <div className="min-h-screen bg-slate-100 text-slate-800 font-sans pb-12 select-none relative overflow-x-hidden pt-[57px]">
       
-      {/* 1. Header Banner Top Bar (Kemendagri Gradient Style) */}
-      <div className="bg-gradient-to-r from-[#212260] via-[#522a98] via-[#8e2de2] to-[#ec008c] text-white p-6 rounded-b-3xl shadow-lg relative overflow-hidden">
-        {/* Glowing Decorative Backgrounds */}
-        <div className="absolute top-[-50px] right-[-50px] w-48 h-48 bg-white/10 rounded-full blur-xl pointer-events-none" />
-        <div className="absolute bottom-[-50px] left-[15%] w-36 h-36 bg-pink-500/20 rounded-full blur-xl pointer-events-none" />
-        
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 relative z-10">
-          
-          {/* Sisi Kiri: Logo bulat SIP POLPP & Identitas */}
-          <div className="flex items-center gap-4 text-center md:text-left flex-col md:flex-row">
-            <div className="w-16 h-16 rounded-full bg-white border-2 border-[#ffb800] p-1 flex items-center justify-center shadow-md shrink-0">
-              <div className="w-full h-full rounded-full bg-gradient-to-tr from-blue-700 to-indigo-900 flex items-center justify-center text-white">
-                <Shield className="w-8 h-8 text-[#ffb800] fill-[#ffb800]/10" />
-              </div>
-            </div>
-            <div>
-              <h1 className="text-2xl md:text-3xl font-black tracking-wider leading-none text-white drop-shadow-md">
-                SIP POLPP
-              </h1>
-              <p className="text-[10px] text-yellow-350 font-bold uppercase tracking-widest mt-1.5">
-                Sistem Informasi Pelayanan & Operasional Pol PP Kemendagri
-              </p>
-            </div>
-          </div>
-          
-          {/* Sisi Kanan: Night mode & Profil Admin Buleleng */}
-          <div className="flex items-center gap-4">
-            <button 
-              onClick={() => alert("Fitur Mode Malam akan segera hadir!")}
-              className="p-2.5 bg-white/10 hover:bg-white/20 rounded-full transition-all text-white border border-white/20 active:scale-95 cursor-pointer"
-              title="Toggle Night Mode"
-              type="button"
-            >
-              <Moon className="w-5 h-5 fill-white/10" />
-            </button>
-            
-            <div className="flex items-center gap-3 bg-white/15 backdrop-blur-md px-4 py-2 rounded-2xl border border-white/20 shadow-sm">
-              <div className="w-9 h-9 rounded-full bg-slate-200 border-2 border-white/60 flex items-center justify-center text-slate-700 font-extrabold shadow-inner shrink-0">
-                KB
-              </div>
-              <div className="text-left text-white leading-none">
-                <h4 className="text-xs font-black tracking-wide">Kabupaten Buleleng</h4>
-                <span className="text-[8px] bg-yellow-450 text-[#0B1E43] font-black uppercase tracking-widest px-1.5 py-0.5 rounded mt-1.5 inline-block">
-                  Admin
-                </span>
-              </div>
-            </div>
-          </div>
-          
-        </div>
-      </div>
-
-      {/* 2. Horizontal Admin Navbar (Sticky / Persistent) */}
-      <nav className="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-40">
+      {/* 2. Horizontal Admin Navbar (Fixed / Persistent) */}
+      <nav className="bg-white border-b border-slate-200 shadow-md fixed top-0 left-0 w-full z-50">
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between overflow-x-auto whitespace-nowrap scrollbar-none">
           <div className="flex items-center space-x-1">
             <Link 
@@ -717,6 +665,60 @@ export default function PeradaAdmin() {
           </button>
         </div>
       </nav>
+
+      {/* 1. Header Banner Top Bar (Kemendagri Gradient Style) */}
+      <div className="bg-gradient-to-r from-[#212260] via-[#522a98] via-[#8e2de2] to-[#ec008c] text-white p-6 rounded-b-3xl shadow-lg relative overflow-hidden">
+        {/* Glowing Decorative Backgrounds */}
+        <div className="absolute top-[-50px] right-[-50px] w-48 h-48 bg-white/10 rounded-full blur-xl pointer-events-none" />
+        <div className="absolute bottom-[-50px] left-[15%] w-36 h-36 bg-pink-500/20 rounded-full blur-xl pointer-events-none" />
+        
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 relative z-10">
+          
+          {/* Sisi Kiri: Logo bulat SIP POLPP & Identitas */}
+          <div className="flex items-center gap-4 text-center md:text-left flex-col md:flex-row">
+            <div className="w-16 h-16 rounded-full bg-white border-2 border-[#ffb800] p-1 flex items-center justify-center shadow-md shrink-0">
+              <div className="w-full h-full rounded-full bg-gradient-to-tr from-blue-700 to-indigo-900 flex items-center justify-center text-white">
+                <Shield className="w-8 h-8 text-[#ffb800] fill-[#ffb800]/10" />
+              </div>
+            </div>
+            <div>
+              <h1 className="text-2xl md:text-3xl font-black tracking-wider leading-none text-white drop-shadow-md">
+                SIP POLPP
+              </h1>
+              <p className="text-[10px] text-yellow-350 font-bold uppercase tracking-widest mt-1.5">
+                Sistem Informasi Pelayanan & Operasional Pol PP Kemendagri
+              </p>
+            </div>
+          </div>
+          
+          {/* Sisi Kanan: Night mode & Profil Admin Buleleng */}
+          <div className="flex items-center gap-4">
+            <button 
+              onClick={() => alert("Fitur Mode Malam akan segera hadir!")}
+              className="p-2.5 bg-white/10 hover:bg-white/20 rounded-full transition-all text-white border border-white/20 active:scale-95 cursor-pointer"
+              title="Toggle Night Mode"
+              type="button"
+            >
+              <Moon className="w-5 h-5 fill-white/10" />
+            </button>
+            
+            <div className="flex items-center gap-3 bg-white/15 backdrop-blur-md px-4 py-2 rounded-2xl border border-white/20 shadow-sm">
+              <div className="w-9 h-9 rounded-full bg-slate-200 border-2 border-white/60 flex items-center justify-center text-slate-700 font-extrabold shadow-inner shrink-0">
+                KB
+              </div>
+              <div className="text-left text-white leading-none">
+                <h4 className="text-xs font-black tracking-wide">Kabupaten Buleleng</h4>
+                <span className="text-[8px] bg-yellow-450 text-[#0B1E43] font-black uppercase tracking-widest px-1.5 py-0.5 rounded mt-1.5 inline-block">
+                  Admin
+                </span>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+
+
 
       {/* Main Grid Content */}
       <div className="max-w-7xl mx-auto px-6 mt-8 space-y-6">

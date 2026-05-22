@@ -607,8 +607,58 @@ export default function LinmasAdmin() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-100 text-slate-800 font-sans pb-12 select-none relative overflow-x-hidden">
+    <div className="min-h-screen bg-slate-100 text-slate-800 font-sans pb-12 select-none relative overflow-x-hidden pt-[57px]">
       
+      {/* 2. Horizontal Admin Navbar (Fixed / Persistent) */}
+      <nav className="bg-white border-b border-slate-200 shadow-md fixed top-0 left-0 w-full z-50">
+        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between overflow-x-auto whitespace-nowrap scrollbar-none">
+          <div className="flex items-center space-x-1">
+            <Link 
+              href="/" 
+              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#212260] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
+              title="Kembali ke halaman utama warga"
+            >
+              Portal Warga
+            </Link>
+            
+            <Link 
+              href="/admin/dashboard" 
+              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-blue-600 hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
+            >
+              Dashboard
+            </Link>
+            
+            <Link 
+              href="/admin/dashboard?tab=disposisi" 
+              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-blue-600 hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
+            >
+              Disposisi
+            </Link>
+            
+            <Link 
+              href="/admin/trantib" 
+              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-blue-600 hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
+            >
+              Portal Trantib
+            </Link>
+
+            <Link 
+              href="/admin/perada" 
+              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-blue-600 hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
+            >
+              Portal Perada
+            </Link>
+
+            <Link 
+              href="/admin/linmas" 
+              className="px-4 py-4 text-xs font-bold text-blue-600 bg-blue-50/50 border-b-2 border-blue-600 transition-all uppercase tracking-wider flex items-center gap-1.5 font-black"
+            >
+              Portal Linmas
+            </Link>
+          </div>
+        </div>
+      </nav>
+
       {/* 1. Header Banner Top Bar (Kemendagri Gradient Style) */}
       <div className="bg-gradient-to-r from-[#212260] via-[#522a98] via-[#8e2de2] to-[#ec008c] text-white p-6 rounded-b-3xl shadow-lg relative overflow-hidden">
         {/* Glowing Decorative Backgrounds */}
@@ -661,68 +711,6 @@ export default function LinmasAdmin() {
         </div>
       </div>
 
-      {/* 2. Horizontal Admin Navbar (Sticky / Persistent) */}
-      <nav className="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between overflow-x-auto whitespace-nowrap scrollbar-none">
-          <div className="flex items-center space-x-1">
-            <Link 
-              href="/" 
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#212260] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
-              title="Kembali ke halaman utama warga"
-            >
-              Portal Warga
-            </Link>
-            
-            <Link 
-              href="/admin/dashboard" 
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-blue-600 hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
-            >
-              Dashboard
-            </Link>
-            
-            <Link 
-              href="/admin/dashboard?tab=disposisi" 
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-blue-600 hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
-            >
-              Disposisi
-            </Link>
-            
-            <Link 
-              href="/admin/trantib" 
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-blue-600 hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
-            >
-              Portal Trantib
-            </Link>
-
-            <Link 
-              href="/admin/perada" 
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-blue-600 hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
-            >
-              Portal Perada
-            </Link>
-
-            <Link 
-              href="/admin/linmas" 
-              className="px-4 py-4 text-xs font-black text-blue-600 bg-blue-50/50 transition-all uppercase tracking-wider border-b-2 border-blue-600 flex items-center gap-1.5"
-            >
-              Portal Linmas
-            </Link>
-          </div>
-          
-          <button
-            onClick={() => {
-              fetchSatlinmas();
-              fetchTrantibum();
-              fetchActivities();
-              fetchDelegatedReports();
-            }}
-            className="px-3.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 rounded-lg transition-all flex items-center gap-1.5 text-[11px] font-bold cursor-pointer active:scale-95 my-2"
-            type="button"
-          >
-            <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} /> Refresh Portal
-          </button>
-        </div>
-      </nav>
 
       {/* Main Grid Content */}
       <div className="max-w-7xl mx-auto px-6 mt-8 space-y-6">
