@@ -1,11 +1,55 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Shield, ShieldAlert, Menu, X } from 'lucide-react';
 
 export default function Navbar({ activePage = 'home' }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
+
+  useEffect(() => {
+    // If we're not on the main/home page, activeSection is simply the activePage
+    if (activePage !== 'home') {
+      setActiveSection(activePage);
+      return;
+    }
+
+    const handleScroll = () => {
+      // Check if scrolled to the absolute bottom of the page
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 50) {
+        setActiveSection('profil');
+        return;
+      }
+
+      // Check current scroll position
+      const scrollPosition = window.scrollY + 120; // offset for navbar height + buffer
+
+      const tentangEl = document.getElementById('tentang');
+      const beritaEl = document.getElementById('berita');
+      const profilEl = document.getElementById('profil');
+
+      let currentSection = 'home';
+
+      if (profilEl && scrollPosition >= profilEl.offsetTop) {
+        currentSection = 'profil';
+      } else if (beritaEl && scrollPosition >= beritaEl.offsetTop) {
+        currentSection = 'berita';
+      } else if (tentangEl && scrollPosition >= tentangEl.offsetTop) {
+        currentSection = 'tentang';
+      }
+
+      setActiveSection(currentSection);
+    };
+
+    // Run once on mount to capture initial scroll or hash
+    handleScroll();
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [activePage]);
 
   // Konfigurasi Branding dinamis berdasarkan halaman aktif
   let logoIcon = <Shield className="w-6 h-6 fill-[#0B1E43]/10" />;
@@ -42,29 +86,41 @@ export default function Navbar({ activePage = 'home' }) {
         <nav className="hidden md:flex items-center gap-6 font-sans">
           <Link 
             href="/" 
-            className={`text-xs font-bold transition-colors relative ${
-              activePage === 'home' 
-                ? "text-[#0B1E43] after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[2px] after:bg-[#E28A1C] after:rounded-full" 
-                : "text-slate-600 hover:text-[#0B1E43]"
+            className={`text-xs font-bold transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[2px] after:bg-[#E28A1C] after:rounded-full after:transition-all after:duration-300 after:ease-in-out after:origin-left ${
+              activeSection === 'home' 
+                ? "text-[#0B1E43] after:scale-x-100 after:opacity-100" 
+                : "text-slate-600 hover:text-[#0B1E43] after:scale-x-0 after:opacity-0 hover:after:scale-x-100 hover:after:opacity-50"
             }`}
           >
             Beranda
           </Link>
           <Link 
             href="/#tentang" 
-            className="text-xs font-bold text-slate-600 hover:text-[#0B1E43] transition-colors"
+            className={`text-xs font-bold transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[2px] after:bg-[#E28A1C] after:rounded-full after:transition-all after:duration-300 after:ease-in-out after:origin-left ${
+              activeSection === 'tentang' 
+                ? "text-[#0B1E43] after:scale-x-100 after:opacity-100" 
+                : "text-slate-600 hover:text-[#0B1E43] after:scale-x-0 after:opacity-0 hover:after:scale-x-100 hover:after:opacity-50"
+            }`}
           >
             Tentang
           </Link>
           <Link 
             href="/#berita" 
-            className="text-xs font-bold text-slate-600 hover:text-[#0B1E43] transition-colors"
+            className={`text-xs font-bold transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[2px] after:bg-[#E28A1C] after:rounded-full after:transition-all after:duration-300 after:ease-in-out after:origin-left ${
+              activeSection === 'berita' 
+                ? "text-[#0B1E43] after:scale-x-100 after:opacity-100" 
+                : "text-slate-600 hover:text-[#0B1E43] after:scale-x-0 after:opacity-0 hover:after:scale-x-100 hover:after:opacity-50"
+            }`}
           >
             Berita
           </Link>
           <Link 
             href="/#profil" 
-            className="text-xs font-bold text-slate-600 hover:text-[#0B1E43] transition-colors"
+            className={`text-xs font-bold transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[2px] after:bg-[#E28A1C] after:rounded-full after:transition-all after:duration-300 after:ease-in-out after:origin-left ${
+              activeSection === 'profil' 
+                ? "text-[#0B1E43] after:scale-x-100 after:opacity-100" 
+                : "text-slate-600 hover:text-[#0B1E43] after:scale-x-0 after:opacity-0 hover:after:scale-x-100 hover:after:opacity-50"
+            }`}
           >
             Profil
           </Link>
@@ -95,9 +151,9 @@ export default function Navbar({ activePage = 'home' }) {
           <Link 
             href="/" 
             onClick={() => setIsMenuOpen(false)}
-            className={`px-3 py-2 text-xs font-bold rounded-lg ${
-              activePage === 'home' 
-                ? "text-[#0B1E43] bg-slate-50" 
+            className={`px-3 py-2 text-xs font-bold rounded-lg transition-all duration-300 ease-in-out ${
+              activeSection === 'home' 
+                ? "text-[#0B1E43] bg-slate-100" 
                 : "text-slate-600 hover:text-[#0B1E43] hover:bg-slate-50"
             }`}
           >
@@ -106,21 +162,33 @@ export default function Navbar({ activePage = 'home' }) {
           <Link 
             href="/#tentang" 
             onClick={() => setIsMenuOpen(false)}
-            className="px-3 py-2 text-xs font-semibold text-slate-600 hover:text-[#0B1E43] hover:bg-slate-50 rounded-lg transition-colors"
+            className={`px-3 py-2 text-xs font-bold rounded-lg transition-all duration-300 ease-in-out ${
+              activeSection === 'tentang' 
+                ? "text-[#0B1E43] bg-slate-100" 
+                : "text-slate-600 hover:text-[#0B1E43] hover:bg-slate-50"
+            }`}
           >
             Tentang
           </Link>
           <Link 
             href="/#berita" 
             onClick={() => setIsMenuOpen(false)}
-            className="px-3 py-2 text-xs font-semibold text-slate-600 hover:text-[#0B1E43] hover:bg-slate-50 rounded-lg transition-colors"
+            className={`px-3 py-2 text-xs font-bold rounded-lg transition-all duration-300 ease-in-out ${
+              activeSection === 'berita' 
+                ? "text-[#0B1E43] bg-slate-100" 
+                : "text-slate-600 hover:text-[#0B1E43] hover:bg-slate-50"
+            }`}
           >
             Berita
           </Link>
           <Link 
             href="/#profil" 
             onClick={() => setIsMenuOpen(false)}
-            className="px-3 py-2 text-xs font-semibold text-slate-600 hover:text-[#0B1E43] hover:bg-slate-50 rounded-lg transition-colors"
+            className={`px-3 py-2 text-xs font-bold rounded-lg transition-all duration-300 ease-in-out ${
+              activeSection === 'profil' 
+                ? "text-[#0B1E43] bg-slate-100" 
+                : "text-slate-600 hover:text-[#0B1E43] hover:bg-slate-50"
+            }`}
           >
             Profil
           </Link>

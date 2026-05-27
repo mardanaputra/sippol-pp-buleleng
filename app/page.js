@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { 
   ShieldAlert, 
@@ -24,6 +24,31 @@ import Footer from './components/Footer';
 import Navbar from './components/Navbar';
 
 export default function Home() {
+  const [isProfilVisible, setIsProfilVisible] = useState(false);
+  const profilRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsProfilVisible(true);
+          observer.unobserve(entry.target); // Reveal only once
+        }
+      },
+      { threshold: 0.1 } // Trigger when 10% of the section is visible
+    );
+
+    if (profilRef.current) {
+      observer.observe(profilRef.current);
+    }
+
+    return () => {
+      if (profilRef.current) {
+        observer.unobserve(profilRef.current);
+      }
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800 flex flex-col justify-between relative overflow-x-hidden font-sans select-none scroll-smooth">
       
@@ -413,7 +438,15 @@ export default function Home() {
         </div>
 
         {/* PROFIL SATUAN & STRUKTUR ORGANISASI */}
-        <div id="profil" className="space-y-10 pt-12 border-t border-slate-200 scroll-mt-24">
+        <div 
+          ref={profilRef}
+          id="profil" 
+          className={`space-y-10 pt-12 border-t border-slate-200 scroll-mt-24 transition-all duration-1000 ease-out transform ${
+            isProfilVisible 
+              ? "opacity-100 translate-y-0 blur-none" 
+              : "opacity-0 translate-y-12 blur-sm"
+          }`}
+        >
           <div className="text-center space-y-3 max-w-2xl mx-auto">
             <span className="inline-block px-3 py-1 bg-amber-50 border border-amber-200/60 text-[10px] font-black text-amber-800 rounded-lg uppercase tracking-wider">
               Struktur Kepemimpinan
