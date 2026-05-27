@@ -42,6 +42,126 @@ const BULELENG_REGENCY = {
   "Tejakula": ["Tejakula", "Bondalem", "Julah", "Madenan", "Les", "Penuktukan", "Pacung", "Sambirenteng", "Sembiran", "Giri Emas"]
 };
 
+const BULELENG_MAP_DATA = [
+  { 
+    id: 'gerokgak', 
+    name: 'Gerokgak', 
+    rawan: 'Aman', 
+    color: '#3b82f6', 
+    bgClass: 'bg-blue-500', 
+    textClass: 'text-blue-600', 
+    perkada: 12, 
+    path: "M 30,170 L 140,110 L 220,120 L 250,150 L 210,210 L 150,210 L 80,200 L 30,170 Z",
+    cx: 130, 
+    cy: 160,
+    desc: 'Tingkat ketertiban stabil, regulasi perikanan & pesisir terkelola dengan baik.' 
+  },
+  { 
+    id: 'seririt', 
+    name: 'Seririt', 
+    rawan: 'Rawan Sedang', 
+    color: '#f97316', 
+    bgClass: 'bg-orange-500', 
+    textClass: 'text-orange-600', 
+    perkada: 18, 
+    path: "M 220,120 L 310,105 L 340,140 L 300,220 L 240,215 L 210,210 L 250,150 Z",
+    cx: 260, 
+    cy: 165,
+    desc: 'Keramaian pasar tinggi, memerlukan pengawasan zonasi PKL berkala.' 
+  },
+  { 
+    id: 'busungbiu', 
+    name: 'Busungbiu', 
+    rawan: 'Aman', 
+    color: '#3b82f6', 
+    bgClass: 'bg-blue-500', 
+    textClass: 'text-blue-600', 
+    perkada: 8, 
+    path: "M 150,210 L 210,210 L 230,280 L 180,300 L 130,270 L 150,210 Z",
+    cx: 180, 
+    cy: 255,
+    desc: 'Kawasan perkebunan aman, dominasi koordinasi Linmas tingkat desa.' 
+  },
+  { 
+    id: 'banjar', 
+    name: 'Banjar', 
+    rawan: 'Rawan Sedang', 
+    color: '#f97316', 
+    bgClass: 'bg-orange-500', 
+    textClass: 'text-orange-600', 
+    perkada: 15, 
+    path: "M 310,105 L 390,110 L 390,190 L 330,230 L 300,220 L 340,140 Z",
+    cx: 345, 
+    cy: 165,
+    desc: 'Fokus pengamanan pariwisata pemandian air panas & kepatuhan reklame.' 
+  },
+  { 
+    id: 'sukasada', 
+    name: 'Sukasada', 
+    rawan: 'Rawan Tinggi', 
+    color: '#ef4444', 
+    bgClass: 'bg-red-500', 
+    textClass: 'text-rose-600', 
+    perkada: 24, 
+    path: "M 390,190 L 480,200 L 490,290 L 420,295 L 330,230 Z",
+    cx: 410, 
+    cy: 245,
+    desc: 'Kerawanan jalur utama Bedugul-Singaraja, pengamanan bencana & tata ruang.' 
+  },
+  { 
+    id: 'buleleng', 
+    name: 'Buleleng', 
+    rawan: 'Rawan Tinggi', 
+    color: '#ef4444', 
+    bgClass: 'bg-red-500', 
+    textClass: 'text-rose-600', 
+    perkada: 32, 
+    path: "M 390,110 L 490,120 L 480,200 L 390,190 Z",
+    cx: 440, 
+    cy: 155,
+    desc: 'Pusat pemerintahan & ekonomi, intensitas aduan PKL & ketertiban umum tertinggi.' 
+  },
+  { 
+    id: 'sawan', 
+    name: 'Sawan', 
+    rawan: 'Aman', 
+    color: '#3b82f6', 
+    bgClass: 'bg-blue-500', 
+    textClass: 'text-blue-600', 
+    perkada: 14, 
+    path: "M 490,120 L 580,125 L 560,210 L 480,200 Z",
+    cx: 530, 
+    cy: 160,
+    desc: 'Aktivitas pertanian dominan, situasi ketertiban kondusif.' 
+  },
+  { 
+    id: 'kubutambahan', 
+    name: 'Kubutambahan', 
+    rawan: 'Rawan Sedang', 
+    color: '#f97316', 
+    bgClass: 'bg-orange-500', 
+    textClass: 'text-orange-600', 
+    perkada: 16, 
+    path: "M 580,125 L 680,130 L 650,220 L 560,210 Z",
+    cx: 620, 
+    cy: 170,
+    desc: 'Pengawasan jalur perlintasan timur, penertiban baliho tanpa izin.' 
+  },
+  { 
+    id: 'tejakula', 
+    name: 'Tejakula', 
+    rawan: 'Aman', 
+    color: '#3b82f6', 
+    bgClass: 'bg-blue-500', 
+    textClass: 'text-blue-600', 
+    perkada: 11, 
+    path: "M 680,130 L 870,150 L 820,240 L 740,250 L 650,220 Z",
+    cx: 760, 
+    cy: 185,
+    desc: 'Pesisir timur kondusif, pengawasan berkala pos Satlinmas pantai.' 
+  }
+];
+
 const getReportLocation = (report) => {
   const kronologiLower = report.kronologi?.toLowerCase() || '';
   for (const kec of Object.keys(BULELENG_REGENCY)) {
@@ -71,6 +191,11 @@ export default function AdminDashboard() {
 
   // View States
   const [currentSubTab, setCurrentSubTab] = useState('dashboard'); // 'dashboard' or 'disposisi'
+
+  // Thematic Map States
+  const [hoveredKecamatan, setHoveredKecamatan] = useState(null);
+  const [selectedKecamatan, setSelectedKecamatan] = useState(null);
+  const [mapTooltip, setMapTooltip] = useState({ show: false, x: 0, y: 0, data: null });
 
   // Filter States
   const [filterKecamatan, setFilterKecamatan] = useState('');
@@ -754,6 +879,263 @@ export default function AdminDashboard() {
                 </div>
               </div>
               
+            </div>
+
+            {/* THEMATIC MAP: Peta Tematik Tingkat Kerawanan & Perkada Buleleng */}
+            <div className="space-y-0 text-left animate-fadeIn">
+              <div className="inline-block bg-[#0B1E43] text-white px-6 py-2.5 rounded-t-2xl text-xs font-black uppercase tracking-wider shadow-sm select-none border-b-2 border-[#E28A1C]">
+                <div className="flex items-center gap-1.5">
+                  <Map className="w-4 h-4 text-[#E28A1C]" /> Visualisasi Peta Tematik Kerawanan & Perkada Kabupaten Buleleng
+                </div>
+              </div>
+
+              <div className="bg-white rounded-r-2xl rounded-b-2xl rounded-tl-none border border-slate-200 shadow-md p-6 md:p-8 flex flex-col gap-6 relative">
+                
+                {/* Visual Header / Subtitle */}
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-100 pb-4">
+                  <div>
+                    <h4 className="text-sm font-extrabold text-slate-800 leading-tight">Peta Spasial Skala Kecamatan (Kabupaten Buleleng)</h4>
+                    <p className="text-[10px] text-slate-450 font-bold uppercase tracking-wider mt-1">Gunakan kursor (hover) atau klik wilayah kecamatan untuk melihat detail statistik</p>
+                  </div>
+                  
+                  {/* Legend */}
+                  <div className="flex flex-wrap items-center gap-3.5 bg-slate-50 border border-slate-150 px-3.5 py-2 rounded-xl text-[10px] font-bold shadow-inner">
+                    <span className="text-slate-550 uppercase tracking-widest text-[9px] font-black mr-1">Legenda:</span>
+                    <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-red-500 shadow-sm" /> Rawan Tinggi</span>
+                    <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-orange-500 shadow-sm" /> Rawan Sedang</span>
+                    <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-blue-500 shadow-sm" /> Aman</span>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                  
+                  {/* Left: SVG Map Container */}
+                  <div className="lg:col-span-8 bg-slate-50 rounded-2xl p-4 border border-slate-150 relative flex items-center justify-center min-h-[340px] shadow-inner group/map">
+                    
+                    {/* SVG Map representing Buleleng Regency */}
+                    <svg 
+                      viewBox="0 0 900 320" 
+                      className="w-full h-auto select-none animate-[fadeIn_0.5s_ease-out]"
+                    >
+                      <g>
+                        {BULELENG_MAP_DATA.map((kec) => {
+                          const isHovered = hoveredKecamatan === kec.id;
+                          const isSelected = selectedKecamatan === kec.id;
+                          return (
+                            <path
+                              key={kec.id}
+                              d={kec.path}
+                              fill={kec.color}
+                              fillOpacity={isHovered ? 0.95 : isSelected ? 0.9 : 0.75}
+                              stroke={isHovered || isSelected ? "#0B1E43" : "#ffffff"}
+                              strokeWidth={isHovered || isSelected ? 2.5 : 1.5}
+                              className="transition-all duration-300 ease-out cursor-pointer origin-center transform"
+                              onMouseEnter={() => setHoveredKecamatan(kec.id)}
+                              onMouseLeave={() => {
+                                setHoveredKecamatan(null);
+                                setMapTooltip({ show: false, x: 0, y: 0, data: null });
+                              }}
+                              onMouseMove={(e) => {
+                                const rect = e.currentTarget.ownerSVGElement.getBoundingClientRect();
+                                setMapTooltip({
+                                  show: true,
+                                  x: e.clientX - rect.left + 15,
+                                  y: e.clientY - rect.top + 15,
+                                  data: kec
+                                });
+                              }}
+                              onClick={() => {
+                                if (selectedKecamatan === kec.id) {
+                                  setSelectedKecamatan(null);
+                                } else {
+                                  setSelectedKecamatan(kec.id);
+                                }
+                              }}
+                              style={{
+                                filter: isHovered ? 'drop-shadow(0 4px 12px rgba(11,30,67,0.3))' : isSelected ? 'drop-shadow(0 2px 8px rgba(11,30,67,0.2))' : 'none'
+                              }}
+                            />
+                          );
+                        })}
+
+                        {/* Labels on Map (Text Markers) */}
+                        {BULELENG_MAP_DATA.map((kec) => {
+                          const isHovered = hoveredKecamatan === kec.id;
+                          const isSelected = selectedKecamatan === kec.id;
+                          return (
+                            <g key={`label-${kec.id}`} className="pointer-events-none select-none">
+                              {/* Small label circle base */}
+                              <circle 
+                                cx={kec.cx} 
+                                cy={kec.cy - 12} 
+                                r="4" 
+                                fill="#ffffff" 
+                                stroke="#0B1E43" 
+                                strokeWidth="1"
+                              />
+                              {/* Label text */}
+                              <text
+                                x={kec.cx}
+                                y={kec.cy + 8}
+                                textAnchor="middle"
+                                className={`text-[10px] font-black tracking-tight select-none transition-all duration-200 ${
+                                  isHovered || isSelected ? 'fill-[#0B1E43] font-black text-[11px]' : 'fill-[#0B1E43]/80 font-extrabold'
+                                }`}
+                                style={{
+                                  textShadow: '0px 1px 2px #ffffff, 0px -1px 2px #ffffff, 1px 0px 2px #ffffff, -1px 0px 2px #ffffff'
+                                }}
+                              >
+                                {kec.name}
+                              </text>
+                            </g>
+                          );
+                        })}
+                      </g>
+                    </svg>
+
+                    {/* Floating SVG Tooltip */}
+                    {mapTooltip.show && mapTooltip.data && (
+                      <div 
+                        className="absolute bg-[#0B1E43] text-white rounded-xl p-3.5 shadow-xl border border-[#E28A1C]/30 text-left pointer-events-none select-none z-30 max-w-[220px] transition-all duration-75"
+                        style={{
+                          left: `${mapTooltip.x}px`,
+                          top: `${mapTooltip.y}px`
+                        }}
+                      >
+                        <div className="flex justify-between items-center border-b border-white/10 pb-1.5 mb-1.5 gap-2">
+                          <span className="text-xs font-black uppercase tracking-wider">{mapTooltip.data.name}</span>
+                          <span className={`text-[8px] px-1.5 py-0.5 rounded font-black uppercase tracking-widest leading-none ${
+                            mapTooltip.data.rawan === 'Rawan Tinggi' ? 'bg-red-500 text-white' : mapTooltip.data.rawan === 'Rawan Sedang' ? 'bg-orange-500 text-white' : 'bg-blue-600 text-white'
+                          }`}>
+                            {mapTooltip.data.rawan.replace('Rawan ', '')}
+                          </span>
+                        </div>
+                        <div className="space-y-1 text-[10px]">
+                          <p className="font-bold flex justify-between">
+                            <span className="text-slate-350">Wilayah:</span>
+                            <span>Kecamatan</span>
+                          </p>
+                          <p className="font-bold flex justify-between">
+                            <span className="text-slate-350">Perkada:</span>
+                            <span className="text-[#E28A1C] font-black">{mapTooltip.data.perkada} Dokumen</span>
+                          </p>
+                          <p className="text-[9px] text-slate-300 leading-normal border-t border-white/5 pt-1.5 mt-1 font-medium italic">
+                            "{mapTooltip.data.desc}"
+                          </p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Right: Table & Detail Pane */}
+                  <div className="lg:col-span-4 space-y-4">
+                    
+                    {/* Header Panel */}
+                    <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 text-left shadow-sm">
+                      <div className="flex items-center gap-2 mb-2 pb-2 border-b border-slate-200">
+                        <Info className="w-4 h-4 text-slate-500" />
+                        <h5 className="text-[10px] text-slate-450 font-extrabold uppercase tracking-widest leading-none">Detail Statistik Wilayah</h5>
+                      </div>
+                      
+                      {/* Highlight Area */}
+                      {selectedKecamatan || hoveredKecamatan ? (() => {
+                        const targetId = selectedKecamatan || hoveredKecamatan;
+                        const kec = BULELENG_MAP_DATA.find(k => k.id === targetId);
+                        return (
+                          <div className="space-y-3">
+                            <div className="flex justify-between items-center">
+                              <span className="text-sm font-black text-slate-800 uppercase tracking-tight">Kec. {kec.name}</span>
+                              <span className={`text-[9px] px-2 py-0.5 rounded-lg border font-black uppercase tracking-wider ${
+                                kec.rawan === 'Rawan Tinggi' ? 'bg-red-50 border-red-200 text-red-700' : kec.rawan === 'Rawan Sedang' ? 'bg-orange-50 border-orange-200 text-orange-700' : 'bg-blue-50 border-blue-200 text-blue-700'
+                              }`}>
+                                {kec.rawan}
+                              </span>
+                            </div>
+                            
+                            <p className="text-[11px] text-slate-600 leading-relaxed font-semibold">
+                              {kec.desc}
+                            </p>
+
+                            <div className="bg-[#0B1E43] text-white rounded-xl p-3 flex justify-between items-center shadow-sm">
+                              <span className="text-[9px] font-black uppercase tracking-wider text-slate-300">Jumlah Perkada</span>
+                              <span className="text-sm font-black text-[#E28A1C]">{kec.perkada} Perbup</span>
+                            </div>
+                          </div>
+                        );
+                      })() : (
+                        <div className="text-center py-6 text-slate-400 space-y-2 font-semibold">
+                          <Map className="w-8 h-8 text-slate-300 mx-auto" />
+                          <p className="text-xs">Pilih salah satu kecamatan pada peta untuk detail khusus</p>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Table View "Data Kabupaten/Kota di Provinsi Bali" khusus untuk kecamatan di Buleleng */}
+                    <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden text-left">
+                      <div className="bg-slate-100 px-4 py-2 border-b border-slate-200 text-[10px] font-black text-slate-700 uppercase tracking-wider">
+                        Data Kabupaten/Kota di Provinsi Bali
+                      </div>
+                      
+                      <div className="max-h-[220px] overflow-y-auto">
+                        <table className="w-full text-xs font-bold text-slate-600 text-left border-collapse">
+                          <thead className="bg-slate-50 text-[9px] text-slate-450 font-black uppercase tracking-wider border-b border-slate-200 sticky top-0">
+                            <tr>
+                              <th className="px-3 py-2 border-r border-slate-200">Wilayah</th>
+                              <th className="px-3 py-2 border-r border-slate-200">Status</th>
+                              <th className="px-3 py-2 text-right">Jumlah Perkada</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-slate-100">
+                            {BULELENG_MAP_DATA.map((kec) => {
+                              const isHovered = hoveredKecamatan === kec.id;
+                              const isSelected = selectedKecamatan === kec.id;
+                              return (
+                                <tr 
+                                  key={kec.id}
+                                  className={`cursor-pointer hover:bg-slate-50 transition-colors ${
+                                    isHovered || isSelected ? 'bg-slate-50/80 font-black text-[#0B1E43]' : ''
+                                  }`}
+                                  onMouseEnter={() => setHoveredKecamatan(kec.id)}
+                                  onMouseLeave={() => setHoveredKecamatan(null)}
+                                  onClick={() => {
+                                    if (selectedKecamatan === kec.id) {
+                                      setSelectedKecamatan(null);
+                                    } else {
+                                      setSelectedKecamatan(kec.id);
+                                    }
+                                  }}
+                                >
+                                  <td className="px-3 py-2 font-extrabold border-r border-slate-100">Kec. {kec.name}</td>
+                                  <td className="px-3 py-2 border-r border-slate-100">
+                                    <span className={`inline-block w-2.5 h-2.5 rounded-full ${
+                                      kec.rawan === 'Rawan Tinggi' ? 'bg-red-500' : kec.rawan === 'Rawan Sedang' ? 'bg-orange-500' : 'bg-blue-500'
+                                    }`} title={kec.rawan} />
+                                  </td>
+                                  <td className="px-3 py-2 text-right font-black text-[#0B1E43]">{kec.perkada}</td>
+                                </tr>
+                              );
+                            })}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div>
+
+                {/* Map Footer Analytics */}
+                <div className="flex justify-between items-center border-t border-slate-150 pt-4 mt-2">
+                  <span className="text-[9px] text-slate-400 font-bold tracking-wider italic select-none">
+                    * Klik Wilayah atau Table Row untuk mengunci detail informasi di atas.
+                  </span>
+                  <div className="flex items-center gap-1 bg-[#fffbeb] px-3 py-1.5 rounded-lg border border-[#fef3c7] text-[10px] font-black text-[#d97706]">
+                    <span>Total Perbup Buleleng:</span>
+                    <span>150 Dokumen</span>
+                  </div>
+                </div>
+
+              </div>
             </div>
 
             {/* CHART 3: Sebaran Anggota Satlinmas Buleleng (Linmas) - Full Width Card */}
