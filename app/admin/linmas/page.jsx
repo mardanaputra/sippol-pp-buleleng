@@ -655,6 +655,13 @@ export default function LinmasAdmin() {
             >
               Portal Linmas
             </Link>
+
+            <Link 
+              href="/admin/sda" 
+              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-blue-600 hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
+            >
+              Portal SDA
+            </Link>
           </div>
         </div>
       </nav>

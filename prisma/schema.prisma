@@ -172,3 +172,48 @@
     createdAt        DateTime     @default(now())
     regulasi         PerdaPerbup  @relation(fields: [kode_regulasi], references: [kode_regulasi], onDelete: Cascade)
   }
+
+  model SdaPersonel {
+    id                  Int      @id @default(autoincrement())
+    id_personel         String   @unique // Format: SDA-PERS-YYYY-XXX
+    nip_kontrak         String   // NIP (ASN) atau Nomor Kontrak (Non-ASN)
+    nama_lengkap        String
+    status_kepegawaian  String   // ASN (PNS/PPPK) atau Kontrak (Non-ASN)
+    pangkat_golongan    String   // Pangkat/golongan aktif. Jika pegawai kontrak, diisi otomatis "Non-ASN".
+    jabatan             String   // structural or fungsional (e.g. Kepala Bidang, Komandan Regu, Anggota Operasional, Staf Administrasi)
+    penempatan_bidang   String   // Linmas, Trantib, Perada, atau SDA
+    rekam_pelatihan     String   // Centang Banyak (Checkbox) comma-separated
+    nomor_sertifikat    String?  // Optional certificate number
+    status_keaktifan    String   // Aktif, Cuti, Pendidikan, atau Pensiun/Resign
+    createdAt           DateTime @default(now())
+  }
+
+  model SdaKegiatan {
+    id                  Int      @id @default(autoincrement())
+    no_laporan          String   @unique // Format: LAK-SDA-YYYY-XXX
+    tanggal_pelaksanaan DateTime
+    nama_agenda         String
+    lokasi_sasaran      String
+    jenis_kegiatan      String   // Penyuluhan ke Sekolah / Lembaga, Sosialisasi Perda kepada Masyarakat, Bimbingan Teknis (Bintek) Internal Aparat, Kegiatan Lainnya
+    jumlah_peserta      Int
+    narasumber          String?  // Optional
+    ringkasan_materi    String   // Textarea narrative
+    dokumen_spt         String?  // Base64 PDF string for Surat Perintah Tugas (SPT)
+    foto_dokumentasi    String?  // Base64 image string for physical proof
+    createdAt           DateTime @default(now())
+  }
+
+  model SdaPustaka {
+    id                  Int      @id @default(autoincrement())
+    no_arsip            String   @unique // Format: PSTK-SDA-YYYY-XXX (e.g. PSTK-SDA-2026-001)
+    judul_dokumen       String
+    jenis_aturan        String   // Undang-Undang / Peraturan Pemerintah (Pusat), Permendagri / Peraturan Menteri, Perda / Perbup / Perkada, Surat Keputusan (SK) Kasat / SOP Kerja
+    nomor_tahun_aturan  String   // Short reference text, e.g. No. 45 Tahun 2022
+    instansi_penerbit   String
+    status_dokumen      String   // Berlaku, Dicabut / Tidak Berlaku
+    ringkasan_aturan    String   // Textarea narrative summary
+    tags                String?  // Comma-separated search words
+    berkas_pdf          String?  // Base64 PDF string (Required)
+    pengunggah          String   // Auto filled: e.g. "Staf Bidang SDA"
+    waktu_upload        DateTime @default(now())
+  }
