@@ -6,6 +6,7 @@ import {
   ShieldAlert, 
   Send, 
   MapPin, 
+  Map,
   Camera, 
   Copy, 
   Check, 
@@ -211,11 +212,11 @@ export default function PengaduanWarga() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800 flex flex-col justify-between relative overflow-x-hidden font-sans select-none">
+    <div className="min-h-screen bg-background text-slate-800 flex flex-col justify-between relative overflow-x-hidden font-sans select-none">
       
       {/* Decorative Elegant Soft Gradients */}
-      <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-blue-100/30 rounded-full blur-3xl pointer-events-none -z-10" />
-      <div className="absolute bottom-10 left-0 w-[30rem] h-[30rem] bg-amber-100/20 rounded-full blur-3xl pointer-events-none -z-10" />
+      <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-coffee-cream/15 rounded-full blur-3xl pointer-events-none -z-10" />
+      <div className="absolute bottom-10 left-0 w-[30rem] h-[30rem] bg-coffee-light/10 rounded-full blur-3xl pointer-events-none -z-10" />
 
       {/* Reusable Navbar Component */}
       <Navbar activePage="pengaduan" />
@@ -225,14 +226,14 @@ export default function PengaduanWarga() {
         
         {/* Conditional Screen View */}
         {!isSubmitted ? (
-          <div className="bg-white rounded-2xl p-6 md:p-8 shadow-md border border-slate-200/80 space-y-6">
+          <div className="bg-white rounded-2xl p-6 md:p-8 shadow-md border border-coffee-light/20 space-y-6">
             
             <div className="border-b border-slate-200/85 pb-5">
-              <h2 className="text-xl font-extrabold text-[#0B1E43] flex items-center gap-2.5">
-                <div className="p-2 bg-amber-50 rounded-xl border border-amber-200/60 text-[#E28A1C]">
+              <h2 className="text-xl font-black text-coffee-dark flex items-center gap-2.5">
+                <div className="p-2 bg-coffee-cream/25 rounded-xl border border-coffee-light/35 text-coffee-medium">
                   <ShieldAlert className="w-5 h-5 animate-pulse" />
                 </div>
-                Formulir Pengaduan Masyarakat
+                Formulir Pengaduan Warga
               </h2>
               <p className="text-xs text-slate-500 mt-2.5 font-semibold leading-relaxed">
                 Silakan isi data laporan Anda di bawah ini dengan lengkap dan jujur. Setiap aduan dijamin kerahasiaannya dan dilindungi oleh Undang-Undang.
@@ -244,11 +245,11 @@ export default function PengaduanWarga() {
               {/* Box Anonimitas */}
               <div className={`p-4 md:p-5 rounded-2xl border transition-all duration-300 flex items-start gap-4 ${
                 formData.isAnonim 
-                  ? 'bg-blue-50/40 border-blue-200/80 shadow-sm' 
-                  : 'bg-slate-50 border-slate-200/60'
+                  ? 'bg-coffee-cream/10 border-coffee-light/30 shadow-sm' 
+                  : 'bg-slate-50/60 border-slate-200'
               }`}>
                 <div className={`p-2.5 rounded-xl transition-all duration-300 ${
-                  formData.isAnonim ? 'bg-blue-100 text-[#0B1E43]' : 'bg-slate-100 text-slate-500'
+                  formData.isAnonim ? 'bg-coffee-cream/25 text-coffee-dark' : 'bg-slate-100 text-slate-500'
                 }`}>
                   <Shield className="w-5 h-5" />
                 </div>
@@ -271,10 +272,10 @@ export default function PengaduanWarga() {
                         }));
                         if (errors.namaPelapor) setErrors(prev => ({ ...prev, namaPelapor: null }));
                       }}
-                      className="w-4.5 h-4.5 rounded text-[#0B1E43] bg-white border-slate-355 focus:ring-[#0B1E43] cursor-pointer transition-all"
+                      className="w-4.5 h-4.5 rounded text-coffee-dark border-slate-300 focus:ring-coffee-medium cursor-pointer transition-all"
                     />
-                    <span className="text-xs font-extrabold text-[#0B1E43] select-none group-hover:text-[#E28A1C] transition-colors">
-                      Kirim Sebagai Anonim (Identitas Dirahasiakan)
+                    <span className="text-xs font-black text-coffee-dark select-none group-hover:text-coffee-medium transition-colors">
+                      Report as Anonymous (Laporkan sebagai Anonim)
                     </span>
                   </label>
                 </div>
@@ -282,8 +283,8 @@ export default function PengaduanWarga() {
 
               {/* Nama Pelapor */}
               {!formData.isAnonim && (
-                <div className="space-y-2">
-                  <label className="text-xs font-bold text-slate-750 flex items-center gap-1.5">
+                <div className="space-y-2 text-left">
+                  <label className="text-xs font-black text-slate-700 flex items-center gap-1.5">
                     <User className="w-3.5 h-3.5 text-slate-500" /> Nama Pelapor <span className="text-rose-600">*</span>
                   </label>
                   <input
@@ -294,10 +295,10 @@ export default function PengaduanWarga() {
                       setFormData(prev => ({ ...prev, namaPelapor: e.target.value }));
                       if (errors.namaPelapor) setErrors(prev => ({ ...prev, namaPelapor: null }));
                     }}
-                    className={`w-full bg-slate-50/70 rounded-xl px-4 py-3 text-sm outline-none transition-all duration-200 text-slate-800 placeholder-slate-400/70 border ${
+                    className={`w-full bg-white rounded-xl px-4 py-3 text-sm outline-none transition-all duration-200 text-slate-800 placeholder-slate-400/70 border ${
                       errors.namaPelapor 
-                        ? 'border-rose-300 focus:bg-white focus:ring-4 focus:ring-rose-100 focus:border-rose-500' 
-                        : 'border-slate-200 focus:bg-white focus:ring-4 focus:ring-blue-100 focus:border-[#0B1E43]'
+                        ? 'border-rose-300 focus:ring-2 focus:ring-rose-100 focus:border-rose-500' 
+                        : 'border-slate-300 focus:ring-2 focus:ring-coffee-cream/30 focus:border-coffee-medium'
                     }`}
                   />
                   {errors.namaPelapor && (
@@ -309,8 +310,8 @@ export default function PengaduanWarga() {
               )}
 
               {/* WhatsApp */}
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-slate-750 flex items-center gap-1.5">
+              <div className="space-y-2 text-left">
+                <label className="text-xs font-black text-slate-700 flex items-center gap-1.5">
                   <Phone className="w-3.5 h-3.5 text-slate-500" /> Nomor WhatsApp Aktif <span className="text-rose-600">*</span>
                 </label>
                 <input
@@ -321,10 +322,10 @@ export default function PengaduanWarga() {
                     setFormData(prev => ({ ...prev, nomorWhatsapp: e.target.value }));
                     if (errors.nomorWhatsapp) setErrors(prev => ({ ...prev, nomorWhatsapp: null }));
                   }}
-                  className={`w-full bg-slate-50/70 rounded-xl px-4 py-3 text-sm outline-none transition-all duration-200 text-slate-800 placeholder-slate-400/70 border ${
+                  className={`w-full bg-white rounded-xl px-4 py-3 text-sm outline-none transition-all duration-200 text-slate-800 placeholder-slate-400/70 border ${
                     errors.nomorWhatsapp 
-                      ? 'border-rose-300 focus:bg-white focus:ring-4 focus:ring-rose-100 focus:border-rose-500' 
-                      : 'border-slate-200 focus:bg-white focus:ring-4 focus:ring-blue-100 focus:border-[#0B1E43]'
+                      ? 'border-rose-300 focus:ring-2 focus:ring-rose-100 focus:border-rose-500' 
+                      : 'border-slate-300 focus:ring-2 focus:ring-coffee-cream/30 focus:border-coffee-medium'
                   }`}
                 />
                 {errors.nomorWhatsapp ? (
@@ -338,9 +339,9 @@ export default function PengaduanWarga() {
                 )}
               </div>
 
-              {/* Kategori Masalah */}
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-slate-750 flex items-center gap-1.5">
+              {/* Kategori Masalah (Dropdown Selection) */}
+              <div className="space-y-2 text-left">
+                <label className="text-xs font-black text-slate-700 flex items-center gap-1.5">
                   <HelpCircle className="w-3.5 h-3.5 text-slate-500" /> Kategori Laporan <span className="text-rose-600">*</span>
                 </label>
                 <select
@@ -349,29 +350,31 @@ export default function PengaduanWarga() {
                     setFormData(prev => ({ ...prev, kategoriMasalah: e.target.value }));
                     if (errors.kategoriMasalah) setErrors(prev => ({ ...prev, kategoriMasalah: null }));
                   }}
-                  className={`w-full bg-slate-50/70 rounded-xl px-4 py-3 text-sm outline-none transition-all duration-200 text-slate-800 cursor-pointer border ${
+                  className={`w-full bg-white rounded-xl px-4 py-3 text-sm outline-none transition-all duration-200 text-slate-800 border cursor-pointer ${
                     errors.kategoriMasalah 
-                      ? 'border-rose-300 focus:bg-white focus:ring-4 focus:ring-rose-100 focus:border-rose-500' 
-                      : 'border-slate-200 focus:bg-white focus:ring-4 focus:ring-blue-100 focus:border-[#0B1E43]'
+                      ? 'border-rose-300 focus:ring-2 focus:ring-rose-100 focus:border-rose-500' 
+                      : 'border-slate-300 focus:ring-2 focus:ring-coffee-cream/30 focus:border-coffee-medium'
                   }`}
                 >
-                  <option value="" disabled className="text-slate-400">-- Pilih Kategori Masalah --</option>
-                  <option value="Bidang Ketertiban Umum" className="text-slate-700">Ketertiban Umum (PKL Liar, Reklame Ilegal, Kebisingan, dsb.)</option>
-                  <option value="Bidang Penegakan Perda" className="text-slate-700">Pelanggaran Perda (Izin Usaha, Konstruksi Liar, Limbah, dsb.)</option>
-                  <option value="Bidang Linmas" className="text-slate-700">Perlindungan Masyarakat (Linmas, Bencana, Gangguan Warga, dsb.)</option>
-                  <option value="Bidang Peningkatan SDM" className="text-slate-700">SDM & Sarana (Pengembangan Kapasitas, Aduan Petugas, dsb.)</option>
-                  <option value="Lainnya" className="text-slate-700">Masalah Lainnya</option>
+                  <option value="">-- Pilih Kategori Laporan --</option>
+                  <option value="Parkir Liar">Parkir Liar</option>
+                  <option value="Limbah">Limbah Lingkungan</option>
+                  <option value="PKL Liar">Pedagang Kaki Lima (PKL) Liar</option>
+                  <option value="Reklame Ilegal">Reklame / Baliho Ilegal</option>
+                  <option value="Bencana">Bencana Alam / Gangguan Jalan</option>
+                  <option value="Lainnya">Masalah Lainnya</option>
                 </select>
+
                 {errors.kategoriMasalah && (
-                  <p className="text-rose-600 text-[11px] font-bold flex items-center gap-1">
+                  <p className="text-rose-600 text-[11px] font-bold flex items-center gap-1 mt-1">
                     <AlertCircle className="w-3.5 h-3.5" /> {errors.kategoriMasalah}
                   </p>
                 )}
               </div>
 
               {/* Kronologi */}
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-slate-750 flex items-center gap-1.5">
+              <div className="space-y-2 text-left">
+                <label className="text-xs font-black text-slate-700 flex items-center gap-1.5">
                   <FileText className="w-3.5 h-3.5 text-slate-500" /> Kronologi Kejadian <span className="text-rose-600">*</span>
                 </label>
                 <textarea
@@ -382,10 +385,10 @@ export default function PengaduanWarga() {
                     setFormData(prev => ({ ...prev, kronologi: e.target.value }));
                     if (errors.kronologi) setErrors(prev => ({ ...prev, kronologi: null }));
                   }}
-                  className={`w-full bg-slate-50/70 rounded-xl px-4 py-3 text-sm outline-none transition-all duration-200 text-slate-800 placeholder-slate-400/70 resize-y border ${
+                  className={`w-full bg-white rounded-xl px-4 py-3 text-sm outline-none transition-all duration-200 text-slate-800 placeholder-slate-400/70 resize-y border ${
                     errors.kronologi 
-                      ? 'border-rose-300 focus:bg-white focus:ring-4 focus:ring-rose-100 focus:border-rose-500' 
-                      : 'border-slate-200 focus:bg-white focus:ring-4 focus:ring-blue-100 focus:border-[#0B1E43]'
+                      ? 'border-rose-300 focus:ring-2 focus:ring-rose-100 focus:border-rose-500' 
+                      : 'border-slate-300 focus:ring-2 focus:ring-coffee-cream/30 focus:border-coffee-medium'
                   }`}
                 />
                 {errors.kronologi ? (
@@ -393,125 +396,93 @@ export default function PengaduanWarga() {
                     <AlertCircle className="w-3.5 h-3.5" /> {errors.kronologi}
                   </p>
                 ) : (
-                  <div className="flex justify-between text-[10px] text-slate-500 font-semibold">
+                  <div className="flex justify-between text-[10px] text-slate-550 font-semibold">
                     <span>Min. 20 karakter untuk deskripsi detail.</span>
                     <span>{formData.kronologi.length} karakter</span>
                   </div>
                 )}
               </div>
 
-              {/* Lokasi Kejadian (Latitude, Longitude) dengan Telemetri GPS Radar Premium */}
-              <div className="space-y-4 bg-slate-50 p-5 rounded-2xl border border-slate-200/80 transition-all duration-300">
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-200/60 pb-3">
-                  <div className="space-y-0.5 text-left">
-                    <label className="text-xs font-black text-[#0B1E43] flex items-center gap-1.5">
-                      <MapPin className="w-4 h-4 text-[#0B1E43]" /> Lokasi Geografis (GPS) <span className="text-rose-600">*</span>
+              {/* Lokasi Kejadian (Latitude, Longitude) */}
+              <div className="space-y-3 bg-slate-50 p-4 rounded-xl border border-slate-200 text-left">
+                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-250/65 pb-2.5">
+                  <div className="space-y-0.5">
+                    <label className="text-xs font-black text-slate-700 flex items-center gap-1.5">
+                      <MapPin className="w-4 h-4 text-slate-500" /> Lokasi Geografis (GPS) <span className="text-rose-600">*</span>
                     </label>
-                    <p className="text-[10px] text-slate-500 font-medium">Petugas memerlukan koordinat presisi untuk peninjauan lapangan</p>
+                    <p className="text-[10px] text-slate-500 font-semibold">Petugas memerlukan koordinat presisi untuk peninjauan lapangan.</p>
                   </div>
+                  
                   <button
                     type="button"
                     onClick={handleGetLocation}
                     disabled={locationLoading}
-                    className="px-4 py-2 bg-white text-[#0B1E43] hover:bg-slate-50 active:bg-slate-100 rounded-xl text-xs font-black flex items-center gap-2 shadow-sm border border-slate-200/80 transition-all disabled:opacity-50 cursor-pointer active:scale-[0.97] shrink-0"
+                    className="px-3.5 py-2 bg-white hover:bg-slate-50 active:bg-slate-100 text-slate-700 rounded-xl text-xs font-bold flex items-center gap-1.5 border border-slate-300 transition-all disabled:opacity-50 cursor-pointer active:scale-[0.97]"
                   >
-                    <MapPin className={`w-3.5 h-3.5 text-[#0B1E43] ${locationLoading ? 'animate-bounce' : ''}`} />
-                    {locationLoading ? "Membaca Satelit GPS..." : "Dapatkan Lokasi Saya"}
+                    <Map className={`w-3.5 h-3.5 text-coffee-medium ${locationLoading ? 'animate-spin' : ''}`} />
+                    {locationLoading ? "Mencari Lokasi..." : "Dapatkan Lokasi Saat Ini"}
                   </button>
                 </div>
 
-                {/* Radar Grid Telemetry Panel */}
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
-                  
-                  {/* Visual Radar Container */}
-                  <div className="md:col-span-5 h-32 bg-slate-900 rounded-xl flex flex-col items-center justify-center relative overflow-hidden border border-slate-800 shadow-inner group">
-                    {/* Simulated Radar Circular Waves */}
-                    <div className="absolute inset-0 flex items-center justify-center opacity-30 pointer-events-none">
-                      <div className="w-24 h-24 rounded-full border border-emerald-500/40 absolute animate-ping" style={{ animationDuration: '3s' }} />
-                      <div className="w-16 h-16 rounded-full border border-emerald-500/50 absolute" />
-                      <div className="w-8 h-8 rounded-full border border-emerald-500/60 absolute" />
-                      <div className="w-full h-[1px] bg-emerald-500/20 absolute" />
-                      <div className="h-full w-[1px] bg-emerald-500/20 absolute" />
-                      
-                      {/* Radar Line Sweep Animation */}
-                      <div className={`w-full h-full absolute rounded-full border-t border-emerald-500/40 origin-center ${locationLoading ? 'animate-spin' : ''}`} style={{ animationDuration: '2s' }} />
-                    </div>
-
-                    {/* Telemetry Status text */}
-                    {locationLoading ? (
-                      <div className="text-center space-y-1.5 z-10">
-                        <span className="inline-flex h-2.5 w-2.5 rounded-full bg-amber-500 animate-pulse" />
-                        <p className="text-[10px] font-mono font-black text-amber-400 tracking-wider">SCANNING SATELLITES...</p>
-                        <p className="text-[8px] font-mono text-slate-500">Mencari sinyal GPS terdekat...</p>
-                      </div>
-                    ) : (formData.latitude && formData.longitude) ? (
-                      <div className="text-center space-y-1.5 z-10">
-                        <span className="inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500 animate-ping absolute" />
-                        <span className="inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
-                        <p className="text-[10px] font-mono font-black text-emerald-400 tracking-wider">GPS TELEMETRY ACTIVE</p>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            const url = `https://www.google.com/maps?q=${formData.latitude},${formData.longitude}`;
-                            window.open(url, '_blank');
-                          }}
-                          className="px-2 py-0.5 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 rounded text-[9px] font-mono font-bold text-emerald-400 cursor-pointer active:scale-95 transition-all"
-                        >
-                          Buka Google Maps →
-                        </button>
-                      </div>
-                    ) : (
-                      <div className="text-center space-y-1.5 z-10">
-                        <span className="inline-flex h-2 w-2 rounded-full bg-slate-500" />
-                        <p className="text-[10px] font-mono font-black text-slate-400 tracking-wider">GPS OFFLINE</p>
-                        <p className="text-[8px] font-mono text-slate-500">Klik "Dapatkan Lokasi Saya" di atas</p>
-                      </div>
-                    )}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div className="space-y-1">
+                    <span className="text-[10px] font-bold text-slate-500 block">Latitude</span>
+                    <input
+                      type="text"
+                      placeholder="Contoh: -8.114712"
+                      value={formData.latitude}
+                      onChange={(e) => {
+                        setFormData(prev => ({ ...prev, latitude: e.target.value }));
+                        if (errors.lokasi) setErrors(prev => ({ ...prev, lokasi: null }));
+                      }}
+                      className="w-full bg-white rounded-xl px-3.5 py-2.5 text-xs outline-none border border-slate-300 text-slate-800 font-mono font-bold transition-all focus:ring-2 focus:ring-coffee-cream/30 focus:border-coffee-medium"
+                    />
                   </div>
-
-                  {/* Latitude/Longitude Fields */}
-                  <div className="md:col-span-7 grid grid-cols-2 gap-3">
-                    <div className="space-y-1 text-left">
-                      <label className="text-[10px] font-bold text-slate-500 block">Latitude</label>
-                      <input
-                        type="text"
-                        placeholder="Contoh: -8.114712"
-                        value={formData.latitude}
-                        onChange={(e) => {
-                          setFormData(prev => ({ ...prev, latitude: e.target.value }));
-                          if (errors.lokasi) setErrors(prev => ({ ...prev, lokasi: null }));
-                        }}
-                        className="w-full bg-white rounded-xl px-3.5 py-2.5 text-xs outline-none border border-slate-200 text-slate-800 font-mono font-bold transition-all focus:ring-4 focus:ring-blue-100 focus:border-[#0B1E43]"
-                      />
-                    </div>
-                    <div className="space-y-1 text-left">
-                      <label className="text-[10px] font-bold text-slate-500 block">Longitude</label>
-                      <input
-                        type="text"
-                        placeholder="Contoh: 115.090124"
-                        value={formData.longitude}
-                        onChange={(e) => {
-                          setFormData(prev => ({ ...prev, longitude: e.target.value }));
-                          if (errors.lokasi) setErrors(prev => ({ ...prev, lokasi: null }));
-                        }}
-                        className="w-full bg-white rounded-xl px-3.5 py-2.5 text-xs outline-none border border-slate-200 text-slate-800 font-mono font-bold transition-all focus:ring-4 focus:ring-blue-100 focus:border-[#0B1E43]"
-                      />
-                    </div>
+                  <div className="space-y-1">
+                    <span className="text-[10px] font-bold text-slate-500 block">Longitude</span>
+                    <input
+                      type="text"
+                      placeholder="Contoh: 115.090124"
+                      value={formData.longitude}
+                      onChange={(e) => {
+                        setFormData(prev => ({ ...prev, longitude: e.target.value }));
+                        if (errors.lokasi) setErrors(prev => ({ ...prev, lokasi: null }));
+                      }}
+                      className="w-full bg-white rounded-xl px-3.5 py-2.5 text-xs outline-none border border-slate-300 text-slate-800 font-mono font-bold transition-all focus:ring-2 focus:ring-coffee-cream/30 focus:border-coffee-medium"
+                    />
                   </div>
-
                 </div>
 
+                {formData.latitude && formData.longitude && (
+                  <div className="flex items-center justify-between bg-emerald-50/70 border border-emerald-250/80 rounded-xl p-3 text-[10px] font-bold text-emerald-800 shadow-sm">
+                    <span className="flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-550 animate-pulse" />
+                      Koordinat GPS Terkunci
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const url = `https://www.google.com/maps?q=${formData.latitude},${formData.longitude}`;
+                        window.open(url, '_blank');
+                      }}
+                      className="text-coffee-medium hover:underline cursor-pointer"
+                    >
+                      Buka Google Maps →
+                    </button>
+                  </div>
+                )}
+
                 {errors.lokasi && (
-                  <p className="text-rose-600 text-[11px] font-bold flex items-center gap-1">
+                  <p className="text-rose-600 text-[11px] font-bold flex items-center gap-1 mt-1">
                     <AlertCircle className="w-3.5 h-3.5" /> {errors.lokasi}
                   </p>
                 )}
               </div>
 
               {/* Upload Foto Bukti Premium */}
-              <div className="space-y-3">
-                <label className="text-xs font-bold text-slate-750 flex items-center gap-1.5">
-                  <Camera className="w-4 h-4 text-slate-500" /> Foto Bukti Kejadian <span className="text-slate-400 font-medium">(Opsional)</span>
+              <div className="space-y-3 text-left">
+                <label className="text-xs font-black text-slate-700 flex items-center gap-1.5">
+                  <Camera className="w-4 h-4 text-slate-500" /> Foto Bukti Kejadian <span className="text-slate-400 font-semibold">(Opsional)</span>
                 </label>
                 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
@@ -527,14 +498,14 @@ export default function PengaduanWarga() {
                     />
                     <label
                       htmlFor="fotoBukti"
-                      className="flex flex-col items-center justify-center p-6 bg-slate-50 hover:bg-slate-100/70 rounded-2xl cursor-pointer border-2 border-dashed border-slate-200 hover:border-[#0B1E43]/60 hover:shadow-sm transition-all duration-300 text-center group relative overflow-hidden"
+                      className="flex flex-col items-center justify-center p-6 bg-white hover:bg-slate-50 rounded-2xl cursor-pointer border-2 border-dashed border-slate-350 hover:border-coffee-medium/60 hover:shadow-sm transition-all duration-300 text-center group relative overflow-hidden"
                     >
-                      <div className="absolute inset-0 bg-blue-50/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+                      <div className="absolute inset-0 bg-coffee-cream/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
                       
-                      <div className="p-2 bg-white rounded-xl shadow-sm border border-slate-100 group-hover:scale-105 transition-transform duration-300 mb-2 text-slate-400 group-hover:text-[#0B1E43] group-hover:border-blue-100">
+                      <div className="p-2 bg-slate-50 rounded-xl shadow-sm border border-slate-150 group-hover:scale-105 transition-transform duration-300 mb-2 text-slate-400 group-hover:text-coffee-medium group-hover:border-coffee-cream/30">
                         <Camera className="w-5 h-5 transition-colors" />
                       </div>
-                      <span className="text-xs font-extrabold text-[#0B1E43]">Pilih Foto Terbaik</span>
+                      <span className="text-xs font-black text-coffee-dark">Pilih Foto Terbaik</span>
                       <span className="text-[9px] text-slate-500 mt-1 font-semibold">Format JPG, PNG (Maksimal 2MB)</span>
                     </label>
                   </div>
@@ -578,7 +549,7 @@ export default function PengaduanWarga() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full mt-5 py-4 bg-gradient-to-r from-[#E28A1C] to-[#C9720C] hover:from-[#C9720C] hover:to-[#B06008] text-white text-sm font-black rounded-xl shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 active:scale-[0.98] select-none"
+                className="w-full mt-5 py-4 bg-gradient-to-r from-coffee-dark to-coffee-medium hover:from-coffee-medium hover:to-coffee-dark text-white text-sm font-black rounded-xl shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 active:scale-[0.98] select-none"
               >
                 {isSubmitting ? (
                   <>
@@ -604,9 +575,8 @@ export default function PengaduanWarga() {
             <div className="inline-flex p-4 bg-emerald-50 border border-emerald-100 rounded-full text-emerald-600 mx-auto">
               <Check className="w-12 h-12" />
             </div>
-
             <div className="space-y-2">
-              <h2 className="text-xl md:text-2xl font-black text-[#0B1E43]">
+              <h2 className="text-xl md:text-2xl font-black text-coffee-dark">
                 PENGADUAN BERHASIL TERKIRIM!
               </h2>
               <p className="text-xs md:text-sm text-slate-500 font-semibold max-w-md mx-auto">
@@ -619,7 +589,7 @@ export default function PengaduanWarga() {
               <span className="text-[10px] text-slate-550 font-bold uppercase tracking-wider block">
                 NOMOR TIKET PENGADUAN
               </span>
-              <div className="text-2xl font-mono font-black text-[#0B1E43] tracking-wider select-text">
+              <div className="text-2xl font-mono font-black text-coffee-dark tracking-wider select-text">
                 {ticketNumber}
               </div>
               
@@ -642,7 +612,7 @@ export default function PengaduanWarga() {
             </div>
 
             <div className="bg-slate-50 p-4 rounded-xl text-left max-w-md mx-auto flex gap-3 items-start border border-slate-200/80">
-              <Info className="w-5 h-5 text-[#0B1E43] shrink-0 mt-0.5" />
+              <Info className="w-5 h-5 text-coffee-medium shrink-0 mt-0.5" />
               <div className="space-y-1">
                 <h4 className="text-xs font-black text-slate-800">Informasi Penting</h4>
                 <p className="text-[11px] text-slate-500 leading-relaxed font-semibold">
@@ -660,16 +630,10 @@ export default function PengaduanWarga() {
               </button>
               <Link
                 href={`/status?id_tiket=${ticketNumber}`}
-                className="px-5 py-3 bg-[#E28A1C] hover:bg-[#C9720C] text-white rounded-xl text-xs font-extrabold transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-[0.97]"
+                className="px-5 py-3 bg-coffee-dark hover:bg-coffee-medium text-white rounded-xl text-xs font-extrabold shadow-md transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-[0.97]"
               >
                 Lacak Status Laporan
               </Link>
-              <a
-                href="/admin/dashboard"
-                className="px-5 py-3 bg-white hover:bg-slate-50 text-[#0B1E43] rounded-xl text-xs font-extrabold border border-slate-200 transition-all flex items-center justify-center gap-1.5 active:scale-[0.97]"
-              >
-                Ke Dashboard Admin
-              </a>
             </div>
 
           </div>

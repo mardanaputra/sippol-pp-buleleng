@@ -133,7 +133,6 @@
     berkas_pdf       String?              // Base64 PDF string
     createdAt        DateTime             @default(now())
     pelanggaran      KatalogPelanggaran[]
-    penegakan        PenegakanPerada[]
   }
 
   model KatalogPelanggaran {
@@ -170,7 +169,6 @@
     barang_bukti     String?      // Daftar barang bukti yang disita sementara
     catatan          String       // Keterangan / Catatan sidang tambahan
     createdAt        DateTime     @default(now())
-    regulasi         PerdaPerbup  @relation(fields: [kode_regulasi], references: [kode_regulasi], onDelete: Cascade)
   }
 
   model SdaPersonel {

@@ -100,11 +100,11 @@ export default function PengaduanTracking() {
   const progressStep = complaint ? getProgressStep(complaint.status_laporan) : 0;
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800 flex flex-col justify-between relative overflow-x-hidden font-sans select-none">
+    <div className="min-h-screen bg-[#F8F7F4] text-slate-800 flex flex-col justify-between relative overflow-x-hidden font-sans select-none">
       
       {/* Decorative Elegant Soft Gradients */}
-      <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-blue-100/30 rounded-full blur-3xl pointer-events-none -z-10" />
-      <div className="absolute bottom-10 left-0 w-[30rem] h-[30rem] bg-amber-100/20 rounded-full blur-3xl pointer-events-none -z-10" />
+      <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-coffee-cream/30 rounded-full blur-3xl pointer-events-none -z-10" />
+      <div className="absolute bottom-10 left-0 w-[30rem] h-[30rem] bg-coffee-light/10 rounded-full blur-3xl pointer-events-none -z-10" />
 
       {/* Reusable Navbar Component */}
       <Navbar activePage="status" />
@@ -116,7 +116,7 @@ export default function PengaduanTracking() {
         <div className="bg-white rounded-2xl p-6 md:p-8 shadow-md border border-slate-200/80 space-y-6">
           <div className="border-b border-slate-200 pb-4 text-center md:text-left">
             <h2 className="text-lg font-black text-slate-900 flex items-center justify-center md:justify-start gap-2">
-              <Search className="w-5 h-5 text-[#0B1E43]" /> Lacak Status Pengaduan Warga
+              <Search className="w-5 h-5 text-coffee-medium" /> Lacak Status Pengaduan Warga
             </h2>
             <p className="text-xs text-slate-500 mt-1 font-semibold">
               Masukkan Nomor Tiket Pengaduan Anda untuk memantau progres penanganan oleh tim Satpol PP Buleleng.
@@ -131,7 +131,7 @@ export default function PengaduanTracking() {
                   placeholder="Contoh: TKT-2026-12345"
                   value={ticketId}
                   onChange={(e) => setTicketId(e.target.value)}
-                  className="w-full bg-slate-50 rounded-xl px-4 py-3.5 text-sm outline-none transition-all font-mono tracking-widest text-slate-800 uppercase border border-slate-250 focus:bg-white focus:ring-2 focus:ring-[#0B1E43] focus:border-[#0B1E43]"
+                  className="w-full bg-white rounded-xl px-4 py-3.5 text-sm outline-none transition-all font-mono tracking-widest text-slate-800 uppercase border border-slate-300 focus:ring-2 focus:ring-coffee-medium focus:border-coffee-medium shadow-sm"
                   id="ticket-search-input"
                   required
                 />
@@ -139,7 +139,7 @@ export default function PengaduanTracking() {
               <button
                 type="submit"
                 disabled={searchLoading}
-                className="bg-[#E28A1C] hover:bg-[#C9720C] text-white rounded-xl px-6 py-3.5 text-sm font-extrabold shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 active:scale-[0.98]"
+                className="bg-coffee-dark hover:bg-coffee-medium text-white rounded-xl px-6 py-3.5 text-sm font-extrabold shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 active:scale-[0.98]"
                 id="ticket-search-button"
               >
                 {searchLoading ? (
@@ -163,7 +163,7 @@ export default function PengaduanTracking() {
               <div>
                 <p className="font-black">Pencarian Gagal</p>
                 <p className="mt-0.5 text-rose-600 font-semibold">{searchError}</p>
-                <p className="mt-2 text-[10px] text-[#0B1E43] font-bold">Pastikan format penulisan nomor tiket Anda benar termasuk tanda hubung (-).</p>
+                <p className="mt-2 text-[10px] text-coffee-medium font-bold">Pastikan format penulisan nomor tiket Anda benar termasuk tanda hubung (-).</p>
               </div>
             </div>
           )}
@@ -177,7 +177,7 @@ export default function PengaduanTracking() {
                 <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
                   <div className="space-y-0.5 text-left">
                     <span className="text-[9px] uppercase font-black text-slate-500 tracking-wider">Nomor Resi Pengaduan</span>
-                    <h3 className="text-sm md:text-base font-mono font-black text-[#0B1E43] tracking-wide select-text">{complaint.id_tiket}</h3>
+                    <h3 className="text-sm md:text-base font-mono font-black text-coffee-dark tracking-wide select-text">{complaint.id_tiket}</h3>
                   </div>
                   <div className={`px-4 py-1.5 rounded-full text-xs font-extrabold ${
                     complaint.status_laporan === 'Selesai' ? 'bg-emerald-50 border border-emerald-200 text-emerald-700' :
@@ -191,7 +191,7 @@ export default function PengaduanTracking() {
 
               {/* Progress Timeline */}
               <div className="bg-slate-50 rounded-xl p-5 md:p-6 space-y-6 border border-slate-200/80 text-left">
-                <h4 className="text-xs font-black uppercase text-[#0B1E43] tracking-widest">Garis Waktu Progres Penanganan</h4>
+                <h4 className="text-xs font-black uppercase text-coffee-dark tracking-widest">Garis Waktu Progres Penanganan</h4>
                 
                 <div className="relative pl-6 md:pl-0 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-4">
                   
@@ -218,7 +218,7 @@ export default function PengaduanTracking() {
                   <div className="relative flex flex-col items-start space-y-2 z-10">
                     <div className="flex items-center gap-2">
                       <div className={`w-4 h-4 rounded-full flex items-center justify-center ${
-                        progressStep >= 1 ? 'bg-blue-800 text-white shadow-sm' : 'bg-slate-100 border border-slate-200 text-slate-400'
+                        progressStep >= 1 ? 'bg-coffee-medium text-white shadow-sm' : 'bg-slate-100 border border-slate-200 text-slate-400'
                       }`}>
                         {progressStep >= 1 ? (
                           <CheckCircle2 className="w-3.5 h-3.5 text-white" />
@@ -232,12 +232,12 @@ export default function PengaduanTracking() {
                       <p className="text-slate-650">Laporan disetujui admin dan ditugaskan ke bidang operasional.</p>
                       {complaint.disposisi ? (
                         <div className="bg-white p-2.5 rounded-xl border border-slate-200 mt-1 space-y-0.5">
-                          <p className="text-[10px] text-blue-900 font-black">Disposisi Ke: {complaint.disposisi.bidang_tujuan}</p>
+                          <p className="text-[10px] text-coffee-dark font-black">Disposisi Ke: {complaint.disposisi.bidang_tujuan}</p>
                           <p className="text-[9px] text-slate-500 font-bold">Verifikator: {complaint.disposisi.nama_admin}</p>
                           <p className="text-[9px] italic text-slate-500 font-medium">Catatan: "{complaint.disposisi.catatan}"</p>
                         </div>
                       ) : complaint.status_laporan === 'Disposisi' || complaint.status_laporan === 'Selesai' ? (
-                        <p className="text-[10px] text-blue-900 font-black">Disposisi Ke: {complaint.bidang_disposisi || '-'}</p>
+                        <p className="text-[10px] text-coffee-dark font-black">Disposisi Ke: {complaint.bidang_disposisi || '-'}</p>
                       ) : null}
                       {complaint.disposisi?.waktu_verifikasi && (
                         <p className="font-mono text-[9px] text-slate-400">{formatDate(complaint.disposisi.waktu_verifikasi)}</p>
@@ -287,7 +287,7 @@ export default function PengaduanTracking() {
                   <div className="space-y-1">
                     <span className="text-[10px] text-slate-500 font-bold uppercase">Kategori Pengaduan</span>
                     <p className="font-black text-slate-800 flex items-center gap-1.5">
-                      <Tag className="w-3.5 h-3.5 text-[#0B1E43]" />
+                      <Tag className="w-3.5 h-3.5 text-coffee-medium" />
                       {complaint.kategori_masalah}
                     </p>
                   </div>
@@ -301,7 +301,7 @@ export default function PengaduanTracking() {
                   <div className="space-y-1">
                     <span className="text-[10px] text-slate-500 font-bold uppercase">Koordinat Lokasi (GPS)</span>
                     <p className="font-black text-slate-800 flex items-center gap-1.5">
-                      <MapPin className="w-3.5 h-3.5 text-[#0B1E43]" />
+                      <MapPin className="w-3.5 h-3.5 text-coffee-medium" />
                       {complaint.latitude}, {complaint.longitude}
                     </p>
                   </div>
@@ -337,7 +337,7 @@ export default function PengaduanTracking() {
 
         {/* Helpful Info Footer */}
         <div className="bg-slate-100 border border-slate-200 rounded-xl p-4 flex items-start gap-3 text-xs max-w-md mx-auto text-slate-600 text-left font-semibold shadow-sm">
-          <Info className="w-5 h-5 text-blue-800 shrink-0 mt-0.5" />
+          <Info className="w-5 h-5 text-coffee-medium shrink-0 mt-0.5" />
           <p className="leading-relaxed text-slate-550">
             Butuh bantuan lebih lanjut terkait pengaduan Anda? Silakan hubungi pusat koordinasi Satpol PP Buleleng di nomor WhatsApp resmi unit pengaduan yustisial.
           </p>

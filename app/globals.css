@@ -1,15 +1,23 @@
 @import "tailwindcss";
 
+
+
 :root {
-  --background: #f8fafc; /* slate-50 */
-  --foreground: #0f172a; /* slate-900 */
+  --background: #F8F7F4; /* Warm Light Cream-Gray */
+  --foreground: #2C1819; /* Dark Coffee-Slate */
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  
+  /* Coffee Theme Palette from the photo */
+  --color-coffee-dark: #561C24;
+  --color-coffee-medium: #6D2932;
+  --color-coffee-light: #C7B7A3;
+  --color-coffee-cream: #E8D8C4;
 }
 
 body {

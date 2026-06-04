@@ -3,7 +3,7 @@ import { prisma } from '@/lib/prisma';
 
 export async function GET(req, { params }) {
     try {
-        const { id } = params; // id represents the id_tiket
+        const { id } = await params; // id represents the id_tiket
         if (!id) {
             return NextResponse.json(
                 { error: "ID Tiket tidak valid." },

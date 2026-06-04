@@ -26,9 +26,6 @@ export async function GET(req) {
 
         // Ambil semua log penegakan Perada terurut tanggal_tindakan terbaru
         const logPenegakan = await prisma.penegakanPerada.findMany({
-            include: {
-                regulasi: true,
-            },
             orderBy: {
                 tanggal_tindakan: 'desc',
             },

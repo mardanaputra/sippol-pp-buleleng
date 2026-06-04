@@ -51,9 +51,9 @@ const BULELENG_MAP_DATA = [
     bgClass: 'bg-blue-500', 
     textClass: 'text-blue-600', 
     perkada: 12, 
-    path: "M 30,170 L 140,110 L 220,120 L 250,150 L 210,210 L 150,210 L 80,200 L 30,170 Z",
-    cx: 130, 
-    cy: 160,
+    path: "M 25,175 C 45,160 75,150 115,140 C 125,125 140,120 155,125 C 165,135 185,140 205,145 L 225,150 L 245,150 L 255,165 L 230,215 L 180,215 L 120,205 L 60,195 Z",
+    cx: 140, 
+    cy: 175,
     desc: 'Tingkat ketertiban stabil, regulasi perikanan & pesisir terkelola dengan baik.' 
   },
   { 
@@ -64,9 +64,9 @@ const BULELENG_MAP_DATA = [
     bgClass: 'bg-orange-500', 
     textClass: 'text-orange-600', 
     perkada: 18, 
-    path: "M 220,120 L 310,105 L 340,140 L 300,220 L 240,215 L 210,210 L 250,150 Z",
-    cx: 260, 
-    cy: 165,
+    path: "M 225,150 L 245,150 L 255,165 L 250,210 L 290,212 L 310,195 L 315,160 L 295,145 Z",
+    cx: 270, 
+    cy: 175,
     desc: 'Keramaian pasar tinggi, memerlukan pengawasan zonasi PKL berkala.' 
   },
   { 
@@ -77,9 +77,9 @@ const BULELENG_MAP_DATA = [
     bgClass: 'bg-blue-500', 
     textClass: 'text-blue-600', 
     perkada: 8, 
-    path: "M 150,210 L 210,210 L 230,280 L 180,300 L 130,270 L 150,210 Z",
-    cx: 180, 
-    cy: 255,
+    path: "M 180,215 L 230,215 L 250,210 L 260,250 L 245,285 L 220,295 L 175,275 Z",
+    cx: 215, 
+    cy: 250,
     desc: 'Kawasan perkebunan aman, dominasi koordinasi Linmas tingkat desa.' 
   },
   { 
@@ -90,9 +90,9 @@ const BULELENG_MAP_DATA = [
     bgClass: 'bg-orange-500', 
     textClass: 'text-orange-600', 
     perkada: 15, 
-    path: "M 310,105 L 390,110 L 390,190 L 330,230 L 300,220 L 340,140 Z",
-    cx: 345, 
-    cy: 165,
+    path: "M 295,145 L 365,150 L 375,195 L 360,235 L 335,255 L 290,250 L 290,212 L 310,195 L 315,160 Z",
+    cx: 330, 
+    cy: 195,
     desc: 'Fokus pengamanan pariwisata pemandian air panas & kepatuhan reklame.' 
   },
   { 
@@ -103,9 +103,9 @@ const BULELENG_MAP_DATA = [
     bgClass: 'bg-red-500', 
     textClass: 'text-rose-600', 
     perkada: 24, 
-    path: "M 390,190 L 480,200 L 490,290 L 420,295 L 330,230 Z",
-    cx: 410, 
-    cy: 245,
+    path: "M 335,255 L 360,235 L 375,195 L 435,205 L 465,220 L 460,275 L 415,285 Z",
+    cx: 405, 
+    cy: 240,
     desc: 'Kerawanan jalur utama Bedugul-Singaraja, pengamanan bencana & tata ruang.' 
   },
   { 
@@ -116,9 +116,9 @@ const BULELENG_MAP_DATA = [
     bgClass: 'bg-red-500', 
     textClass: 'text-rose-600', 
     perkada: 32, 
-    path: "M 390,110 L 490,120 L 480,200 L 390,190 Z",
-    cx: 440, 
-    cy: 155,
+    path: "M 365,150 L 445,160 L 455,205 L 435,205 L 375,195 Z",
+    cx: 410, 
+    cy: 175,
     desc: 'Pusat pemerintahan & ekonomi, intensitas aduan PKL & ketertiban umum tertinggi.' 
   },
   { 
@@ -129,9 +129,9 @@ const BULELENG_MAP_DATA = [
     bgClass: 'bg-blue-500', 
     textClass: 'text-blue-600', 
     perkada: 14, 
-    path: "M 490,120 L 580,125 L 560,210 L 480,200 Z",
-    cx: 530, 
-    cy: 160,
+    path: "M 445,160 L 520,172 L 530,215 L 465,220 L 455,205 Z",
+    cx: 485, 
+    cy: 185,
     desc: 'Aktivitas pertanian dominan, situasi ketertiban kondusif.' 
   },
   { 
@@ -142,9 +142,9 @@ const BULELENG_MAP_DATA = [
     bgClass: 'bg-orange-500', 
     textClass: 'text-orange-600', 
     perkada: 16, 
-    path: "M 580,125 L 680,130 L 650,220 L 560,210 Z",
-    cx: 620, 
-    cy: 170,
+    path: "M 520,172 L 610,182 L 600,230 L 530,215 Z",
+    cx: 565, 
+    cy: 198,
     desc: 'Pengawasan jalur perlintasan timur, penertiban baliho tanpa izin.' 
   },
   { 
@@ -155,9 +155,9 @@ const BULELENG_MAP_DATA = [
     bgClass: 'bg-blue-500', 
     textClass: 'text-blue-600', 
     perkada: 11, 
-    path: "M 680,130 L 870,150 L 820,240 L 740,250 L 650,220 Z",
-    cx: 760, 
-    cy: 185,
+    path: "M 610,182 C 670,187 730,193 830,202 L 840,212 L 780,252 L 700,248 L 600,230 Z",
+    cx: 710, 
+    cy: 215,
     desc: 'Pesisir timur kondusif, pengawasan berkala pos Satlinmas pantai.' 
   }
 ];
@@ -470,7 +470,7 @@ export default function AdminDashboard() {
 
 
   return (
-    <div className="min-h-screen bg-slate-100 text-slate-800 font-sans pb-12 select-none relative overflow-x-hidden pt-[57px]">
+    <div className="min-h-screen bg-[#F8F7F4] text-slate-800 font-sans pb-12 select-none relative overflow-x-hidden pt-[57px]">
       
       {/* 2. Horizontal Admin Navbar */}
       <nav className="bg-white border-b border-slate-200 shadow-md fixed top-0 left-0 w-full z-50">
@@ -478,7 +478,7 @@ export default function AdminDashboard() {
           <div className="flex items-center space-x-1">
             <Link 
               href="/" 
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#212260] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
+              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#561C24] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
               title="Kembali ke halaman utama warga"
             >
               Portal Warga
@@ -491,8 +491,8 @@ export default function AdminDashboard() {
               }}
               className={`px-4 py-4 text-xs uppercase tracking-wider flex items-center gap-1.5 cursor-pointer transition-all outline-none ${
                 currentSubTab === 'dashboard'
-                  ? 'text-blue-600 bg-blue-50/50 border-b-2 border-blue-600 font-black'
-                  : 'text-slate-500 hover:text-blue-600 hover:bg-slate-50 font-bold'
+                  ? 'text-[#561C24] bg-[#561C24]/5 border-b-2 border-[#561C24] font-black'
+                  : 'text-slate-500 hover:text-[#561C24] hover:bg-slate-50 font-bold'
               }`}
             >
               Dashboard
@@ -505,8 +505,8 @@ export default function AdminDashboard() {
               }}
               className={`px-4 py-4 text-xs uppercase tracking-wider flex items-center gap-1.5 cursor-pointer transition-all outline-none ${
                 currentSubTab === 'disposisi'
-                  ? 'text-blue-600 bg-blue-50/50 border-b-2 border-blue-600 font-black'
-                  : 'text-slate-500 hover:text-blue-600 hover:bg-slate-50 font-bold'
+                  ? 'text-[#561C24] bg-[#561C24]/5 border-b-2 border-[#561C24] font-black'
+                  : 'text-slate-500 hover:text-[#561C24] hover:bg-slate-50 font-bold'
               }`}
             >
               Disposisi
@@ -514,28 +514,28 @@ export default function AdminDashboard() {
             
             <Link 
               href="/admin/trantib" 
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-blue-600 hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
+              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#561C24] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
             >
               Portal Trantib
             </Link>
-
+            
             <Link 
               href="/admin/perada" 
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-blue-600 hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
+              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#561C24] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
             >
               Portal Perada
             </Link>
-
+            
             <Link 
               href="/admin/linmas" 
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-blue-600 hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
+              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#561C24] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
             >
               Portal Linmas
             </Link>
-
+            
             <Link 
               href="/admin/sda" 
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-blue-600 hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
+              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#561C24] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
             >
               Portal SDA
             </Link>
@@ -550,26 +550,26 @@ export default function AdminDashboard() {
         </div>
       </nav>
 
-      {/* 1. Header Banner Top Bar (Kemendagri Gradient Style) */}
-      <div className="bg-gradient-to-r from-[#212260] via-[#522a98] via-[#8e2de2] to-[#ec008c] text-white p-6 rounded-b-3xl shadow-lg relative overflow-hidden">
+      {/* 1. Header Banner Top Bar (Coffee Gradient Style) */}
+      <div className="bg-gradient-to-r from-[#561C24] via-[#6D2932] to-[#80424a] text-white p-6 rounded-b-3xl shadow-lg relative overflow-hidden">
         {/* Glowing Decorative Backgrounds */}
         <div className="absolute top-[-50px] right-[-50px] w-48 h-48 bg-white/10 rounded-full blur-xl pointer-events-none" />
-        <div className="absolute bottom-[-50px] left-[15%] w-36 h-36 bg-pink-500/20 rounded-full blur-xl pointer-events-none" />
+        <div className="absolute bottom-[-50px] left-[15%] w-36 h-36 bg-[#C7B7A3]/20 rounded-full blur-xl pointer-events-none" />
         
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 relative z-10">
           
           {/* Sisi Kiri: Logo bulat SIP POLPP & Identitas */}
           <div className="flex items-center gap-4 text-center md:text-left flex-col md:flex-row">
-            <div className="w-16 h-16 rounded-full bg-white border-2 border-[#ffb800] p-1 flex items-center justify-center shadow-md shrink-0">
-              <div className="w-full h-full rounded-full bg-gradient-to-tr from-blue-700 to-indigo-900 flex items-center justify-center text-white">
-                <Shield className="w-8 h-8 text-[#ffb800] fill-[#ffb800]/10" />
+            <div className="w-16 h-16 rounded-full bg-white border-2 border-[#C7B7A3] p-1 flex items-center justify-center shadow-md shrink-0">
+              <div className="w-full h-full rounded-full bg-gradient-to-tr from-[#561C24] to-[#6D2932] flex items-center justify-center text-white">
+                <Shield className="w-8 h-8 text-[#E8D8C4] fill-[#E8D8C4]/15" />
               </div>
             </div>
             <div>
               <h1 className="text-2xl md:text-3xl font-black tracking-wider leading-none text-white drop-shadow-md">
                 SIP POLPP
               </h1>
-              <p className="text-[10px] text-yellow-350 font-bold uppercase tracking-widest mt-1.5">
+              <p className="text-[10px] text-[#E8D8C4] font-bold uppercase tracking-widest mt-1.5">
                 Sistem Informasi Pelayanan & Operasional Pol PP Kemendagri
               </p>
             </div>
@@ -592,7 +592,7 @@ export default function AdminDashboard() {
               </div>
               <div className="text-left text-white leading-none">
                 <h4 className="text-xs font-black tracking-wide">Kabupaten Buleleng</h4>
-                <span className="text-[8px] bg-yellow-450 text-[#0B1E43] font-black uppercase tracking-widest px-1.5 py-0.5 rounded mt-1.5 inline-block">
+                <span className="text-[8px] bg-[#E8D8C4] text-[#561C24] font-black uppercase tracking-widest px-1.5 py-0.5 rounded mt-1.5 inline-block">
                   Admin
                 </span>
               </div>
@@ -621,7 +621,7 @@ export default function AdminDashboard() {
         {currentSubTab === 'disposisi' && (
           <div className="bg-white rounded-2xl p-6 shadow-md border border-slate-200 text-left">
             <div className="border-b border-slate-100 pb-3 mb-4 flex items-center gap-2">
-              <Filter className="w-4.5 h-4.5 text-blue-600" />
+              <Filter className="w-4.5 h-4.5 text-[#561C24]" />
               <h3 className="text-xs font-black uppercase tracking-wider text-slate-700">Filter Bar</h3>
             </div>
             
@@ -683,6 +683,69 @@ export default function AdminDashboard() {
         {currentSubTab === 'dashboard' && (
           <div className="space-y-6">
             
+            {/* Priority View: Pending Actions (Aduan Menunggu Aksi) */}
+            <div className="space-y-0 text-left">
+              <div className="inline-block bg-[#561C24] text-white px-6 py-2.5 rounded-t-2xl text-xs font-black uppercase tracking-wider shadow-sm select-none border-b-2 border-[#C7B7A3]">
+                <div className="flex items-center gap-1.5">
+                  <AlertTriangle className="w-4 h-4 text-[#E8D8C4] animate-pulse" /> Aduan Menunggu Aksi (Pending Actions)
+                </div>
+              </div>
+              
+              <div className="bg-white rounded-r-2xl rounded-b-2xl rounded-tl-none border border-slate-200 shadow-md p-6">
+                {reports.filter(r => r.status_laporan === 'Pending').length === 0 ? (
+                  <div className="text-center py-6 text-slate-500 space-y-2 border border-dashed border-slate-200 rounded-xl">
+                    <Check className="w-8 h-8 text-emerald-500 mx-auto" />
+                    <p className="font-bold text-slate-650 text-xs">Semua aduan masuk telah terdisposisi dengan baik.</p>
+                    <p className="text-[10px] text-slate-450">Tidak ada laporan warga yang berstatus Pending saat ini.</p>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                    {reports.filter(r => r.status_laporan === 'Pending').map((report) => {
+                      const loc = getReportLocation(report);
+                      return (
+                        <div key={report.id_tiket} className="bg-amber-50/30 border border-amber-250/70 hover:border-amber-350 rounded-xl p-4 flex flex-col justify-between gap-3 transition-all">
+                          <div className="space-y-1">
+                            <div className="flex justify-between items-center">
+                              <span className="text-[10px] font-mono font-black text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded">
+                                {report.id_tiket}
+                              </span>
+                              <span className="text-[9px] text-slate-450 font-semibold">
+                                {new Date(report.waktu_kirim).toLocaleDateString('id-ID', { dateStyle: 'medium' })}
+                              </span>
+                            </div>
+                            <h4 className="text-xs font-black text-slate-800 line-clamp-1">{report.kategori_masalah}</h4>
+                            <p className="text-[11px] text-slate-500 line-clamp-2 italic leading-relaxed">
+                              "{report.kronologi}"
+                            </p>
+                            <div className="text-[10px] text-slate-550 font-semibold flex items-center gap-1 pt-1.5">
+                              <MapPin className="w-3 h-3 text-slate-400 shrink-0" /> <span className="truncate">{loc.kecamatan}, {loc.desa}</span>
+                            </div>
+                          </div>
+                          
+                          <div className="flex gap-2 pt-2 border-t border-slate-100 mt-2">
+                            <button
+                              type="button"
+                              onClick={() => handleDeleteReport(report.id_tiket)}
+                              className="px-2.5 py-1 bg-white hover:bg-rose-50 border border-rose-200 text-rose-600 rounded text-[10px] font-bold transition-all cursor-pointer"
+                            >
+                              Spam
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => handleOpenCreateDisposisi(report)}
+                              className="flex-1 py-1 bg-[#561C24] hover:bg-[#6D2932] text-white rounded text-[10px] font-bold flex items-center justify-center gap-1 transition-all cursor-pointer"
+                            >
+                              Disposisi <ArrowRightCircle className="w-3.5 h-3.5 text-[#E8D8C4]" />
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            </div>
+
             {/* Top Grid: Perada (Pie/Donut Chart) & Trantibum (Bar Chart) */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               
@@ -1711,28 +1774,36 @@ export default function AdminDashboard() {
                   
                   {modalMode === 'create' ? (
                     <>
-                      <div className="grid grid-cols-2 gap-2">
+                      <div className="flex flex-col gap-2 bg-slate-50 p-3 rounded-xl border border-slate-200">
                         {[
-                          { id: "Bidang Linmas", label: "Bidang Linmas" },
-                          { id: "Bidang Trantib", label: "Bidang Trantib" },
-                          { id: "Bidang Perada", label: "Bidang Perada" },
-                          { id: "Bidang SDA", label: "Bidang SDA" },
+                          { id: "Bidang Linmas", label: "Bidang Perlindungan Masyarakat (Linmas)" },
+                          { id: "Bidang Trantib", label: "Bidang Ketertiban Umum & K3 (Trantib)" },
+                          { id: "Bidang Perada", label: "Bidang Penegakan Peraturan Daerah (Perada)" },
+                          { id: "Bidang SDA", label: "Bidang Pengembangan Sumber Daya Aparatur (SDA)" },
                         ].map((bidang) => (
-                          <button
+                          <label
                             key={bidang.id}
-                            type="button"
-                            onClick={() => {
-                              setDisposisiForm(prev => ({ ...prev, bidangTujuan: bidang.id }));
-                              if (formErrors.bidangTujuan) setFormErrors(prev => ({ ...prev, bidangTujuan: null }));
-                            }}
-                            className={`py-2 px-3 text-xs font-bold rounded-lg text-center transition-all cursor-pointer border ${
-                              disposisiForm.bidangTujuan === bidang.id 
-                                ? 'bg-blue-50 text-blue-700 font-extrabold border-blue-500 shadow-inner' 
-                                : 'bg-white text-slate-500 border-slate-200 hover:bg-slate-50'
+                            className={`flex items-center gap-3 px-3 py-2.5 rounded-lg border transition-all cursor-pointer select-none ${
+                              disposisiForm.bidangTujuan === bidang.id
+                                ? 'bg-white border-[#561C24] shadow-sm'
+                                : 'bg-white/60 border-slate-200 hover:border-slate-350 hover:bg-white'
                             }`}
                           >
-                            {bidang.label}
-                          </button>
+                            <input
+                              type="radio"
+                              name="bidangTujuan"
+                              value={bidang.id}
+                              checked={disposisiForm.bidangTujuan === bidang.id}
+                              onChange={() => {
+                                setDisposisiForm(prev => ({ ...prev, bidangTujuan: bidang.id }));
+                                if (formErrors.bidangTujuan) setFormErrors(prev => ({ ...prev, bidangTujuan: null }));
+                              }}
+                              className="w-4 h-4 text-[#561C24] border-slate-300 focus:ring-[#561C24] cursor-pointer"
+                            />
+                            <span className={`text-xs font-bold ${disposisiForm.bidangTujuan === bidang.id ? 'text-[#561C24]' : 'text-slate-600'}`}>
+                              {bidang.label}
+                            </span>
+                          </label>
                         ))}
                       </div>
                       {formErrors.bidangTujuan && (
@@ -1755,31 +1826,41 @@ export default function AdminDashboard() {
                   </label>
                   
                   {modalMode === 'create' ? (
-                    <div className="grid grid-cols-3 gap-2">
+                    <div className="flex gap-3 bg-slate-50 p-3 rounded-xl border border-slate-200">
                       {[
-                        { id: "Rendah", label: "Rendah", color: "hover:text-emerald-600 border-slate-200 text-emerald-500", active: "bg-emerald-50 border-emerald-500 text-emerald-700 font-black shadow-inner" },
-                        { id: "Sedang", label: "Sedang", color: "hover:text-amber-600 border-slate-200 text-amber-500", active: "bg-amber-50 border-amber-500 text-amber-705 font-black shadow-inner" },
-                        { id: "Darurat", label: "Darurat", color: "hover:text-rose-600 border-slate-200 text-rose-500", active: "bg-rose-50 border-rose-500 text-rose-700 font-black shadow-inner" },
+                        { id: "Rendah", label: "Rendah", colorClass: "text-emerald-600 bg-emerald-50/50" },
+                        { id: "Sedang", label: "Sedang", colorClass: "text-amber-600 bg-amber-50/50" },
+                        { id: "Darurat", label: "Darurat", colorClass: "text-rose-600 bg-rose-50/50" },
                       ].map((level) => (
-                        <button
+                        <label
                           key={level.id}
-                          type="button"
-                          onClick={() => setDisposisiForm(prev => ({ ...prev, kedaruratan: level.id }))}
-                          className={`py-2 px-3 text-xs font-bold rounded-lg text-center transition-all cursor-pointer border ${
-                            disposisiForm.kedaruratan === level.id ? level.active : `bg-white ${level.color}`
+                          className={`flex-1 flex items-center gap-2.5 px-3 py-2 bg-white rounded-lg border transition-all cursor-pointer select-none ${
+                            disposisiForm.kedaruratan === level.id 
+                              ? 'border-[#561C24] shadow-sm bg-white' 
+                              : 'border-slate-200 hover:border-slate-350 bg-white/60'
                           }`}
                         >
-                          {level.label}
-                        </button>
+                          <input
+                            type="radio"
+                            name="kedaruratan"
+                            value={level.id}
+                            checked={disposisiForm.kedaruratan === level.id}
+                            onChange={() => setDisposisiForm(prev => ({ ...prev, kedaruratan: level.id }))}
+                            className="w-4 h-4 text-[#561C24] border-slate-300 focus:ring-[#561C24] cursor-pointer"
+                          />
+                          <span className={`text-[11px] font-black ${level.colorClass} px-2 py-0.5 rounded`}>
+                            {level.label}
+                          </span>
+                        </label>
                       ))}
                     </div>
                   ) : (
-                    <div className={`w-fit px-3 py-1 rounded-full text-xs font-bold ${
+                    <div className={`w-fit px-3 py-1 rounded-full text-xs font-bold border ${
                       selectedReport.disposisi?.kedaruratan === 'Darurat' 
-                        ? 'bg-rose-50 border border-rose-200 text-rose-705' 
+                        ? 'bg-rose-50 border-rose-200 text-rose-700' 
                         : selectedReport.disposisi?.kedaruratan === 'Sedang'
-                        ? 'bg-amber-50 border border-amber-200 text-amber-705'
-                        : 'bg-emerald-50 border border-emerald-200 text-emerald-705'
+                        ? 'bg-amber-50 border-amber-200 text-amber-700'
+                        : 'bg-emerald-50 border-emerald-200 text-emerald-700'
                     }`}>
                       Urgensi: {selectedReport.disposisi?.kedaruratan}
                     </div>

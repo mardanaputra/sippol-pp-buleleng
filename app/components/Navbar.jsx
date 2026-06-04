@@ -52,31 +52,31 @@ export default function Navbar({ activePage = 'home' }) {
   }, [activePage]);
 
   // Konfigurasi Branding dinamis berdasarkan halaman aktif
-  let logoIcon = <Shield className="w-6 h-6 fill-[#0B1E43]/10" />;
+  let logoIcon = <Shield className="w-6 h-6 fill-coffee-dark/10 text-coffee-dark" />;
   let subtitle = "SATPOL PP KAB. BULELENG";
 
   if (activePage === 'pengaduan') {
-    logoIcon = <ShieldAlert className="w-6 h-6 text-[#0B1E43]" />;
+    logoIcon = <ShieldAlert className="w-6 h-6 text-coffee-medium" />;
     subtitle = "LAYANAN PENGADUAN WARGA";
   } else if (activePage === 'status') {
-    logoIcon = <ShieldAlert className="w-6 h-6 text-[#0B1E43]" />;
+    logoIcon = <ShieldAlert className="w-6 h-6 text-coffee-medium" />;
     subtitle = "STATUS PENANGANAN LAPORAN";
   }
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur-md px-6 py-3.5 shadow-md border-b border-slate-200/80">
+    <header className="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-md px-6 py-3.5 shadow-sm border-b border-coffee-light/20">
       <div className="max-w-6xl mx-auto flex items-center justify-between">
         
         {/* Logo Branding */}
         <Link href="/" className="flex items-center gap-3 cursor-pointer group">
-          <div className="p-2 bg-slate-100 group-hover:bg-slate-200 rounded-xl text-[#0B1E43] border border-slate-200/60 transition-colors">
+          <div className="p-2 bg-coffee-cream/10 group-hover:bg-coffee-cream/20 rounded-xl text-coffee-dark border border-coffee-light/25 transition-colors">
             {logoIcon}
           </div>
           <div>
-            <h1 className="font-extrabold text-base md:text-lg tracking-wider text-[#0B1E43] leading-none">
+            <h1 className="font-black text-base md:text-lg tracking-wider text-coffee-dark leading-none">
               LAPORBULELENG
             </h1>
-            <p className="text-[9px] text-[#E28A1C] font-black uppercase tracking-widest mt-1">
+            <p className="text-[9px] text-coffee-medium font-black uppercase tracking-widest mt-1">
               {subtitle}
             </p>
           </div>
@@ -86,40 +86,40 @@ export default function Navbar({ activePage = 'home' }) {
         <nav className="hidden md:flex items-center gap-6 font-sans">
           <Link 
             href="/" 
-            className={`text-xs font-bold transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[2px] after:bg-[#E28A1C] after:rounded-full after:transition-all after:duration-300 after:ease-in-out after:origin-left ${
+            className={`text-xs font-extrabold transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[2px] after:bg-coffee-medium after:rounded-full after:transition-all after:duration-300 after:ease-in-out after:origin-left ${
               activeSection === 'home' 
-                ? "text-[#0B1E43] after:scale-x-100 after:opacity-100" 
-                : "text-slate-600 hover:text-[#0B1E43] after:scale-x-0 after:opacity-0 hover:after:scale-x-100 hover:after:opacity-50"
+                ? "text-coffee-dark after:scale-x-100 after:opacity-100" 
+                : "text-slate-600 hover:text-coffee-dark after:scale-x-0 after:opacity-0 hover:after:scale-x-100 hover:after:opacity-50"
             }`}
           >
             Beranda
           </Link>
           <Link 
             href="/#tentang" 
-            className={`text-xs font-bold transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[2px] after:bg-[#E28A1C] after:rounded-full after:transition-all after:duration-300 after:ease-in-out after:origin-left ${
+            className={`text-xs font-extrabold transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[2px] after:bg-coffee-medium after:rounded-full after:transition-all after:duration-300 after:ease-in-out after:origin-left ${
               activeSection === 'tentang' 
-                ? "text-[#0B1E43] after:scale-x-100 after:opacity-100" 
-                : "text-slate-600 hover:text-[#0B1E43] after:scale-x-0 after:opacity-0 hover:after:scale-x-100 hover:after:opacity-50"
+                ? "text-coffee-dark after:scale-x-100 after:opacity-100" 
+                : "text-slate-600 hover:text-coffee-dark after:scale-x-0 after:opacity-0 hover:after:scale-x-100 hover:after:opacity-50"
             }`}
           >
             Tentang
           </Link>
           <Link 
             href="/#berita" 
-            className={`text-xs font-bold transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[2px] after:bg-[#E28A1C] after:rounded-full after:transition-all after:duration-300 after:ease-in-out after:origin-left ${
+            className={`text-xs font-extrabold transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[2px] after:bg-coffee-medium after:rounded-full after:transition-all after:duration-300 after:ease-in-out after:origin-left ${
               activeSection === 'berita' 
-                ? "text-[#0B1E43] after:scale-x-100 after:opacity-100" 
-                : "text-slate-600 hover:text-[#0B1E43] after:scale-x-0 after:opacity-0 hover:after:scale-x-100 hover:after:opacity-50"
+                ? "text-coffee-dark after:scale-x-100 after:opacity-100" 
+                : "text-slate-600 hover:text-coffee-dark after:scale-x-0 after:opacity-0 hover:after:scale-x-100 hover:after:opacity-50"
             }`}
           >
             Berita
           </Link>
           <Link 
             href="/#profil" 
-            className={`text-xs font-bold transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[2px] after:bg-[#E28A1C] after:rounded-full after:transition-all after:duration-300 after:ease-in-out after:origin-left ${
+            className={`text-xs font-extrabold transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[2px] after:bg-coffee-medium after:rounded-full after:transition-all after:duration-300 after:ease-in-out after:origin-left ${
               activeSection === 'profil' 
-                ? "text-[#0B1E43] after:scale-x-100 after:opacity-100" 
-                : "text-slate-600 hover:text-[#0B1E43] after:scale-x-0 after:opacity-0 hover:after:scale-x-100 hover:after:opacity-50"
+                ? "text-coffee-dark after:scale-x-100 after:opacity-100" 
+                : "text-slate-600 hover:text-coffee-dark after:scale-x-0 after:opacity-0 hover:after:scale-x-100 hover:after:opacity-50"
             }`}
           >
             Profil
@@ -130,13 +130,13 @@ export default function Navbar({ activePage = 'home' }) {
         <div className="flex items-center gap-3">
           <Link 
             href="/admin/dashboard" 
-            className="hidden sm:inline-flex px-5 py-2.5 bg-[#0B1E43] hover:bg-[#07132B] text-white text-xs font-bold rounded-lg shadow-sm transition-all duration-200 items-center gap-1.5 cursor-pointer active:scale-[0.97]"
+            className="hidden sm:inline-flex px-5 py-2.5 bg-coffee-dark hover:bg-coffee-medium text-white text-xs font-black rounded-lg shadow-sm transition-all duration-200 items-center gap-1.5 cursor-pointer active:scale-[0.97]"
           >
             Login Admin
           </Link>
           <button 
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="p-2.5 bg-slate-100 hover:bg-slate-200 rounded-lg text-slate-700 transition-all duration-200 cursor-pointer active:scale-[0.95] border border-slate-200/50"
+            className="p-2.5 bg-slate-50 hover:bg-coffee-cream/20 rounded-lg text-slate-700 transition-all duration-200 cursor-pointer active:scale-[0.95] border border-slate-200/50"
             aria-label="Toggle Menu"
           >
             {isMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
@@ -153,8 +153,8 @@ export default function Navbar({ activePage = 'home' }) {
             onClick={() => setIsMenuOpen(false)}
             className={`px-3 py-2 text-xs font-bold rounded-lg transition-all duration-300 ease-in-out ${
               activeSection === 'home' 
-                ? "text-[#0B1E43] bg-slate-100" 
-                : "text-slate-600 hover:text-[#0B1E43] hover:bg-slate-50"
+                ? "text-coffee-dark bg-coffee-cream/10 font-black" 
+                : "text-slate-600 hover:text-coffee-dark hover:bg-slate-50"
             }`}
           >
             Beranda
@@ -164,8 +164,8 @@ export default function Navbar({ activePage = 'home' }) {
             onClick={() => setIsMenuOpen(false)}
             className={`px-3 py-2 text-xs font-bold rounded-lg transition-all duration-300 ease-in-out ${
               activeSection === 'tentang' 
-                ? "text-[#0B1E43] bg-slate-100" 
-                : "text-slate-600 hover:text-[#0B1E43] hover:bg-slate-50"
+                ? "text-coffee-dark bg-coffee-cream/10 font-black" 
+                : "text-slate-600 hover:text-coffee-dark hover:bg-slate-50"
             }`}
           >
             Tentang
@@ -175,8 +175,8 @@ export default function Navbar({ activePage = 'home' }) {
             onClick={() => setIsMenuOpen(false)}
             className={`px-3 py-2 text-xs font-bold rounded-lg transition-all duration-300 ease-in-out ${
               activeSection === 'berita' 
-                ? "text-[#0B1E43] bg-slate-100" 
-                : "text-slate-600 hover:text-[#0B1E43] hover:bg-slate-50"
+                ? "text-coffee-dark bg-coffee-cream/10 font-black" 
+                : "text-slate-600 hover:text-coffee-dark hover:bg-slate-50"
             }`}
           >
             Berita
@@ -186,8 +186,8 @@ export default function Navbar({ activePage = 'home' }) {
             onClick={() => setIsMenuOpen(false)}
             className={`px-3 py-2 text-xs font-bold rounded-lg transition-all duration-300 ease-in-out ${
               activeSection === 'profil' 
-                ? "text-[#0B1E43] bg-slate-100" 
-                : "text-slate-600 hover:text-[#0B1E43] hover:bg-slate-50"
+                ? "text-coffee-dark bg-coffee-cream/10 font-black" 
+                : "text-slate-600 hover:text-coffee-dark hover:bg-slate-50"
             }`}
           >
             Profil
@@ -195,7 +195,7 @@ export default function Navbar({ activePage = 'home' }) {
           <Link 
             href="/admin/dashboard" 
             onClick={() => setIsMenuOpen(false)}
-            className="sm:hidden mx-3 py-2.5 bg-[#0B1E43] hover:bg-[#07132B] text-white text-center text-xs font-bold rounded-lg shadow-sm transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-[0.97]"
+            className="sm:hidden mx-3 py-2.5 bg-coffee-dark hover:bg-coffee-medium text-white text-center text-xs font-bold rounded-lg shadow-sm transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-[0.97]"
           >
             Login Admin
           </Link>

@@ -504,7 +504,7 @@ export default function SdaAdmin() {
   });
 
   return (
-    <div className="min-h-screen bg-slate-100 text-slate-800 font-sans pb-12 select-none relative overflow-x-hidden pt-[57px]">
+    <div className="min-h-screen bg-[#F8F7F4] text-slate-800 font-sans pb-12 select-none relative overflow-x-hidden pt-[57px]">
       
       {/* Horizontal Navbar */}
       <nav className="bg-white border-b border-slate-200 shadow-md fixed top-0 left-0 w-full z-50">
@@ -512,43 +512,44 @@ export default function SdaAdmin() {
           <div className="flex items-center space-x-1">
             <Link 
               href="/" 
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#212260] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
+              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#561C24] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
+              title="Kembali ke halaman utama warga"
             >
               Portal Warga
             </Link>
             <Link 
               href="/admin/dashboard" 
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-blue-600 hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
+              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#561C24] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
             >
               Dashboard
             </Link>
             <Link 
               href="/admin/dashboard?tab=disposisi" 
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-blue-600 hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
+              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#561C24] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
             >
               Disposisi
             </Link>
             <Link 
               href="/admin/trantib" 
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-blue-600 hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
+              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#561C24] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
             >
               Portal Trantib
             </Link>
             <Link 
               href="/admin/perada" 
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-blue-600 hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
+              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#561C24] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
             >
               Portal Perada
             </Link>
             <Link 
               href="/admin/linmas" 
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-blue-600 hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
+              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#561C24] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
             >
               Portal Linmas
             </Link>
             <Link 
               href="/admin/sda" 
-              className="px-4 py-4 text-xs font-bold text-blue-600 bg-blue-50/50 border-b-2 border-blue-600 transition-all uppercase tracking-wider flex items-center gap-1.5 font-black"
+              className="px-4 py-4 text-xs font-black text-[#561C24] bg-[#561C24]/5 border-b-2 border-[#561C24] transition-all uppercase tracking-wider flex items-center gap-1.5"
             >
               Portal SDA
             </Link>
@@ -557,22 +558,22 @@ export default function SdaAdmin() {
       </nav>
 
       {/* Header Banner */}
-      <div className="bg-gradient-to-r from-[#212260] via-[#3b2075] via-[#6a1b9a] to-[#ad1457] text-white p-6 rounded-b-3xl shadow-lg relative overflow-hidden">
+      <div className="bg-gradient-to-r from-[#561C24] via-[#6D2932] to-[#80424a] text-white p-6 rounded-b-3xl shadow-lg relative overflow-hidden">
         <div className="absolute top-[-50px] right-[-50px] w-48 h-48 bg-white/10 rounded-full blur-xl pointer-events-none" />
-        <div className="absolute bottom-[-50px] left-[15%] w-36 h-36 bg-pink-500/20 rounded-full blur-xl pointer-events-none" />
+        <div className="absolute bottom-[-50px] left-[15%] w-36 h-36 bg-[#C7B7A3]/20 rounded-full blur-xl pointer-events-none" />
         
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 relative z-10">
           <div className="flex items-center gap-4 text-center md:text-left flex-col md:flex-row">
-            <div className="w-16 h-16 rounded-full bg-white border-2 border-[#ffb800] p-1 flex items-center justify-center shadow-md shrink-0">
-              <div className="w-full h-full rounded-full bg-gradient-to-tr from-purple-700 to-pink-900 flex items-center justify-center text-white">
-                <Users className="w-8 h-8 text-[#ffb800]" />
+            <div className="w-16 h-16 rounded-full bg-white border-2 border-[#C7B7A3] p-1 flex items-center justify-center shadow-md shrink-0">
+              <div className="w-full h-full rounded-full bg-gradient-to-tr from-[#561C24] to-[#6D2932] flex items-center justify-center text-white">
+                <Users className="w-8 h-8 text-[#E8D8C4] fill-[#E8D8C4]/15" />
               </div>
             </div>
             <div>
               <h1 className="text-2xl md:text-3xl font-black tracking-wider leading-none text-white drop-shadow-md">
                 SIP POLPP
               </h1>
-              <p className="text-[10px] text-yellow-350 font-bold uppercase tracking-widest mt-1.5">
+              <p className="text-[10px] text-[#E8D8C4] font-bold uppercase tracking-widest mt-1.5">
                 Portal Administrasi & Kompetensi Aparatur SDA
               </p>
             </div>
@@ -585,7 +586,7 @@ export default function SdaAdmin() {
               </div>
               <div className="text-left text-white leading-none">
                 <h4 className="text-xs font-black tracking-wide">Bidang SDA</h4>
-                <span className="text-[8px] bg-yellow-450 text-[#0B1E43] font-black uppercase tracking-widest px-1.5 py-0.5 rounded mt-1.5 inline-block">
+                <span className="text-[8px] bg-[#E8D8C4] text-[#561C24] font-black uppercase tracking-widest px-1.5 py-0.5 rounded mt-1.5 inline-block">
                   Aparatur
                 </span>
               </div>
@@ -613,8 +614,8 @@ export default function SdaAdmin() {
             onClick={() => { setActiveTab('personel'); setSearchQuery(''); setFilterType(''); }}
             className={`flex-1 py-3 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer ${
               activeTab === 'personel'
-                ? 'bg-[#212260] text-white shadow-sm'
-                : 'text-slate-600 bg-transparent hover:bg-slate-50 hover:text-[#212260]'
+                ? 'bg-[#561C24] text-white shadow-sm'
+                : 'text-slate-600 bg-transparent hover:bg-slate-50 hover:text-[#561C24]'
             }`}
           >
             <Users className="w-4 h-4" /> Manajemen Aparatur ({personelList.length})
@@ -623,8 +624,8 @@ export default function SdaAdmin() {
             onClick={() => { setActiveTab('kegiatan'); setSearchQuery(''); setFilterType(''); }}
             className={`flex-1 py-3 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer ${
               activeTab === 'kegiatan'
-                ? 'bg-[#212260] text-white shadow-sm'
-                : 'text-slate-600 bg-transparent hover:bg-slate-50 hover:text-[#212260]'
+                ? 'bg-[#561C24] text-white shadow-sm'
+                : 'text-slate-600 bg-transparent hover:bg-slate-50 hover:text-[#561C24]'
             }`}
           >
             <FileText className="w-4 h-4" /> Log Jurnal Kegiatan ({kegiatanList.length})
@@ -633,8 +634,8 @@ export default function SdaAdmin() {
             onClick={() => { setActiveTab('pustaka'); setSearchQuery(''); setFilterType(''); }}
             className={`flex-1 py-3 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer ${
               activeTab === 'pustaka'
-                ? 'bg-[#212260] text-white shadow-sm'
-                : 'text-slate-600 bg-transparent hover:bg-slate-50 hover:text-[#212260]'
+                ? 'bg-[#561C24] text-white shadow-sm'
+                : 'text-slate-600 bg-transparent hover:bg-slate-50 hover:text-[#561C24]'
             }`}
           >
             <BookOpen className="w-4 h-4" /> Pustaka Edukasi Hukum ({pustakaList.length})

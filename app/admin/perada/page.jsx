@@ -101,6 +101,14 @@ export default function PeradaAdmin() {
   const [isZoomModalOpen, setIsZoomModalOpen] = useState(false);
   const [zoomImageUrl, setZoomImageUrl] = useState('');
 
+  const [selectedPenegakanDetails, setSelectedPenegakanDetails] = useState(null);
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
+
+  const handleOpenPenegakanDetails = (item) => {
+    setSelectedPenegakanDetails(item);
+    setIsDetailsModalOpen(true);
+  };
+
   const [formErrors, setFormErrors] = useState({});
 
   // Fetch Data Functions
@@ -602,7 +610,7 @@ export default function PeradaAdmin() {
   );
 
   return (
-    <div className="min-h-screen bg-slate-100 text-slate-800 font-sans pb-12 select-none relative overflow-x-hidden pt-[57px]">
+    <div className="min-h-screen bg-[#F8F7F4] text-slate-800 font-sans pb-12 select-none relative overflow-x-hidden pt-[57px]">
       
       {/* 2. Horizontal Admin Navbar (Fixed / Persistent) */}
       <nav className="bg-white border-b border-slate-200 shadow-md fixed top-0 left-0 w-full z-50">
@@ -610,7 +618,7 @@ export default function PeradaAdmin() {
           <div className="flex items-center space-x-1">
             <Link 
               href="/" 
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#212260] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
+              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#561C24] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
               title="Kembali ke halaman utama warga"
             >
               Portal Warga
@@ -618,42 +626,42 @@ export default function PeradaAdmin() {
             
             <Link 
               href="/admin/dashboard" 
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-blue-600 hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
+              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#561C24] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
             >
               Dashboard
             </Link>
             
             <Link 
               href="/admin/dashboard?tab=disposisi" 
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-blue-600 hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
+              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#561C24] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
             >
               Disposisi
             </Link>
             
             <Link 
               href="/admin/trantib" 
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-blue-600 hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
+              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#561C24] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
             >
               Portal Trantib
             </Link>
 
             <Link 
               href="/admin/perada" 
-              className="px-4 py-4 text-xs font-black text-blue-600 bg-blue-50/50 transition-all uppercase tracking-wider border-b-2 border-blue-600 flex items-center gap-1.5"
+              className="px-4 py-4 text-xs font-black text-[#561C24] bg-[#561C24]/5 transition-all uppercase tracking-wider border-b-2 border-[#561C24] flex items-center gap-1.5"
             >
               Portal Perada
             </Link>
 
             <Link 
               href="/admin/linmas" 
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-blue-600 hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
+              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#561C24] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
             >
               Portal Linmas
             </Link>
 
             <Link 
               href="/admin/sda" 
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-blue-600 hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
+              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#561C24] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
             >
               Portal SDA
             </Link>
@@ -673,26 +681,26 @@ export default function PeradaAdmin() {
         </div>
       </nav>
 
-      {/* 1. Header Banner Top Bar (Kemendagri Gradient Style) */}
-      <div className="bg-gradient-to-r from-[#212260] via-[#522a98] via-[#8e2de2] to-[#ec008c] text-white p-6 rounded-b-3xl shadow-lg relative overflow-hidden">
+      {/* 1. Header Banner Top Bar (Coffee Gradient Style) */}
+      <div className="bg-gradient-to-r from-[#561C24] via-[#6D2932] to-[#80424a] text-white p-6 rounded-b-3xl shadow-lg relative overflow-hidden">
         {/* Glowing Decorative Backgrounds */}
         <div className="absolute top-[-50px] right-[-50px] w-48 h-48 bg-white/10 rounded-full blur-xl pointer-events-none" />
-        <div className="absolute bottom-[-50px] left-[15%] w-36 h-36 bg-pink-500/20 rounded-full blur-xl pointer-events-none" />
+        <div className="absolute bottom-[-50px] left-[15%] w-36 h-36 bg-[#C7B7A3]/20 rounded-full blur-xl pointer-events-none" />
         
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 relative z-10">
           
           {/* Sisi Kiri: Logo bulat SIP POLPP & Identitas */}
           <div className="flex items-center gap-4 text-center md:text-left flex-col md:flex-row">
-            <div className="w-16 h-16 rounded-full bg-white border-2 border-[#ffb800] p-1 flex items-center justify-center shadow-md shrink-0">
-              <div className="w-full h-full rounded-full bg-gradient-to-tr from-blue-700 to-indigo-900 flex items-center justify-center text-white">
-                <Shield className="w-8 h-8 text-[#ffb800] fill-[#ffb800]/10" />
+            <div className="w-16 h-16 rounded-full bg-white border-2 border-[#C7B7A3] p-1 flex items-center justify-center shadow-md shrink-0">
+              <div className="w-full h-full rounded-full bg-gradient-to-tr from-[#561C24] to-[#6D2932] flex items-center justify-center text-white">
+                <Shield className="w-8 h-8 text-[#E8D8C4] fill-[#E8D8C4]/15" />
               </div>
             </div>
             <div>
               <h1 className="text-2xl md:text-3xl font-black tracking-wider leading-none text-white drop-shadow-md">
                 SIP POLPP
               </h1>
-              <p className="text-[10px] text-yellow-350 font-bold uppercase tracking-widest mt-1.5">
+              <p className="text-[10px] text-[#E8D8C4] font-bold uppercase tracking-widest mt-1.5">
                 Sistem Informasi Pelayanan & Operasional Pol PP Kemendagri
               </p>
             </div>
@@ -715,7 +723,7 @@ export default function PeradaAdmin() {
               </div>
               <div className="text-left text-white leading-none">
                 <h4 className="text-xs font-black tracking-wide">Kabupaten Buleleng</h4>
-                <span className="text-[8px] bg-yellow-450 text-[#0B1E43] font-black uppercase tracking-widest px-1.5 py-0.5 rounded mt-1.5 inline-block">
+                <span className="text-[8px] bg-[#E8D8C4] text-[#561C24] font-black uppercase tracking-widest px-1.5 py-0.5 rounded mt-1.5 inline-block">
                   Admin
                 </span>
               </div>
@@ -745,7 +753,7 @@ export default function PeradaAdmin() {
               else if (activeTab === 'pelanggaran') openCreatePelanggaran();
               else if (activeTab === 'penegakan') openCreatePenegakan();
             }}
-            className="w-full sm:w-auto px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition-all duration-200 flex items-center justify-center gap-2 text-xs font-bold shadow-md active:scale-95 cursor-pointer"
+            className="w-full sm:w-auto px-5 py-2.5 bg-[#561C24] hover:bg-[#6D2932] text-white rounded-xl transition-all duration-200 flex items-center justify-center gap-2 text-xs font-bold shadow-md active:scale-95 cursor-pointer"
           >
             <Plus className="w-4.5 h-4.5" />
             {activeTab === 'regulasi' ? 'Registrasi Regulasi' : activeTab === 'pelanggaran' ? 'Tambah Pasal Katalog' : 'Catat Penegakan/Sidang'}
@@ -758,7 +766,7 @@ export default function PeradaAdmin() {
             onClick={() => { setActiveTab('regulasi'); setSearchQuery(''); }}
             className={`flex-1 py-3 text-xs md:text-sm font-bold rounded-xl transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer ${
               activeTab === 'regulasi' 
-                ? 'bg-[#0B1E43] text-white font-extrabold shadow-sm' 
+                ? 'bg-[#561C24] text-white font-extrabold shadow-sm' 
                 : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
             }`}
           >
@@ -768,7 +776,7 @@ export default function PeradaAdmin() {
             onClick={() => { setActiveTab('pelanggaran'); setSearchQuery(''); }}
             className={`flex-1 py-3 text-xs md:text-sm font-bold rounded-xl transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer ${
               activeTab === 'pelanggaran' 
-                ? 'bg-[#0B1E43] text-white font-extrabold shadow-sm' 
+                ? 'bg-[#561C24] text-white font-extrabold shadow-sm' 
                 : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
             }`}
           >
@@ -778,7 +786,7 @@ export default function PeradaAdmin() {
             onClick={() => { setActiveTab('penegakan'); setSearchQuery(''); }}
             className={`flex-1 py-3 text-xs md:text-sm font-bold rounded-xl transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer relative ${
               activeTab === 'penegakan' 
-                ? 'bg-[#0B1E43] text-white font-extrabold shadow-sm' 
+                ? 'bg-[#561C24] text-white font-extrabold shadow-sm' 
                 : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
             }`}
           >
@@ -1076,8 +1084,7 @@ export default function PeradaAdmin() {
                 </div>
               </div>
             )}
-
-            {/* Grid Penegakan Perda / Sidang */}
+            {/* Table Penegakan Perda / Sidang */}
             {filteredPenegakan.length === 0 ? (
               <div className="text-center p-16 bg-white border border-slate-200 rounded-2xl text-slate-500 space-y-3">
                 <Gavel className="w-12 h-12 text-slate-350 mx-auto" />
@@ -1085,225 +1092,101 @@ export default function PeradaAdmin() {
                 <p className="text-xs text-slate-450 max-w-sm mx-auto">Silakan klik "+ Catat Penegakan/Sidang" untuk meregistrasikan kasus yustisial baru!</p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {filteredPenegakan.map((item) => {
-                  const tindDate = new Date(item.tanggal_tindakan).toLocaleDateString('id-ID', {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit'
-                  });
-
-                  return (
-                    <div 
-                      key={item.id} 
-                      className="bg-white border border-slate-200 rounded-2xl p-5 hover:shadow-md transition duration-200 shadow-sm flex flex-col justify-between"
-                    >
-                      <div className="space-y-4">
-                        
-                        {/* Top Bar Badges */}
-                        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
-                          <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${
-                            item.jenis_tindakan === 'Yustisial' 
-                              ? 'bg-rose-50 text-rose-700 border-rose-200' 
-                              : 'bg-amber-50 text-amber-700 border-amber-200'
-                          }`}>
-                            Sidang {item.jenis_tindakan}
-                          </span>
-
-                          <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${
-                            item.status_sidang === 'Kasus Selesai (Clear)' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' :
-                            item.status_sidang === 'Proses Sidang Tipiring' ? 'bg-blue-50 text-blue-700 border-blue-200' :
-                            'bg-amber-50 text-amber-700 border-amber-200 animate-pulse'
-                          }`}>
-                            {item.status_sidang}
-                          </span>
-                        </div>
-
-                        {/* Title & Case Number */}
-                        <div className="flex justify-between items-center bg-slate-50 px-3.5 py-2.5 rounded-xl border border-slate-200/60">
-                          <div className="space-y-0.5">
-                            <span className="text-[8px] uppercase font-extrabold text-slate-450 tracking-wider">Nomor Registrasi Perkara</span>
-                            <p className="text-xs font-mono font-bold text-slate-800">{item.no_kejadian}</p>
-                          </div>
-                          
-                          <button
-                            onClick={() => openVerdictSummonModal(item)}
-                            className="px-2.5 py-1.5 bg-amber-50 hover:bg-amber-100 border border-amber-200 text-[#E28A1C] rounded-lg transition duration-200 flex items-center justify-center gap-1.5 text-[10px] font-bold shadow-xs cursor-pointer active:scale-95"
-                            title="Cetak lembar panggilan/putusan sidang"
-                          >
-                            <Gavel className="w-3.5 h-3.5" /> Surat Sidang
-                          </button>
-                        </div>
-
-                        {/* Details Grid */}
-                        <div className="space-y-3.5 text-xs text-slate-650">
-                          
-                          {/* Nama Pelanggar */}
-                          <div className="bg-slate-50/50 p-3 rounded-xl border border-slate-200 text-[11px] font-semibold space-y-1.5">
-                            <div>
-                              <p className="text-[8px] uppercase font-bold text-slate-450 tracking-wider">Terdakwa / Pelanggar Aturan</p>
-                              <p className="text-slate-850 mt-1 text-xs font-extrabold">{item.nama_pelanggar}</p>
+              <div className="bg-white border border-slate-200 rounded-2xl shadow-md overflow-hidden text-left">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left border-collapse">
+                    <thead>
+                      <tr className="border-b border-slate-250 bg-slate-50 text-[10px] uppercase font-bold text-slate-500 tracking-wider">
+                        <th className="py-4 px-4">No. Berkas</th>
+                        <th className="py-4 px-4">Terdakwa / Pelanggar</th>
+                        <th className="py-4 px-4">Regulasi & Pasal</th>
+                        <th className="py-4 px-4">Tanggal & Lokasi</th>
+                        <th className="py-4 px-4">Status Sidang</th>
+                        <th className="py-4 px-4 text-right">Denda Putusan</th>
+                        <th className="py-4 px-4 text-center">Aksi</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100 text-xs font-medium text-slate-700">
+                      {filteredPenegakan.map((item) => {
+                        const tindDate = new Date(item.tanggal_tindakan).toLocaleDateString('id-ID', {
+                          year: 'numeric',
+                          month: 'short',
+                          day: 'numeric'
+                        });
+                        return (
+                          <tr key={item.id} className="hover:bg-slate-50/50 transition-colors">
+                            <td className="py-4 px-4 font-mono font-bold text-[#561C24]">
+                              {item.no_kejadian}
+                            </td>
+                            <td className="py-4 px-4">
+                              <div className="font-extrabold text-slate-800">{item.nama_pelanggar}</div>
                               {item.nik_pelanggar && (
-                                <p className="text-[10px] text-slate-500 mt-1 font-mono">
-                                  NIK/KTP: <span className="text-[#0B1E43] font-bold">{item.nik_pelanggar}</span>
-                                </p>
+                                <div className="text-[10px] text-slate-450 font-mono mt-0.5">NIK: {item.nik_pelanggar}</div>
                               )}
-                              {item.alamat_pelanggar && (
-                                <p className="text-[10px] text-slate-500 mt-1 flex items-start gap-1 font-medium">
-                                  <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" />
-                                  <span>Alamat: {item.alamat_pelanggar}</span>
-                                </p>
-                              )}
-                            </div>
-                          </div>
-
-                          {/* Detail Pasal */}
-                          <div className="flex items-start gap-2.5">
-                            <Scale className="w-4 h-4 text-[#0B1E43] shrink-0 mt-0.5" />
-                            <div className="space-y-0.5">
-                              <p className="text-[9px] text-slate-450 font-bold uppercase tracking-wider">Landasan Regulasi & Pasal</p>
-                              <p className="font-bold text-slate-800">{item.kode_regulasi} - {item.pasal_dilanggar}</p>
-                            </div>
-                          </div>
-
-                          {/* Lokasi & Tanggal Kejadian */}
-                          <div className="flex items-start gap-2.5">
-                            <MapPin className="w-4 h-4 text-[#0B1E43] shrink-0 mt-0.5" />
-                            <div className="space-y-0.5">
-                              <p className="text-[9px] text-slate-450 font-bold uppercase tracking-wider">Lokasi Penindakan Lapangan</p>
-                              <p className="font-bold text-slate-800">{item.lokasi_kejadian}</p>
-                              <p className="text-[10px] text-slate-500 mt-0.5 font-medium">Tindakan: {tindDate}</p>
-                            </div>
-                          </div>
-
-                          {/* Kronologi Singkat */}
-                          {item.kronologi_singkat && (
-                            <div className="bg-slate-50/50 p-3 rounded-xl border border-slate-200 text-[11px] font-semibold space-y-1">
-                              <p className="text-[8px] uppercase font-bold text-slate-450 tracking-wider">Kronologi Singkat / Temuan TKP</p>
-                              <p className="text-slate-650 text-xs font-normal whitespace-pre-line leading-relaxed mt-1">{item.kronologi_singkat}</p>
-                            </div>
-                          )}
-
-                          {/* Barang Bukti */}
-                          {item.barang_bukti && (
-                            <div className="flex items-start gap-2.5 bg-amber-50/30 p-3 rounded-xl border border-amber-100 font-semibold">
-                              <Package className="w-4 h-4 text-[#E28A1C] shrink-0 mt-0.5" />
-                              <div className="space-y-0.5">
-                                <p className="text-[9px] uppercase font-bold text-[#E28A1C] tracking-wider">Daftar Barang Bukti Disita</p>
-                                <p className="text-slate-700 text-[11px] font-medium whitespace-pre-line leading-relaxed mt-1">{item.barang_bukti}</p>
-                              </div>
-                            </div>
-                          )}
-
-                          {/* Jadwal Sidang */}
-                          <div className="flex items-start gap-2.5 bg-slate-50/50 p-3 rounded-xl border border-slate-200">
-                            <Calendar className="w-4 h-4 text-[#0B1E43] shrink-0 mt-0.5" />
-                            <div className="space-y-0.5">
-                              <p className="text-[9px] uppercase font-bold text-slate-450 tracking-wider">Jadwal Sidang Pengadilan</p>
-                              <p className="text-slate-800 text-[11px] font-bold mt-0.5">
-                                {item.tanggal_sidang ? new Date(item.tanggal_sidang).toLocaleDateString('id-ID', { dateStyle: 'long' }) : 'Belum Ditentukan'}
-                              </p>
-                              <p className="text-[10px] text-slate-500 mt-0.5 font-medium">{item.lokasi_sidang || '-'}</p>
-                            </div>
-                          </div>
-
-                          {/* Sanksi Denda */}
-                          {item.status_sidang !== 'Penyelidikan / Pemanggilan' && (
-                            <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 flex justify-between items-center">
-                              <div>
-                                <p className="text-[8px] uppercase font-bold text-slate-450 tracking-wider">Denda Yang Dijatuhkan</p>
-                                <p className="text-rose-600 text-sm font-extrabold mt-1">Rp {item.denda_dijatuhkan?.toLocaleString('id-ID') || '0'}</p>
-                                {item.no_bukti_setor && (
-                                  <p className="text-[9px] text-slate-500 mt-1 font-mono">
-                                    No. Bukti Setor: <span className="text-[#0B1E43] font-bold">{item.no_bukti_setor}</span>
-                                  </p>
-                                )}
-                              </div>
-                              
-                              {item.status_sidang === 'Kasus Selesai (Clear)' && (
-                                <span className="px-2 py-0.5 bg-emerald-100 text-emerald-800 border border-emerald-250 rounded text-[9px] font-black uppercase tracking-wider">
-                                  LUNAS KAS DAERAH
+                            </td>
+                            <td className="py-4 px-4 font-semibold">
+                              <div className="font-bold text-slate-700">{item.kode_regulasi}</div>
+                              <div className="text-[10px] text-slate-500">{item.pasal_dilanggar}</div>
+                            </td>
+                            <td className="py-4 px-4">
+                              <div className="truncate max-w-[180px] font-bold" title={item.lokasi_kejadian}>{item.lokasi_kejadian}</div>
+                              <div className="text-[10px] text-slate-450 mt-0.5">{tindDate}</div>
+                            </td>
+                            <td className="py-4 px-4">
+                              <div className="flex flex-col gap-1">
+                                <span className={`w-fit px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider border ${
+                                  item.jenis_tindakan === 'Yustisial' 
+                                    ? 'bg-rose-50 text-rose-700 border-rose-200' 
+                                    : 'bg-amber-50 text-amber-700 border-amber-200'
+                                }`}>
+                                  {item.jenis_tindakan}
                                 </span>
-                              )}
-                            </div>
-                          )}
-
-                          {/* Uraian Catatan Kasus */}
-                          {item.catatan && (
-                            <div className="text-xs text-slate-650 leading-relaxed bg-slate-50 p-3 rounded-xl border border-slate-200 whitespace-pre-line">
-                              <p className="text-[8px] uppercase font-bold text-slate-450 tracking-wider mb-1">Catatan / Keterangan Tambahan</p>
-                              {item.catatan}
-                            </div>
-                          )}
-
-                          {/* Bukti Setor Kas Negara */}
-                          {item.bukti_setor_kas ? (
-                            <div 
-                              className="relative h-36 rounded-xl overflow-hidden border border-slate-200 group cursor-zoom-in shadow-xs"
-                              onClick={() => openZoom(item.bukti_setor_kas)}
-                            >
-                              <img 
-                                src={item.bukti_setor_kas} 
-                                alt="Bukti Setor Kas Daerah" 
-                                className="w-full h-full object-cover transition duration-300 group-hover:scale-102"
-                              />
-                              <div className="absolute inset-0 bg-slate-900/60 opacity-0 group-hover:opacity-100 transition duration-200 flex items-center justify-center">
-                                <span className="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-[10px] font-bold flex items-center gap-1.5 text-slate-800 shadow-sm">
-                                  <ImageIcon className="w-3.5 h-3.5 text-[#0B1E43]" /> Perbesar Bukti Setor
+                                <span className={`w-fit px-2 py-0.5 rounded text-[9px] font-bold border ${
+                                  item.status_sidang === 'Kasus Selesai (Clear)' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' :
+                                  item.status_sidang === 'Proses Sidang Tipiring' ? 'bg-blue-50 text-blue-700 border-blue-200' :
+                                  'bg-amber-50 text-amber-700 border-amber-200'
+                                }`}>
+                                  {item.status_sidang}
                                 </span>
                               </div>
-                            </div>
-                          ) : item.status_sidang === 'Kasus Selesai (Clear)' ? (
-                            <div className="h-20 bg-rose-50/50 border border-dashed border-rose-350 rounded-xl flex flex-col items-center justify-center text-rose-700 text-xs">
-                              <AlertTriangle className="w-5 h-5 text-rose-500 mb-1" />
-                              Lunas, namun bukti setor kas belum diunggah!
-                            </div>
-                          ) : null}
-
-                          {/* Scan BAP & Putusan */}
-                          {item.scan_dokumen && (
-                            <button
-                              type="button"
-                              onClick={() => openScanDokumen(item)}
-                              className="w-full py-2.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 hover:border-slate-350 text-[#0B1E43] rounded-xl text-xs font-bold transition duration-200 flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
-                            >
-                              <FileText className="w-4 h-4 shrink-0 text-[#0B1E43]" /> Lihat Scan BAP & Putusan
-                            </button>
-                          )}
-
-                          {/* Referensi Tiket Aduan */}
-                          {item.id_tiket && (
-                            <div className="pt-1 text-[10px] font-mono">
-                              <span className="bg-blue-50 text-blue-800 border border-blue-150 px-2.5 py-0.5 rounded-md font-bold">
-                                Tindak Lanjut Tiket: {item.id_tiket}
-                              </span>
-                            </div>
-                          )}
-
-                        </div>
-                      </div>
-
-                      {/* Footer Actions */}
-                      <div className="mt-5 border-t border-slate-100 pt-3.5 flex justify-end gap-2 shrink-0">
-                        <button
-                          onClick={() => openEditPenegakan(item)}
-                          className="px-3 py-1.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 rounded-lg text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer"
-                        >
-                          <Edit3 className="w-3.5 h-3.5" /> Edit Kasus
-                        </button>
-                        <button
-                          onClick={() => handleDeletePenegakan(item.id, item.no_kejadian)}
-                          className="px-3 py-1.5 bg-slate-50 hover:bg-rose-50 border border-slate-200 hover:border-rose-250 text-slate-650 hover:text-rose-600 rounded-lg text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" /> Hapus Kasus
-                        </button>
-                      </div>
-                    </div>
-                  );
-                })}
+                            </td>
+                            <td className="py-4 px-4 text-right font-extrabold text-rose-600">
+                              {item.denda_dijatuhkan ? `Rp ${item.denda_dijatuhkan.toLocaleString('id-ID')}` : '-'}
+                            </td>
+                            <td className="py-4 px-4 text-center">
+                              <div className="flex items-center justify-center gap-1.5">
+                                <button
+                                  type="button"
+                                  onClick={() => handleOpenPenegakanDetails(item)}
+                                  className="p-1.5 bg-slate-50 hover:bg-slate-100 text-slate-650 hover:text-slate-900 border border-slate-200 rounded-lg transition duration-200 cursor-pointer"
+                                  title="Lihat Detail Berkas"
+                                >
+                                  <Eye className="w-4 h-4" />
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => openEditPenegakan(item)}
+                                  className="p-1.5 bg-slate-50 hover:bg-slate-100 text-slate-650 hover:text-slate-900 border border-slate-200 rounded-lg transition duration-200 cursor-pointer"
+                                  title="Edit Kasus"
+                                >
+                                  <Edit3 className="w-4 h-4" />
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => handleDeletePenegakan(item.id, item.no_kejadian)}
+                                  className="p-1.5 bg-slate-50 hover:bg-rose-50 border border-slate-200 hover:border-rose-250 text-slate-650 hover:text-rose-600 rounded-lg transition duration-200 cursor-pointer"
+                                  title="Hapus Kasus"
+                                >
+                                  <Trash2 className="w-4 h-4" />
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             )}
 
@@ -1704,45 +1587,61 @@ export default function PeradaAdmin() {
                   />
                   {formErrors.lokasi_kejadian && <p className="text-[9px] text-red-500 font-bold">{formErrors.lokasi_kejadian}</p>}
                 </div>
-
-                {/* 7. Pilih Regulasi Yang Dilanggar */}
-                <div className="space-y-1">
-                  <label className="text-[10px] uppercase font-bold text-slate-450 tracking-wide block">Pilih Perda / Perbup Terlanggar</label>
-                  <select
-                    value={penegakanForm.kode_regulasi}
-                    onChange={(e) => setPenegakanForm({ ...penegakanForm, kode_regulasi: e.target.value, pasal_dilanggar: '' })}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-bold text-slate-800 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1E43]/20 focus:border-[#0B1E43]"
-                  >
-                    <option value="" disabled>-- Pilih Regulasi --</option>
-                    {regulasiList.map((reg) => (
-                      <option key={reg.id} value={reg.kode_regulasi}>
-                        {reg.kode_regulasi} - {reg.jenis_peraturan} No. {reg.nomor_peraturan}
-                      </option>
-                    ))}
-                  </select>
+                {/* 7. Pilih Regulasi Yang Dilanggar (Checkbox List) */}
+                <div className="space-y-1.5 col-span-2 text-left">
+                  <label className="text-[10px] uppercase font-bold text-slate-450 tracking-wide block">Pilih Perda / Perbup Terlanggar (Bisa pilih lebih dari satu) <span className="text-rose-500">*</span></label>
+                  <div className="bg-slate-50 border border-slate-200 rounded-xl p-3 max-h-[160px] overflow-y-auto space-y-2">
+                    {regulasiList.map((reg) => {
+                      const isChecked = penegakanForm.kode_regulasi.split(',').map(s => s.trim()).includes(reg.kode_regulasi);
+                      return (
+                        <label key={reg.id} className="flex items-start gap-2.5 px-2 py-1.5 bg-white rounded-lg border border-slate-150 hover:border-slate-300 transition-colors cursor-pointer select-none">
+                          <input
+                            type="checkbox"
+                            checked={isChecked}
+                            onChange={(e) => {
+                              let currentSelected = penegakanForm.kode_regulasi ? penegakanForm.kode_regulasi.split(',').map(s => s.trim()).filter(Boolean) : [];
+                              if (e.target.checked) {
+                                if (!currentSelected.includes(reg.kode_regulasi)) {
+                                  currentSelected.push(reg.kode_regulasi);
+                                }
+                              } else {
+                                currentSelected = currentSelected.filter(code => code !== reg.kode_regulasi);
+                              }
+                              setPenegakanForm({ ...penegakanForm, kode_regulasi: currentSelected.join(', '), pasal_dilanggar: '' });
+                            }}
+                            className="w-4 h-4 text-[#561C24] border-slate-350 rounded focus:ring-[#561C24] cursor-pointer mt-0.5"
+                          />
+                          <div className="text-xs">
+                            <span className="font-mono font-bold text-[#561C24] mr-1.5">{reg.kode_regulasi}</span>
+                            <span className="font-semibold text-slate-600">{reg.jenis_peraturan} No. {reg.nomor_peraturan} ({reg.tahun_peraturan}) - {reg.judul_tentang}</span>
+                          </div>
+                        </label>
+                      );
+                    })}
+                  </div>
                 </div>
 
                 {/* 7.1 Pilih Pasal Terlanggar */}
-                <div className="space-y-1">
-                  <label className="text-[10px] uppercase font-bold text-slate-450 tracking-wide block">Pilih Ketentuan Pasal Pelanggaran</label>
+                <div className="space-y-1 col-span-2 text-left">
+                  <label className="text-[10px] uppercase font-bold text-slate-450 tracking-wide block">Pilih Ketentuan Pasal Pelanggaran <span className="text-rose-500">*</span></label>
                   <select
                     value={penegakanForm.pasal_dilanggar}
                     onChange={(e) => setPenegakanForm({ ...penegakanForm, pasal_dilanggar: e.target.value })}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-bold text-slate-800 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1E43]/20 focus:border-[#0B1E43]"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-bold text-slate-800 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#561C24]/20 focus:border-[#561C24]"
                   >
                     <option value="">-- Pilih Pasal/Ketentuan --</option>
                     {pelanggaranList
-                      .filter(p => p.kode_regulasi === penegakanForm.kode_regulasi)
+                      .filter(p => penegakanForm.kode_regulasi.split(',').map(s => s.trim()).includes(p.kode_regulasi))
                       .map((pel) => (
-                        <option key={pel.id} value={pel.pasal}>
-                          {pel.pasal} - Max: Rp {pel.denda_maksimal?.toLocaleString('id-ID')} ({pel.sanksi_maksimal})
+                        <option key={pel.id} value={`${pel.pasal} (${pel.kode_regulasi})`}>
+                          {pel.kode_regulasi} - {pel.pasal} (Max Denda: Rp {pel.denda_maksimal?.toLocaleString('id-ID')})
                         </option>
                       ))}
                     {/* Fallback */}
                     <option value="Pasal 5 Ayat 1">Pasal 5 Ayat 1 (Zonasi Usaha)</option>
                     <option value="Pasal 12 Huruf a">Pasal 12 Huruf a (Ketertiban Umum)</option>
                   </select>
-                  {formErrors.pasal_dilanggar && <p className="text-[9px] text-red-500 font-bold">{formErrors.pasal_dilanggar}</p>}
+                  {formErrors.pasal_dilanggar && <p className="text-[9px] text-red-500 font-bold mt-1">{formErrors.pasal_dilanggar}</p>}
                 </div>
 
                 {/* 8. Kronologi Singkat */}
@@ -2231,9 +2130,191 @@ export default function PeradaAdmin() {
               </button>
               <button
                 onClick={triggerSummonVerdictPrint}
-                className="flex-1 py-2.5 bg-[#0B1E43] hover:bg-[#07132b] text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer shadow-md active:scale-[0.98]"
+                className="flex-1 py-2.5 bg-[#561C24] hover:bg-[#6D2932] text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer shadow-md active:scale-[0.98]"
               >
-                <Gavel className="w-4 h-4" /> Cetak Berkas Summons
+                <Gavel className="w-4 h-4 text-[#E8D8C4]" /> Cetak Berkas Summons
+              </button>
+            </div>
+
+          </div>
+        </div>
+      )}
+
+      {/* MODAL 7: VIEW DETAILS OF PENEGAKAN PERADA */}
+      {isDetailsModalOpen && selectedPenegakanDetails && (
+        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl p-6 space-y-5 text-left">
+            
+            <div className="flex justify-between items-center border-b border-slate-200 pb-3">
+              <h3 className="text-base font-black text-[#561C24] flex items-center gap-2">
+                <Gavel className="w-5 h-5 text-[#C7B7A3]" />
+                Detail Berkas Perkara Perada
+              </h3>
+              <button
+                onClick={() => setIsDetailsModalOpen(false)}
+                className="p-1.5 bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 rounded-lg transition animate-fadeIn"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="space-y-4 text-xs md:text-sm">
+              <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 grid grid-cols-2 gap-4">
+                <div>
+                  <p className="text-[10px] uppercase font-bold text-slate-450 tracking-wider">No. Registrasi Perkara</p>
+                  <p className="text-xs font-mono font-bold text-slate-800 mt-0.5">{selectedPenegakanDetails.no_kejadian}</p>
+                </div>
+                <div>
+                  <p className="text-[10px] uppercase font-bold text-slate-455 tracking-wider">Jenis Penindakan / Sidang</p>
+                  <p className="text-xs font-bold text-slate-800 mt-0.5">{selectedPenegakanDetails.jenis_tindakan} ({selectedPenegakanDetails.status_sidang})</p>
+                </div>
+              </div>
+
+              <div className="border border-slate-150 rounded-xl overflow-hidden">
+                <div className="bg-slate-50 px-4 py-2 border-b border-slate-150 text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+                  Informasi Terdakwa / Pelanggar
+                </div>
+                <div className="p-4 space-y-2">
+                  <div className="flex justify-between border-b border-slate-100 pb-1">
+                    <span className="text-slate-450 font-semibold">Nama Pelanggar:</span>
+                    <span className="font-extrabold text-slate-850">{selectedPenegakanDetails.nama_pelanggar}</span>
+                  </div>
+                  {selectedPenegakanDetails.nik_pelanggar && (
+                    <div className="flex justify-between border-b border-slate-100 pb-1">
+                      <span className="text-slate-450 font-semibold">NIK / No. KTP:</span>
+                      <span className="font-mono font-bold text-slate-800">{selectedPenegakanDetails.nik_pelanggar}</span>
+                    </div>
+                  )}
+                  {selectedPenegakanDetails.alamat_pelanggar && (
+                    <div className="flex justify-between">
+                      <span className="text-slate-450 font-semibold">Alamat Domisili:</span>
+                      <span className="font-semibold text-slate-700 text-right max-w-[280px]">{selectedPenegakanDetails.alamat_pelanggar}</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div className="border border-slate-150 rounded-xl overflow-hidden">
+                <div className="bg-slate-50 px-4 py-2 border-b border-slate-150 text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+                  Detail Pelanggaran & Tindakan
+                </div>
+                <div className="p-4 space-y-2">
+                  <div className="flex justify-between border-b border-slate-100 pb-1">
+                    <span className="text-slate-450 font-semibold">Regulasi Dilanggar:</span>
+                    <span className="font-bold text-slate-800">{selectedPenegakanDetails.kode_regulasi}</span>
+                  </div>
+                  <div className="flex justify-between border-b border-slate-100 pb-1">
+                    <span className="text-slate-455 font-semibold">Pasal Terlanggar:</span>
+                    <span className="font-bold text-slate-800">{selectedPenegakanDetails.pasal_dilanggar}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-450 font-semibold">Lokasi Kejadian (TKP):</span>
+                    <span className="font-bold text-slate-850 text-right max-w-[280px]">{selectedPenegakanDetails.lokasi_kejadian}</span>
+                  </div>
+                </div>
+              </div>
+
+              {selectedPenegakanDetails.kronologi_singkat && (
+                <div className="bg-slate-50/50 p-4 rounded-xl border border-slate-200">
+                  <p className="text-[10px] uppercase font-bold text-slate-450 tracking-wider font-sans">Kronologi Kejadian</p>
+                  <p className="text-slate-650 text-xs mt-1 leading-relaxed whitespace-pre-line font-medium italic">"{selectedPenegakanDetails.kronologi_singkat}"</p>
+                </div>
+              )}
+
+              {selectedPenegakanDetails.barang_bukti && (
+                <div className="bg-amber-50/20 p-4 rounded-xl border border-amber-200/55 flex items-start gap-2.5">
+                  <Package className="w-4 h-4 text-[#561C24] shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Daftar Barang Bukti Disita</p>
+                    <p className="text-slate-700 text-xs mt-1 font-semibold whitespace-pre-line leading-relaxed">{selectedPenegakanDetails.barang_bukti}</p>
+                  </div>
+                </div>
+              )}
+
+              <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 grid grid-cols-2 gap-4">
+                <div>
+                  <p className="text-[10px] uppercase font-bold text-slate-450 tracking-wider font-sans">Tanggal Sidang</p>
+                  <p className="text-xs font-bold text-slate-800 mt-0.5 font-mono">
+                    {selectedPenegakanDetails.tanggal_sidang ? new Date(selectedPenegakanDetails.tanggal_sidang).toLocaleDateString('id-ID', { dateStyle: 'long' }) : 'Belum Ditentukan'}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-[10px] uppercase font-bold text-slate-450 tracking-wider font-sans">Lokasi Pengadilan</p>
+                  <p className="text-xs font-semibold text-slate-750 mt-0.5">{selectedPenegakanDetails.lokasi_sidang || '-'}</p>
+                </div>
+              </div>
+
+              {selectedPenegakanDetails.status_sidang !== 'Penyelidikan / Pemanggilan' && (
+                <div className="bg-[#561C24]/5 p-4 rounded-xl border border-[#561C24]/20 flex justify-between items-center">
+                  <div>
+                    <p className="text-[10px] uppercase font-bold text-[#561C24] tracking-wider">Denda Putusan Hakim</p>
+                    <p className="text-rose-700 text-sm font-extrabold mt-0.5">Rp {selectedPenegakanDetails.denda_dijatuhkan?.toLocaleString('id-ID') || '0'}</p>
+                    {selectedPenegakanDetails.no_bukti_setor && (
+                      <p className="text-[9px] text-slate-500 mt-1 font-mono">No. Bukti Setor: {selectedPenegakanDetails.no_bukti_setor}</p>
+                    )}
+                  </div>
+                  {selectedPenegakanDetails.status_sidang === 'Kasus Selesai (Clear)' && (
+                    <span className="px-2.5 py-0.5 bg-emerald-100 text-emerald-800 border border-emerald-200 rounded text-[10px] font-black uppercase tracking-wider">
+                      LUNAS KAS DAERAH
+                    </span>
+                  )}
+                </div>
+              )}
+
+              {selectedPenegakanDetails.catatan && (
+                <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 whitespace-pre-line">
+                  <p className="text-[10px] uppercase font-bold text-slate-450 tracking-wider mb-1 font-sans">Catatan Tambahan</p>
+                  {selectedPenegakanDetails.catatan}
+                </div>
+              )}
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                {selectedPenegakanDetails.bukti_setor_kas && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsDetailsModalOpen(false);
+                      openZoom(selectedPenegakanDetails.bukti_setor_kas);
+                    }}
+                    className="py-2.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl font-bold flex items-center justify-center gap-1.5 text-xs text-slate-700 cursor-pointer active:scale-95"
+                  >
+                    <ImageIcon className="w-4 h-4 text-slate-500" /> Lihat Slip Denda
+                  </button>
+                )}
+                {selectedPenegakanDetails.scan_dokumen && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsDetailsModalOpen(false);
+                      openScanDokumen(selectedPenegakanDetails);
+                    }}
+                    className="py-2.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl font-bold flex items-center justify-center gap-1.5 text-xs text-slate-700 cursor-pointer active:scale-95"
+                  >
+                    <FileText className="w-4 h-4 text-[#561C24]" /> Buka Scan BAP & Putusan
+                  </button>
+                )}
+              </div>
+
+            </div>
+
+            <div className="flex justify-between items-center border-t border-slate-150 pt-4 mt-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setIsDetailsModalOpen(false);
+                  openVerdictSummonModal(selectedPenegakanDetails);
+                }}
+                className="px-4 py-2 bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-700 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer active:scale-95"
+              >
+                <Gavel className="w-3.5 h-3.5 text-amber-600" /> Cetak Panggilan/Putusan
+              </button>
+              
+              <button
+                type="button"
+                onClick={() => setIsDetailsModalOpen(false)}
+                className="px-4 py-2 bg-[#561C24] hover:bg-[#6D2932] text-white rounded-xl text-xs font-bold transition cursor-pointer active:scale-95"
+              >
+                Tutup Detail
               </button>
             </div>
 
