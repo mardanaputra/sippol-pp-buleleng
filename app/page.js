@@ -24,28 +24,48 @@ import Footer from './components/Footer';
 import Navbar from './components/Navbar';
 
 export default function Home() {
+  const [isHeroVisible, setIsHeroVisible] = useState(false);
+  const [isPillarsVisible, setIsPillarsVisible] = useState(false);
+  const [isTentangVisible, setIsTentangVisible] = useState(false);
+  const [isBeritaVisible, setIsBeritaVisible] = useState(false);
   const [isProfilVisible, setIsProfilVisible] = useState(false);
+
+  const pillarsRef = useRef(null);
+  const tentangRef = useRef(null);
+  const beritaRef = useRef(null);
   const profilRef = useRef(null);
 
   useEffect(() => {
+    // Reveal hero section immediately on mount
+    setIsHeroVisible(true);
+
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsProfilVisible(true);
-          observer.unobserve(entry.target); // Reveal only once
-        }
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (entry.target === pillarsRef.current) {
+              setIsPillarsVisible(true);
+            } else if (entry.target === tentangRef.current) {
+              setIsTentangVisible(true);
+            } else if (entry.target === beritaRef.current) {
+              setIsBeritaVisible(true);
+            } else if (entry.target === profilRef.current) {
+              setIsProfilVisible(true);
+            }
+            observer.unobserve(entry.target);
+          }
+        });
       },
-      { threshold: 0.1 } // Trigger when 10% of the section is visible
+      { threshold: 0.1 }
     );
 
-    if (profilRef.current) {
-      observer.observe(profilRef.current);
-    }
+    if (pillarsRef.current) observer.observe(pillarsRef.current);
+    if (tentangRef.current) observer.observe(tentangRef.current);
+    if (beritaRef.current) observer.observe(beritaRef.current);
+    if (profilRef.current) observer.observe(profilRef.current);
 
     return () => {
-      if (profilRef.current) {
-        observer.unobserve(profilRef.current);
-      }
+      observer.disconnect();
     };
   }, []);
 
@@ -63,7 +83,11 @@ export default function Home() {
       <main className="max-w-6xl w-full mx-auto px-6 pt-28 pb-12 md:pt-32 md:pb-16 relative z-10 space-y-16 flex-1">
         
         {/* HERO SECTION */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div className={`grid grid-cols-1 lg:grid-cols-12 gap-12 items-center transition-all duration-1000 ease-out transform ${
+          isHeroVisible 
+            ? "opacity-100 translate-y-0" 
+            : "opacity-0 translate-y-12"
+        }`}>
           
           {/* Left Text & CTA */}
           <div className="lg:col-span-7 space-y-6 text-left">
@@ -131,7 +155,14 @@ export default function Home() {
         </div>
 
         {/* FOUR PILLARS SECTION */}
-        <div className="space-y-10 pt-8 border-t border-slate-205">
+        <div 
+          ref={pillarsRef}
+          className={`space-y-10 pt-8 border-t border-slate-205 transition-all duration-1000 ease-out transform ${
+            isPillarsVisible 
+              ? "opacity-100 translate-y-0" 
+              : "opacity-0 translate-y-12"
+          }`}
+        >
           
           <div className="text-center space-y-3 max-w-2xl mx-auto">
             <h3 className="text-2xl md:text-3xl font-black text-[#561C24] tracking-tight">
@@ -246,7 +277,15 @@ export default function Home() {
         </div>
 
         {/* TENTANG KAMI SECTION */}
-        <div id="tentang" className="space-y-10 pt-12 border-t border-slate-205 scroll-mt-24">
+        <div 
+          ref={tentangRef}
+          id="tentang" 
+          className={`space-y-10 pt-12 border-t border-slate-205 scroll-mt-24 transition-all duration-1000 ease-out transform ${
+            isTentangVisible 
+              ? "opacity-100 translate-y-0" 
+              : "opacity-0 translate-y-12"
+          }`}
+        >
           <div className="text-center space-y-3 max-w-2xl mx-auto">
             <span className="inline-block px-3 py-1 bg-amber-50 border border-amber-200/60 text-[10px] font-black text-amber-800 rounded-lg uppercase tracking-wider">
               Mengenal Lebih Dekat
@@ -321,7 +360,15 @@ export default function Home() {
         </div>
 
         {/* BERITA & KEGIATAN TERKINI */}
-        <div id="berita" className="space-y-10 pt-12 border-t border-slate-205 scroll-mt-24">
+        <div 
+          ref={beritaRef}
+          id="berita" 
+          className={`space-y-10 pt-12 border-t border-slate-205 scroll-mt-24 transition-all duration-1000 ease-out transform ${
+            isBeritaVisible 
+              ? "opacity-100 translate-y-0" 
+              : "opacity-0 translate-y-12"
+          }`}
+        >
           <div className="text-center space-y-3 max-w-2xl mx-auto">
             <span className="inline-block px-3 py-1 bg-[#561C24]/5 border border-blue-200/60 text-[10px] font-black text-blue-900 rounded-lg uppercase tracking-wider">
               Kabar dari Lapangan
@@ -443,8 +490,8 @@ export default function Home() {
           id="profil" 
           className={`space-y-10 pt-12 border-t border-slate-205 scroll-mt-24 transition-all duration-1000 ease-out transform ${
             isProfilVisible 
-              ? "opacity-100 translate-y-0 blur-none" 
-              : "opacity-0 translate-y-12 blur-sm"
+              ? "opacity-100 translate-y-0" 
+              : "opacity-0 translate-y-12"
           }`}
         >
           <div className="text-center space-y-3 max-w-2xl mx-auto">
