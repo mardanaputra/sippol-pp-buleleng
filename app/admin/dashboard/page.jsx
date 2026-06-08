@@ -20,6 +20,24 @@ const AdminMap = dynamic(() => import('./AdminMap'), {
     </div>
   )
 });
+
+const PeradaDonutChart = dynamic(() => import('./PeradaDonutChart'), {
+  ssr: false,
+  loading: () => (
+    <div className="w-44 h-44 rounded-full border-4 border-slate-100 animate-pulse flex items-center justify-center">
+      <span className="text-[10px] text-slate-400 font-bold">Memuat Grafik...</span>
+    </div>
+  )
+});
+
+const UrgencyDonutChart = dynamic(() => import('./UrgencyDonutChart'), {
+  ssr: false,
+  loading: () => (
+    <div className="w-36 h-36 rounded-full border-4 border-slate-100 animate-pulse flex items-center justify-center">
+      <span className="text-[10px] text-slate-400 font-bold">Memuat...</span>
+    </div>
+  )
+});
 import {
   Shield,
   Trash2,
@@ -437,54 +455,54 @@ export default function AdminDashboard() {
 
   // --- DATA AGGREGATION FOR PREMIUM CHARTS ---
   // 1. Perada Aggregations
-  const totalPerada = peradaEnforcements.length || 81;
-  const countSelesai = peradaEnforcements.filter(p => p.status_sidang === 'Kasus Selesai (Clear)').length || (peradaEnforcements.length ? 0 : 42);
-  const countSidang = peradaEnforcements.filter(p => p.status_sidang === 'Proses Sidang Tipiring').length || (peradaEnforcements.length ? 0 : 15);
-  const countPenyelidikan = peradaEnforcements.filter(p => p.status_sidang === 'Penyelidikan / Pemanggilan').length || (peradaEnforcements.length ? 0 : 24);
+  const totalPerada = peradaEnforcements.length;
+  const countSelesai = peradaEnforcements.filter(p => p.status_sidang === 'Kasus Selesai (Clear)').length;
+  const countSidang = peradaEnforcements.filter(p => p.status_sidang === 'Proses Sidang Tipiring').length;
+  const countPenyelidikan = peradaEnforcements.filter(p => p.status_sidang === 'Penyelidikan / Pemanggilan').length;
 
-  const pctSelesai = Math.round((countSelesai / totalPerada) * 100);
-  const pctSidang = Math.round((countSidang / totalPerada) * 100);
-  const pctPenyelidikan = 100 - pctSelesai - pctSidang; // Ensure exactly 100%
+  const pctSelesai = totalPerada ? Math.round((countSelesai / totalPerada) * 100) : 0;
+  const pctSidang = totalPerada ? Math.round((countSidang / totalPerada) * 100) : 0;
+  const pctPenyelidikan = totalPerada ? 100 - pctSelesai - pctSidang : 0; // Ensure exactly 100%
 
-  const totalDenda = peradaEnforcements.reduce((acc, curr) => acc + (curr.denda_dijatuhkan || 0), 0) || (peradaEnforcements.length ? 0 : 38500000);
-  const countTipiring = peradaEnforcements.filter(p => p.jenis_tindakan === 'Tipiring').length || (peradaEnforcements.length ? 0 : 62);
+  const totalDenda = peradaEnforcements.reduce((acc, curr) => acc + (curr.denda_dijatuhkan || 0), 0);
+  const countTipiring = peradaEnforcements.filter(p => p.jenis_tindakan === 'Tipiring').length;
   const countYustisial = totalPerada - countTipiring;
 
   // 2. Trantib K3 Aggregations
-  const totalTrantib = trantibLogs.length || 28;
-  const countPkl = trantibLogs.filter(l => l.jenis_pelanggaran?.includes('PKL') || l.jenis_pelanggaran?.includes('Zonasi')).length || (trantibLogs.length ? 0 : 12);
-  const countReklame = trantibLogs.filter(l => l.jenis_pelanggaran?.includes('Reklame') || l.jenis_pelanggaran?.includes('Iklan')).length || (trantibLogs.length ? 0 : 8);
-  const countParkir = trantibLogs.filter(l => l.jenis_pelanggaran?.includes('Parkir')).length || (trantibLogs.length ? 0 : 5);
+  const totalTrantib = trantibLogs.length;
+  const countPkl = trantibLogs.filter(l => l.jenis_pelanggaran?.includes('PKL') || l.jenis_pelanggaran?.includes('Zonasi')).length;
+  const countReklame = trantibLogs.filter(l => l.jenis_pelanggaran?.includes('Reklame') || l.jenis_pelanggaran?.includes('Iklan')).length;
+  const countParkir = trantibLogs.filter(l => l.jenis_pelanggaran?.includes('Parkir')).length;
   const countSampah = totalTrantib - countPkl - countReklame - countParkir;
 
-  const actionsLisan = trantibLogs.filter(l => l.tindakan_diambil === 'Teguran Lisan').length || (trantibLogs.length ? 0 : 15);
-  const actionsTertulis = trantibLogs.filter(l => l.tindakan_diambil?.includes('Tertulis') || l.tindakan_diambil?.includes('Surat')).length || (trantibLogs.length ? 0 : 9);
-  const actionsSita = trantibLogs.filter(l => l.tindakan_diambil?.includes('Penyitaan') || l.tindakan_diambil?.includes('Sita')).length || (trantibLogs.length ? 0 : 4);
+  const actionsLisan = trantibLogs.filter(l => l.tindakan_diambil === 'Teguran Lisan').length;
+  const actionsTertulis = trantibLogs.filter(l => l.tindakan_diambil?.includes('Tertulis') || l.tindakan_diambil?.includes('Surat')).length;
+  const actionsSita = trantibLogs.filter(l => l.tindakan_diambil?.includes('Penyitaan') || l.tindakan_diambil?.includes('Sita')).length;
 
   // 3. Linmas Aggregations
-  const totalPriaLinmas = linmasMembers.reduce((acc, curr) => acc + (curr.anggota_pria || 0), 0) || (linmasMembers.length ? 0 : 665);
-  const totalWanitaLinmas = linmasMembers.reduce((acc, curr) => acc + (curr.anggota_wanita || 0), 0) || (linmasMembers.length ? 0 : 115);
+  const totalPriaLinmas = linmasMembers.reduce((acc, curr) => acc + (curr.anggota_pria || 0), 0);
+  const totalWanitaLinmas = linmasMembers.reduce((acc, curr) => acc + (curr.anggota_wanita || 0), 0);
   const totalLinmas = totalPriaLinmas + totalWanitaLinmas;
 
-  const totalPosKamling = linmasMembers.reduce((acc, curr) => acc + (curr.jumlah_pos_kamling || 0), 0) || (linmasMembers.length ? 0 : 142);
-  const totalSenter = linmasMembers.reduce((acc, curr) => acc + (curr.jumlah_senter || 0), 0) || (linmasMembers.length ? 0 : 480);
-  const totalPentungan = linmasMembers.reduce((acc, curr) => acc + (curr.jumlah_pentungan || 0), 0) || (linmasMembers.length ? 0 : 350);
-  const totalHt = linmasMembers.reduce((acc, curr) => acc + (curr.jumlah_ht || 0), 0) || (linmasMembers.length ? 0 : 245);
+  const totalPosKamling = linmasMembers.reduce((acc, curr) => acc + (curr.jumlah_pos_kamling || 0), 0);
+  const totalSenter = linmasMembers.reduce((acc, curr) => acc + (curr.jumlah_senter || 0), 0);
+  const totalPentungan = linmasMembers.reduce((acc, curr) => acc + (curr.jumlah_pentungan || 0), 0);
+  const totalHt = linmasMembers.reduce((acc, curr) => acc + (curr.jumlah_ht || 0), 0);
 
   // 4. Citizen Complaint Aggregations
-  const totalComplaints = reports.length || 45;
-  const countLinmasC = reports.filter(r => r.kategori_masalah?.includes('Linmas') || r.bidang_disposisi?.includes('Linmas')).length || (reports.length ? 0 : 8);
-  const countTrantibC = reports.filter(r => r.kategori_masalah?.includes('Trantib') || r.bidang_disposisi?.includes('Trantib') || r.kategori_masalah?.includes('K3')).length || (reports.length ? 0 : 18);
-  const countPeradaC = reports.filter(r => r.kategori_masalah?.includes('Perada') || r.bidang_disposisi?.includes('Perada') || r.kategori_masalah?.includes('Perda')).length || (reports.length ? 0 : 14);
+  const totalComplaints = reports.length;
+  const countLinmasC = reports.filter(r => r.kategori_masalah?.includes('Linmas') || r.bidang_disposisi?.includes('Linmas')).length;
+  const countTrantibC = reports.filter(r => r.kategori_masalah?.includes('Trantib') || r.bidang_disposisi?.includes('Trantib') || r.kategori_masalah?.includes('K3')).length;
+  const countPeradaC = reports.filter(r => r.kategori_masalah?.includes('Perada') || r.bidang_disposisi?.includes('Perada') || r.kategori_masalah?.includes('Perda')).length;
   const countSdaC = totalComplaints - countLinmasC - countTrantibC - countPeradaC;
 
-  const countDarurat = reports.filter(r => r.disposisi?.kedaruratan === 'Darurat').length || (reports.length ? 0 : 12);
-  const countSedang = reports.filter(r => r.disposisi?.kedaruratan === 'Sedang').length || (reports.length ? 0 : 23);
-  const countRendah = reports.filter(r => r.disposisi?.kedaruratan === 'Rendah').length || (reports.length ? 0 : 10);
+  const countDarurat = reports.filter(r => r.disposisi?.kedaruratan === 'Darurat').length;
+  const countSedang = reports.filter(r => r.disposisi?.kedaruratan === 'Sedang').length;
+  const countRendah = reports.filter(r => r.disposisi?.kedaruratan === 'Rendah').length;
 
-  const pctDarurat = Math.round((countDarurat / totalComplaints) * 100);
-  const pctSedang = Math.round((countSedang / totalComplaints) * 100);
-  const pctRendah = 100 - pctDarurat - pctSedang;
+  const pctDarurat = totalComplaints ? Math.round((countDarurat / totalComplaints) * 100) : 0;
+  const pctSedang = totalComplaints ? Math.round((countSedang / totalComplaints) * 100) : 0;
+  const pctRendah = totalComplaints ? 100 - pctDarurat - pctSedang : 0;
 
 
   return (
@@ -775,61 +793,12 @@ export default function AdminDashboard() {
 
                 <div className="bg-white rounded-r-2xl rounded-b-2xl rounded-tl-none border border-slate-200 shadow-md p-6 flex flex-col justify-between gap-6 relative min-h-[380px]">
                   <div className="flex flex-col sm:flex-row justify-between items-center gap-6">
-                    {/* SVG Interactive Multi-Segment Donut Chart */}
-                    <div className="relative w-44 h-44 flex items-center justify-center filter drop-shadow-sm shrink-0 transition-transform hover:scale-105 duration-300">
-                      <svg className="w-full h-full -rotate-90" viewBox="0 0 36 36">
-                        {/* Background base */}
-                        <circle
-                          cx="18"
-                          cy="18"
-                          r="15.9155"
-                          fill="none"
-                          stroke="#e2e8f0"
-                          strokeWidth="4.5"
-                        />
-                        {/* Selesai (Emerald) */}
-                        <circle
-                          cx="18"
-                          cy="18"
-                          r="15.9155"
-                          fill="none"
-                          stroke="#10b981"
-                          strokeWidth="6"
-                          strokeDasharray={`${pctSelesai} 100`}
-                          strokeDashoffset="0"
-                          strokeLinecap="round"
-                        />
-                        {/* Proses Sidang (Purple) */}
-                        <circle
-                          cx="18"
-                          cy="18"
-                          r="15.9155"
-                          fill="none"
-                          stroke="#8b5cf6"
-                          strokeWidth="6"
-                          strokeDasharray={`${pctSidang} 100`}
-                          strokeDashoffset={`-${pctSelesai}`}
-                          strokeLinecap="round"
-                        />
-                        {/* Penyelidikan (Amber) */}
-                        <circle
-                          cx="18"
-                          cy="18"
-                          r="15.9155"
-                          fill="none"
-                          stroke="#f59e0b"
-                          strokeWidth="6"
-                          strokeDasharray={`${pctPenyelidikan} 100`}
-                          strokeDashoffset={`-${pctSelesai + pctSidang}`}
-                          strokeLinecap="round"
-                        />
-                      </svg>
-
-                      <div className="absolute inset-0 flex items-center justify-center flex-col leading-none select-none">
-                        <span className="text-2xl font-black text-slate-800">{totalPerada}</span>
-                        <span className="text-[8px] text-slate-400 font-extrabold uppercase tracking-widest mt-1">Total Berkas</span>
-                      </div>
-                    </div>
+                    <PeradaDonutChart 
+                      selesai={countSelesai} 
+                      sidang={countSidang} 
+                      penyelidikan={countPenyelidikan} 
+                      total={totalPerada} 
+                    />
 
                     {/* Legend & Summary Card */}
                     <div className="w-full space-y-3.5">
@@ -1303,35 +1272,12 @@ export default function AdminDashboard() {
                   <div className="flex flex-col items-center border-l border-slate-100 pl-6 text-center space-y-4">
                     <h5 className="text-[10px] text-slate-450 font-extrabold uppercase tracking-widest block leading-none">Rasio Kedaruratan Masuk</h5>
 
-                    {/* SVG Urgency Indicator */}
-                    <div className="relative w-36 h-36 flex items-center justify-center transition-transform hover:scale-105 duration-300">
-                      <svg className="w-full h-full -rotate-90" viewBox="0 0 36 36">
-                        <circle
-                          cx="18"
-                          cy="18"
-                          r="15.9155"
-                          fill="none"
-                          stroke="#f1f5f9"
-                          strokeWidth="4"
-                        />
-                        <circle
-                          cx="18"
-                          cy="18"
-                          r="15.9155"
-                          fill="none"
-                          stroke="#ef4444"
-                          strokeWidth="5"
-                          strokeDasharray={`${pctDarurat} 100`}
-                          strokeDashoffset="0"
-                          strokeLinecap="round"
-                        />
-                      </svg>
-
-                      <div className="absolute inset-0 flex items-center justify-center flex-col leading-none">
-                        <span className="text-2xl font-black text-rose-600">{pctDarurat}%</span>
-                        <span className="text-[8px] text-slate-450 font-extrabold uppercase tracking-widest mt-1">Urgensi Darurat</span>
-                      </div>
-                    </div>
+                    <UrgencyDonutChart
+                      darurat={countDarurat}
+                      sedang={countSedang}
+                      rendah={countRendah}
+                      total={totalComplaints}
+                    />
 
                     <div className="w-full grid grid-cols-3 gap-1.5 text-center text-[10px] font-bold text-slate-500">
                       <div className="bg-red-50 text-red-750 border border-red-100 py-1.5 rounded-lg">
