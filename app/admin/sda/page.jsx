@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Footer from '../../components/Footer';
 import { 
   Shield, 
   Users, 
@@ -504,7 +505,7 @@ export default function SdaAdmin() {
   });
 
   return (
-    <div className="min-h-screen bg-[#F8F7F4] text-slate-800 font-sans pb-12 select-none relative overflow-x-hidden pt-[57px]">
+    <div className="min-h-screen bg-[#F8F7F4] text-slate-800 font-sans select-none relative overflow-x-hidden pt-[57px] flex flex-col justify-between">
       
       {/* Horizontal Navbar */}
       <nav className="bg-white border-b border-slate-200 shadow-md fixed top-0 left-0 w-full z-50">
@@ -566,7 +567,7 @@ export default function SdaAdmin() {
           <div className="flex items-center gap-4 text-center md:text-left flex-col md:flex-row">
             <div className="w-16 h-16 rounded-full bg-white border-2 border-[#C7B7A3] p-1 flex items-center justify-center shadow-md shrink-0">
               <div className="w-full h-full rounded-full bg-gradient-to-tr from-[#561C24] to-[#6D2932] flex items-center justify-center text-white">
-                <Users className="w-8 h-8 text-[#E8D8C4] fill-[#E8D8C4]/15" />
+                <Shield className="w-8 h-8 text-[#E8D8C4] fill-[#E8D8C4]/15" />
               </div>
             </div>
             <div>
@@ -574,20 +575,29 @@ export default function SdaAdmin() {
                 SIP POLPP
               </h1>
               <p className="text-[10px] text-[#E8D8C4] font-bold uppercase tracking-widest mt-1.5">
-                Portal Administrasi & Kompetensi Aparatur SDA
+                Sistem Informasi Pelayanan & Operasional Pol PP Kemendagri
               </p>
             </div>
           </div>
           
           <div className="flex items-center gap-4">
+            <button 
+              onClick={() => alert("Fitur Mode Malam akan segera hadir!")}
+              className="p-2.5 bg-white/10 hover:bg-white/20 rounded-full transition-all text-white border border-white/20 active:scale-95 cursor-pointer"
+              title="Toggle Night Mode"
+              type="button"
+            >
+              <Moon className="w-5 h-5 fill-white/10" />
+            </button>
+
             <div className="flex items-center gap-3 bg-white/15 backdrop-blur-md px-4 py-2 rounded-2xl border border-white/20 shadow-sm">
               <div className="w-9 h-9 rounded-full bg-slate-200 border-2 border-white/60 flex items-center justify-center text-slate-700 font-extrabold shadow-inner shrink-0">
-                SDA
+                KB
               </div>
               <div className="text-left text-white leading-none">
-                <h4 className="text-xs font-black tracking-wide">Bidang SDA</h4>
+                <h4 className="text-xs font-black tracking-wide">Kabupaten Buleleng</h4>
                 <span className="text-[8px] bg-[#E8D8C4] text-[#561C24] font-black uppercase tracking-widest px-1.5 py-0.5 rounded mt-1.5 inline-block">
-                  Aparatur
+                  Admin
                 </span>
               </div>
             </div>
@@ -596,7 +606,7 @@ export default function SdaAdmin() {
       </div>
 
       {/* Main Grid Content */}
-      <div className="max-w-7xl mx-auto px-6 mt-8 space-y-6">
+      <div className="max-w-7xl w-full mx-auto px-6 mt-8 space-y-6 flex-1">
         
         {/* Title */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-left">
@@ -1137,14 +1147,18 @@ export default function SdaAdmin() {
       {isPersonelModalOpen && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg overflow-hidden border border-slate-200 flex flex-col max-h-[90vh]">
-            <div className="bg-gradient-to-r from-[#212260] to-indigo-900 text-white px-6 py-4 flex items-center justify-between shrink-0">
+            <div className="bg-[#561C24] text-white px-6 py-4 flex items-center justify-between shrink-0">
               <div className="text-left">
-                <h3 className="text-sm font-black uppercase tracking-wider">
+                <h3 className="text-sm font-black uppercase tracking-wider text-white">
                   {personelFormMode === 'create' ? 'Tambah Personel SDA Baru' : personelFormMode === 'edit' ? 'Edit Profil Personel' : 'Detail Profil Aparatur'}
                 </h3>
-                <p className="text-[10px] text-yellow-350 font-bold uppercase tracking-widest mt-0.5">SIP POLPP BULELENG</p>
+                <p className="text-[10px] text-rose-200/80 font-bold uppercase tracking-widest mt-0.5">SIP POLPP BULELENG</p>
               </div>
-              <button onClick={() => setIsPersonelModalOpen(false)} className="p-1.5 hover:bg-white/10 rounded-full transition-colors cursor-pointer text-white">
+              <button 
+                type="button"
+                onClick={() => setIsPersonelModalOpen(false)} 
+                className="p-1.5 hover:bg-white/10 rounded-full transition-colors cursor-pointer text-white"
+              >
                 <X className="w-4 h-4" />
               </button>
             </div>
@@ -1351,14 +1365,18 @@ export default function SdaAdmin() {
       {isKegiatanModalOpen && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-xl w-full max-w-xl overflow-hidden border border-slate-200 flex flex-col max-h-[90vh]">
-            <div className="bg-gradient-to-r from-[#ad1457] to-[#880e4f] text-white px-6 py-4 flex items-center justify-between shrink-0">
+            <div className="bg-[#561C24] text-white px-6 py-4 flex items-center justify-between shrink-0">
               <div className="text-left">
-                <h3 className="text-sm font-black uppercase tracking-wider">
+                <h3 className="text-sm font-black uppercase tracking-wider text-white">
                   {kegiatanFormMode === 'create' ? 'Buat Jurnal Kegiatan Baru' : kegiatanFormMode === 'edit' ? 'Edit Jurnal Kegiatan' : 'Detail Jurnal Kegiatan SDA'}
                 </h3>
-                <p className="text-[10px] text-yellow-350 font-bold uppercase tracking-widest mt-0.5">SIP POLPP BULELENG</p>
+                <p className="text-[10px] text-rose-200/80 font-bold uppercase tracking-widest mt-0.5">SIP POLPP BULELENG</p>
               </div>
-              <button onClick={() => setIsKegiatanModalOpen(false)} className="p-1.5 hover:bg-white/10 rounded-full transition-colors cursor-pointer text-white">
+              <button 
+                type="button"
+                onClick={() => setIsKegiatanModalOpen(false)} 
+                className="p-1.5 hover:bg-white/10 rounded-full transition-colors cursor-pointer text-white"
+              >
                 <X className="w-4 h-4" />
               </button>
             </div>
@@ -1564,14 +1582,18 @@ export default function SdaAdmin() {
       {isPustakaModalOpen && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-xl w-full max-w-xl overflow-hidden border border-slate-200 flex flex-col max-h-[90vh]">
-            <div className="bg-gradient-to-r from-[#6a1b9a] to-[#4a148c] text-white px-6 py-4 flex items-center justify-between shrink-0">
+            <div className="bg-[#561C24] text-white px-6 py-4 flex items-center justify-between shrink-0">
               <div className="text-left">
-                <h3 className="text-sm font-black uppercase tracking-wider">
+                <h3 className="text-sm font-black uppercase tracking-wider text-white">
                   {pustakaFormMode === 'create' ? 'Arsip Dokumen Hukum Baru' : pustakaFormMode === 'edit' ? 'Edit Dokumen Arsip' : 'Detail Arsip Pustaka Hukum'}
                 </h3>
-                <p className="text-[10px] text-yellow-350 font-bold uppercase tracking-widest mt-0.5">SIP POLPP BULELENG</p>
+                <p className="text-[10px] text-rose-200/80 font-bold uppercase tracking-widest mt-0.5">SIP POLPP BULELENG</p>
               </div>
-              <button onClick={() => setIsPustakaModalOpen(false)} className="p-1.5 hover:bg-white/10 rounded-full transition-colors cursor-pointer text-white">
+              <button 
+                type="button"
+                onClick={() => setIsPustakaModalOpen(false)} 
+                className="p-1.5 hover:bg-white/10 rounded-full transition-colors cursor-pointer text-white"
+              >
                 <X className="w-4 h-4" />
               </button>
             </div>
@@ -1774,6 +1796,8 @@ export default function SdaAdmin() {
           </div>
         </div>
       )}
+
+      <Footer />
 
     </div>
   );

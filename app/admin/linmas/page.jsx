@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Footer from '../../components/Footer';
 import { 
   Shield, 
   Users, 
@@ -607,7 +608,7 @@ export default function LinmasAdmin() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8F7F4] text-slate-800 font-sans pb-12 select-none relative overflow-x-hidden pt-[57px]">
+    <div className="min-h-screen bg-[#F8F7F4] text-slate-800 font-sans select-none relative overflow-x-hidden pt-[57px] flex flex-col justify-between">
       
       {/* 2. Horizontal Admin Navbar (Fixed / Persistent) */}
       <nav className="bg-white border-b border-slate-200 shadow-md fixed top-0 left-0 w-full z-50">
@@ -720,7 +721,7 @@ export default function LinmasAdmin() {
 
 
       {/* Main Grid Content */}
-      <div className="max-w-7xl mx-auto px-6 mt-8 space-y-6">
+      <div className="max-w-7xl w-full mx-auto px-6 mt-8 space-y-6 flex-1">
         
         {/* Page Title & Actions */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-left">
@@ -1061,7 +1062,7 @@ export default function LinmasAdmin() {
                         </button>
                         <button
                           onClick={() => handleDeleteTrantibum(log.id)}
-                          className="p-1.5 bg-slate-900 hover:bg-rose-950/30 text-slate-500 hover:text-rose-400 border border-slate-800 rounded-lg cursor-pointer transition-colors"
+                          className="p-1.5 bg-slate-50 hover:bg-rose-50 text-slate-500 hover:text-rose-600 border border-slate-200 hover:border-rose-200 rounded-lg cursor-pointer transition-all"
                           title="Hapus Data"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
@@ -1305,14 +1306,16 @@ export default function LinmasAdmin() {
 
       </div>
 
+      <Footer />
+
       {/* ==================== 1. MODAL DETAIL & FORM SATLINMAS (21 FIELDS) ==================== */}
       {isSatlinmasModalOpen && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 overflow-y-auto">
-          <div className="bg-slate-900 border border-slate-800 w-full max-w-2xl rounded-2xl shadow-2xl relative my-8">
-            <div className="flex justify-between items-center p-4 border-b border-slate-800 bg-slate-950/80 rounded-t-2xl">
+        <div className="fixed inset-0 bg-black/55 backdrop-blur-sm flex items-center justify-center z-50 p-4 overflow-y-auto">
+          <div className="bg-white border border-slate-200 w-full max-w-2xl rounded-2xl shadow-2xl relative my-8 text-slate-800">
+            <div className="flex justify-between items-center p-4 bg-[#561C24] text-white rounded-t-2xl">
               <div>
-                <span className="text-[10px] text-indigo-400 font-bold uppercase tracking-wider block">Formulir 21 Field Administrasi</span>
-                <h3 className="text-sm font-bold text-slate-200">
+                <span className="text-[10px] text-rose-200/80 font-black uppercase tracking-widest block">Formulir 21 Field Administrasi</span>
+                <h3 className="text-sm font-black text-white">
                   {satlinmasFormMode === 'view' 
                     ? `Detail Satlinmas Desa ${satlinmasForm.desa}` 
                     : satlinmasFormMode === 'edit' 
@@ -1321,28 +1324,29 @@ export default function LinmasAdmin() {
                 </h3>
               </div>
               <button 
+                type="button"
                 onClick={() => setIsSatlinmasModalOpen(false)}
-                className="p-1.5 hover:bg-slate-800 text-slate-400 hover:text-slate-200 rounded-lg cursor-pointer"
+                className="p-1.5 hover:bg-white/10 text-white/80 hover:text-white rounded-lg cursor-pointer transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <form onSubmit={handleSatlinmasSubmit} className="p-6 space-y-4 max-h-[70vh] overflow-y-auto scrollbar-thin text-xs">
+            <form onSubmit={handleSatlinmasSubmit} className="p-6 space-y-4 max-h-[70vh] overflow-y-auto text-xs">
               
               {/* SECTION A: GEOGRAFI & STAF KEPEMIMPINAN */}
               <div className="space-y-3.5">
-                <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest block border-b border-slate-800 pb-1">
+                <span className="text-[10px] font-black text-[#561C24] uppercase tracking-widest block border-b border-slate-200 pb-1.5">
                   A. Geografi & Kepala Staf Satlinmas
                 </span>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <label className="text-[10px] text-slate-400 font-semibold block">Kecamatan <span className="text-rose-500">*</span></label>
+                    <label className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">Kecamatan <span className="text-rose-500">*</span></label>
                     <select
                       value={satlinmasForm.kecamatan}
                       onChange={(e) => handleKecamatanChange(e.target.value)}
                       disabled={satlinmasFormMode === 'view'}
-                      className="w-full bg-slate-950 border border-slate-850 rounded-xl px-3 py-2 text-slate-200 outline-none focus:border-indigo-600"
+                      className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-[#561C24]/15 focus:border-[#561C24] transition-all disabled:bg-slate-50 disabled:text-slate-400 disabled:border-slate-150"
                     >
                       {Object.keys(BULELENG_REGENCY).map(kec => (
                         <option key={kec} value={kec}>{kec}</option>
@@ -1350,12 +1354,12 @@ export default function LinmasAdmin() {
                     </select>
                   </div>
                   <div className="space-y-1">
-                    <label className="text-[10px] text-slate-400 font-semibold block">Desa / Kelurahan <span className="text-rose-500">*</span></label>
+                    <label className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">Desa / Kelurahan <span className="text-rose-500">*</span></label>
                     <select
                       value={satlinmasForm.desa}
                       onChange={(e) => setSatlinmasForm(prev => ({ ...prev, desa: e.target.value }))}
                       disabled={satlinmasFormMode === 'view'}
-                      className="w-full bg-slate-950 border border-slate-850 rounded-xl px-3 py-2 text-slate-200 outline-none focus:border-indigo-600"
+                      className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-[#561C24]/15 focus:border-[#561C24] transition-all disabled:bg-slate-50 disabled:text-slate-400 disabled:border-slate-150"
                     >
                       {filteredVillages.map(desa => (
                         <option key={desa} value={desa}>{desa}</option>
@@ -1366,33 +1370,33 @@ export default function LinmasAdmin() {
 
                 <div className="grid grid-cols-3 gap-3">
                   <div className="space-y-1">
-                    <label className="text-[10px] text-slate-400 font-semibold block">Nama Kepala Desa / Lurah</label>
+                    <label className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">Nama Kepala Desa / Lurah</label>
                     <input
                       type="text"
                       disabled={satlinmasFormMode === 'view'}
                       value={satlinmasForm.nama_kades}
                       onChange={(e) => setSatlinmasForm(prev => ({ ...prev, nama_kades: e.target.value }))}
-                      className="w-full bg-slate-950 border border-slate-850 rounded-xl px-3 py-2 text-slate-200 outline-none"
+                      className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-[#561C24]/15 focus:border-[#561C24] transition-all disabled:bg-slate-50 disabled:text-slate-400 disabled:border-slate-150"
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-[10px] text-slate-400 font-semibold block">Nama Kasi Trantib / Pem.</label>
+                    <label className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">Nama Kasi Trantib / Pem.</label>
                     <input
                       type="text"
                       disabled={satlinmasFormMode === 'view'}
                       value={satlinmasForm.nama_kasi}
                       onChange={(e) => setSatlinmasForm(prev => ({ ...prev, nama_kasi: e.target.value }))}
-                      className="w-full bg-slate-950 border border-slate-850 rounded-xl px-3 py-2 text-slate-200 outline-none"
+                      className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-[#561C24]/15 focus:border-[#561C24] transition-all disabled:bg-slate-50 disabled:text-slate-400 disabled:border-slate-150"
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-[10px] text-slate-400 font-semibold block">Kontak WA Kasi / Kades</label>
+                    <label className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">Kontak WA Kasi / Kades</label>
                     <input
                       type="text"
                       disabled={satlinmasFormMode === 'view'}
                       value={satlinmasForm.kontak_perangkat}
                       onChange={(e) => setSatlinmasForm(prev => ({ ...prev, kontak_perangkat: e.target.value }))}
-                      className="w-full bg-slate-950 border border-slate-850 rounded-xl px-3 py-2 text-slate-200 outline-none"
+                      className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-[#561C24]/15 focus:border-[#561C24] transition-all disabled:bg-slate-50 disabled:text-slate-400 disabled:border-slate-150"
                     />
                   </div>
                 </div>
@@ -1400,48 +1404,48 @@ export default function LinmasAdmin() {
 
               {/* SECTION B: KEKUATAN PERSONIL & HONOR */}
               <div className="space-y-3.5 pt-2">
-                <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest block border-b border-slate-800 pb-1">
+                <span className="text-[10px] font-black text-[#561C24] uppercase tracking-widest block border-b border-slate-200 pb-1.5">
                   B. Kekuatan Anggota Linmas & Anggaran Honorarium
                 </span>
                 <div className="grid grid-cols-4 gap-3">
                   <div className="space-y-1">
-                    <label className="text-[10px] text-slate-400 font-semibold block">Anggota Pria</label>
+                    <label className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">Anggota Pria</label>
                     <input
                       type="number"
                       disabled={satlinmasFormMode === 'view'}
                       value={satlinmasForm.anggota_pria}
                       onChange={(e) => setSatlinmasForm(prev => ({ ...prev, anggota_pria: parseInt(e.target.value) || 0 }))}
-                      className="w-full bg-slate-950 border border-slate-850 rounded-xl px-3 py-2 text-slate-200 outline-none"
+                      className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-[#561C24]/15 focus:border-[#561C24] transition-all disabled:bg-slate-50 disabled:text-slate-400 disabled:border-slate-150"
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-[10px] text-slate-400 font-semibold block">Anggota Wanita</label>
+                    <label className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">Anggota Wanita</label>
                     <input
                       type="number"
                       disabled={satlinmasFormMode === 'view'}
                       value={satlinmasForm.anggota_wanita}
                       onChange={(e) => setSatlinmasForm(prev => ({ ...prev, anggota_wanita: parseInt(e.target.value) || 0 }))}
-                      className="w-full bg-slate-950 border border-slate-850 rounded-xl px-3 py-2 text-slate-200 outline-none"
+                      className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-[#561C24]/15 focus:border-[#561C24] transition-all disabled:bg-slate-50 disabled:text-slate-400 disabled:border-slate-150"
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-[10px] text-slate-400 font-semibold block">Pos Kamling (Unit)</label>
+                    <label className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">Pos Kamling (Unit)</label>
                     <input
                       type="number"
                       disabled={satlinmasFormMode === 'view'}
                       value={satlinmasForm.jumlah_pos_kamling}
                       onChange={(e) => setSatlinmasForm(prev => ({ ...prev, jumlah_pos_kamling: parseInt(e.target.value) || 0 }))}
-                      className="w-full bg-slate-950 border border-slate-850 rounded-xl px-3 py-2 text-slate-200 outline-none"
+                      className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-[#561C24]/15 focus:border-[#561C24] transition-all disabled:bg-slate-50 disabled:text-slate-400 disabled:border-slate-150"
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-[10px] text-slate-400 font-semibold block">Anggaran Honor (Rp)</label>
+                    <label className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">Anggaran Honor (Rp)</label>
                     <input
                       type="number"
                       disabled={satlinmasFormMode === 'view'}
                       value={satlinmasForm.anggaran_honor}
                       onChange={(e) => setSatlinmasForm(prev => ({ ...prev, anggaran_honor: parseFloat(e.target.value) || 0.0 }))}
-                      className="w-full bg-slate-950 border border-slate-850 rounded-xl px-3 py-2 text-slate-200 outline-none"
+                      className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-[#561C24]/15 focus:border-[#561C24] transition-all disabled:bg-slate-50 disabled:text-slate-400 disabled:border-slate-150"
                     />
                   </div>
                 </div>
@@ -1449,64 +1453,64 @@ export default function LinmasAdmin() {
 
               {/* SECTION C: LOGISTIK, PRASARANA & PERALATAN */}
               <div className="space-y-3.5 pt-2">
-                <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest block border-b border-slate-800 pb-1">
+                <span className="text-[10px] font-black text-[#561C24] uppercase tracking-widest block border-b border-slate-200 pb-1.5">
                   C. Inventaris Peralatan & Pakaian Dinas
                 </span>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <label className="text-[10px] text-slate-400 font-semibold block">Pakaian Dinas Lapangan</label>
+                    <label className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">Pakaian Dinas Lapangan</label>
                     <select
                       value={satlinmasForm.status_pakaian_dinas}
                       disabled={satlinmasFormMode === 'view'}
                       onChange={(e) => setSatlinmasForm(prev => ({ ...prev, status_pakaian_dinas: e.target.value }))}
-                      className="w-full bg-slate-950 border border-slate-850 rounded-xl px-3 py-2 text-slate-200 outline-none focus:border-indigo-600"
+                      className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-[#561C24]/15 focus:border-[#561C24] transition-all disabled:bg-slate-50 disabled:text-slate-400 disabled:border-slate-150"
                     >
                       <option value="Ada">Lengkap / Ada</option>
                       <option value="Tidak Ada">Tidak Ada / Kurang</option>
                     </select>
                   </div>
                   <div className="space-y-1">
-                    <label className="text-[10px] text-slate-400 font-semibold block">Keterangan Pakaian Dinas</label>
+                    <label className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">Keterangan Pakaian Dinas</label>
                     <input
                       type="text"
                       disabled={satlinmasFormMode === 'view'}
                       placeholder="Contoh: 15 stel lengkap warna hijau abu"
                       value={satlinmasForm.ket_pakaian_dinas}
                       onChange={(e) => setSatlinmasForm(prev => ({ ...prev, ket_pakaian_dinas: e.target.value }))}
-                      className="w-full bg-slate-950 border border-slate-850 rounded-xl px-3 py-2 text-slate-200 outline-none"
+                      className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-[#561C24]/15 focus:border-[#561C24] transition-all disabled:bg-slate-50 disabled:text-slate-400 disabled:border-slate-150"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-3 gap-3">
                   <div className="space-y-1">
-                    <label className="text-[10px] text-slate-400 font-semibold block">Jumlah Senter (Pcs)</label>
+                    <label className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">Jumlah Senter (Pcs)</label>
                     <input
                       type="number"
                       disabled={satlinmasFormMode === 'view'}
                       value={satlinmasForm.jumlah_senter}
                       onChange={(e) => setSatlinmasForm(prev => ({ ...prev, jumlah_senter: parseInt(e.target.value) || 0 }))}
-                      className="w-full bg-slate-950 border border-slate-850 rounded-xl px-3 py-2 text-slate-200 outline-none"
+                      className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-[#561C24]/15 focus:border-[#561C24] transition-all disabled:bg-slate-50 disabled:text-slate-400 disabled:border-slate-150"
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-[10px] text-slate-400 font-semibold block">Jumlah Pentungan (Pcs)</label>
+                    <label className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">Jumlah Pentungan (Pcs)</label>
                     <input
                       type="number"
                       disabled={satlinmasFormMode === 'view'}
                       value={satlinmasForm.jumlah_pentungan}
                       onChange={(e) => setSatlinmasForm(prev => ({ ...prev, jumlah_pentungan: parseInt(e.target.value) || 0 }))}
-                      className="w-full bg-slate-950 border border-slate-850 rounded-xl px-3 py-2 text-slate-200 outline-none"
+                      className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-[#561C24]/15 focus:border-[#561C24] transition-all disabled:bg-slate-50 disabled:text-slate-400 disabled:border-slate-150"
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-[10px] text-slate-400 font-semibold block">Handy Talky (HT) (Unit)</label>
+                    <label className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">Handy Talky (HT) (Unit)</label>
                     <input
                       type="number"
                       disabled={satlinmasFormMode === 'view'}
                       value={satlinmasForm.jumlah_ht}
                       onChange={(e) => setSatlinmasForm(prev => ({ ...prev, jumlah_ht: parseInt(e.target.value) || 0 }))}
-                      className="w-full bg-slate-950 border border-slate-850 rounded-xl px-3 py-2 text-slate-200 outline-none"
+                      className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-[#561C24]/15 focus:border-[#561C24] transition-all disabled:bg-slate-50 disabled:text-slate-400 disabled:border-slate-150"
                     />
                   </div>
                 </div>
@@ -1514,67 +1518,67 @@ export default function LinmasAdmin() {
 
               {/* SECTION D: REGULASI, SK & KEANGGOTAAN */}
               <div className="space-y-3.5 pt-2">
-                <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest block border-b border-slate-800 pb-1">
+                <span className="text-[10px] font-black text-[#561C24] uppercase tracking-widest block border-b border-slate-200 pb-1.5">
                   D. Aspek Hukum, Legalitas & KTA
                 </span>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <label className="text-[10px] text-slate-400 font-semibold block">Status SK Satlinmas</label>
+                    <label className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">Status SK Satlinmas</label>
                     <select
                       value={satlinmasForm.status_sk_satlinmas}
                       disabled={satlinmasFormMode === 'view'}
                       onChange={(e) => setSatlinmasForm(prev => ({ ...prev, status_sk_satlinmas: e.target.value }))}
-                      className="w-full bg-slate-950 border border-slate-850 rounded-xl px-3 py-2 text-slate-200 outline-none focus:border-indigo-600"
+                      className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-[#561C24]/15 focus:border-[#561C24] transition-all disabled:bg-slate-50 disabled:text-slate-400 disabled:border-slate-150"
                     >
                       <option value="Ada">Ada / Diterbitkan Kades</option>
                       <option value="Tidak Ada">Tidak Ada / Kadaluarsa</option>
                     </select>
                   </div>
                   <div className="space-y-1">
-                    <label className="text-[10px] text-slate-400 font-semibold block">Peraturan Desa (Perdes) Linmas</label>
+                    <label className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">Peraturan Desa (Perdes) Linmas</label>
                     <input
                       type="text"
                       disabled={satlinmasFormMode === 'view'}
                       placeholder="Contoh: No. 3 Tahun 2024 tentang Linmas"
                       value={satlinmasForm.peraturan_desa}
                       onChange={(e) => setSatlinmasForm(prev => ({ ...prev, peraturan_desa: e.target.value }))}
-                      className="w-full bg-slate-950 border border-slate-850 rounded-xl px-3 py-2 text-slate-200 outline-none"
+                      className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-[#561C24]/15 focus:border-[#561C24] transition-all disabled:bg-slate-50 disabled:text-slate-400 disabled:border-slate-150"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-3 gap-3">
                   <div className="space-y-1">
-                    <label className="text-[10px] text-slate-400 font-semibold block">Struktur Organisasi</label>
+                    <label className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">Struktur Organisasi</label>
                     <select
                       value={satlinmasForm.status_struktur}
                       disabled={satlinmasFormMode === 'view'}
                       onChange={(e) => setSatlinmasForm(prev => ({ ...prev, status_struktur: e.target.value }))}
-                      className="w-full bg-slate-950 border border-slate-850 rounded-xl px-3 py-2 text-slate-200 outline-none focus:border-indigo-600"
+                      className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-[#561C24]/15 focus:border-[#561C24] transition-all disabled:bg-slate-50 disabled:text-slate-400 disabled:border-slate-150"
                     >
                       <option value="Ada">Bagan Struktur Ada</option>
                       <option value="Tidak">Belum Tersusun</option>
                     </select>
                   </div>
                   <div className="space-y-1">
-                    <label className="text-[10px] text-slate-400 font-semibold block">Pelatihan Anggota</label>
+                    <label className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">Pelatihan Anggota</label>
                     <select
                       value={satlinmasForm.pelatihan_anggota}
                       disabled={satlinmasFormMode === 'view'}
                       onChange={(e) => setSatlinmasForm(prev => ({ ...prev, pelatihan_anggota: e.target.value }))}
-                      className="w-full bg-slate-950 border border-slate-850 rounded-xl px-3 py-2 text-slate-200 outline-none focus:border-indigo-600"
+                      className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-[#561C24]/15 focus:border-[#561C24] transition-all disabled:bg-slate-50 disabled:text-slate-400 disabled:border-slate-150"
                     >
                       <option value="Pernah">Pernah Dibina Satpol PP</option>
                       <option value="Belum Pernah">Belum Pernah</option>
                     </select>
                   </div>
                   <div className="space-y-1">
-                    <label className="text-[10px] text-slate-400 font-semibold block">Kartu Tanda Anggota (KTA)</label>
+                    <label className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">Kartu Tanda Anggota (KTA)</label>
                     <select
                       value={satlinmasForm.status_kta}
                       disabled={satlinmasFormMode === 'view'}
                       onChange={(e) => setSatlinmasForm(prev => ({ ...prev, status_kta: e.target.value }))}
-                      className="w-full bg-slate-950 border border-slate-850 rounded-xl px-3 py-2 text-slate-200 outline-none focus:border-indigo-600"
+                      className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-[#561C24]/15 focus:border-[#561C24] transition-all disabled:bg-slate-50 disabled:text-slate-400 disabled:border-slate-150"
                     >
                       <option value="Ada (Digital)">Ada (Digital)</option>
                       <option value="Ada (Manual)">Ada (Fisik Manual)</option>
@@ -1586,39 +1590,39 @@ export default function LinmasAdmin() {
 
               {/* SECTION E: PETUGAS PENDATA */}
               <div className="space-y-3.5 pt-2">
-                <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest block border-b border-slate-800 pb-1">
+                <span className="text-[10px] font-black text-[#561C24] uppercase tracking-widest block border-b border-slate-200 pb-1.5">
                   E. Kredibilitas Data
                 </span>
                 <div className="space-y-1">
-                  <label className="text-[10px] text-slate-400 font-semibold block">Nama Resmi Petugas Pendata <span className="text-rose-500">*</span></label>
+                  <label className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">Nama Resmi Petugas Pendata <span className="text-rose-500">*</span></label>
                   <input
                     type="text"
                     disabled={satlinmasFormMode === 'view'}
                     placeholder="Contoh: Kadek Dwi Antara, S.H. (Fungsional Linmas)"
                     value={satlinmasForm.petugas_pendata}
                     onChange={(e) => setSatlinmasForm(prev => ({ ...prev, petugas_pendata: e.target.value }))}
-                    className="w-full bg-slate-950 border border-slate-850 rounded-xl px-3 py-2 text-slate-200 outline-none focus:border-indigo-600"
+                    className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-[#561C24]/15 focus:border-[#561C24] transition-all disabled:bg-slate-50 disabled:text-slate-400 disabled:border-slate-150"
                     required
                   />
                   {formErrors.petugas_pendata && (
-                    <span className="text-[10px] text-rose-500">{formErrors.petugas_pendata}</span>
+                    <span className="text-[10px] text-rose-500 font-bold">{formErrors.petugas_pendata}</span>
                   )}
                 </div>
               </div>
 
               {/* Actions Bottom */}
-              <div className="border-t border-slate-800 pt-4 flex justify-end gap-2 bg-slate-900">
+              <div className="border-t border-slate-200 pt-4 flex justify-end gap-2 bg-slate-50 p-4 -mx-6 -mb-6 rounded-b-2xl">
                 <button
                   type="button"
                   onClick={() => setIsSatlinmasModalOpen(false)}
-                  className="px-4 py-2 bg-slate-950 hover:bg-slate-850 rounded-xl border border-slate-800 font-semibold transition-colors cursor-pointer"
+                  className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 border border-slate-200 rounded-xl font-bold transition-all cursor-pointer shadow-sm text-xs"
                 >
                   {satlinmasFormMode === 'view' ? 'Tutup' : 'Batal'}
                 </button>
                 {satlinmasFormMode !== 'view' && (
                   <button
                     type="submit"
-                    className="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 font-semibold text-white rounded-xl transition-colors cursor-pointer"
+                    className="px-5 py-2 bg-[#561C24] hover:bg-[#561C24]/90 text-white rounded-xl font-bold transition-all cursor-pointer shadow-sm text-xs"
                   >
                     {satlinmasFormMode === 'edit' ? 'Simpan Perubahan' : 'Tambah Rekaman Desa'}
                   </button>
@@ -1628,19 +1632,18 @@ export default function LinmasAdmin() {
           </div>
         </div>
       )}
-
       {/* ==================== 2. MODAL KEGIATAN & TINDAK LANJUT ADUAN (8 FIELDS LENGKAP) ==================== */}
       {isActivityModalOpen && (
-        <div className="fixed inset-0 bg-black/75 backdrop-blur-sm flex items-center justify-center z-50 p-4 overflow-y-auto">
-          <div className="bg-slate-900 border border-slate-850 w-full max-w-2xl rounded-2xl shadow-2xl relative my-8 overflow-hidden transition-all">
+        <div className="fixed inset-0 bg-black/55 backdrop-blur-sm flex items-center justify-center z-50 p-4 overflow-y-auto">
+          <div className="bg-white border border-slate-200 w-full max-w-2xl rounded-2xl shadow-2xl relative my-8 overflow-hidden transition-all text-slate-800">
             
             {/* Header */}
-            <div className="flex justify-between items-center p-4 border-b border-slate-850 bg-slate-950/80 rounded-t-2xl">
+            <div className="flex justify-between items-center p-4 border-b border-slate-200 bg-slate-50 rounded-t-2xl">
               <div>
-                <span className="text-[10px] text-indigo-400 font-bold uppercase tracking-wider block">
+                <span className="text-[10px] text-[#561C24] font-black uppercase tracking-widest block">
                   Pencatatan Kegiatan Bidang Linmas (8 Field)
                 </span>
-                <h3 className="text-sm font-black text-slate-200">
+                <h3 className="text-sm font-black text-slate-850">
                   {activityFormMode === 'edit'
                     ? 'Edit Catatan Kegiatan Linmas'
                     : selectedReportForActivity 
@@ -1653,37 +1656,37 @@ export default function LinmasAdmin() {
                   setIsActivityModalOpen(false);
                   setSelectedReportForActivity(null);
                 }}
-                className="p-1.5 hover:bg-slate-800 text-slate-400 hover:text-slate-200 rounded-lg cursor-pointer transition-colors"
+                className="p-1.5 bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-850 rounded-lg cursor-pointer transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <form onSubmit={handleActivitySubmit} className="p-6 space-y-4 max-h-[75vh] overflow-y-auto scrollbar-thin text-xs">
+            <form onSubmit={handleActivitySubmit} className="p-6 space-y-4 max-h-[75vh] overflow-y-auto text-xs">
               
               {/* Linked Ticket Callout */}
               {selectedReportForActivity && (
-                <div className="bg-indigo-950/30 border border-indigo-500/20 p-3.5 rounded-xl space-y-1 shadow-inner">
+                <div className="bg-blue-50/60 border border-blue-200 p-3.5 rounded-xl space-y-1 text-slate-750">
                   <div className="flex justify-between items-center">
-                    <span className="text-[9px] text-indigo-400 font-black uppercase tracking-wider">Aduan Warga Terdelegasi</span>
-                    <span className="px-2 py-0.5 bg-indigo-500/20 text-indigo-300 rounded text-[9px] font-black uppercase border border-indigo-500/30">
+                    <span className="text-[9px] text-[#561C24] font-black uppercase tracking-wider">Aduan Warga Terdelegasi</span>
+                    <span className="px-2 py-0.5 bg-blue-100 text-blue-800 rounded text-[9px] font-black uppercase border border-blue-200">
                       Tiket: #{selectedReportForActivity.id_tiket}
                     </span>
                   </div>
-                  <div className="font-bold text-slate-200 text-[11px]">{selectedReportForActivity.kategori_masalah}</div>
-                  <p className="text-[10px] text-slate-400 italic line-clamp-2">"{selectedReportForActivity.kronologi}"</p>
+                  <div className="font-bold text-slate-800 text-[11px]">{selectedReportForActivity.kategori_masalah}</div>
+                  <p className="text-[10px] text-slate-500 italic line-clamp-2">"{selectedReportForActivity.kronologi}"</p>
                 </div>
               )}
 
               {/* SECTION A: INTEGRASI TIKET & WAKTU */}
               <div className="space-y-3.5">
-                <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest block border-b border-slate-850 pb-1">
+                <span className="text-[10px] font-black text-[#561C24] uppercase tracking-widest block border-b border-slate-200 pb-1.5">
                   A. Integrasi Aduan & Waktu Kegiatan
                 </span>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <label className="text-[10px] text-slate-400 font-semibold block uppercase tracking-wider">Nomor Tiket Aduan</label>
+                    <label className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">Nomor Tiket Aduan</label>
                     <select
                       disabled={!!selectedReportForActivity || !!activityForm.id}
                       value={activityForm.id_tiket}
@@ -1706,11 +1709,11 @@ export default function LinmasAdmin() {
                             latitude: report.latitude || '',
                             longitude: report.longitude || '',
                             jenis_kegiatan: 'Penertiban Masalah Sosial (ODGJ, Gepeng, dll)',
-                            uraian_kegiatan: `Menindaklanjuti aduan warga nomor tiket #${ticketId} terkait ${report.kategori_masalah}. Tim Linmas meluncur ke lokasi untuk penertiban.`
+                            uraian_kegiatan: `Menindaklanjuti aduan warga nomor tiket #${ticketId} terkait ${report.kategori_masalah}. Tim Linmas meluncur to lokasi untuk penertiban.`
                           }));
                         }
                       }}
-                      className="w-full bg-slate-950 border border-slate-850 rounded-xl px-3 py-2 text-slate-200 outline-none focus:border-indigo-600 font-semibold disabled:opacity-60"
+                      className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-[#561C24]/15 focus:border-[#561C24] transition-all disabled:bg-slate-50 disabled:text-slate-400 disabled:border-slate-150"
                     >
                       <option value="">Kegiatan Mandiri / Rutin (Tanpa Tiket)</option>
                       {delegatedReports.map(r => (
@@ -1722,12 +1725,12 @@ export default function LinmasAdmin() {
                   </div>
 
                   <div className="space-y-1">
-                    <label className="text-[10px] text-slate-400 font-semibold block uppercase tracking-wider">Tanggal & Waktu Kegiatan <span className="text-rose-500">*</span></label>
+                    <label className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">Tanggal & Waktu Kegiatan <span className="text-rose-500">*</span></label>
                     <input
                       type="datetime-local"
                       value={activityForm.tanggal_kegiatan}
                       onChange={(e) => setActivityForm(prev => ({ ...prev, tanggal_kegiatan: e.target.value }))}
-                      className="w-full bg-slate-950 border border-slate-850 rounded-xl px-3 py-2 text-slate-300 outline-none focus:border-indigo-600 font-semibold"
+                      className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-750 outline-none focus:ring-2 focus:ring-[#561C24]/15 focus:border-[#561C24] transition-all disabled:bg-slate-50 disabled:text-slate-400 disabled:border-slate-150"
                       required
                     />
                   </div>
@@ -1736,17 +1739,17 @@ export default function LinmasAdmin() {
 
               {/* SECTION B: SASARAN & GPS */}
               <div className="space-y-3.5 pt-2">
-                <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest block border-b border-slate-850 pb-1">
+                <span className="text-[10px] font-black text-[#561C24] uppercase tracking-widest block border-b border-slate-200 pb-1.5">
                   B. Lokasi / Wilayah Sasaran & Titik Lokasi (Tilok)
                 </span>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <label className="text-[10px] text-slate-400 font-semibold block uppercase tracking-wider">Kecamatan <span className="text-rose-500">*</span></label>
+                    <label className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">Kecamatan <span className="text-rose-500">*</span></label>
                     <select
                       value={activityForm.kecamatan}
                       onChange={(e) => handleKecamatanActivityChange(e.target.value)}
-                      className="w-full bg-slate-950 border border-slate-850 rounded-xl px-3 py-2 text-slate-200 outline-none focus:border-indigo-600 font-semibold"
+                      className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-[#561C24]/15 focus:border-[#561C24] transition-all disabled:bg-slate-50 disabled:text-slate-400 disabled:border-slate-150"
                       required
                     >
                       {Object.keys(BULELENG_REGENCY).map(kec => (
@@ -1756,11 +1759,11 @@ export default function LinmasAdmin() {
                   </div>
 
                   <div className="space-y-1">
-                    <label className="text-[10px] text-slate-400 font-semibold block uppercase tracking-wider">Desa / Kelurahan <span className="text-rose-500">*</span></label>
+                    <label className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">Desa / Kelurahan <span className="text-rose-500">*</span></label>
                     <select
                       value={activityForm.desa}
                       onChange={(e) => setActivityForm(prev => ({ ...prev, desa: e.target.value }))}
-                      className="w-full bg-slate-950 border border-slate-850 rounded-xl px-3 py-2 text-slate-200 outline-none focus:border-indigo-600 font-semibold"
+                      className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-[#561C24]/15 focus:border-[#561C24] transition-all disabled:bg-slate-50 disabled:text-slate-400 disabled:border-slate-150"
                       required
                     >
                       {filteredVillagesActivity.map(desa => (
@@ -1771,9 +1774,9 @@ export default function LinmasAdmin() {
                 </div>
 
                 {/* GPS Coordinates */}
-                <div className="bg-slate-950/40 border border-slate-855 p-3 rounded-xl space-y-3 shadow-inner">
+                <div className="bg-slate-50 border border-slate-200 p-3 rounded-xl space-y-3">
                   <div className="flex justify-between items-center">
-                    <label className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Titik Koordinat Geospasial (Peta)</label>
+                    <label className="text-[10px] text-slate-550 font-bold uppercase tracking-wider">Titik Koordinat Geospasial (Peta)</label>
                     <button
                       type="button"
                       onClick={() => {
@@ -1794,7 +1797,7 @@ export default function LinmasAdmin() {
                           alert("Browser Anda tidak mendukung Geolocation API.");
                         }
                       }}
-                      className="px-2 py-1 bg-indigo-650 hover:bg-indigo-600 text-white rounded text-[9px] font-bold transition-all flex items-center gap-1 cursor-pointer"
+                      className="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded text-[9px] font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-sm"
                     >
                       <MapPin className="w-3 h-3" /> Tangkap GPS Lapangan
                     </button>
@@ -1808,7 +1811,7 @@ export default function LinmasAdmin() {
                         placeholder="Contoh: -8.1153"
                         value={activityForm.latitude || ''}
                         onChange={(e) => setActivityForm(prev => ({ ...prev, latitude: e.target.value }))}
-                        className="w-full bg-slate-950 border border-slate-850 rounded-lg px-2.5 py-1.5 text-[11px] text-slate-200 outline-none"
+                        className="w-full bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-[11px] text-slate-700 outline-none"
                       />
                     </div>
                     <div className="space-y-1">
@@ -1818,7 +1821,7 @@ export default function LinmasAdmin() {
                         placeholder="Contoh: 115.0901"
                         value={activityForm.longitude || ''}
                         onChange={(e) => setActivityForm(prev => ({ ...prev, longitude: e.target.value }))}
-                        className="w-full bg-slate-950 border border-slate-850 rounded-lg px-2.5 py-1.5 text-[11px] text-slate-200 outline-none"
+                        className="w-full bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-[11px] text-slate-700 outline-none"
                       />
                     </div>
                   </div>
@@ -1827,72 +1830,75 @@ export default function LinmasAdmin() {
 
               {/* SECTION C: KLASIFIKASI & PERSONEL */}
               <div className="space-y-3.5 pt-2">
-                <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest block border-b border-slate-855 pb-1">
+                <span className="text-[10px] font-black text-[#561C24] uppercase tracking-widest block border-b border-slate-200 pb-1.5">
                   C. Jenis Kegiatan & Kekuatan Personil
                 </span>
 
                 <div className="space-y-2">
-                  <label className="text-[10px] text-slate-400 font-semibold block uppercase tracking-wider">Jenis Kegiatan <span className="text-rose-500">*</span></label>
+                  <label className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">Jenis Kegiatan <span className="text-rose-500">*</span></label>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {[
                       'Patroli Wilayah',
                       'Penertiban Masalah Sosial (ODGJ, Gepeng, dll)',
                       'Pembinaan Satlinmas Desa/Kelurahan',
                       'Pendampingan Tugas Lainnya'
-                    ].map(jenis => (
-                      <button
-                        key={jenis}
-                        type="button"
-                        onClick={() => setActivityForm(prev => ({ ...prev, jenis_kegiatan: jenis }))}
-                        className={`py-2 px-3 text-left text-[11px] font-bold rounded-xl border transition-all cursor-pointer ${
-                          activityForm.jenis_kegiatan === jenis
-                            ? 'bg-indigo-600/20 text-indigo-400 border-indigo-500/50 shadow-md'
-                            : 'bg-slate-950 text-slate-400 border-slate-850 hover:border-slate-800'
-                        }`}
-                      >
-                        {jenis}
-                      </button>
-                    ))}
+                    ].map(jenis => {
+                      const isChecked = activityForm.jenis_kegiatan === jenis;
+                      return (
+                        <button
+                          key={jenis}
+                          type="button"
+                          onClick={() => setActivityForm(prev => ({ ...prev, jenis_kegiatan: jenis }))}
+                          className={`py-2 px-3 text-left text-[11px] font-bold rounded-xl border transition-all cursor-pointer ${
+                            isChecked
+                              ? 'bg-blue-50 border-[#561C24]/40 text-[#561C24] shadow-sm'
+                              : 'bg-white border-slate-200 text-slate-500 hover:bg-slate-100/50'
+                          }`}
+                        >
+                          {jenis}
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-[10px] text-slate-400 font-semibold block uppercase tracking-wider">Jumlah Personel Internal Linmas <span className="text-rose-500">*</span></label>
+                  <label className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">Jumlah Personel Internal Linmas <span className="text-rose-500">*</span></label>
                   <input
                     type="number"
                     min={1}
                     value={activityForm.jumlah_personel}
                     onChange={(e) => setActivityForm(prev => ({ ...prev, jumlah_personel: parseInt(e.target.value) || 1 }))}
-                    className="w-full bg-slate-950 border border-slate-850 rounded-xl px-3 py-2 text-slate-200 font-bold outline-none focus:border-indigo-600"
+                    className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-[#561C24]/15 focus:border-[#561C24] transition-all disabled:bg-slate-50 disabled:text-slate-400 disabled:border-slate-150"
                     required
                   />
-                  <span className="text-[9px] text-slate-500">Jumlah pegawai/petugas internal yang turun ke lapangan</span>
+                  <span className="text-[9px] text-slate-450 font-semibold mt-1 block">* Jumlah pegawai/petugas internal yang turun ke lapangan</span>
                 </div>
               </div>
 
               {/* SECTION D: URAIAN & DOKUMENTASI */}
               <div className="space-y-3.5 pt-2">
-                <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest block border-b border-slate-850 pb-1">
+                <span className="text-[10px] font-black text-[#561C24] uppercase tracking-widest block border-b border-slate-200 pb-1.5">
                   D. Uraian Pelaksanaan & Dokumentasi Foto
                 </span>
 
                 <div className="space-y-1">
-                  <label className="text-[10px] text-slate-400 font-semibold block uppercase tracking-wider">Uraian Pelaksanaan & Tindak Lanjut <span className="text-rose-500">*</span></label>
+                  <label className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">Uraian Pelaksanaan & Tindak Lanjut <span className="text-rose-500">*</span></label>
                   <textarea
                     placeholder="Contoh: Tim Linmas melaksanakan pembinaan fisik kesamaptaan di Kantor Desa..."
                     value={activityForm.uraian_kegiatan}
                     onChange={(e) => setActivityForm(prev => ({ ...prev, uraian_kegiatan: e.target.value }))}
                     rows="3.5"
-                    className="w-full bg-slate-950 border border-slate-850 rounded-xl px-3 py-2 text-slate-250 outline-none focus:border-indigo-600 font-medium leading-relaxed"
+                    className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-[#561C24]/15 focus:border-[#561C24] transition-all disabled:bg-slate-50 disabled:text-slate-400 disabled:border-slate-150 leading-relaxed"
                     required
                   />
                 </div>
 
                 {/* Photo Upload with Preview */}
-                <div className="bg-slate-950/40 border border-slate-850 p-4 rounded-xl space-y-3">
+                <div className="bg-slate-50 border border-slate-200 p-4 rounded-xl space-y-3">
                   <div className="flex justify-between items-center">
-                    <label className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Dokumentasi Kegiatan (Unggah Foto)</label>
-                    <span className="text-[9px] text-slate-500">Maks. 2MB (Base64)</span>
+                    <label className="text-[10px] text-slate-550 font-bold uppercase tracking-wider">Dokumentasi Kegiatan (Unggah Foto)</label>
+                    <span className="text-[9px] text-slate-400 font-bold">Maks. 2MB (Base64)</span>
                   </div>
 
                   <div className="flex items-center gap-4">
@@ -1902,7 +1908,7 @@ export default function LinmasAdmin() {
                           <img 
                             src={activityForm.foto_kegiatan} 
                             alt="Preview Dokumentasi" 
-                            className="h-20 w-28 rounded-lg object-cover border border-slate-800 shadow-md"
+                            className="h-20 w-28 rounded-lg object-cover border border-slate-200 shadow-md"
                           />
                           <button
                             type="button"
@@ -1913,8 +1919,8 @@ export default function LinmasAdmin() {
                           </button>
                         </div>
                       ) : (
-                        <div className="h-20 w-28 rounded-lg border border-dashed border-slate-800 bg-slate-950 flex flex-col items-center justify-center text-slate-600 gap-1 text-[9px] font-bold">
-                          <Eye className="w-5 h-5" /> Preview Foto
+                        <div className="h-20 w-28 rounded-lg border border-dashed border-slate-300 bg-white flex flex-col items-center justify-center text-slate-400 gap-1 text-[9px] font-bold">
+                          <Eye className="w-5 h-5 text-slate-300" /> Preview Foto
                         </div>
                       )}
                     </div>
@@ -1929,46 +1935,46 @@ export default function LinmasAdmin() {
                       />
                       <label 
                         htmlFor="foto_kegiatan_input"
-                        className="inline-flex items-center gap-1.5 px-3 py-2 bg-slate-950 hover:bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-slate-100 rounded-xl text-[11px] font-bold cursor-pointer transition-colors shadow-inner"
+                        className="inline-flex items-center gap-1.5 px-3 py-2 bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 hover:text-slate-900 rounded-xl text-[11px] font-bold cursor-pointer transition-colors shadow-sm"
                       >
                         Pilih Berkas Gambar
                       </label>
-                      <p className="text-[9px] text-slate-500 mt-1">Unggah bukti visual sebagai dokumentasi penyelesaian laporan.</p>
+                      <p className="text-[9px] text-slate-450 mt-1.5 font-semibold">Unggah bukti visual sebagai dokumentasi penyelesaian laporan.</p>
                     </div>
                   </div>
                 </div>
 
                 {selectedReportForActivity && (
-                  <div className="flex items-center gap-2 bg-emerald-950/20 border border-emerald-500/30 p-3 rounded-xl shadow-inner">
+                  <div className="flex items-center gap-2 bg-emerald-50 border border-emerald-250 p-3 rounded-xl shadow-inner">
                     <input
                       type="checkbox"
                       id="activity_selesaikan_aduan_cb"
                       checked={activityForm.selesaikan_aduan}
                       onChange={(e) => setActivityForm(prev => ({ ...prev, selesaikan_aduan: e.target.checked }))}
-                      className="w-4 h-4 text-emerald-600 rounded bg-slate-950 border-slate-850 cursor-pointer focus:ring-emerald-500"
+                      className="w-4 h-4 text-emerald-600 rounded border-slate-300 cursor-pointer focus:ring-emerald-500 focus:ring-offset-0 focus:outline-none"
                     />
-                    <label htmlFor="activity_selesaikan_aduan_cb" className="text-[11px] text-slate-300 font-black cursor-pointer uppercase tracking-wider flex items-center gap-1.5 select-none">
-                      <Check className="w-4 h-4 text-emerald-400" /> Selesaikan aduan warga ini di database (Status: Selesai)
+                    <label htmlFor="activity_selesaikan_aduan_cb" className="text-[11px] text-emerald-800 font-extrabold cursor-pointer uppercase tracking-wider flex items-center gap-1.5 select-none">
+                      <Check className="w-4 h-4 text-emerald-600" /> Selesaikan aduan warga ini di database (Status: Selesai)
                     </label>
                   </div>
                 )}
               </div>
 
               {/* Actions Bottom */}
-              <div className="border-t border-slate-850 pt-4 flex justify-end gap-2 bg-slate-900">
+              <div className="border-t border-slate-200 pt-4 flex justify-end gap-2 bg-slate-50 p-4 -mx-6 -mb-6 rounded-b-2xl">
                 <button
                   type="button"
                   onClick={() => {
                     setIsActivityModalOpen(false);
                     setSelectedReportForActivity(null);
                   }}
-                  className="px-4 py-2 bg-slate-950 hover:bg-slate-855 rounded-xl border border-slate-800 font-bold transition-all cursor-pointer"
+                  className="px-4 py-2 bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 hover:text-slate-900 rounded-xl font-bold transition-all cursor-pointer shadow-sm text-xs"
                 >
                   Batal
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 font-black text-white rounded-xl transition-all cursor-pointer shadow-lg shadow-indigo-600/25 flex items-center gap-1.5"
+                  className="px-5 py-2 bg-[#561C24] hover:bg-[#561C24]/90 text-white rounded-xl font-bold transition-all cursor-pointer shadow-sm text-xs flex items-center gap-1.5"
                 >
                   <Check className="w-4 h-4" /> {activityFormMode === 'edit' ? 'Simpan Perubahan' : 'Simpan Riwayat'}
                 </button>
@@ -2003,16 +2009,16 @@ export default function LinmasAdmin() {
 
       {/* ==================== 3. PREMIUM MODAL DRAWER FOR TRANTIBUM (11 FIELDS) ==================== */}
       {isTrantibumModalOpen && (
-        <div className="fixed inset-0 bg-black/75 backdrop-blur-md flex items-center justify-center z-50 p-4 overflow-y-auto">
-          <div className="bg-slate-900 border border-slate-850 w-full max-w-2xl rounded-2xl shadow-2xl relative my-8 overflow-hidden transition-all">
+        <div className="fixed inset-0 bg-black/55 backdrop-blur-md flex items-center justify-center z-50 p-4 overflow-y-auto">
+          <div className="bg-white border border-slate-200 w-full max-w-2xl rounded-2xl shadow-2xl relative my-8 overflow-hidden transition-all text-slate-800">
             
             {/* Header */}
-            <div className="flex justify-between items-center p-4 border-b border-slate-850 bg-slate-950/80 rounded-t-2xl">
+            <div className="flex justify-between items-center p-4 border-b border-slate-200 bg-slate-50 rounded-t-2xl">
               <div>
-                <span className="text-[10px] text-indigo-400 font-bold uppercase tracking-wider block">
+                <span className="text-[10px] text-[#561C24] font-black uppercase tracking-widest block">
                   Administrasi Penertiban PMKS & Trantibum
                 </span>
-                <h3 className="text-sm font-black text-slate-200">
+                <h3 className="text-sm font-black text-slate-850">
                   {trantibumFormMode === 'view' 
                     ? `Detail Penertiban: ${trantibumForm.nama_pelaku}` 
                     : trantibumFormMode === 'edit' 
@@ -2022,20 +2028,20 @@ export default function LinmasAdmin() {
               </div>
               <button 
                 onClick={() => setIsTrantibumModalOpen(false)}
-                className="p-1.5 hover:bg-slate-800 text-slate-400 hover:text-slate-200 rounded-lg cursor-pointer transition-colors"
+                className="p-1.5 bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-850 rounded-lg cursor-pointer transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <form onSubmit={handleTrantibumSubmit} className="p-6 space-y-5 max-h-[75vh] overflow-y-auto scrollbar-thin text-xs">
+            <form onSubmit={handleTrantibumSubmit} className="p-6 space-y-5 max-h-[75vh] overflow-y-auto text-xs">
               
               {/* Connected Ticket Summary Callout */}
               {trantibumForm.id_tiket && (
-                <div className="bg-indigo-950/30 border border-indigo-500/25 p-3 rounded-xl space-y-1.5 shadow-inner">
+                <div className="bg-blue-50/60 border border-blue-250 p-3 rounded-xl space-y-1.5 text-slate-750">
                   <div className="flex justify-between items-center">
-                    <span className="text-[9px] text-indigo-400 font-black uppercase tracking-wider">Aduan Warga Terhubung</span>
-                    <span className="px-2 py-0.5 bg-indigo-500/20 text-indigo-300 rounded text-[9px] font-black uppercase tracking-wider border border-indigo-500/30">
+                    <span className="text-[9px] text-[#561C24] font-black uppercase tracking-wider">Aduan Warga Terhubung</span>
+                    <span className="px-2 py-0.5 bg-blue-100 text-blue-800 rounded text-[9px] font-black uppercase tracking-wider border border-blue-200">
                       Tiket: #{trantibumForm.id_tiket}
                     </span>
                   </div>
@@ -2043,110 +2049,116 @@ export default function LinmasAdmin() {
                     const report = delegatedReports.find(r => r.id_tiket === trantibumForm.id_tiket);
                     if (report) {
                       return (
-                        <div className="space-y-1 text-slate-300">
-                          <div className="font-bold text-[11px] text-slate-200">{report.kategori_masalah}</div>
-                          <p className="text-[10px] text-slate-400 italic line-clamp-2">"{report.kronologi}"</p>
-                          <div className="text-[9px] text-slate-500 flex justify-between pt-0.5">
-                            <span>Pelapor: <strong className="text-slate-400">{report.nama_pelapor}</strong></span>
-                            <span>Disposisi: <strong className="text-slate-400">{report.disposisi?.nama_admin}</strong></span>
+                        <div className="space-y-1 text-slate-600">
+                          <div className="font-bold text-[11px] text-slate-800">{report.kategori_masalah}</div>
+                          <p className="text-[10px] text-slate-500 italic line-clamp-2">"{report.kronologi}"</p>
+                          <div className="text-[9px] text-slate-450 flex justify-between pt-0.5 font-semibold">
+                            <span>Pelapor: <strong className="text-slate-750 font-bold">{report.nama_pelapor}</strong></span>
+                            <span>Disposisi: <strong className="text-slate-750 font-bold">{report.disposisi?.nama_admin}</strong></span>
                           </div>
                         </div>
                       );
                     }
-                    return <span className="text-[10px] text-slate-400 italic font-medium">Terhubung ke tiket aduan warga, silakan lanjutkan pengisian.</span>;
+                    return <span className="text-[10px] text-slate-450 italic font-medium">Terhubung ke tiket aduan warga, silakan lanjutkan pengisian.</span>;
                   })()}
                 </div>
               )}
 
               {/* SECTION A: IDENTITAS PELAKU */}
               <div className="space-y-3.5">
-                <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest block border-b border-slate-850 pb-1">
+                <span className="text-[10px] font-black text-[#561C24] uppercase tracking-widest block border-b border-slate-200 pb-1.5">
                   A. Identitas Pelaku (By Name & By Gender)
                 </span>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <label className="text-[10px] text-slate-400 font-semibold block uppercase tracking-wider">Nama Pelaku <span className="text-rose-500">*</span></label>
+                    <label className="text-[10px] text-slate-550 font-bold block uppercase tracking-wider">Nama Pelaku <span className="text-rose-500">*</span></label>
                     <input
                       type="text"
                       disabled={trantibumFormMode === 'view'}
                       placeholder="Masukkan Nama Lengkap Pelaku (Default: Tanpa Nama)"
                       value={trantibumForm.nama_pelaku}
                       onChange={(e) => setTrantibumForm(prev => ({ ...prev, nama_pelaku: e.target.value || 'Tanpa Nama' }))}
-                      className="w-full bg-slate-950 border border-slate-850 rounded-xl px-3 py-2 text-slate-200 outline-none focus:border-indigo-600 font-semibold transition-all disabled:opacity-60"
+                      className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-[#561C24]/15 focus:border-[#561C24] transition-all disabled:bg-slate-50 disabled:text-slate-400 disabled:border-slate-150"
                       required
                     />
                   </div>
 
                   <div className="space-y-1">
-                    <label className="text-[10px] text-slate-400 font-semibold block uppercase tracking-wider">Jenis Kelamin <span className="text-rose-500">*</span></label>
+                    <label className="text-[10px] text-slate-550 font-bold block uppercase tracking-wider">Jenis Kelamin <span className="text-rose-500">*</span></label>
                     <div className="grid grid-cols-2 gap-2">
-                      {['Laki-laki', 'Perempuan'].map(gender => (
-                        <button
-                          key={gender}
-                          type="button"
-                          disabled={trantibumFormMode === 'view'}
-                          onClick={() => setTrantibumForm(prev => ({ ...prev, jenis_kelamin: gender }))}
-                          className={`py-2 px-3 text-xs font-bold rounded-xl border transition-all cursor-pointer text-center ${
-                            trantibumForm.jenis_kelamin === gender
-                              ? 'bg-indigo-600/20 text-indigo-400 border-indigo-500/50 shadow-md'
-                              : 'bg-slate-950 text-slate-400 border-slate-850 hover:border-slate-800 disabled:opacity-60 disabled:cursor-not-allowed'
-                          }`}
-                        >
-                          {gender}
-                        </button>
-                      ))}
+                      {['Laki-laki', 'Perempuan'].map(gender => {
+                        const isChecked = trantibumForm.jenis_kelamin === gender;
+                        return (
+                          <button
+                            key={gender}
+                            type="button"
+                            disabled={trantibumFormMode === 'view'}
+                            onClick={() => setTrantibumForm(prev => ({ ...prev, jenis_kelamin: gender }))}
+                            className={`py-2 px-3 text-xs font-bold rounded-xl border transition-all cursor-pointer text-center ${
+                              isChecked
+                                ? 'bg-blue-50 border-[#561C24]/40 text-[#561C24] shadow-sm'
+                                : 'bg-white border-slate-200 text-slate-500 hover:bg-slate-100/50 disabled:opacity-60 disabled:cursor-not-allowed'
+                            }`}
+                          >
+                            {gender}
+                          </button>
+                        );
+                      })}
                     </div>
                   </div>
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-[10px] text-slate-400 font-semibold block uppercase tracking-wider">Alamat Asal Pelaku</label>
+                  <label className="text-[10px] text-slate-550 font-bold block uppercase tracking-wider">Alamat Asal Pelaku</label>
                   <input
                     type="text"
                     disabled={trantibumFormMode === 'view'}
                     placeholder="Contoh: Banjar Dinas Kelod, Desa Banjar, Kecamatan Banjar"
                     value={trantibumForm.alamat_asal}
                     onChange={(e) => setTrantibumForm(prev => ({ ...prev, alamat_asal: e.target.value }))}
-                    className="w-full bg-slate-950 border border-slate-850 rounded-xl px-3 py-2 text-slate-200 outline-none focus:border-indigo-600 transition-all disabled:opacity-60"
+                    className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-[#561C24]/15 focus:border-[#561C24] transition-all disabled:bg-slate-50 disabled:text-slate-400 disabled:border-slate-150"
                   />
                 </div>
               </div>
 
               {/* SECTION B: LEGALITAS & KTP */}
               <div className="space-y-3.5 pt-2">
-                <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest block border-b border-slate-850 pb-1">
+                <span className="text-[10px] font-black text-[#561C24] uppercase tracking-widest block border-b border-slate-200 pb-1.5">
                   B. Aspek Hukum & Legalitas Identitas (KTP)
                 </span>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <label className="text-[10px] text-slate-400 font-semibold block uppercase tracking-wider">Status Kepemilikan KTP <span className="text-rose-500">*</span></label>
+                    <label className="text-[10px] text-slate-550 font-bold block uppercase tracking-wider">Status Kepemilikan KTP <span className="text-rose-500">*</span></label>
                     <div className="grid grid-cols-2 gap-2">
-                      {['Ada', 'Tidak Ada'].map(status => (
-                        <button
-                          key={status}
-                          type="button"
-                          disabled={trantibumFormMode === 'view'}
-                          onClick={() => setTrantibumForm(prev => ({ 
-                            ...prev, 
-                            status_identitas: status,
-                            no_ktp: status === 'Tidak Ada' ? '-' : (prev.no_ktp === '-' ? '' : prev.no_ktp)
-                          }))}
-                          className={`py-2 px-3 text-xs font-bold rounded-xl border transition-all cursor-pointer text-center ${
-                            trantibumForm.status_identitas === status
-                              ? 'bg-indigo-600/20 text-indigo-400 border-indigo-500/50 shadow-md'
-                              : 'bg-slate-950 text-slate-400 border-slate-850 hover:border-slate-800 disabled:opacity-60 disabled:cursor-not-allowed'
-                          }`}
-                        >
-                          {status}
-                        </button>
-                      ))}
+                      {['Ada', 'Tidak Ada'].map(status => {
+                        const isChecked = trantibumForm.status_identitas === status;
+                        return (
+                          <button
+                            key={status}
+                            type="button"
+                            disabled={trantibumFormMode === 'view'}
+                            onClick={() => setTrantibumForm(prev => ({ 
+                              ...prev, 
+                              status_identitas: status,
+                              no_ktp: status === 'Tidak Ada' ? '-' : (prev.no_ktp === '-' ? '' : prev.no_ktp)
+                            }))}
+                            className={`py-2 px-3 text-xs font-bold rounded-xl border transition-all cursor-pointer text-center ${
+                              isChecked
+                                ? 'bg-blue-50 border-[#561C24]/40 text-[#561C24] shadow-sm'
+                                : 'bg-white border-slate-200 text-slate-500 hover:bg-slate-100/50 disabled:opacity-60 disabled:cursor-not-allowed'
+                            }`}
+                          >
+                            {status}
+                          </button>
+                        );
+                      })}
                     </div>
                   </div>
 
                   <div className="space-y-1">
-                    <label className="text-[10px] text-slate-400 font-semibold block uppercase tracking-wider">Nomor KTP (16 Digit NIK)</label>
+                    <label className="text-[10px] text-slate-550 font-bold block uppercase tracking-wider">Nomor KTP (16 Digit NIK)</label>
                     <input
                       type="text"
                       maxLength={16}
@@ -2157,12 +2169,12 @@ export default function LinmasAdmin() {
                         const val = e.target.value.replace(/\D/g, ''); // keep numbers only
                         setTrantibumForm(prev => ({ ...prev, no_ktp: val }));
                       }}
-                      className={`w-full bg-slate-950 border rounded-xl px-3 py-2 text-slate-200 outline-none transition-all ${
+                      className={`w-full border rounded-xl px-3 py-2 text-xs font-semibold text-slate-750 outline-none focus:ring-2 focus:ring-[#561C24]/15 transition-all ${
                         trantibumForm.status_identitas === 'Tidak Ada' 
-                          ? 'border-slate-900 opacity-60 text-slate-500 cursor-not-allowed' 
+                          ? 'bg-slate-50 border-slate-200 opacity-60 text-slate-400 cursor-not-allowed' 
                           : trantibumForm.no_ktp.length === 16 
-                          ? 'border-emerald-500/50 focus:border-emerald-500 font-bold' 
-                          : 'border-slate-850 focus:border-indigo-600'
+                          ? 'bg-white border-emerald-500/50 focus:border-emerald-500 font-bold' 
+                          : 'bg-white border-slate-200 focus:border-[#561C24]'
                       }`}
                     />
                     {trantibumForm.status_identitas === 'Ada' && trantibumForm.no_ktp.length > 0 && trantibumForm.no_ktp.length !== 16 && (
@@ -2176,12 +2188,12 @@ export default function LinmasAdmin() {
 
               {/* SECTION C: KLASIFIKASI MASALAH & MEDICAL */}
               <div className="space-y-3.5 pt-2">
-                <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest block border-b border-slate-850 pb-1">
+                <span className="text-[10px] font-black text-[#561C24] uppercase tracking-widest block border-b border-slate-200 pb-1.5">
                   C. Klasifikasi Masalah Sosial & Rekam Medis (ODGJ)
                 </span>
 
                 <div className="space-y-2">
-                  <label className="text-[10px] text-slate-400 font-semibold block uppercase tracking-wider">
+                  <label className="text-[10px] text-slate-550 font-bold block uppercase tracking-wider">
                     Kategori Masalah Sosial (Bisa Pilih Lebih Dari Satu) <span className="text-rose-500">*</span>
                   </label>
                   <div className="flex flex-wrap gap-2">
@@ -2196,16 +2208,16 @@ export default function LinmasAdmin() {
                             setTrantibumForm(prev => {
                               const current = prev.kategori_masalah || [];
                               if (current.includes(cat)) {
-                                return { ...prev, kategori_masalah: current.filter(x => x !== cat) };
+                                  return { ...prev, kategori_masalah: current.filter(x => x !== cat) };
                               } else {
-                                return { ...prev, kategori_masalah: [...current, cat] };
+                                  return { ...prev, kategori_masalah: [...current, cat] };
                               }
                             });
                           }}
                           className={`py-2 px-3 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
                             isSelected
-                              ? 'bg-indigo-600/20 text-indigo-400 border-indigo-500/50 shadow-md shadow-indigo-500/5'
-                              : 'bg-slate-950 text-slate-400 border-slate-850 hover:border-slate-800 disabled:opacity-60 disabled:cursor-not-allowed'
+                              ? 'bg-blue-50 border-[#561C24]/40 text-[#561C24] shadow-sm'
+                              : 'bg-white border-slate-200 text-slate-500 hover:bg-slate-100/50 disabled:opacity-60 disabled:cursor-not-allowed'
                           }`}
                         >
                           {cat}
@@ -2217,8 +2229,8 @@ export default function LinmasAdmin() {
 
                 <div className="space-y-1">
                   <div className="flex justify-between items-center">
-                    <label className="text-[10px] text-slate-400 font-semibold block uppercase tracking-wider">Nomor Rekam Medis (Khusus ODGJ)</label>
-                    <span className="text-[9px] text-slate-500 font-medium">Isi "Nihil" jika tidak ada</span>
+                    <label className="text-[10px] text-slate-550 font-bold block uppercase tracking-wider">Nomor Rekam Medis (Khusus ODGJ)</label>
+                    <span className="text-[9px] text-slate-400 font-bold">Isi "Nihil" jika tidak ada</span>
                   </div>
                   <input
                     type="text"
@@ -2226,7 +2238,7 @@ export default function LinmasAdmin() {
                     placeholder="Contoh: RM-2026-0045 (Default: Nihil)"
                     value={trantibumForm.no_rekam_medis}
                     onChange={(e) => setTrantibumForm(prev => ({ ...prev, no_rekam_medis: e.target.value }))}
-                    className="w-full bg-slate-950 border border-slate-850 rounded-xl px-3 py-2 text-slate-200 outline-none focus:border-indigo-600 transition-all font-semibold disabled:opacity-60"
+                    className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-[#561C24]/15 focus:border-[#561C24] transition-all disabled:bg-slate-50 disabled:text-slate-400 disabled:border-slate-150"
                   />
                   {trantibumForm.kategori_masalah?.includes('ODGJ') && trantibumForm.no_rekam_medis === 'Nihil' && (
                     <span className="text-[10px] text-amber-500/90 font-medium flex items-center gap-1 mt-1">
@@ -2238,13 +2250,13 @@ export default function LinmasAdmin() {
 
               {/* SECTION D: LOKASI & PENANGANAN */}
               <div className="space-y-3.5 pt-2">
-                <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest block border-b border-slate-850 pb-1">
+                <span className="text-[10px] font-black text-[#561C24] uppercase tracking-widest block border-b border-slate-200 pb-1.5">
                   D. Lokasi Operasi & Tindakan Penanganan Akhir
                 </span>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <label className="text-[10px] text-slate-400 font-semibold block uppercase tracking-wider">Koneksi Tiket Aduan Warga</label>
+                    <label className="text-[10px] text-slate-550 font-bold block uppercase tracking-wider">Koneksi Tiket Aduan Warga</label>
                     <select
                       disabled={trantibumFormMode === 'view' || !!trantibumForm.id}
                       value={trantibumForm.id_tiket}
@@ -2281,7 +2293,7 @@ export default function LinmasAdmin() {
                           }));
                         }
                       }}
-                      className="w-full bg-slate-950 border border-slate-850 rounded-xl px-3 py-2 text-slate-200 outline-none focus:border-indigo-600 transition-all font-semibold disabled:opacity-60"
+                      className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-[#561C24]/15 focus:border-[#561C24] transition-all disabled:bg-slate-50 disabled:text-slate-400 disabled:border-slate-150"
                     >
                       <option value="">Laporan Patroli Mandiri (Tanpa Tiket)</option>
                       {delegatedReports.map(report => (
@@ -2293,73 +2305,73 @@ export default function LinmasAdmin() {
                   </div>
 
                   <div className="space-y-1">
-                    <label className="text-[10px] text-slate-400 font-semibold block uppercase tracking-wider">Tanggal & Waktu Ditemukan <span className="text-rose-500">*</span></label>
+                    <label className="text-[10px] text-slate-550 font-bold block uppercase tracking-wider">Tanggal & Waktu Ditemukan <span className="text-rose-500">*</span></label>
                     <input
                       type="datetime-local"
                       disabled={trantibumFormMode === 'view'}
                       value={trantibumForm.tanggal_ditemukan}
                       onChange={(e) => setTrantibumForm(prev => ({ ...prev, tanggal_ditemukan: e.target.value }))}
-                      className="w-full bg-slate-950 border border-slate-850 rounded-xl px-3 py-2 text-slate-300 outline-none focus:border-indigo-600 transition-all font-semibold disabled:opacity-60"
+                      className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-750 outline-none focus:ring-2 focus:ring-[#561C24]/15 focus:border-[#561C24] transition-all disabled:bg-slate-50 disabled:text-slate-400 disabled:border-slate-150"
                       required
                     />
                   </div>
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-[10px] text-slate-400 font-semibold block uppercase tracking-wider">Lokasi Detail Ditemukan <span className="text-rose-500">*</span></label>
+                  <label className="text-[10px] text-slate-550 font-bold block uppercase tracking-wider">Lokasi Detail Ditemukan <span className="text-rose-500">*</span></label>
                   <input
                     type="text"
                     disabled={trantibumFormMode === 'view'}
                     placeholder="Contoh: Perempatan TL Ahmad Yani - Jl. Dewi Sartika Singaraja"
                     value={trantibumForm.lokasi_ditemukan}
                     onChange={(e) => setTrantibumForm(prev => ({ ...prev, lokasi_ditemukan: e.target.value }))}
-                    className="w-full bg-slate-950 border border-slate-850 rounded-xl px-3 py-2 text-slate-200 outline-none focus:border-indigo-600 transition-all font-semibold disabled:opacity-60"
+                    className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-[#561C24]/15 focus:border-[#561C24] transition-all disabled:bg-slate-50 disabled:text-slate-400 disabled:border-slate-150"
                     required
                   />
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-[10px] text-slate-400 font-semibold block uppercase tracking-wider">Keterangan Tindakan Penanganan Akhir <span className="text-rose-500">*</span></label>
+                  <label className="text-[10px] text-slate-550 font-bold block uppercase tracking-wider">Keterangan Tindakan Penanganan Akhir <span className="text-rose-500">*</span></label>
                   <textarea
                     disabled={trantibumFormMode === 'view'}
                     placeholder="Deskripsikan secara detail tindakan konkret (pembinaan tertulis, rujukan ke Dinsos, evakuasi ke UGD RSUD Buleleng, dll.)..."
                     value={trantibumForm.keterangan_penanganan}
                     onChange={(e) => setTrantibumForm(prev => ({ ...prev, keterangan_penanganan: e.target.value }))}
                     rows="3"
-                    className="w-full bg-slate-950 border border-slate-850 rounded-xl px-3 py-2 text-slate-200 outline-none focus:border-indigo-600 transition-all disabled:opacity-60"
+                    className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-[#561C24]/15 focus:border-[#561C24] transition-all disabled:bg-slate-50 disabled:text-slate-400 disabled:border-slate-150 leading-relaxed"
                     required
                   />
                 </div>
 
                 {trantibumForm.id_tiket && trantibumFormMode !== 'view' && (
-                  <div className="flex items-center gap-2 bg-emerald-950/20 border border-emerald-500/30 p-3 rounded-xl transition-all shadow-inner">
+                  <div className="flex items-center gap-2 bg-emerald-50 border border-emerald-250 p-3 rounded-xl transition-all shadow-inner">
                     <input
                       type="checkbox"
                       id="trantibum_selesaikan_aduan_cb"
                       checked={trantibumForm.selesaikan_aduan}
                       onChange={(e) => setTrantibumForm(prev => ({ ...prev, selesaikan_aduan: e.target.checked }))}
-                      className="w-4 h-4 text-emerald-600 rounded bg-slate-950 border-slate-850 cursor-pointer focus:ring-emerald-500"
+                      className="w-4 h-4 text-emerald-600 rounded border-slate-300 cursor-pointer focus:ring-emerald-500 focus:ring-offset-0 focus:outline-none"
                     />
-                    <label htmlFor="trantibum_selesaikan_aduan_cb" className="text-[11px] text-slate-300 font-black cursor-pointer uppercase tracking-wider flex items-center gap-1.5 select-none">
-                      <Check className="w-4 h-4 text-emerald-400" /> Selesaikan aduan warga ini di database (Ubah Status ke Selesai)
+                    <label htmlFor="trantibum_selesaikan_aduan_cb" className="text-[11px] text-emerald-800 font-extrabold cursor-pointer uppercase tracking-wider flex items-center gap-1.5 select-none">
+                      <Check className="w-4 h-4 text-emerald-600" /> Selesaikan aduan warga ini di database (Ubah Status ke Selesai)
                     </label>
                   </div>
                 )}
               </div>
 
               {/* Actions Bottom */}
-              <div className="border-t border-slate-850 pt-4 flex justify-end gap-2 bg-slate-900">
+              <div className="border-t border-slate-200 pt-4 flex justify-end gap-2 bg-slate-50 p-4 -mx-6 -mb-6 rounded-b-2xl">
                 <button
                   type="button"
                   onClick={() => setIsTrantibumModalOpen(false)}
-                  className="px-4 py-2 bg-slate-950 hover:bg-slate-850 rounded-xl border border-slate-800 font-bold transition-all cursor-pointer"
+                  className="px-4 py-2 bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 hover:text-slate-900 rounded-xl font-bold transition-all cursor-pointer shadow-sm text-xs"
                 >
                   {trantibumFormMode === 'view' ? 'Tutup' : 'Batal'}
                 </button>
                 {trantibumFormMode !== 'view' && (
                   <button
                     type="submit"
-                    className="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 font-black text-white rounded-xl transition-all cursor-pointer shadow-lg shadow-indigo-600/25 flex items-center gap-1.5"
+                    className="px-5 py-2 bg-[#561C24] hover:bg-[#561C24]/90 text-white rounded-xl font-bold transition-all cursor-pointer shadow-sm text-xs flex items-center gap-1.5"
                   >
                     <Check className="w-4 h-4" /> {trantibumFormMode === 'edit' ? 'Simpan Perubahan' : 'Simpan Catatan Penertiban'}
                   </button>
@@ -2369,6 +2381,8 @@ export default function LinmasAdmin() {
           </div>
         </div>
       )}
+
+      <Footer />
 
     </div>
   );

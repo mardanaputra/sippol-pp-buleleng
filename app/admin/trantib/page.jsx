@@ -1,7 +1,8 @@
-﻿'use client';
+'use client';
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Footer from '../../components/Footer';
 import { 
   Shield, 
   Users, 
@@ -507,7 +508,7 @@ export default function TrantibAdmin() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8F7F4] text-slate-800 font-sans pb-12 select-none relative overflow-x-hidden pt-[57px]">
+    <div className="min-h-screen bg-[#F8F7F4] text-slate-800 font-sans select-none relative overflow-x-hidden pt-[57px] flex flex-col justify-between">
       
       {/* 2. Horizontal Admin Navbar (Fixed / Persistent) */}
       <nav className="bg-white border-b border-slate-200 shadow-md fixed top-0 left-0 w-full z-50">
@@ -631,7 +632,7 @@ export default function TrantibAdmin() {
       </div>
 
       {/* Main Grid Content */}
-      <div className="max-w-7xl mx-auto px-6 mt-8 space-y-6">
+      <div className="max-w-7xl w-full mx-auto px-6 mt-8 space-y-6 flex-1">
         
         {/* Page Title & Actions */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-left">
@@ -1188,21 +1189,25 @@ export default function TrantibAdmin() {
       {/* MODAL 1: PLOTTING REGU PATROLI */}
       {isPatrolModalOpen && (
         <div className="fixed inset-0 bg-black/55 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl p-5 md:p-6 space-y-4">
+          <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden shadow-2xl flex flex-col">
             
-            <div className="flex justify-between items-center border-b border-slate-200 pb-3">
-              <h3 className="text-base font-black text-slate-800">
-                {patrolFormMode === 'create' ? 'Plotting Regu Patroli Baru' : 'Perbarui Regu Patroli'}
-              </h3>
+            <div className="bg-[#561C24] text-white px-6 py-4 flex justify-between items-center shrink-0">
+              <div className="text-left">
+                <h3 className="text-sm font-black uppercase tracking-wider text-white">
+                  {patrolFormMode === 'create' ? 'Plotting Regu Patroli Baru' : 'Perbarui Regu Patroli'}
+                </h3>
+                <p className="text-[10px] text-rose-200/80 font-bold uppercase tracking-widest mt-0.5">SIP POLPP BULELENG</p>
+              </div>
               <button
+                type="button"
                 onClick={() => setIsPatrolModalOpen(false)}
-                className="p-1.5 bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 rounded-lg transition"
+                className="p-1.5 hover:bg-white/10 text-white/80 hover:text-white rounded-lg transition"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            <form onSubmit={handlePatrolSubmit} className="space-y-4">
+            <form onSubmit={handlePatrolSubmit} className="flex-1 overflow-y-auto p-6 space-y-4 text-left">
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 
@@ -1358,21 +1363,25 @@ export default function TrantibAdmin() {
       {/* MODAL 2: CATAT / EDIT PENERTIBAN K3 */}
       {isEnforcementModalOpen && (
         <div className="fixed inset-0 bg-black/55 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl p-5 md:p-6 space-y-4">
+          <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden shadow-2xl flex flex-col">
             
-            <div className="flex justify-between items-center border-b border-slate-200 pb-3">
-              <h3 className="text-base font-black text-slate-800">
-                {enforcementFormMode === 'create' ? 'Catat Tindakan Lapangan K3' : 'Edit Tindakan K3'}
-              </h3>
+            <div className="bg-[#561C24] text-white px-6 py-4 flex justify-between items-center shrink-0">
+              <div className="text-left">
+                <h3 className="text-sm font-black uppercase tracking-wider text-white">
+                  {enforcementFormMode === 'create' ? 'Catat Tindakan Lapangan K3' : 'Edit Tindakan K3'}
+                </h3>
+                <p className="text-[10px] text-rose-200/80 font-bold uppercase tracking-widest mt-0.5">SIP POLPP BULELENG</p>
+              </div>
               <button
+                type="button"
                 onClick={() => setIsEnforcementModalOpen(false)}
-                className="p-1.5 bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 rounded-lg transition"
+                className="p-1.5 hover:bg-white/10 text-white/80 hover:text-white rounded-lg transition"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            <form onSubmit={handleEnforcementSubmit} className="space-y-4">
+            <form onSubmit={handleEnforcementSubmit} className="flex-1 overflow-y-auto p-6 space-y-4 text-left">
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 
@@ -1657,22 +1666,26 @@ export default function TrantibAdmin() {
       {/* MODAL 4: MOBILE PRINTER THERMAL RECEIPT SIMULATOR */}
       {isPrinterModalOpen && selectedEnforcementForPrint && (
         <div className="fixed inset-0 bg-black/55 backdrop-blur-sm z-55 flex items-center justify-center p-4">
-          <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-md shadow-2xl p-5 md:p-6 space-y-4">
+          <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-md shadow-2xl overflow-hidden flex flex-col">
             
-            <div className="flex justify-between items-center border-b border-slate-200 pb-3">
-              <h3 className="text-sm font-black text-slate-800 flex items-center gap-2">
-                <Printer className="w-4 h-4 text-[#561C24]" /> Pratinjau Cetak Mobile Printer
-              </h3>
+            <div className="bg-[#561C24] text-white px-6 py-4 flex justify-between items-center shrink-0">
+              <div className="text-left">
+                <h3 className="text-sm font-black uppercase tracking-wider text-white">
+                  Pratinjau Cetak Mobile Printer
+                </h3>
+                <p className="text-[10px] text-rose-200/80 font-bold uppercase tracking-widest mt-0.5">SIP POLPP BULELENG</p>
+              </div>
               <button
+                type="button"
                 onClick={() => setIsPrinterModalOpen(false)}
-                className="p-1.5 bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 rounded-lg transition"
+                className="p-1.5 hover:bg-white/10 text-white/80 hover:text-white rounded-lg transition"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
             {/* Thermal Receipt Box */}
-            <div className="bg-white text-slate-950 p-6 rounded-lg font-mono text-[11px] shadow-inner max-h-[60vh] overflow-y-auto leading-relaxed border-4 border-double border-slate-300" id="thermal-receipt-container">
+            <div className="bg-white text-slate-950 p-6 rounded-lg font-mono text-[11px] shadow-inner max-h-[60vh] overflow-y-auto leading-relaxed border-4 border-double border-slate-300 m-6 mt-4" id="thermal-receipt-container">
               <div className="text-center space-y-1">
                 <p className="font-extrabold text-sm tracking-wider">SATPOL PP BULELENG</p>
                 <p className="text-[9px]">Seksi Ketenteraman & Ketertiban</p>
@@ -1724,7 +1737,7 @@ export default function TrantibAdmin() {
             </div>
 
             {/* Action buttons */}
-            <div className="flex gap-2.5 border-t border-slate-200 pt-4">
+            <div className="flex gap-2.5 border-t border-slate-200 px-6 py-4 bg-slate-50 shrink-0">
               <button
                 type="button"
                 onClick={() => setIsPrinterModalOpen(false)}
@@ -1743,6 +1756,8 @@ export default function TrantibAdmin() {
           </div>
         </div>
       )}
+
+      <Footer />
 
     </div>
   );

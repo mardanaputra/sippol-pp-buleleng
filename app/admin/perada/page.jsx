@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Footer from '../../components/Footer';
 import { 
   Shield, 
   Scale, 
@@ -610,7 +611,7 @@ export default function PeradaAdmin() {
   );
 
   return (
-    <div className="min-h-screen bg-[#F8F7F4] text-slate-800 font-sans pb-12 select-none relative overflow-x-hidden pt-[57px]">
+    <div className="min-h-screen bg-[#F8F7F4] text-slate-800 font-sans select-none relative overflow-x-hidden pt-[57px] flex flex-col justify-between">
       
       {/* 2. Horizontal Admin Navbar (Fixed / Persistent) */}
       <nav className="bg-white border-b border-slate-200 shadow-md fixed top-0 left-0 w-full z-50">
@@ -736,7 +737,7 @@ export default function PeradaAdmin() {
 
 
       {/* Main Grid Content */}
-      <div className="max-w-7xl mx-auto px-6 mt-8 space-y-6">
+      <div className="max-w-7xl w-full mx-auto px-6 mt-8 space-y-6 flex-1">
         
         {/* Page Title & Actions */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-left">
@@ -1199,22 +1200,25 @@ export default function PeradaAdmin() {
       {/* MODAL 1: REGISTRASI / EDIT MASTER PERDA & PERBUP */}
       {isRegulasiModalOpen && (
         <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl p-5 md:p-6 space-y-4">
+          <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden shadow-2xl flex flex-col">
             
-            <div className="flex justify-between items-center border-b border-slate-200 pb-3">
-              <h3 className="text-base font-black text-[#0B1E43] flex items-center gap-2">
-                <BookOpen className="w-5 h-5 text-[#E28A1C]" />
-                {regulasiFormMode === 'create' ? 'Registrasi Regulasi Baru' : 'Perbarui Regulasi Hukum'}
-              </h3>
+            <div className="bg-[#561C24] text-white px-6 py-4 flex justify-between items-center shrink-0">
+              <div className="text-left">
+                <h3 className="text-sm font-black uppercase tracking-wider text-white">
+                  {regulasiFormMode === 'create' ? 'Registrasi Regulasi Baru' : 'Perbarui Regulasi Hukum'}
+                </h3>
+                <p className="text-[10px] text-rose-200/80 font-bold uppercase tracking-widest mt-0.5">SIP POLPP BULELENG</p>
+              </div>
               <button
+                type="button"
                 onClick={() => setIsRegulasiModalOpen(false)}
-                className="p-1.5 bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 rounded-lg transition"
+                className="p-1.5 hover:bg-white/10 text-white/80 hover:text-white rounded-lg transition"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            <form onSubmit={handleRegulasiSubmit} className="space-y-4">
+            <form onSubmit={handleRegulasiSubmit} className="flex-1 overflow-y-auto p-6 space-y-4 text-left">
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 
@@ -1340,22 +1344,25 @@ export default function PeradaAdmin() {
       {/* MODAL 2: TAMBAH / EDIT KATALOG PASAL & DENDA */}
       {isPelanggaranModalOpen && (
         <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-xl max-h-[90vh] overflow-y-auto shadow-2xl p-5 md:p-6 space-y-4">
+          <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-xl max-h-[90vh] overflow-hidden shadow-2xl flex flex-col">
             
-            <div className="flex justify-between items-center border-b border-slate-200 pb-3">
-              <h3 className="text-base font-black text-[#0B1E43] flex items-center gap-2">
-                <FileText className="w-5 h-5 text-[#E28A1C]" />
-                {pelanggaranFormMode === 'create' ? 'Tambah Pasal Pelanggaran Baru' : 'Edit Ketentuan Pelanggaran'}
-              </h3>
+            <div className="bg-[#561C24] text-white px-6 py-4 flex justify-between items-center shrink-0">
+              <div className="text-left">
+                <h3 className="text-sm font-black uppercase tracking-wider text-white">
+                  {pelanggaranFormMode === 'create' ? 'Tambah Pasal Pelanggaran Baru' : 'Edit Ketentuan Pelanggaran'}
+                </h3>
+                <p className="text-[10px] text-rose-200/80 font-bold uppercase tracking-widest mt-0.5">SIP POLPP BULELENG</p>
+              </div>
               <button
+                type="button"
                 onClick={() => setIsPelanggaranModalOpen(false)}
-                className="p-1.5 bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 rounded-lg transition"
+                className="p-1.5 hover:bg-white/10 text-white/80 hover:text-white rounded-lg transition"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            <form onSubmit={handlePelanggaranSubmit} className="space-y-4">
+            <form onSubmit={handlePelanggaranSubmit} className="flex-1 overflow-y-auto p-6 space-y-4 text-left">
               
               <div className="space-y-4">
                 
@@ -1469,22 +1476,25 @@ export default function PeradaAdmin() {
       {/* MODAL 3: CATAT / EDIT LOG PENEGAKAN PERDA & SIDANG */}
       {isPenegakanModalOpen && (
         <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl p-5 md:p-6 space-y-4">
+          <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden shadow-2xl flex flex-col">
             
-            <div className="flex justify-between items-center border-b border-slate-200 pb-3">
-              <h3 className="text-base font-black text-[#0B1E43] flex items-center gap-2">
-                <Gavel className="w-5 h-5 text-[#E28A1C]" />
-                {penegakanFormMode === 'create' ? 'Catat Tindakan Penegakan Perda' : 'Edit Log Kasus Sidang'}
-              </h3>
+            <div className="bg-[#561C24] text-white px-6 py-4 flex justify-between items-center shrink-0">
+              <div className="text-left">
+                <h3 className="text-sm font-black uppercase tracking-wider text-white">
+                  {penegakanFormMode === 'create' ? 'Catat Tindakan Penegakan Perda' : 'Edit Log Kasus Sidang'}
+                </h3>
+                <p className="text-[10px] text-rose-200/80 font-bold uppercase tracking-widest mt-0.5">SIP POLPP BULELENG</p>
+              </div>
               <button
+                type="button"
                 onClick={() => setIsPenegakanModalOpen(false)}
-                className="p-1.5 bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 rounded-lg transition"
+                className="p-1.5 hover:bg-white/10 text-white/80 hover:text-white rounded-lg transition"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            <form onSubmit={handlePenegakanSubmit} className="space-y-4">
+            <form onSubmit={handlePenegakanSubmit} className="flex-1 overflow-y-auto p-6 space-y-4 text-left">
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 
@@ -1872,22 +1882,26 @@ export default function PeradaAdmin() {
       {/* MODAL 5: PREMIUM PDF VIEW SIMULATOR */}
       {isPdfViewerOpen && (
         <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4">
-          <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-4xl h-[85vh] shadow-2xl p-5 md:p-6 space-y-4 flex flex-col justify-between">
+          <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-4xl h-[85vh] shadow-2xl flex flex-col overflow-hidden">
             
-            <div className="flex justify-between items-center border-b border-slate-200 pb-3 shrink-0">
-              <h3 className="text-sm font-black text-[#0B1E43] flex items-center gap-2">
-                <BookOpen className="w-4 h-4 text-[#E28A1C]" /> Pratinjau Dokumen Hukum: {selectedPdfTitle}
-              </h3>
+            <div className="bg-[#561C24] text-white px-6 py-4 flex justify-between items-center shrink-0">
+              <div className="text-left">
+                <h3 className="text-sm font-black uppercase tracking-wider text-white">
+                  Pratinjau Dokumen Hukum: {selectedPdfTitle}
+                </h3>
+                <p className="text-[10px] text-rose-200/80 font-bold uppercase tracking-widest mt-0.5">SIP POLPP BULELENG</p>
+              </div>
               <button
+                type="button"
                 onClick={() => setIsPdfViewerOpen(false)}
-                className="p-1.5 bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 rounded-lg transition"
+                className="p-1.5 hover:bg-white/10 text-white/80 hover:text-white rounded-lg transition"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
             {/* Simulated Premium PDF document frame */}
-            <div className="flex-1 bg-slate-50 border border-slate-200 rounded-xl overflow-hidden relative flex flex-col justify-between p-6 md:p-12 text-slate-850 font-serif leading-relaxed text-sm shadow-inner overflow-y-auto">
+            <div className="flex-1 bg-slate-50 border border-slate-200 rounded-xl overflow-hidden relative flex flex-col justify-between p-6 md:p-12 text-slate-850 font-serif leading-relaxed text-sm shadow-inner overflow-y-auto m-6 mt-2">
               
               {/* Header Lembaran Daerah */}
               <div className="text-center space-y-2 font-bold font-sans text-slate-900 border-b-2 border-slate-350 pb-4 shrink-0">
@@ -1975,22 +1989,26 @@ export default function PeradaAdmin() {
       {/* MODAL 6: COURT SUMMONS / VERDICT SUMMON TICKET PRINTER */}
       {isVerdictModalOpen && selectedVerdictForPrint && (
         <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4">
-          <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-2xl h-[85vh] shadow-2xl p-5 md:p-6 space-y-4 flex flex-col justify-between">
+          <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-2xl h-[85vh] shadow-2xl flex flex-col overflow-hidden">
             
-            <div className="flex justify-between items-center border-b border-slate-200 pb-3 shrink-0">
-              <h3 className="text-sm font-black text-[#0B1E43] flex items-center gap-2">
-                <Gavel className="w-4 h-4 text-[#E28A1C]" /> Lembar Panggilan & Putusan Sidang Resmi
-              </h3>
+            <div className="bg-[#561C24] text-white px-6 py-4 flex justify-between items-center shrink-0">
+              <div className="text-left">
+                <h3 className="text-sm font-black uppercase tracking-wider text-white">
+                  Lembar Panggilan & Putusan Sidang Resmi
+                </h3>
+                <p className="text-[10px] text-rose-200/80 font-bold uppercase tracking-widest mt-0.5">SIP POLPP BULELENG</p>
+              </div>
               <button
+                type="button"
                 onClick={() => setIsVerdictModalOpen(false)}
-                className="p-1.5 bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 rounded-lg transition"
+                className="p-1.5 hover:bg-white/10 text-white/80 hover:text-white rounded-lg transition"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
             {/* Summons Ticket Container */}
-            <div className="flex-1 bg-white text-slate-950 p-8 md:p-12 rounded-xl overflow-y-auto leading-relaxed shadow-inner border border-slate-200 font-serif text-xs md:text-sm" id="summons-verdict-container">
+            <div className="flex-1 bg-white text-slate-950 p-8 md:p-12 rounded-xl overflow-y-auto leading-relaxed shadow-inner border border-slate-200 font-serif text-xs md:text-sm m-6 mt-2" id="summons-verdict-container">
               
               {/* Kop Surat Keadilan */}
               <div className="text-center space-y-1 border-b-4 border-double border-slate-950 pb-4">
@@ -2143,20 +2161,25 @@ export default function PeradaAdmin() {
       {/* MODAL 7: VIEW DETAILS OF PENEGAKAN PERADA */}
       {isDetailsModalOpen && selectedPenegakanDetails && (
         <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl p-6 space-y-5 text-left">
+          <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden shadow-2xl flex flex-col text-left">
             
-            <div className="flex justify-between items-center border-b border-slate-200 pb-3">
-              <h3 className="text-base font-black text-[#561C24] flex items-center gap-2">
-                <Gavel className="w-5 h-5 text-[#C7B7A3]" />
-                Detail Berkas Perkara Perada
-              </h3>
+            <div className="bg-[#561C24] text-white px-6 py-4 flex justify-between items-center shrink-0">
+              <div className="text-left">
+                <h3 className="text-sm font-black uppercase tracking-wider text-white">
+                  Detail Berkas Perkara Perada
+                </h3>
+                <p className="text-[10px] text-rose-200/80 font-bold uppercase tracking-widest mt-0.5">SIP POLPP BULELENG</p>
+              </div>
               <button
+                type="button"
                 onClick={() => setIsDetailsModalOpen(false)}
-                className="p-1.5 bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 rounded-lg transition animate-fadeIn"
+                className="p-1.5 hover:bg-white/10 text-white/80 hover:text-white rounded-lg transition"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
+
+            <div className="flex-1 overflow-y-auto p-6 space-y-5">
 
             <div className="space-y-4 text-xs md:text-sm">
               <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 grid grid-cols-2 gap-4">
@@ -2296,8 +2319,9 @@ export default function PeradaAdmin() {
               </div>
 
             </div>
+            </div>
 
-            <div className="flex justify-between items-center border-t border-slate-150 pt-4 mt-2">
+            <div className="flex justify-between items-center border-t border-slate-150 px-6 py-4 bg-slate-50 shrink-0">
               <button
                 type="button"
                 onClick={() => {
@@ -2321,6 +2345,8 @@ export default function PeradaAdmin() {
           </div>
         </div>
       )}
+
+      <Footer />
 
     </div>
   );
