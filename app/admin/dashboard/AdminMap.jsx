@@ -170,7 +170,7 @@ export default function AdminMap({
           ? `<div class="p-1 font-bold text-xs">
               <span class="text-[#0B1E43] uppercase font-black">${name}</span>
               <div class="mt-1 text-[10px] text-slate-500 font-semibold">Status: <span class="font-extrabold" style="color: ${getRawanColor(config?.rawan)}">${config?.rawan || 'Unknown'}</span></div>
-              <div class="text-[10px] text-slate-500 font-semibold">Perbup: <span class="font-extrabold text-[#E28A1C]">${config?.perkada || 0} Dokumen</span></div>
+              <div class="text-[10px] text-slate-500 font-semibold">Perda: <span class="font-extrabold text-[#E28A1C]">${config?.perkada || 0} Dokumen</span></div>
              </div>`
           : `<div class="p-1 font-bold text-xs">
               <span class="text-[#0B1E43] uppercase font-black">Desa ${name}</span>

@@ -70,12 +70,6 @@ export default function Footer() {
                   Regulasi Perda & Perbup
                 </Link>
               </li>
-              <li>
-                <span className="inline-flex items-center gap-2 text-xs text-slate-400 font-bold opacity-75">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#C7B7A3] opacity-60" />
-                  Berita & Kegiatan Lapangan
-                </span>
-              </li>
             </ul>
           </div>
 

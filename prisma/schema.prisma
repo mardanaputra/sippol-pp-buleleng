@@ -215,3 +215,16 @@
     pengunggah          String   // Auto filled: e.g. "Staf Bidang SDA"
     waktu_upload        DateTime @default(now())
   }
+
+  model SatpolKegiatan {
+    id               Int      @id @default(autoincrement())
+    no_kegiatan      String   @unique // Format: ACT/BIDANG/YYYY/XXX
+    tanggal_kegiatan DateTime @default(now())
+    bidang           String   // Linmas, Trantib, Perada, SDA
+    jenis_kegiatan   String   // e.g. Patroli, Sosialisasi, Rapat, Penertiban
+    lokasi           String
+    jumlah_personel  Int      @default(1)
+    uraian_kegiatan  String
+    foto_bukti       String?  // Base64 image string
+    createdAt        DateTime @default(now())
+  }

@@ -63,7 +63,10 @@ import {
   Info,
   Gavel,
   Coins,
-  Radio
+  Radio,
+  Download,
+  Eye,
+  ClipboardList
 } from 'lucide-react';
 
 const BULELENG_REGENCY = {
@@ -223,6 +226,9 @@ export default function AdminDashboard() {
   const [trantibLogs, setTrantibLogs] = useState([]);
   const [linmasMembers, setLinmasMembers] = useState([]);
   const [peradaEnforcements, setPeradaEnforcements] = useState([]);
+  const [satpolKegiatanList, setSatpolKegiatanList] = useState([]);
+  const [isZoomModalOpen, setIsZoomModalOpen] = useState(false);
+  const [zoomImageUrl, setZoomImageUrl] = useState('');
   const [loading, setLoading] = useState(true);
 
   // View States
@@ -287,6 +293,11 @@ export default function AdminDashboard() {
       const res4 = await fetch('/api/perada/penegakan');
       const data4 = await res4.json();
       if (res4.ok) setPeradaEnforcements(data4);
+
+      // 5. Fetch Satpol Kegiatan
+      const res5 = await fetch('/api/admin/kegiatan');
+      const data5 = await res5.json();
+      if (res5.ok) setSatpolKegiatanList(data5);
 
     } catch (err) {
       console.error("Gagal memuat data database:", err);
@@ -572,6 +583,13 @@ export default function AdminDashboard() {
               className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#561C24] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
             >
               Portal SDA
+            </Link>
+
+            <Link
+              href="/admin/kegiatan"
+              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#561C24] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
+            >
+              Portal Kegiatan
             </Link>
           </div>
 
@@ -936,11 +954,11 @@ export default function AdminDashboard() {
 
             </div>
 
-            {/* THEMATIC MAP: Peta Tematik Tingkat Kerawanan & Perkada Buleleng */}
+            {/* THEMATIC MAP: Peta Tematik Tingkat Kerawanan & Perda Buleleng */}
             <div className="space-y-0 text-left animate-fadeIn">
               <div className="inline-block bg-[#561C24] text-white px-6 py-2.5 rounded-t-2xl text-xs font-black uppercase tracking-wider shadow-sm select-none border-b-2 border-[#C7B7A3]">
                 <div className="flex items-center gap-1.5">
-                  Visualisasi Peta Tematik Kerawanan & Perkada Kabupaten Buleleng
+                  Visualisasi Peta Tematik Kerawanan & Perda Kabupaten Buleleng
                 </div>
               </div>
 
@@ -1006,8 +1024,8 @@ export default function AdminDashboard() {
                             </p>
 
                             <div className="bg-[#0B1E43] text-white rounded-xl p-3 flex justify-between items-center shadow-sm">
-                              <span className="text-[9px] font-black uppercase tracking-wider text-slate-300">Jumlah Perkada</span>
-                              <span className="text-sm font-black text-[#E28A1C]">{kec.perkada} Perbup</span>
+                              <span className="text-[9px] font-black uppercase tracking-wider text-slate-300">Jumlah Perda</span>
+                              <span className="text-sm font-black text-[#E28A1C]">{kec.perkada} Perda</span>
                             </div>
                           </div>
                         );
@@ -1031,7 +1049,7 @@ export default function AdminDashboard() {
                             <tr>
                               <th className="px-3 py-2 border-r border-slate-200">Wilayah</th>
                               <th className="px-3 py-2 border-r border-slate-200">Status</th>
-                              <th className="px-3 py-2 text-right">Jumlah Perkada</th>
+                              <th className="px-3 py-2 text-right">Jumlah Perda</th>
                             </tr>
                           </thead>
                           <tbody className="divide-y divide-slate-100">
@@ -1077,7 +1095,7 @@ export default function AdminDashboard() {
                     * Klik Wilayah atau Table Row untuk mengunci detail informasi di atas.
                   </span>
                   <div className="flex items-center gap-1 bg-[#fffbeb] px-3 py-1.5 rounded-lg border border-[#fef3c7] text-[10px] font-black text-[#d97706]">
-                    <span>Total Perbup Buleleng:</span>
+                    <span>Total Perda Buleleng:</span>
                     <span>150 Dokumen</span>
                   </div>
                 </div>
@@ -1315,6 +1333,117 @@ export default function AdminDashboard() {
                   >
                     Ekspor Data Analisis
                   </button>
+                </div>
+              </div>
+            </div>
+
+            {/* SECTION: Riwayat Kegiatan & Jurnal Terpadu Satpol PP */}
+            <div className="space-y-0 text-left">
+              <div className="inline-block bg-[#561C24] text-white px-6 py-2.5 rounded-t-2xl text-xs font-black uppercase tracking-wider shadow-sm select-none border-b-2 border-[#C7B7A3]">
+                <div className="flex items-center gap-1.5">
+                  <ClipboardList className="w-4 h-4 text-[#E8D8C4]" /> Jurnal & Kegiatan Terkini Satpol PP
+                </div>
+              </div>
+
+              <div className="bg-white rounded-r-2xl rounded-b-2xl rounded-tl-none border border-slate-200 shadow-md p-6 flex flex-col justify-between gap-6 relative min-h-[300px]">
+                {satpolKegiatanList.length === 0 ? (
+                  <div className="text-center py-12 text-slate-500 space-y-2 border border-dashed border-slate-200 rounded-xl">
+                    <Info className="w-8 h-8 text-slate-350 mx-auto" />
+                    <p className="font-bold text-slate-650 text-xs">Belum ada log kegiatan terpadu terdata.</p>
+                    <p className="text-[10px] text-slate-450">Silakan input kegiatan baru melalui Portal Kegiatan.</p>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {/* Latest 6 activities */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {satpolKegiatanList.slice(0, 6).map((k) => {
+                        let badgeColor = "bg-slate-100 text-slate-750 border-slate-200";
+                        if (k.bidang === 'Trantibum') badgeColor = "bg-orange-50 border border-orange-200 text-orange-850";
+                        else if (k.bidang === 'Perada') badgeColor = "bg-blue-50 border border-blue-200 text-blue-850";
+                        else if (k.bidang === 'Linmas') badgeColor = "bg-emerald-50 border border-emerald-250 text-emerald-900";
+                        else if (k.bidang === 'SDA') badgeColor = "bg-purple-50 border border-purple-200 text-purple-900";
+
+                        return (
+                          <div key={k.id} className="bg-slate-50/50 border border-slate-200 rounded-xl p-4 flex gap-4 transition-all hover:bg-slate-50 hover:border-slate-300">
+                            {k.foto_bukti && (
+                              <img
+                                src={k.foto_bukti}
+                                alt="Foto Jurnal"
+                                onClick={() => { setZoomImageUrl(k.foto_bukti); setIsZoomModalOpen(true); }}
+                                className="w-16 h-16 object-cover rounded-lg border border-slate-200 shrink-0 cursor-zoom-in hover:scale-102 transition-all"
+                              />
+                            )}
+                            <div className="flex-1 space-y-1.5 text-left">
+                              <div className="flex justify-between items-start gap-2">
+                                <span className="text-[9px] font-mono font-black text-slate-500 bg-slate-100 border border-slate-250 px-1.5 py-0.2 rounded">
+                                  {k.no_kegiatan}
+                                </span>
+                                <span className={`text-[8px] font-black uppercase px-2 py-0.2 rounded ${badgeColor}`}>
+                                  {k.bidang}
+                                </span>
+                              </div>
+                              <h4 className="text-xs font-black text-slate-800 leading-snug">{k.jenis_kegiatan}</h4>
+                              <p className="text-[10px] text-slate-500 font-medium line-clamp-2 italic leading-relaxed">
+                                "{k.uraian_kegiatan}"
+                              </p>
+                              <div className="flex justify-between items-center text-[9px] text-slate-400 font-bold pt-1 border-t border-slate-100/80">
+                                <span className="flex items-center gap-1"><MapPin className="w-3 h-3 text-slate-350" /> {k.lokasi}</span>
+                                <span>{new Date(k.tanggal_kegiatan).toLocaleDateString('id-ID', { dateStyle: 'medium' })}</span>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {/* Footer Sync & Export */}
+                <div className="flex justify-between items-center border-t border-slate-100 pt-4 mt-auto">
+                  <span className="text-[9px] text-slate-400 font-extrabold tracking-wider uppercase select-none">
+                    Total Kegiatan Terlaksana: {satpolKegiatanList.length} Jurnal
+                  </span>
+                  <div className="flex gap-2">
+                    <Link
+                      href="/admin/kegiatan"
+                      className="px-3.5 py-1.5 bg-[#561C24] hover:bg-[#6D2932] text-white text-[10px] font-bold rounded-lg shadow-sm transition-all duration-200 flex items-center gap-1.5 cursor-pointer active:scale-95 border border-[#C7B7A3]/30"
+                    >
+                      Buka Portal Kegiatan <Eye className="w-3.5 h-3.5" />
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (satpolKegiatanList.length === 0) {
+                          alert("Tidak ada data kegiatan untuk diekspor.");
+                          return;
+                        }
+                        const headers = ["No. Jurnal", "Tanggal", "Bidang", "Jenis Kegiatan", "Lokasi", "Jumlah Personel", "Uraian Kegiatan"];
+                        const rows = satpolKegiatanList.map(k => [
+                          k.no_kegiatan,
+                          new Date(k.tanggal_kegiatan).toLocaleString('id-ID'),
+                          k.bidang,
+                          k.jenis_kegiatan,
+                          k.lokasi.replace(/"/g, '""'),
+                          k.jumlah_personel,
+                          k.uraian_kegiatan.replace(/\n/g, ' ').replace(/"/g, '""')
+                        ]);
+
+                        const csvContent = "data:text/csv;charset=utf-8,\uFEFF" 
+                          + [headers.join(","), ...rows.map(e => e.map(val => `"${val}"`).join(","))].join("\n");
+
+                        const encodedUri = encodeURI(csvContent);
+                        const link = document.createElement("a");
+                        link.setAttribute("href", encodedUri);
+                        link.setAttribute("download", `Laporan_Jurnal_Kegiatan_Satpol_${new Date().toISOString().substring(0,10)}.csv`);
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                      }}
+                      className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-bold rounded-lg shadow-sm transition-all duration-200 flex items-center gap-1.5 cursor-pointer active:scale-95 border border-emerald-500/20"
+                    >
+                      Ekspor Laporan Kegiatan <Download className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1824,6 +1953,28 @@ export default function AdminDashboard() {
             </form>
           </div>
 
+        </div>
+      )}
+
+      {isZoomModalOpen && (
+        <div 
+          className="fixed inset-0 z-[120] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 cursor-zoom-out animate-fadeIn"
+          onClick={() => setIsZoomModalOpen(false)}
+        >
+          <div className="relative max-w-4xl max-h-[85vh] overflow-hidden rounded-2xl shadow-2xl border border-slate-800">
+            <img 
+              src={zoomImageUrl} 
+              alt="Foto Zoom" 
+              className="max-w-full max-h-[85vh] object-contain rounded-2xl" 
+            />
+            <button 
+              onClick={() => setIsZoomModalOpen(false)}
+              className="absolute top-4 right-4 p-2 bg-black/60 hover:bg-black/85 rounded-full text-white shadow-md transition-colors cursor-pointer"
+              title="Close Image"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
         </div>
       )}
 

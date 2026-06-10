@@ -563,6 +563,12 @@ export default function TrantibAdmin() {
             >
               Portal SDA
             </Link>
+            <Link 
+              href="/admin/kegiatan" 
+              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#561C24] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
+            >
+              Portal Kegiatan
+            </Link>
           </div>
           
           <button

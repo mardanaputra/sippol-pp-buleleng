@@ -26,15 +26,12 @@ export default function Navbar({ activePage = 'home' }) {
       const scrollPosition = window.scrollY + 120; // offset for navbar height + buffer
 
       const tentangEl = document.getElementById('tentang');
-      const beritaEl = document.getElementById('berita');
       const profilEl = document.getElementById('profil');
 
       let currentSection = 'home';
 
       if (profilEl && scrollPosition >= profilEl.offsetTop) {
         currentSection = 'profil';
-      } else if (beritaEl && scrollPosition >= beritaEl.offsetTop) {
-        currentSection = 'berita';
       } else if (tentangEl && scrollPosition >= tentangEl.offsetTop) {
         currentSection = 'tentang';
       }
@@ -104,16 +101,7 @@ export default function Navbar({ activePage = 'home' }) {
           >
             Tentang
           </Link>
-          <Link 
-            href="/#berita" 
-            className={`text-xs font-extrabold transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[2px] after:bg-coffee-medium after:rounded-full after:transition-all after:duration-300 after:ease-in-out after:origin-left ${
-              activeSection === 'berita' 
-                ? "text-coffee-dark after:scale-x-100 after:opacity-100" 
-                : "text-slate-600 hover:text-coffee-dark after:scale-x-0 after:opacity-0 hover:after:scale-x-100 hover:after:opacity-50"
-            }`}
-          >
-            Berita
-          </Link>
+
           <Link 
             href="/#profil" 
             className={`text-xs font-extrabold transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[2px] after:bg-coffee-medium after:rounded-full after:transition-all after:duration-300 after:ease-in-out after:origin-left ${
@@ -170,17 +158,7 @@ export default function Navbar({ activePage = 'home' }) {
           >
             Tentang
           </Link>
-          <Link 
-            href="/#berita" 
-            onClick={() => setIsMenuOpen(false)}
-            className={`px-3 py-2 text-xs font-bold rounded-lg transition-all duration-300 ease-in-out ${
-              activeSection === 'berita' 
-                ? "text-coffee-dark bg-coffee-cream/10 font-black" 
-                : "text-slate-600 hover:text-coffee-dark hover:bg-slate-50"
-            }`}
-          >
-            Berita
-          </Link>
+
           <Link 
             href="/#profil" 
             onClick={() => setIsMenuOpen(false)}

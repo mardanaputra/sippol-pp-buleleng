@@ -27,12 +27,10 @@ export default function Home() {
   const [isHeroVisible, setIsHeroVisible] = useState(false);
   const [isPillarsVisible, setIsPillarsVisible] = useState(false);
   const [isTentangVisible, setIsTentangVisible] = useState(false);
-  const [isBeritaVisible, setIsBeritaVisible] = useState(false);
   const [isProfilVisible, setIsProfilVisible] = useState(false);
 
   const pillarsRef = useRef(null);
   const tentangRef = useRef(null);
-  const beritaRef = useRef(null);
   const profilRef = useRef(null);
 
   useEffect(() => {
@@ -47,8 +45,6 @@ export default function Home() {
               setIsPillarsVisible(true);
             } else if (entry.target === tentangRef.current) {
               setIsTentangVisible(true);
-            } else if (entry.target === beritaRef.current) {
-              setIsBeritaVisible(true);
             } else if (entry.target === profilRef.current) {
               setIsProfilVisible(true);
             }
@@ -61,7 +57,6 @@ export default function Home() {
 
     if (pillarsRef.current) observer.observe(pillarsRef.current);
     if (tentangRef.current) observer.observe(tentangRef.current);
-    if (beritaRef.current) observer.observe(beritaRef.current);
     if (profilRef.current) observer.observe(profilRef.current);
 
     return () => {
@@ -359,130 +354,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* BERITA & KEGIATAN TERKINI */}
-        <div 
-          ref={beritaRef}
-          id="berita" 
-          className={`space-y-10 pt-12 border-t border-slate-205 scroll-mt-24 transition-all duration-1000 ease-out transform ${
-            isBeritaVisible 
-              ? "opacity-100 translate-y-0" 
-              : "opacity-0 translate-y-12"
-          }`}
-        >
-          <div className="text-center space-y-3 max-w-2xl mx-auto">
-            <span className="inline-block px-3 py-1 bg-[#561C24]/5 border border-blue-200/60 text-[10px] font-black text-blue-900 rounded-lg uppercase tracking-wider">
-              Kabar dari Lapangan
-            </span>
-            <h3 className="text-2xl md:text-3xl font-black text-[#561C24] tracking-tight">
-              Berita & Kegiatan Satpol PP
-            </h3>
-            <p className="text-xs text-slate-500 leading-relaxed font-semibold">
-              Ikuti rilis berita resmi mengenai operasi penertiban, kegiatan sosialisasi hukum daerah, serta pelatihan pembinaan linmas di wilayah Kabupaten Buleleng.
-            </p>
-          </div>
-
-          {/* Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Berita 1 */}
-            <article className="bg-white rounded-2xl overflow-hidden border border-slate-205/80 shadow-sm hover:shadow-md hover:scale-[1.02] transition-all duration-300 flex flex-col justify-between text-left group">
-              <div className="space-y-4">
-                <div className="h-48 bg-[#0B1E43] relative overflow-hidden flex items-center justify-center">
-                  <div className="absolute inset-0 bg-gradient-to-tr from-[#561C24] to-[#6D2932] opacity-90" />
-                  <div className="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px] opacity-10" />
-                  <ShieldAlert className="w-16 h-16 text-[#E8D8C4] opacity-80 group-hover:scale-110 transition-transform duration-500 relative z-10" />
-                  <span className="absolute top-4 left-4 px-2.5 py-1 bg-[#561C24] text-[#E8D8C4] border border-[#C7B7A3]/30 text-[9px] font-black rounded-lg uppercase tracking-wider z-10">
-                    Trantibum
-                  </span>
-                </div>
-                
-                <div className="px-5 pb-2 space-y-2">
-                  <div className="flex items-center gap-1.5 text-[10px] text-slate-450 font-bold">
-                    <Calendar className="w-3.5 h-3.5" /> 22 Mei 2026
-                  </div>
-                  <h4 className="text-sm font-black text-slate-900 leading-snug group-hover:text-[#561C24] transition-colors">
-                    Patroli Gabungan Penertiban PKL di Kawasan Taman Kota Singaraja berjalan Humanis
-                  </h4>
-                  <p className="text-xs text-slate-500 font-medium leading-relaxed line-clamp-3">
-                    Petugas Satpol PP Kabupaten Buleleng melaksanakan penertiban berkala bagi pedagang kaki lima yang berjualan di luar area relokasi resmi. Pendekatan persuasif dikedepankan demi kenyamanan bersama.
-                  </p>
-                </div>
-              </div>
-              
-              <div className="px-5 pb-5 pt-3 border-t border-slate-100 flex items-center justify-between">
-                <span className="text-[10px] text-[#561C24] font-black uppercase tracking-wider flex items-center gap-1 group-hover:gap-2 transition-all cursor-pointer">
-                  Baca Selengkapnya <ArrowRight className="w-3 h-3" />
-                </span>
-                <span className="text-[10px] text-slate-400 font-semibold">Oleh: Humas PP</span>
-              </div>
-            </article>
-
-            {/* Berita 2 */}
-            <article className="bg-white rounded-2xl overflow-hidden border border-slate-205/80 shadow-sm hover:shadow-md hover:scale-[1.02] transition-all duration-300 flex flex-col justify-between text-left group">
-              <div className="space-y-4">
-                <div className="h-48 bg-[#561C24] relative overflow-hidden flex items-center justify-center">
-                  <div className="absolute inset-0 bg-gradient-to-tr from-[#561C24] to-[#6D2932] opacity-90" />
-                  <div className="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px] opacity-10" />
-                  <Scale className="w-16 h-16 text-[#E8D8C4] opacity-80 group-hover:scale-110 transition-transform duration-500 relative z-10" />
-                  <span className="absolute top-4 left-4 px-2.5 py-1 bg-[#6D2932] text-[#E8D8C4] border border-[#C7B7A3]/30 text-[9px] font-black rounded-lg uppercase tracking-wider z-10">
-                    Penegakan Perda
-                  </span>
-                </div>
-                
-                <div className="px-5 pb-2 space-y-2">
-                  <div className="flex items-center gap-1.5 text-[10px] text-slate-450 font-bold">
-                    <Calendar className="w-3.5 h-3.5" /> 20 Mei 2026
-                  </div>
-                  <h4 className="text-sm font-black text-slate-900 leading-snug group-hover:text-[#561C24] transition-colors">
-                    Sosialisasi Kepatuhan Peraturan Daerah Terkait Izin Usaha kepada Pelaku Usaha Baru
-                  </h4>
-                  <p className="text-xs text-slate-500 font-medium leading-relaxed line-clamp-3">
-                    Bidang Perada memberikan edukasi langsung mengenai tata ruang dan perizinan usaha mikro dan menengah di daerah pesisir Buleleng guna memastikan kepatuhan hukum sejak dini.
-                  </p>
-                </div>
-              </div>
-              
-              <div className="px-5 pb-5 pt-3 border-t border-slate-100 flex items-center justify-between">
-                <span className="text-[10px] text-[#561C24] font-black uppercase tracking-wider flex items-center gap-1 group-hover:gap-2 transition-all cursor-pointer">
-                  Baca Selengkapnya <ArrowRight className="w-3 h-3" />
-                </span>
-                <span className="text-[10px] text-slate-400 font-semibold">Oleh: Humas PP</span>
-              </div>
-            </article>
-
-            {/* Berita 3 */}
-            <article className="bg-white rounded-2xl overflow-hidden border border-slate-205/80 shadow-sm hover:shadow-md hover:scale-[1.02] transition-all duration-300 flex flex-col justify-between text-left group">
-              <div className="space-y-4">
-                <div className="h-48 bg-[#0B1E43] relative overflow-hidden flex items-center justify-center">
-                  <div className="absolute inset-0 bg-gradient-to-tr from-[#561C24] to-[#6D2932] opacity-90" />
-                  <div className="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px] opacity-10" />
-                  <Shield className="w-16 h-16 text-[#E8D8C4] opacity-80 group-hover:scale-110 transition-transform duration-500 relative z-10" />
-                  <span className="absolute top-4 left-4 px-2.5 py-1 bg-[#6D2932] text-[#E8D8C4] border border-[#C7B7A3]/30 text-[9px] font-black rounded-lg uppercase tracking-wider z-10">
-                    Linmas
-                  </span>
-                </div>
-                
-                <div className="px-5 pb-2 space-y-2">
-                  <div className="flex items-center gap-1.5 text-[10px] text-slate-450 font-bold">
-                    <Calendar className="w-3.5 h-3.5" /> 18 Mei 2026
-                  </div>
-                  <h4 className="text-sm font-black text-slate-900 leading-snug group-hover:text-[#561C24] transition-colors">
-                    Pembinaan dan Peningkatan Kapasitas Anggota Linmas Desa se-Kecamatan Banjar
-                  </h4>
-                  <p className="text-xs text-slate-500 font-medium leading-relaxed line-clamp-3">
-                    Guna mengoptimalkan kesiapan mitigasi bencana dan menjaga ketenteraman warga di pedesaan, Satpol PP Buleleng menyelenggarakan pembekalan materi fisik dan organisasi linmas secara menyeluruh.
-                  </p>
-                </div>
-              </div>
-              
-              <div className="px-5 pb-5 pt-3 border-t border-slate-100 flex items-center justify-between">
-                <span className="text-[10px] text-[#561C24] font-black uppercase tracking-wider flex items-center gap-1 group-hover:gap-2 transition-all cursor-pointer">
-                  Baca Selengkapnya <ArrowRight className="w-3 h-3" />
-                </span>
-                <span className="text-[10px] text-slate-400 font-semibold">Oleh: Humas PP</span>
-              </div>
-            </article>
-          </div>
-        </div>
 
         {/* PROFIL SATUAN & STRUKTUR ORGANISASI */}
         <div 
