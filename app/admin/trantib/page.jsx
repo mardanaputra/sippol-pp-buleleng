@@ -12,6 +12,7 @@ import {
   Clipboard, 
   Plus, 
   Trash2, 
+  Download,
   Edit3, 
   Eye, 
   Calendar, 
@@ -94,6 +95,7 @@ export default function TrantibAdmin() {
     anggota_regu: [], // Array of checked members
     wilayah_patroli: [], // Array of checked zones
     kendaraan_dinas: KENDARAAN_LIST[0],
+    surat_tugas: null,
   });
 
   const [isEnforcementModalOpen, setIsEnforcementModalOpen] = useState(false);
@@ -217,6 +219,7 @@ export default function TrantibAdmin() {
       anggota_regu: [],
       wilayah_patroli: [],
       kendaraan_dinas: KENDARAAN_LIST[0],
+      surat_tugas: null,
     });
     setFormErrors({});
     setIsPatrolModalOpen(true);
@@ -235,6 +238,7 @@ export default function TrantibAdmin() {
       anggota_regu: anggotaArr,
       wilayah_patroli: wilayahArr,
       kendaraan_dinas: patrol.kendaraan_dinas,
+      surat_tugas: patrol.surat_tugas || null,
     });
     setFormErrors({});
     setIsPatrolModalOpen(true);
@@ -370,6 +374,48 @@ export default function TrantibAdmin() {
       }));
     };
     reader.readAsDataURL(file);
+  };
+
+  const handlePdfFileChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (file.type !== 'application/pdf') {
+      alert("Hanya file dokumen PDF yang diperbolehkan.");
+      e.target.value = null;
+      return;
+    }
+    if (file.size > 3 * 1024 * 1024) {
+      alert("Ukuran file melebihi batas 3MB.");
+      e.target.value = null;
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPatrolForm(prev => ({
+        ...prev,
+        surat_tugas: reader.result
+      }));
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const downloadBase64Pdf = (base64String, filename) => {
+    if (!base64String) {
+      alert("Berkas PDF tidak tersedia.");
+      return;
+    }
+    try {
+      const link = document.createElement('a');
+      link.href = base64String;
+      link.download = filename || 'surat-tugas.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (err) {
+      console.error("Gagal mengunduh PDF:", err);
+      alert("Terjadi kesalahan saat mengunduh file.");
+    }
   };
 
   // Submit handlers
@@ -809,6 +855,15 @@ export default function TrantibAdmin() {
                             </td>
                             <td className="py-4 px-6 text-center">
                               <div className="flex items-center justify-center gap-2">
+                                {patrol.surat_tugas && (
+                                  <button
+                                    onClick={() => downloadBase64Pdf(patrol.surat_tugas, `Surat-Tugas-${patrol.no_spt.replace(/\//g, '-')}.pdf`)}
+                                    className="p-1.5 bg-red-50 hover:bg-red-100 border border-red-200 text-red-700 rounded-lg transition"
+                                    title="Unduh Surat Tugas (PDF)"
+                                  >
+                                    <Download className="w-4 h-4" />
+                                  </button>
+                                )}
                                 <button
                                   onClick={() => openEditPatrol(patrol)}
                                   className="p-1.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-600 hover:text-[#561C24] rounded-lg transition"
@@ -1341,6 +1396,43 @@ export default function TrantibAdmin() {
                       </label>
                     );
                   })}
+                </div>
+              </div>
+
+              {/* Upload Surat Tugas (PDF) */}
+              <div className="space-y-1.5 border-t border-slate-100 pt-3">
+                <label className="text-[10px] uppercase font-bold text-slate-500 block">
+                  Unggah Surat Tugas (PDF, Maks. 3MB)
+                </label>
+                <div className="flex items-center gap-3">
+                  {patrolForm.surat_tugas ? (
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => downloadBase64Pdf(patrolForm.surat_tugas, `Surat-Tugas-${patrolForm.no_spt ? patrolForm.no_spt.replace(/\//g, '-') : 'Draft'}.pdf`)}
+                        className="px-3 py-2 bg-red-50 hover:bg-red-100 border border-red-200 text-red-700 rounded-xl text-xs font-bold flex items-center gap-1.5 transition cursor-pointer"
+                      >
+                        <Download className="w-4 h-4" /> Unduh Surat Tugas
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setPatrolForm({ ...patrolForm, surat_tugas: null })}
+                        className="p-2 bg-slate-50 hover:bg-rose-50 border border-slate-200 hover:border-rose-200 text-slate-500 hover:text-rose-600 rounded-xl transition cursor-pointer"
+                        title="Hapus Berkas"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="space-y-1">
+                      <input
+                        type="file"
+                        accept=".pdf"
+                        onChange={handlePdfFileChange}
+                        className="text-xs text-slate-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-[10px] file:font-bold file:bg-[#561C24]/10 file:text-[#561C24] file:cursor-pointer"
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
 

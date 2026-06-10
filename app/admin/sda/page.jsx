@@ -99,7 +99,7 @@ export default function SdaAdmin() {
     id: '',
     nip_kontrak: '',
     nama_lengkap: '',
-    status_kepegawaian: 'ASN (PNS/PPPK)',
+    status_kepegawaian: 'PNS',
     pangkat_golongan: 'Penata - III/c',
     jabatan: 'Anggota Operasional',
     penempatan_bidang: 'SDA',
@@ -265,7 +265,7 @@ export default function SdaAdmin() {
         id: '',
         nip_kontrak: '',
         nama_lengkap: '',
-        status_kepegawaian: 'ASN (PNS/PPPK)',
+        status_kepegawaian: 'PNS',
         pangkat_golongan: 'Penata - III/c',
         jabatan: 'Anggota Operasional',
         penempatan_bidang: 'SDA',
@@ -673,7 +673,7 @@ export default function SdaAdmin() {
               <div className="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm hover:shadow-md transition-all">
                 <div className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Status Kepegawaian</div>
                 <div className="text-2xl font-bold text-purple-800 mt-1 flex items-baseline gap-1.5">
-                  {personelList.filter(p => p.status_kepegawaian.startsWith('ASN')).length} <span className="text-xs font-normal text-slate-500">ASN</span>
+                  {personelList.filter(p => p.status_kepegawaian === 'PNS' || p.status_kepegawaian === 'PPPK' || p.status_kepegawaian.startsWith('ASN')).length} <span className="text-xs font-normal text-slate-500">ASN</span>
                   <span className="text-slate-300">|</span>
                   {personelList.filter(p => p.status_kepegawaian.startsWith('Kontrak')).length} <span className="text-xs font-normal text-slate-500">Kontrak</span>
                 </div>
@@ -724,7 +724,8 @@ export default function SdaAdmin() {
                     className="bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 outline-none focus:bg-white focus:ring-2 focus:ring-blue-150 cursor-pointer"
                   >
                     <option value="">Semua Status Kepegawaian</option>
-                    <option value="ASN (PNS/PPPK)">ASN (PNS/PPPK)</option>
+                    <option value="PNS">PNS</option>
+                    <option value="PPPK">PPPK</option>
                     <option value="Kontrak (Non-ASN)">Kontrak (Non-ASN)</option>
                   </select>
                 </div>
@@ -763,7 +764,7 @@ export default function SdaAdmin() {
                           <td className="px-4 py-3.5 whitespace-nowrap">{p.nip_kontrak}</td>
                           <td className="px-4 py-3.5">
                             <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                              p.status_kepegawaian.startsWith('ASN') 
+                              p.status_kepegawaian === 'PNS' || p.status_kepegawaian === 'PPPK' || p.status_kepegawaian.startsWith('ASN') 
                                 ? 'bg-purple-100 text-purple-750' 
                                 : 'bg-orange-100 text-orange-750'
                             }`}>
@@ -1209,28 +1210,28 @@ export default function SdaAdmin() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-1.5">
+                <div className="space-y-1">
                   <label className="text-[10px] font-bold text-slate-500 uppercase block">Status Kepegawaian</label>
-                  <div className="flex gap-4">
-                    {['ASN (PNS/PPPK)', 'Kontrak (Non-ASN)'].map(val => (
-                      <label key={val} className="flex items-center gap-1.5 text-xs cursor-pointer select-none font-semibold">
-                        <input
-                          type="radio"
-                          disabled={personelFormMode === 'view'}
-                          checked={personelForm.status_kepegawaian === val}
-                          onChange={() => {
-                            setPersonelForm({
-                              ...personelForm,
-                              status_kepegawaian: val,
-                              pangkat_golongan: val === 'Kontrak (Non-ASN)' ? 'Non-ASN' : 'Penata - III/c'
-                            });
-                          }}
-                          className="text-[#212260]"
-                        />
-                        {val}
-                      </label>
-                    ))}
-                  </div>
+                  <select
+                    disabled={personelFormMode === 'view'}
+                    value={personelForm.status_kepegawaian}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      setPersonelForm({
+                        ...personelForm,
+                        status_kepegawaian: val,
+                        pangkat_golongan: val === 'Kontrak (Non-ASN)' ? 'Non-ASN' : 'Penata - III/c'
+                      });
+                    }}
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium text-slate-700 outline-none focus:bg-white focus:ring-2 focus:ring-blue-150 disabled:opacity-65 cursor-pointer"
+                  >
+                    {personelForm.status_kepegawaian === 'ASN (PNS/PPPK)' && (
+                      <option value="ASN (PNS/PPPK)">ASN (PNS/PPPK) [Lama]</option>
+                    )}
+                    <option value="PNS">PNS</option>
+                    <option value="PPPK">PPPK</option>
+                    <option value="Kontrak (Non-ASN)">Kontrak (Non-ASN)</option>
+                  </select>
                 </div>
 
                 <div className="space-y-1">

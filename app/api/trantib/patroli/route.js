@@ -30,6 +30,7 @@ export async function POST(req) {
             anggota_regu, // string atau array
             wilayah_patroli, // string atau array
             kendaraan_dinas,
+            surat_tugas,
         } = body;
 
         // Validasi field wajib
@@ -80,6 +81,7 @@ export async function POST(req) {
                 anggota_regu: anggotaStr,
                 wilayah_patroli: wilayahStr,
                 kendaraan_dinas,
+                surat_tugas: surat_tugas || null,
             },
         });
 
@@ -108,6 +110,7 @@ export async function PUT(req) {
             anggota_regu,
             wilayah_patroli,
             kendaraan_dinas,
+            surat_tugas,
         } = body;
 
         if (!id || !shift_kerja || !komandan_regu || !anggota_regu || !wilayah_patroli || !kendaraan_dinas) {
@@ -129,6 +132,7 @@ export async function PUT(req) {
                 anggota_regu: anggotaStr,
                 wilayah_patroli: wilayahStr,
                 kendaraan_dinas,
+                surat_tugas: surat_tugas !== undefined ? surat_tugas : undefined,
             },
         });
 

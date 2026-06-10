@@ -99,6 +99,7 @@
     anggota_regu      String         // Daftar anggota regu (Comma-separated string)
     wilayah_patroli   String         // Daftar zona wilayah sasaran (Comma-separated string)
     kendaraan_dinas   String         // Kendaraan dinas operasional
+    surat_tugas       String?        // Berkas PDF base64 surat tugas/SPT
     createdAt         DateTime       @default(now())
     penertiban        PenertibanK3[] // Relasi 1-to-many ke Log Penertiban
   }
