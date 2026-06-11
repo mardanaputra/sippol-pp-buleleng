@@ -9,7 +9,7 @@ import Footer from '../../components/Footer';
 const AdminMap = dynamic(() => import('./AdminMap'), {
   ssr: false,
   loading: () => (
-    <div className="w-full bg-slate-50 rounded-2xl border border-slate-150 relative flex items-center justify-center min-h-[360px] shadow-inner">
+    <div className="w-full bg-slate-50 rounded-2xl border border-slate-200 relative flex items-center justify-center min-h-[360px] shadow-inner">
       <div className="flex items-center gap-2 font-bold text-xs text-slate-500">
         <svg className="animate-spin h-5 w-5 text-slate-600" fill="none" viewBox="0 0 24 24">
           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
@@ -261,6 +261,15 @@ export default function AdminDashboard() {
 
   const [formErrors, setFormErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
+  const [notification, setNotification] = useState(null); // { type: 'success' | 'error' | 'info' | 'confirm', message: string, onConfirm?: () => void }
+
+  const showAlert = (message, type = 'success') => {
+    setNotification({ type, message });
+  };
+
+  const showConfirm = (message, onConfirm) => {
+    setNotification({ type: 'confirm', message, onConfirm });
+  };
 
   // Template Catatan Cepat
   const QUICK_TEMPLATES = [
@@ -342,25 +351,28 @@ export default function AdminDashboard() {
   };
 
   // Handler Hapus Laporan (Spam)
-  const handleDeleteReport = async (id_tiket) => {
-    if (!confirm(`Apakah Anda yakin ingin menghapus secara permanen laporan dengan Tiket: ${id_tiket}?\n(Tindakan ini tidak dapat dibatalkan)`)) return;
+  const handleDeleteReport = (id_tiket) => {
+    showConfirm(
+      `Apakah Anda yakin ingin menghapus secara permanen laporan dengan Tiket: ${id_tiket}?\n(Tindakan ini tidak dapat dibatalkan)`,
+      async () => {
+        try {
+          const res = await fetch(`/api/pengaduan?id_tiket=${id_tiket}`, {
+            method: 'DELETE',
+          });
+          const data = await res.json();
 
-    try {
-      const res = await fetch(`/api/pengaduan?id_tiket=${id_tiket}`, {
-        method: 'DELETE',
-      });
-      const data = await res.json();
-
-      if (res.ok) {
-        alert(data.message || "Laporan berhasil dihapus.");
-        fetchReports(); // Refresh data
-      } else {
-        alert(data.error || "Gagal menghapus laporan.");
+          if (res.ok) {
+            showAlert(data.message || "Laporan berhasil dihapus.", 'success');
+            fetchAllData(); // Refresh data
+          } else {
+            showAlert(data.error || "Gagal menghapus laporan.", 'error');
+          }
+        } catch (err) {
+          console.error(err);
+          showAlert("Terjadi kesalahan jaringan saat menghapus laporan.", 'error');
+        }
       }
-    } catch (err) {
-      console.error(err);
-      alert("Terjadi kesalahan jaringan saat menghapus laporan.");
-    }
+    );
   };
 
   // Membuka modal buat disposisi baru
@@ -419,15 +431,15 @@ export default function AdminDashboard() {
       const data = await res.json();
 
       if (res.ok) {
-        alert("Disposisi resmi berhasil dikirim!");
         setIsModalOpen(false);
-        fetchReports(); // Refresh data
+        showAlert("Disposisi resmi berhasil dikirim!", 'success');
+        fetchAllData(); // Refresh data
       } else {
-        alert(data.error || "Gagal menyimpan disposisi.");
+        showAlert(data.error || "Gagal menyimpan disposisi.", 'error');
       }
     } catch (err) {
       console.error(err);
-      alert("Terjadi kesalahan jaringan.");
+      showAlert("Terjadi kesalahan jaringan.", 'error');
     } finally {
       setSubmitting(false);
     }
@@ -630,7 +642,7 @@ export default function AdminDashboard() {
           {/* Sisi Kanan: Night mode & Profil Admin Buleleng */}
           <div className="flex items-center gap-4">
             <button
-              onClick={() => alert("Fitur Mode Malam akan segera hadir!")}
+              onClick={() => showAlert("Fitur Mode Malam akan segera hadir!", 'info')}
               className="p-2.5 bg-white/10 hover:bg-white/20 rounded-full transition-all text-white border border-white/20 active:scale-95 cursor-pointer"
               title="Toggle Night Mode"
               type="button"
@@ -747,47 +759,62 @@ export default function AdminDashboard() {
                 {reports.filter(r => r.status_laporan === 'Pending').length === 0 ? (
                   <div className="text-center py-6 text-slate-500 space-y-2 border border-dashed border-slate-200 rounded-xl">
                     <Check className="w-8 h-8 text-emerald-500 mx-auto" />
-                    <p className="font-bold text-slate-650 text-xs">Semua aduan masuk telah terdisposisi dengan baik.</p>
-                    <p className="text-[10px] text-slate-450">Tidak ada laporan warga yang berstatus Pending saat ini.</p>
+                    <p className="font-bold text-slate-600 text-xs">Semua aduan masuk telah terdisposisi dengan baik.</p>
+                    <p className="text-[10px] text-slate-400">Tidak ada laporan warga yang berstatus Pending saat ini.</p>
                   </div>
                 ) : (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
                     {reports.filter(r => r.status_laporan === 'Pending').map((report) => {
                       const loc = getReportLocation(report);
                       return (
-                        <div key={report.id_tiket} className="bg-amber-50/30 border border-amber-250/70 hover:border-amber-350 rounded-xl p-4 flex flex-col justify-between gap-3 transition-all">
-                          <div className="space-y-1">
+                        <div 
+                          key={report.id_tiket} 
+                          className="bg-white rounded-xl border border-slate-200/80 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:border-amber-300 transition-all duration-300 p-5 flex flex-col justify-between relative overflow-hidden group border-l-4 border-l-amber-500"
+                        >
+                          <div className="space-y-3">
                             <div className="flex justify-between items-center">
-                              <span className="text-[10px] font-mono font-black text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded">
+                              <span className="text-[10px] font-mono font-bold text-amber-800 bg-amber-50 border border-amber-100 px-2 py-0.5 rounded-md">
                                 {report.id_tiket}
                               </span>
-                              <span className="text-[9px] text-slate-450 font-semibold">
-                                {new Date(report.waktu_kirim).toLocaleDateString('id-ID', { dateStyle: 'medium' })}
+                              <span className="text-[10px] text-slate-400 font-medium flex items-center gap-1">
+                                <Clock className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                                <span>
+                                  {new Date(report.waktu_kirim).toLocaleDateString('id-ID', { dateStyle: 'medium' })}
+                                </span>
                               </span>
                             </div>
-                            <h4 className="text-xs font-black text-slate-800 line-clamp-1">{report.kategori_masalah}</h4>
-                            <p className="text-[11px] text-slate-500 line-clamp-2 italic leading-relaxed">
-                              "{report.kronologi}"
-                            </p>
-                            <div className="text-[10px] text-slate-550 font-semibold flex items-center gap-1 pt-1.5">
-                              <MapPin className="w-3 h-3 text-slate-400 shrink-0" /> <span className="truncate">{loc.kecamatan}, {loc.desa}</span>
+                            
+                            <div>
+                              <h4 className="text-sm font-extrabold text-slate-800 leading-snug group-hover:text-[#561C24] transition-colors duration-200 line-clamp-1">
+                                {report.kategori_masalah}
+                              </h4>
+                              <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed mt-1">
+                                {report.kronologi}
+                              </p>
+                            </div>
+
+                            <div className="flex items-center gap-1.5 text-[11px] text-slate-600 bg-slate-50 border border-slate-100 rounded-lg px-2.5 py-1 w-fit font-semibold">
+                              <MapPin className="w-3.5 h-3.5 text-[#6D2932] shrink-0" /> 
+                              <span className="truncate max-w-[150px]">{loc.kecamatan}, {loc.desa}</span>
                             </div>
                           </div>
 
-                          <div className="flex gap-2 pt-2 border-t border-slate-100 mt-2">
+                          <div className="flex gap-2 pt-4 border-t border-slate-100 mt-4">
                             <button
                               type="button"
                               onClick={() => handleDeleteReport(report.id_tiket)}
-                              className="px-2.5 py-1 bg-white hover:bg-rose-50 border border-rose-200 text-rose-600 rounded text-[10px] font-bold transition-all cursor-pointer"
+                              className="px-3 py-2 bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-100 hover:border-rose-200 rounded-lg text-xs font-bold transition-all duration-200 flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 shrink-0"
                             >
-                              Spam
+                              <Trash2 className="w-3.5 h-3.5" />
+                              <span>Spam</span>
                             </button>
                             <button
                               type="button"
                               onClick={() => handleOpenCreateDisposisi(report)}
-                              className="flex-1 py-1 bg-[#561C24] hover:bg-[#6D2932] text-white rounded text-[10px] font-bold flex items-center justify-center gap-1 transition-all cursor-pointer"
+                              className="flex-1 py-2 bg-[#561C24] hover:bg-[#6D2932] text-white rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-all duration-200 shadow-sm active:scale-95 cursor-pointer group/btn"
                             >
-                              Disposisi <ArrowRightCircle className="w-3.5 h-3.5 text-[#E8D8C4]" />
+                              <span>Disposisi</span>
+                              <ArrowRightCircle className="w-4 h-4 text-[#E8D8C4] group-hover/btn:translate-x-0.5 transition-transform" />
                             </button>
                           </div>
                         </div>
@@ -822,22 +849,22 @@ export default function AdminDashboard() {
                     <div className="w-full space-y-3.5">
                       <div className="space-y-2">
                         <div className="flex justify-between items-center text-xs font-bold border-b border-slate-100 pb-1.5">
-                          <span className="flex items-center gap-1.5 text-slate-650">
+                          <span className="flex items-center gap-1.5 text-slate-600">
                             <span className="w-2.5 h-2.5 rounded-full bg-[#10b981]" /> Kasus Selesai
                           </span>
-                          <span className="text-slate-800">{countSelesai} <span className="text-[10px] text-slate-450 font-semibold">({pctSelesai}%)</span></span>
+                          <span className="text-slate-800">{countSelesai} <span className="text-[10px] text-slate-400 font-semibold">({pctSelesai}%)</span></span>
                         </div>
                         <div className="flex justify-between items-center text-xs font-bold border-b border-slate-100 pb-1.5">
-                          <span className="flex items-center gap-1.5 text-slate-650">
+                          <span className="flex items-center gap-1.5 text-slate-600">
                             <span className="w-2.5 h-2.5 rounded-full bg-[#8b5cf6]" /> Sidang Tipiring
                           </span>
-                          <span className="text-slate-800">{countSidang} <span className="text-[10px] text-slate-450 font-semibold">({pctSidang}%)</span></span>
+                          <span className="text-slate-800">{countSidang} <span className="text-[10px] text-slate-400 font-semibold">({pctSidang}%)</span></span>
                         </div>
                         <div className="flex justify-between items-center text-xs font-bold border-b border-slate-100 pb-1.5">
-                          <span className="flex items-center gap-1.5 text-slate-650">
+                          <span className="flex items-center gap-1.5 text-slate-600">
                             <span className="w-2.5 h-2.5 rounded-full bg-[#f59e0b]" /> Penyelidikan
                           </span>
-                          <span className="text-slate-800">{countPenyelidikan} <span className="text-[10px] text-slate-450 font-semibold">({pctPenyelidikan}%)</span></span>
+                          <span className="text-slate-800">{countPenyelidikan} <span className="text-[10px] text-slate-400 font-semibold">({pctPenyelidikan}%)</span></span>
                         </div>
                       </div>
 
@@ -847,7 +874,7 @@ export default function AdminDashboard() {
                           <Coins className="w-4.5 h-4.5" />
                         </div>
                         <div className="text-left">
-                          <p className="text-[9px] text-slate-450 font-extrabold uppercase tracking-widest leading-none">Denda Kas Daerah</p>
+                          <p className="text-[9px] text-slate-400 font-extrabold uppercase tracking-widest leading-none">Denda Kas Daerah</p>
                           <p className="text-sm font-black text-[#d97706] leading-none mt-1">
                             Rp {totalDenda.toLocaleString('id-ID')}
                           </p>
@@ -864,7 +891,7 @@ export default function AdminDashboard() {
                     <button
                       type="button"
                       onClick={() => {
-                        alert("Data Penegakan Perda berhasil diunduh ke perangkat Anda!");
+                        showAlert("Data Penegakan Perda berhasil diunduh ke perangkat Anda!", 'success');
                         const link = document.createElement('a');
                         link.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent('SIP POLPP Buleleng - Data Penegakan Perda Rekap');
                         link.download = 'Grafik_Penegakan_Perda_Buleleng.txt';
@@ -901,10 +928,10 @@ export default function AdminDashboard() {
                         return (
                           <div key={idx} className="space-y-1">
                             <div className="flex justify-between items-center text-xs font-bold">
-                              <span className="text-slate-650">{item.label}</span>
+                              <span className="text-slate-600">{item.label}</span>
                               <span className="text-slate-800">{item.value} <span className="text-[10px] text-slate-400 font-semibold">Kasus</span></span>
                             </div>
-                            <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden border border-slate-150">
+                            <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden border border-slate-200">
                               <div className={`${item.color} h-full rounded-full transition-all duration-1000 ease-out`} style={{ width: `${pct}%` }} />
                             </div>
                           </div>
@@ -915,15 +942,15 @@ export default function AdminDashboard() {
                     {/* Dynamic Action widgets */}
                     <div className="grid grid-cols-3 gap-2.5 pt-1">
                       <div className="bg-blue-50/50 border border-blue-100 rounded-xl p-2 text-center">
-                        <span className="text-[8px] text-slate-450 font-extrabold uppercase tracking-wider block">Teguran Lisan</span>
+                        <span className="text-[8px] text-slate-400 font-extrabold uppercase tracking-wider block">Teguran Lisan</span>
                         <span className="text-base font-black text-blue-700 block mt-1">{actionsLisan}</span>
                       </div>
                       <div className="bg-amber-50/50 border border-amber-100 rounded-xl p-2 text-center">
-                        <span className="text-[8px] text-slate-450 font-extrabold uppercase tracking-wider block">Surat Peringatan</span>
+                        <span className="text-[8px] text-slate-400 font-extrabold uppercase tracking-wider block">Surat Peringatan</span>
                         <span className="text-base font-black text-amber-700 block mt-1">{actionsTertulis}</span>
                       </div>
                       <div className="bg-rose-50/50 border border-rose-100 rounded-xl p-2 text-center">
-                        <span className="text-[8px] text-slate-450 font-extrabold uppercase tracking-wider block">Penyitaan BB</span>
+                        <span className="text-[8px] text-slate-400 font-extrabold uppercase tracking-wider block">Penyitaan BB</span>
                         <span className="text-base font-black text-rose-700 block mt-1">{actionsSita}</span>
                       </div>
                     </div>
@@ -938,7 +965,7 @@ export default function AdminDashboard() {
                     <button
                       type="button"
                       onClick={() => {
-                        alert("Data Penertiban K3 berhasil diunduh ke perangkat Anda!");
+                        showAlert("Data Penertiban K3 berhasil diunduh ke perangkat Anda!", 'success');
                         const link = document.createElement('a');
                         link.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent('SIP POLPP Buleleng - Data Penertiban K3 Rekap');
                         link.download = 'Grafik_Penertiban_K3_Buleleng.txt';
@@ -968,12 +995,12 @@ export default function AdminDashboard() {
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-100 pb-4">
                   <div>
                     <h4 className="text-sm font-extrabold text-slate-800 leading-tight">Peta Spasial Skala Kecamatan (Kabupaten Buleleng)</h4>
-                    <p className="text-[10px] text-slate-450 font-bold uppercase tracking-wider mt-1">Gunakan kursor (hover) atau klik wilayah kecamatan untuk melihat detail statistik</p>
+                    <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mt-1">Gunakan kursor (hover) atau klik wilayah kecamatan untuk melihat detail statistik</p>
                   </div>
 
                   {/* Legend */}
-                  <div className="flex flex-wrap items-center gap-3.5 bg-slate-50 border border-slate-150 px-3.5 py-2 rounded-xl text-[10px] font-bold shadow-inner">
-                    <span className="text-slate-550 uppercase tracking-widest text-[9px] font-black mr-1">Legenda:</span>
+                  <div className="flex flex-wrap items-center gap-3.5 bg-slate-50 border border-slate-200 px-3.5 py-2 rounded-xl text-[10px] font-bold shadow-inner">
+                    <span className="text-slate-500 uppercase tracking-widest text-[9px] font-black mr-1">Legenda:</span>
                     <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-red-500 shadow-sm" /> Rawan Tinggi</span>
                     <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-orange-500 shadow-sm" /> Rawan Sedang</span>
                     <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-blue-500 shadow-sm" /> Aman</span>
@@ -1002,7 +1029,7 @@ export default function AdminDashboard() {
                     <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 text-left shadow-sm">
                       <div className="flex items-center gap-2 mb-2 pb-2 border-b border-slate-200">
                         <Info className="w-4 h-4 text-slate-500" />
-                        <h5 className="text-[10px] text-slate-450 font-extrabold uppercase tracking-widest leading-none">Detail Statistik Wilayah</h5>
+                        <h5 className="text-[10px] text-slate-400 font-extrabold uppercase tracking-widest leading-none">Detail Statistik Wilayah</h5>
                       </div>
 
                       {/* Highlight Area */}
@@ -1045,7 +1072,7 @@ export default function AdminDashboard() {
 
                       <div className="max-h-[220px] overflow-y-auto">
                         <table className="w-full text-xs font-bold text-slate-600 text-left border-collapse">
-                          <thead className="bg-slate-50 text-[9px] text-slate-450 font-black uppercase tracking-wider border-b border-slate-200 sticky top-0">
+                          <thead className="bg-slate-50 text-[9px] text-slate-400 font-black uppercase tracking-wider border-b border-slate-200 sticky top-0">
                             <tr>
                               <th className="px-3 py-2 border-r border-slate-200">Wilayah</th>
                               <th className="px-3 py-2 border-r border-slate-200">Status</th>
@@ -1090,7 +1117,7 @@ export default function AdminDashboard() {
                 </div>
 
                 {/* Map Footer Analytics */}
-                <div className="flex justify-between items-center border-t border-slate-150 pt-4 mt-2">
+                <div className="flex justify-between items-center border-t border-slate-200 pt-4 mt-2">
                   <span className="text-[9px] text-slate-400 font-bold tracking-wider italic select-none">
                     * Klik Wilayah atau Table Row untuk mengunci detail informasi di atas.
                   </span>
@@ -1118,16 +1145,16 @@ export default function AdminDashboard() {
 
                   {/* Personnel Summary Widget */}
                   <div className="space-y-3 border-r border-slate-100 pr-6">
-                    <h5 className="text-[10px] text-slate-450 font-extrabold uppercase tracking-widest block leading-none">Status Kekuatan Personel</h5>
+                    <h5 className="text-[10px] text-slate-400 font-extrabold uppercase tracking-widest block leading-none">Status Kekuatan Personel</h5>
 
                     <div className="bg-emerald-50 border border-emerald-100 rounded-xl p-3 flex items-center gap-3">
                       <div className="w-9 h-9 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0 shadow-sm">
                         <UserCheck className="w-4.5 h-4.5" />
                       </div>
                       <div>
-                        <span className="text-xs text-slate-450 font-bold block leading-none">Total Aktif</span>
+                        <span className="text-xs text-slate-400 font-bold block leading-none">Total Aktif</span>
                         <span className="text-lg font-black text-emerald-800 mt-1 inline-block leading-none">
-                          {totalLinmas} <span className="text-[10px] text-slate-450 font-bold">Anggota</span>
+                          {totalLinmas} <span className="text-[10px] text-slate-400 font-bold">Anggota</span>
                         </span>
                       </div>
                     </div>
@@ -1140,7 +1167,7 @@ export default function AdminDashboard() {
 
                   {/* Glassmorphic Equipment Assets Widget */}
                   <div className="md:col-span-2 space-y-3 text-left">
-                    <h5 className="text-[10px] text-slate-450 font-extrabold uppercase tracking-widest block leading-none">Inventaris & Sarpras Terdata</h5>
+                    <h5 className="text-[10px] text-slate-400 font-extrabold uppercase tracking-widest block leading-none">Inventaris & Sarpras Terdata</h5>
 
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                       <div className="bg-slate-50 border border-slate-200 rounded-xl p-2.5 shadow-sm">
@@ -1180,7 +1207,7 @@ export default function AdminDashboard() {
                 </div>
 
                 {/* Sub-districts List Progress Gauges */}
-                <div className="border border-slate-150 rounded-2xl p-5 bg-slate-50/50">
+                <div className="border border-slate-200 rounded-2xl p-5 bg-slate-50/50">
                   <h4 className="text-xs font-black text-slate-700 uppercase tracking-wider mb-4">Peta Sebaran Force Satlinmas per Kecamatan</h4>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4.5">
@@ -1214,10 +1241,10 @@ export default function AdminDashboard() {
                           </div>
 
                           <div className="space-y-1">
-                            <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden border border-slate-150">
+                            <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden border border-slate-200">
                               <div className="bg-emerald-500 h-full rounded-full transition-all duration-1000 ease-out" style={{ width: `${pct}%` }} />
                             </div>
-                            <div className="flex justify-between text-[9px] text-slate-450 font-bold">
+                            <div className="flex justify-between text-[9px] text-slate-400 font-bold">
                               <span>Pria: {totalPria}</span>
                               <span>Wanita: {totalWanita}</span>
                             </div>
@@ -1229,14 +1256,14 @@ export default function AdminDashboard() {
                 </div>
 
                 {/* Footer Sync */}
-                <div className="flex justify-between items-center border-t border-slate-150 pt-4">
+                <div className="flex justify-between items-center border-t border-slate-200 pt-4">
                   <span className="text-[9px] text-slate-400 font-bold tracking-wider italic select-none">
                     Data diambil dari Pendataan Terakhir Anggota Satlinmas Kabupaten Buleleng.
                   </span>
                   <button
                     type="button"
                     onClick={() => {
-                      alert("Data Sebaran Satlinmas Buleleng berhasil diunduh!");
+                      showAlert("Data Sebaran Satlinmas Buleleng berhasil diunduh!", 'success');
                       const link = document.createElement('a');
                       link.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent('SIP POLPP Buleleng - Data Satlinmas Force Sebaran');
                       link.download = 'Grafik_Satlinmas_Force_Buleleng.txt';
@@ -1264,7 +1291,7 @@ export default function AdminDashboard() {
 
                   {/* Left Column: Complaint Category Progress Pillars */}
                   <div className="space-y-3.5">
-                    <h5 className="text-[10px] text-slate-450 font-extrabold uppercase tracking-widest block leading-none">Distribusi Kasus per Bidang</h5>
+                    <h5 className="text-[10px] text-slate-400 font-extrabold uppercase tracking-widest block leading-none">Distribusi Kasus per Bidang</h5>
 
                     <div className="space-y-2.5">
                       {[
@@ -1275,10 +1302,10 @@ export default function AdminDashboard() {
                       ].map((item, idx) => (
                         <div key={idx} className="space-y-1">
                           <div className="flex justify-between text-xs font-bold">
-                            <span className="text-slate-650">{item.name}</span>
+                            <span className="text-slate-600">{item.name}</span>
                             <span className="text-slate-800">{item.count} <span className="text-[10px] text-slate-400 font-semibold">Tiket</span></span>
                           </div>
-                          <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden border border-slate-150">
+                          <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden border border-slate-200">
                             <div className={`${item.color} h-full rounded-full transition-all duration-1000 ease-out`} style={{ width: `${item.pct}%` }} />
                           </div>
                         </div>
@@ -1288,7 +1315,7 @@ export default function AdminDashboard() {
 
                   {/* Right Column: Urgency Circular Gauge */}
                   <div className="flex flex-col items-center border-l border-slate-100 pl-6 text-center space-y-4">
-                    <h5 className="text-[10px] text-slate-450 font-extrabold uppercase tracking-widest block leading-none">Rasio Kedaruratan Masuk</h5>
+                    <h5 className="text-[10px] text-slate-400 font-extrabold uppercase tracking-widest block leading-none">Rasio Kedaruratan Masuk</h5>
 
                     <UrgencyDonutChart
                       darurat={countDarurat}
@@ -1298,15 +1325,15 @@ export default function AdminDashboard() {
                     />
 
                     <div className="w-full grid grid-cols-3 gap-1.5 text-center text-[10px] font-bold text-slate-500">
-                      <div className="bg-red-50 text-red-750 border border-red-100 py-1.5 rounded-lg">
+                      <div className="bg-red-50 text-red-700 border border-red-100 py-1.5 rounded-lg">
                         <span className="block text-[8px] text-red-400 uppercase tracking-wider font-extrabold">Darurat</span>
                         {countDarurat} Tiket
                       </div>
-                      <div className="bg-amber-50 text-amber-750 border border-amber-100 py-1.5 rounded-lg">
+                      <div className="bg-amber-50 text-amber-700 border border-amber-100 py-1.5 rounded-lg">
                         <span className="block text-[8px] text-amber-400 uppercase tracking-wider font-extrabold">Sedang</span>
                         {countSedang} Tiket
                       </div>
-                      <div className="bg-emerald-50 text-emerald-750 border border-emerald-100 py-1.5 rounded-lg">
+                      <div className="bg-emerald-50 text-emerald-700 border border-emerald-100 py-1.5 rounded-lg">
                         <span className="block text-[8px] text-emerald-400 uppercase tracking-wider font-extrabold">Rendah</span>
                         {countRendah} Tiket
                       </div>
@@ -1323,13 +1350,13 @@ export default function AdminDashboard() {
                   <button
                     type="button"
                     onClick={() => {
-                      alert("Data Analisis Aduan Warga berhasil diunduh!");
+                      showAlert("Data Analisis Aduan Warga berhasil diunduh!", 'success');
                       const link = document.createElement('a');
                       link.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent('SIP POLPP Buleleng - Data Aspirasi Pengaduan Rekap');
                       link.download = 'Grafik_Aduan_Warga_Buleleng.txt';
                       link.click();
                     }}
-                    className="px-3.5 py-1.5 bg-[#8e2de2] hover:bg-[#7b23c9] text-white text-[10px] font-bold rounded-lg shadow-sm transition-all duration-200 flex items-center gap-1.5 cursor-pointer active:scale-95 border border-purple-650"
+                    className="px-3.5 py-1.5 bg-[#8e2de2] hover:bg-[#7b23c9] text-white text-[10px] font-bold rounded-lg shadow-sm transition-all duration-200 flex items-center gap-1.5 cursor-pointer active:scale-95 border border-purple-600"
                   >
                     Ekspor Data Analisis
                   </button>
@@ -1348,19 +1375,19 @@ export default function AdminDashboard() {
               <div className="bg-white rounded-r-2xl rounded-b-2xl rounded-tl-none border border-slate-200 shadow-md p-6 flex flex-col justify-between gap-6 relative min-h-[300px]">
                 {satpolKegiatanList.length === 0 ? (
                   <div className="text-center py-12 text-slate-500 space-y-2 border border-dashed border-slate-200 rounded-xl">
-                    <Info className="w-8 h-8 text-slate-350 mx-auto" />
-                    <p className="font-bold text-slate-650 text-xs">Belum ada log kegiatan terpadu terdata.</p>
-                    <p className="text-[10px] text-slate-450">Silakan input kegiatan baru melalui Portal Kegiatan.</p>
+                    <Info className="w-8 h-8 text-slate-400 mx-auto" />
+                    <p className="font-bold text-slate-600 text-xs">Belum ada log kegiatan terpadu terdata.</p>
+                    <p className="text-[10px] text-slate-400">Silakan input kegiatan baru melalui Portal Kegiatan.</p>
                   </div>
                 ) : (
                   <div className="space-y-4">
                     {/* Latest 6 activities */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {satpolKegiatanList.slice(0, 6).map((k) => {
-                        let badgeColor = "bg-slate-100 text-slate-750 border-slate-200";
+                        let badgeColor = "bg-slate-100 text-slate-700 border-slate-200";
                         if (k.bidang === 'Trantibum') badgeColor = "bg-orange-50 border border-orange-200 text-orange-850";
                         else if (k.bidang === 'Perada') badgeColor = "bg-blue-50 border border-blue-200 text-blue-850";
-                        else if (k.bidang === 'Linmas') badgeColor = "bg-emerald-50 border border-emerald-250 text-emerald-900";
+                        else if (k.bidang === 'Linmas') badgeColor = "bg-emerald-50 border border-emerald-200 text-emerald-900";
                         else if (k.bidang === 'SDA') badgeColor = "bg-purple-50 border border-purple-200 text-purple-900";
 
                         return (
@@ -1375,7 +1402,7 @@ export default function AdminDashboard() {
                             )}
                             <div className="flex-1 space-y-1.5 text-left">
                               <div className="flex justify-between items-start gap-2">
-                                <span className="text-[9px] font-mono font-black text-slate-500 bg-slate-100 border border-slate-250 px-1.5 py-0.2 rounded">
+                                <span className="text-[9px] font-mono font-black text-slate-500 bg-slate-100 border border-slate-200 px-1.5 py-0.2 rounded">
                                   {k.no_kegiatan}
                                 </span>
                                 <span className={`text-[8px] font-black uppercase px-2 py-0.2 rounded ${badgeColor}`}>
@@ -1387,7 +1414,7 @@ export default function AdminDashboard() {
                                 "{k.uraian_kegiatan}"
                               </p>
                               <div className="flex justify-between items-center text-[9px] text-slate-400 font-bold pt-1 border-t border-slate-100/80">
-                                <span className="flex items-center gap-1"><MapPin className="w-3 h-3 text-slate-350" /> {k.lokasi}</span>
+                                <span className="flex items-center gap-1"><MapPin className="w-3 h-3 text-slate-400" /> {k.lokasi}</span>
                                 <span>{new Date(k.tanggal_kegiatan).toLocaleDateString('id-ID', { dateStyle: 'medium' })}</span>
                               </div>
                             </div>
@@ -1414,7 +1441,7 @@ export default function AdminDashboard() {
                       type="button"
                       onClick={() => {
                         if (satpolKegiatanList.length === 0) {
-                          alert("Tidak ada data kegiatan untuk diekspor.");
+                          showAlert("Tidak ada data kegiatan untuk diekspor.", 'info');
                           return;
                         }
                         const headers = ["No. Jurnal", "Tanggal", "Bidang", "Jenis Kegiatan", "Lokasi", "Jumlah Personel", "Uraian Kegiatan"];
@@ -1495,22 +1522,22 @@ export default function AdminDashboard() {
                   {displayedReports.map((report) => (
                     <div
                       key={report.id_tiket}
-                      className="bg-slate-50 rounded-2xl border border-slate-200 p-5 md:p-6 grid grid-cols-1 md:grid-cols-3 gap-6 hover:border-slate-300 transition-all hover:bg-slate-50/70"
+                      className="bg-white hover:bg-slate-50/40 rounded-2xl border border-slate-200/80 p-5 md:p-6 grid grid-cols-1 md:grid-cols-3 gap-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-all duration-300"
                     >
 
                       {/* Kolom Kiri: Info Tiket & Pelapor */}
                       <div className="border-b md:border-b-0 md:border-r border-slate-200 pb-4 md:pb-0 md:pr-6 space-y-3 flex flex-col justify-between">
                         <div className="space-y-2">
                           <div className="flex items-center gap-2">
-                            <span className="text-xs font-mono font-black text-[#561C24] bg-red-50 border border-red-200 px-2.5 py-0.5 rounded select-text">
+                            <span className="text-xs font-mono font-bold text-[#561C24] bg-red-50 border border-red-200 px-2.5 py-0.5 rounded-md select-text">
                               {report.id_tiket}
                             </span>
                             {report.status_laporan === "Pending" ? (
-                              <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-amber-50 border border-amber-200 text-amber-600 animate-pulse">
+                              <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-amber-50 border border-amber-200 text-amber-700 animate-pulse">
                                 Pending
                               </span>
                             ) : (
-                              <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 border border-emerald-250 text-emerald-700">
+                              <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 border border-emerald-200 text-emerald-700">
                                 Disposisi
                               </span>
                             )}
@@ -1520,12 +1547,12 @@ export default function AdminDashboard() {
 
                           <div className="space-y-1 text-xs text-slate-500 font-medium">
                             <p>Pelapor: <span className="font-extrabold text-slate-700">{report.nama_pelapor}</span></p>
-                            <p>WhatsApp: <span className="font-extrabold text-slate-750">{report.nomor_whatsapp}</span></p>
+                            <p>WhatsApp: <span className="font-extrabold text-slate-700">{report.nomor_whatsapp}</span></p>
                           </div>
                         </div>
 
                         <div className="text-[10px] text-slate-400 flex items-center gap-1.5 font-bold pt-2 border-t border-slate-100/80">
-                          <Calendar className="w-3.5 h-3.5" />
+                          <Calendar className="w-3.5 h-3.5 text-slate-400" />
                           {new Date(report.waktu_kirim).toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' })}
                         </div>
                       </div>
@@ -1533,15 +1560,15 @@ export default function AdminDashboard() {
                       {/* Kolom Tengah: Deskripsi & Bukti Lampiran */}
                       <div className="flex flex-col justify-between space-y-4 md:px-2">
                         <div className="space-y-2">
-                          <span className="text-[9px] text-slate-400 font-extrabold uppercase tracking-wider block">Kronologi Kejadian</span>
-                          <p className="text-xs text-slate-650 italic leading-relaxed whitespace-pre-line select-text font-medium">
-                            "{report.kronologi}"
+                          <span className="text-[9px] text-slate-450 font-bold uppercase tracking-wider block">Kronologi Kejadian</span>
+                          <p className="text-xs text-slate-600 leading-relaxed whitespace-pre-line select-text font-medium">
+                            {report.kronologi}
                           </p>
                         </div>
 
                         {report.foto_bukti && (
                           <div className="space-y-1.5">
-                            <span className="text-[9px] text-slate-400 font-extrabold uppercase tracking-wider flex items-center gap-1">
+                            <span className="text-[9px] text-slate-450 font-bold uppercase tracking-wider flex items-center gap-1">
                               <ImageIcon className="w-3.5 h-3.5 text-[#561C24]" /> Foto Bukti Lampiran
                             </span>
                             <div
@@ -1562,17 +1589,17 @@ export default function AdminDashboard() {
                         <div className="pt-2">
                           <button
                             onClick={() => openMaps(report.latitude, report.longitude)}
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white hover:bg-slate-100 border border-slate-200 text-xs font-bold text-emerald-600 rounded-lg shadow-sm cursor-pointer transition-colors active:scale-[0.97]"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 text-xs font-bold text-emerald-700 rounded-lg shadow-sm cursor-pointer transition-colors active:scale-[0.97]"
                           >
-                            <MapPin className="w-3.5 h-3.5 text-emerald-500" /> Buka Google Maps
+                            <MapPin className="w-3.5 h-3.5 text-emerald-600" /> Buka Google Maps
                           </button>
                         </div>
                       </div>
 
                       {/* Kolom Kanan: Status & Aksi Disposisi */}
-                      <div className="bg-white border border-slate-200 p-4 rounded-xl flex flex-col justify-between gap-4 shadow-sm">
+                      <div className="bg-slate-50/55 border border-slate-200/80 p-4 rounded-xl flex flex-col justify-between gap-4 shadow-inner">
                         <div className="space-y-2">
-                          <span className="text-[9px] text-slate-400 font-extrabold uppercase tracking-wider block">Status Penanganan</span>
+                          <span className="text-[9px] text-slate-450 font-bold uppercase tracking-wider block">Status Penanganan</span>
 
                           {report.status_laporan === "Pending" ? (
                             <div className="space-y-1">
@@ -1590,22 +1617,22 @@ export default function AdminDashboard() {
                                 <span className="w-2 h-2 rounded-full bg-emerald-500" />
                                 Sudah Didisposisikan
                               </div>
-                              <p className="text-[10px] text-red-900 font-black uppercase tracking-wider mt-0.5 bg-red-50 border border-red-150 px-2 py-0.5 rounded w-fit">
+                              <p className="text-[10px] text-red-900 font-bold uppercase tracking-wider mt-0.5 bg-red-50 border border-red-200 px-2 py-0.5 rounded w-fit">
                                 {report.bidang_disposisi}
                               </p>
                               {report.disposisi && (
                                 <p className="text-[9px] text-slate-500 font-semibold leading-relaxed">
-                                  Oleh: <strong>{report.disposisi.nama_admin}</strong> | Urgensi: <span className={`font-bold ${report.disposisi.kedaruratan === 'Darurat' ? 'text-rose-600' : report.disposisi.kedaruratan === 'Sedang' ? 'text-amber-600' : 'text-emerald-600'}`}>{report.disposisi.kedaruratan}</span>
+                                  Oleh: <strong>{report.disposisi.nama_admin}</strong> | Urgensi: <span className={`font-bold ${report.disposisi.kedaruratan === 'Darurat' ? 'text-rose-600' : report.disposisi.kedaruratan === 'Sedang' ? 'text-amber-600' : 'text-emerald-650'}`}>{report.disposisi.kedaruratan}</span>
                                 </p>
                               )}
                             </div>
                           )}
                         </div>
 
-                        <div className="flex gap-2 pt-2.5 border-t border-slate-100">
+                        <div className="flex gap-2 pt-2.5 border-t border-slate-200">
                           <button
                             onClick={() => handleDeleteReport(report.id_tiket)}
-                            className="px-3 py-1.5 bg-white text-rose-600 border border-slate-200 hover:bg-rose-50 text-xs rounded-lg font-bold flex items-center justify-center gap-1 cursor-pointer transition-colors active:scale-[0.97]"
+                            className="px-3 py-1.5 bg-white text-rose-600 border border-slate-200 hover:bg-rose-50 hover:border-rose-200 text-xs rounded-lg font-bold flex items-center justify-center gap-1 cursor-pointer transition-colors active:scale-[0.97]"
                             title="Tolak / Hapus Laporan (Spam)"
                           >
                             <Trash2 className="w-3.5 h-3.5" /> Spam
@@ -1644,23 +1671,31 @@ export default function AdminDashboard() {
 
       {/* DISPOSISI MODAL OVERLAY */}
       {isModalOpen && selectedReport && (
-        <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto select-none">
+        <div className="fixed inset-0 bg-slate-950/60 backdrop-blur-md z-50 flex items-center justify-center p-4 overflow-y-auto select-none transition-all duration-300">
 
           {/* Modal Container */}
-          <div className="bg-white border border-slate-200 rounded-2xl max-w-xl w-full shadow-2xl relative z-10 transition-all duration-300 overflow-hidden font-sans text-left">
+          <div className="bg-white border border-slate-100 rounded-2xl max-w-xl w-full shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] relative z-10 transition-all duration-300 overflow-hidden font-sans text-left">
 
             {/* Modal Header */}
-            <div className="bg-[#561C24] text-white px-6 py-4 flex justify-between items-center shrink-0">
-              <div className="text-left">
-                <span className="text-sm font-black tracking-wider uppercase text-white block">
-                  {modalMode === 'create' ? "Formulir Disposisi Tugas Resmi" : "Lembar Disposisi Tugas Sah"}
-                </span>
-                <p className="text-[10px] text-rose-200/80 font-bold uppercase tracking-widest mt-0.5">SIP POLPP BULELENG</p>
+            <div className="bg-gradient-to-r from-[#561C24] via-[#6D2932] to-[#80424a] text-white px-6 py-5 flex justify-between items-center shrink-0 border-b border-[#C7B7A3]/20 relative">
+              {/* Glowing Decorative Backgrounds */}
+              <div className="absolute top-[-50px] right-[-50px] w-24 h-24 bg-white/10 rounded-full blur-lg pointer-events-none" />
+              
+              <div className="flex items-center gap-3 text-left">
+                <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center border border-white/20">
+                  <Shield className="w-4 h-4 text-[#E8D8C4] fill-[#E8D8C4]/10" />
+                </div>
+                <div>
+                  <span className="text-sm font-extrabold tracking-wider uppercase text-white block leading-tight">
+                    {modalMode === 'create' ? "Formulir Disposisi Tugas Resmi" : "Lembar Disposisi Tugas Sah"}
+                  </span>
+                  <p className="text-[9px] text-[#E8D8C4] font-bold uppercase tracking-widest mt-0.5">SIP POLPP BULELENG</p>
+                </div>
               </div>
               <button
                 type="button"
                 onClick={() => setIsModalOpen(false)}
-                className="p-1.5 hover:bg-white/10 text-white/80 hover:text-white rounded-full transition-colors cursor-pointer"
+                className="p-2 hover:bg-white/10 text-white/85 hover:text-white rounded-xl transition-all duration-200 cursor-pointer border border-transparent hover:border-white/10"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -1673,35 +1708,35 @@ export default function AdminDashboard() {
 
                 {/* 1. Nomor Urut Tugas & Nomor Tiket */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-1">
-                    <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
+                  <div className="space-y-1.5">
+                    <label className="text-[10px] font-extrabold text-slate-500 uppercase tracking-wider block">
                       1. Nomor Urut Tugas
                     </label>
                     <input
                       type="text"
                       readOnly
                       value={modalMode === 'create' ? "No. [Otomatis System]" : `No. ${String(selectedReport.disposisi?.no_urut || '').padStart(4, '0')}`}
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-[#0B1E43] font-mono font-bold outline-none cursor-not-allowed"
+                      className="w-full bg-slate-50/70 border border-slate-200/80 rounded-xl px-3 py-2.5 text-xs text-slate-800 font-mono font-bold outline-none cursor-not-allowed"
                     />
                   </div>
 
                   {/* 2. Nomor Tiket Aduan */}
-                  <div className="space-y-1">
-                    <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
+                  <div className="space-y-1.5">
+                    <label className="text-[10px] font-extrabold text-slate-500 uppercase tracking-wider block">
                       2. Nomor Tiket Aduan
                     </label>
                     <input
                       type="text"
                       readOnly
                       value={selectedReport.id_tiket}
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-[#0B1E43] font-mono font-bold outline-none cursor-not-allowed"
+                      className="w-full bg-slate-50/70 border border-slate-200/80 rounded-xl px-3 py-2.5 text-xs text-slate-800 font-mono font-bold outline-none cursor-not-allowed"
                     />
                   </div>
                 </div>
 
                 {/* 3. Nama Admin Pemeriksa */}
-                <div className="space-y-1 text-left">
-                  <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
+                <div className="space-y-1.5 text-left">
+                  <label className="text-[10px] font-extrabold text-slate-500 uppercase tracking-wider block">
                     3. Nama Admin Pemeriksa <span className="text-rose-500">*</span>
                   </label>
                   {modalMode === 'create' ? (
@@ -1712,8 +1747,9 @@ export default function AdminDashboard() {
                           setDisposisiForm(prev => ({ ...prev, namaAdmin: e.target.value }));
                           if (formErrors.namaAdmin) setFormErrors(prev => ({ ...prev, namaAdmin: null }));
                         }}
-                        className={`w-full bg-slate-50 rounded-xl px-3 py-2.5 text-xs font-semibold text-slate-800 outline-none border cursor-pointer ${formErrors.namaAdmin ? 'border-rose-300 focus:ring-1 focus:ring-rose-500' : 'border-slate-200 focus:bg-white focus:ring-1 focus:ring-[#0B1E43]'
-                          }`}
+                        className={`w-full bg-slate-50 rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-800 outline-none border transition-all cursor-pointer focus:bg-white focus:border-[#561C24] focus:ring-4 focus:ring-[#561C24]/10 ${
+                          formErrors.namaAdmin ? 'border-rose-300 focus:ring-1 focus:ring-rose-500' : 'border-slate-200'
+                        }`}
                       >
                         <option value="" disabled>-- Pilih Nama Admin --</option>
                         <option value="Putu Wijaya">Putu Wijaya (Admin Utama)</option>
@@ -1732,33 +1768,33 @@ export default function AdminDashboard() {
                       type="text"
                       readOnly
                       value={selectedReport.disposisi?.nama_admin || ''}
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-700 outline-none cursor-not-allowed font-semibold"
+                      className="w-full bg-slate-50/70 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-700 outline-none cursor-not-allowed font-semibold"
                     />
                   )}
                 </div>
 
                 {/* 4. Waktu Verifikasi */}
-                <div className="space-y-1">
-                  <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-extrabold text-slate-500 uppercase tracking-wider block">
                     4. Waktu Verifikasi
                   </label>
                   <input
                     type="text"
                     readOnly
                     value={new Date(modalMode === 'create' ? disposisiForm.waktuVerifikasi : (selectedReport.disposisi?.waktu_verifikasi || new Date())).toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'medium' })}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-550 outline-none cursor-not-allowed font-semibold"
+                    className="w-full bg-slate-50/70 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-500 outline-none cursor-not-allowed font-bold"
                   />
                 </div>
 
                 {/* 5. Diteruskan ke Bidang */}
-                <div className="space-y-1.5 text-left">
-                  <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
+                <div className="space-y-2 text-left">
+                  <label className="text-[10px] font-extrabold text-slate-500 uppercase tracking-wider block">
                     5. Diteruskan ke Bidang <span className="text-rose-500">*</span>
                   </label>
 
                   {modalMode === 'create' ? (
                     <>
-                      <div className="flex flex-col gap-2 bg-slate-50 p-3 rounded-xl border border-slate-200">
+                      <div className="flex flex-col gap-2 bg-slate-50/70 p-3 rounded-2xl border border-slate-200">
                         {[
                           { id: "Bidang Linmas", label: "Bidang Perlindungan Masyarakat (Linmas)" },
                           { id: "Bidang Trantib", label: "Bidang Ketertiban Umum & K3 (Trantib)" },
@@ -1767,10 +1803,11 @@ export default function AdminDashboard() {
                         ].map((bidang) => (
                           <label
                             key={bidang.id}
-                            className={`flex items-center gap-3 px-3 py-2.5 rounded-lg border transition-all cursor-pointer select-none ${disposisiForm.bidangTujuan === bidang.id
-                                ? 'bg-white border-[#561C24] shadow-sm'
-                                : 'bg-white/60 border-slate-200 hover:border-slate-350 hover:bg-white'
-                              }`}
+                            className={`flex items-center gap-3 px-4 py-3 rounded-xl border transition-all duration-200 cursor-pointer select-none ${
+                              disposisiForm.bidangTujuan === bidang.id
+                                ? 'bg-white border-[#561C24] text-[#561C24] shadow-sm ring-1 ring-[#561C24]/10 font-bold scale-[1.01]'
+                                : 'bg-white/60 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-white hover:text-slate-800'
+                            }`}
                           >
                             <input
                               type="radio"
@@ -1781,9 +1818,9 @@ export default function AdminDashboard() {
                                 setDisposisiForm(prev => ({ ...prev, bidangTujuan: bidang.id }));
                                 if (formErrors.bidangTujuan) setFormErrors(prev => ({ ...prev, bidangTujuan: null }));
                               }}
-                              className="w-4 h-4 text-[#561C24] border-slate-300 focus:ring-[#561C24] cursor-pointer"
+                              className="w-4.5 h-4.5 text-[#561C24] border-slate-300 focus:ring-[#561C24] accent-[#561C24] cursor-pointer"
                             />
-                            <span className={`text-xs font-bold ${disposisiForm.bidangTujuan === bidang.id ? 'text-[#561C24]' : 'text-slate-600'}`}>
+                            <span className="text-xs">
                               {bidang.label}
                             </span>
                           </label>
@@ -1796,53 +1833,56 @@ export default function AdminDashboard() {
                       )}
                     </>
                   ) : (
-                    <div className="px-3 py-2 bg-rose-50 border border-rose-200 rounded-xl text-xs font-black text-[#561C24]">
+                    <div className="px-4 py-2.5 bg-red-50 border border-red-200 rounded-xl text-xs font-bold text-[#561C24] w-fit">
                       {selectedReport.disposisi?.bidang_tujuan}
                     </div>
                   )}
                 </div>
 
                 {/* 6. Tingkat Kedaruratan */}
-                <div className="space-y-1.5 text-left">
-                  <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
+                <div className="space-y-2 text-left">
+                  <label className="text-[10px] font-extrabold text-slate-500 uppercase tracking-wider block">
                     6. Tingkat Kedaruratan
                   </label>
 
                   {modalMode === 'create' ? (
-                    <div className="flex gap-3 bg-slate-50 p-3 rounded-xl border border-slate-200">
+                    <div className="flex gap-3 bg-slate-50/70 p-3 rounded-2xl border border-slate-200">
                       {[
-                        { id: "Rendah", label: "Rendah", colorClass: "text-emerald-600 bg-emerald-50/50" },
-                        { id: "Sedang", label: "Sedang", colorClass: "text-amber-600 bg-amber-50/50" },
-                        { id: "Darurat", label: "Darurat", colorClass: "text-rose-600 bg-rose-50/50" },
-                      ].map((level) => (
-                        <label
-                          key={level.id}
-                          className={`flex-1 flex items-center gap-2.5 px-3 py-2 bg-white rounded-lg border transition-all cursor-pointer select-none ${disposisiForm.kedaruratan === level.id
-                              ? 'border-[#561C24] shadow-sm bg-white'
-                              : 'border-slate-200 hover:border-slate-350 bg-white/60'
+                        { id: "Rendah", label: "Rendah", colorClass: "text-emerald-700 bg-emerald-50 border-emerald-100", activeClass: "border-emerald-500 bg-emerald-50/70 ring-1 ring-emerald-500/10 scale-[1.02] shadow-sm font-bold" },
+                        { id: "Sedang", label: "Sedang", colorClass: "text-amber-700 bg-amber-50 border-amber-100", activeClass: "border-amber-500 bg-amber-50/70 ring-1 ring-amber-500/10 scale-[1.02] shadow-sm font-bold" },
+                        { id: "Darurat", label: "Darurat", colorClass: "text-rose-700 bg-rose-50 border-rose-100", activeClass: "border-rose-500 bg-rose-50/70 ring-1 ring-rose-500/10 scale-[1.02] shadow-sm font-bold" },
+                      ].map((level) => {
+                        const isSelected = disposisiForm.kedaruratan === level.id;
+                        return (
+                          <label
+                            key={level.id}
+                            className={`flex-1 flex items-center justify-center gap-2 px-3 py-3 rounded-xl border transition-all duration-200 cursor-pointer select-none ${
+                              isSelected ? level.activeClass : 'bg-white border-slate-200 hover:border-slate-350 bg-white/60'
                             }`}
-                        >
-                          <input
-                            type="radio"
-                            name="kedaruratan"
-                            value={level.id}
-                            checked={disposisiForm.kedaruratan === level.id}
-                            onChange={() => setDisposisiForm(prev => ({ ...prev, kedaruratan: level.id }))}
-                            className="w-4 h-4 text-[#561C24] border-slate-300 focus:ring-[#561C24] cursor-pointer"
-                          />
-                          <span className={`text-[11px] font-black ${level.colorClass} px-2 py-0.5 rounded`}>
-                            {level.label}
-                          </span>
-                        </label>
-                      ))}
+                          >
+                            <input
+                              type="radio"
+                              name="kedaruratan"
+                              value={level.id}
+                              checked={isSelected}
+                              onChange={() => setDisposisiForm(prev => ({ ...prev, kedaruratan: level.id }))}
+                              className="w-4 h-4 text-[#561C24] border-slate-300 focus:ring-[#561C24] accent-[#561C24] cursor-pointer"
+                            />
+                            <span className={`text-xs px-2 py-0.5 rounded-lg border font-bold ${level.colorClass}`}>
+                              {level.label}
+                            </span>
+                          </label>
+                        );
+                      })}
                     </div>
                   ) : (
-                    <div className={`w-fit px-3 py-1 rounded-full text-xs font-bold border ${selectedReport.disposisi?.kedaruratan === 'Darurat'
-                        ? 'bg-rose-50 border-rose-200 text-rose-700'
+                    <div className={`w-fit px-3 py-1.5 rounded-full text-xs font-bold border shadow-sm ${
+                      selectedReport.disposisi?.kedaruratan === 'Darurat'
+                        ? 'bg-rose-50 border-rose-200 text-rose-700 shadow-rose-100/50'
                         : selectedReport.disposisi?.kedaruratan === 'Sedang'
-                          ? 'bg-amber-50 border-amber-200 text-amber-700'
-                          : 'bg-emerald-50 border-emerald-200 text-emerald-700'
-                      }`}>
+                          ? 'bg-amber-50 border-amber-200 text-amber-700 shadow-amber-100/50'
+                          : 'bg-emerald-50 border-emerald-200 text-emerald-700 shadow-emerald-100/50'
+                    }`}>
                       Urgensi: {selectedReport.disposisi?.kedaruratan}
                     </div>
                   )}
@@ -1850,7 +1890,7 @@ export default function AdminDashboard() {
 
                 {/* 7. Catatan/Perintah Tambahan */}
                 <div className="space-y-2 text-left">
-                  <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
+                  <label className="text-[10px] font-extrabold text-slate-500 uppercase tracking-wider block">
                     7. Catatan / Arahan Tambahan <span className="text-rose-500">*</span>
                   </label>
 
@@ -1864,14 +1904,15 @@ export default function AdminDashboard() {
                           setDisposisiForm(prev => ({ ...prev, catatan: e.target.value }));
                           if (formErrors.catatan) setFormErrors(prev => ({ ...prev, catatan: null }));
                         }}
-                        className={`w-full bg-slate-50 rounded-xl px-3 py-2.5 text-xs text-slate-800 outline-none border resize-y ${formErrors.catatan ? 'border-rose-300 focus:ring-1 focus:ring-rose-500' : 'border-slate-200 focus:bg-white focus:ring-1 focus:ring-[#561C24]'
-                          }`}
+                        className={`w-full bg-slate-50 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none border transition-all resize-y focus:bg-white focus:border-[#561C24] focus:ring-4 focus:ring-[#561C24]/10 ${
+                          formErrors.catatan ? 'border-rose-300 focus:ring-1 focus:ring-rose-500' : 'border-slate-200'
+                        }`}
                       />
 
                       {/* Arahan Cepat */}
                       <div className="space-y-1.5">
-                        <span className="text-[9px] text-slate-400 font-bold block">Klik Arahan Cepat:</span>
-                        <div className="flex flex-wrap gap-1.5">
+                        <span className="text-[9px] text-slate-400 font-extrabold block">Klik Arahan Cepat:</span>
+                        <div className="flex flex-wrap gap-2">
                           {QUICK_TEMPLATES.map((tmpl, idx) => (
                             <button
                               key={idx}
@@ -1880,7 +1921,7 @@ export default function AdminDashboard() {
                                 setDisposisiForm(prev => ({ ...prev, catatan: tmpl }));
                                 if (formErrors.catatan) setFormErrors(prev => ({ ...prev, catatan: null }));
                               }}
-                              className="text-[9px] bg-slate-50 hover:bg-slate-100 text-slate-500 hover:text-slate-700 px-2 py-1 rounded border border-slate-200 text-left transition-colors truncate max-w-full cursor-pointer font-bold"
+                              className="text-[10px] bg-slate-50 hover:bg-[#561C24]/5 border border-slate-200 hover:border-[#561C24]/30 text-slate-600 hover:text-[#561C24] px-2.5 py-1.5 rounded-lg text-left transition-all truncate max-w-full cursor-pointer font-bold active:scale-[0.97]"
                               title={tmpl}
                             >
                               Template {idx + 1}
@@ -1896,22 +1937,22 @@ export default function AdminDashboard() {
                       )}
                     </>
                   ) : (
-                    <div className="bg-slate-50 border border-slate-200 p-4 rounded-xl text-xs text-slate-650 italic leading-relaxed border-l-4 border-l-[#561C24] select-text font-medium">
+                    <div className="bg-slate-50 border border-slate-200 p-4 rounded-xl text-xs text-slate-600 italic leading-relaxed border-l-4 border-l-[#561C24] select-text font-medium">
                       "{selectedReport.disposisi?.catatan}"
                     </div>
                   )}
                 </div>
 
                 {/* 8. Waktu Tugas Dikirim */}
-                <div className="space-y-1">
-                  <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-extrabold text-slate-500 uppercase tracking-wider block">
                     8. Waktu Tugas Dikirim
                   </label>
                   <input
                     type="text"
                     readOnly
                     value={modalMode === 'create' ? "Otomatis tercatat saat tugas dikirim" : new Date(selectedReport.disposisi?.waktu_dikirim || new Date()).toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'medium' })}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-400 outline-none cursor-not-allowed font-semibold"
+                    className="w-full bg-slate-50/70 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-450 outline-none cursor-not-allowed font-bold"
                   />
                 </div>
 
@@ -1922,7 +1963,7 @@ export default function AdminDashboard() {
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 rounded-lg text-xs font-bold transition-all cursor-pointer active:scale-[0.97]"
+                  className="px-4.5 py-2 bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 hover:text-slate-800 rounded-lg text-xs font-bold transition-all duration-200 cursor-pointer active:scale-[0.97]"
                 >
                   {modalMode === 'create' ? "Batal" : "Tutup Lembar"}
                 </button>
@@ -1931,7 +1972,7 @@ export default function AdminDashboard() {
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="px-5 py-2 bg-[#561C24] hover:bg-[#6D2932] text-white rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 disabled:opacity-50 cursor-pointer active:scale-[0.97]"
+                    className="px-5 py-2 bg-gradient-to-r from-[#561C24] to-[#6D2932] hover:from-[#6D2932] hover:to-[#80424a] text-white rounded-lg text-xs font-extrabold transition-all flex items-center gap-1.5 disabled:opacity-50 cursor-pointer active:scale-[0.97] shadow-md shadow-[#561C24]/10 hover:shadow-lg"
                   >
                     {submitting ? (
                       <>
@@ -1939,11 +1980,12 @@ export default function AdminDashboard() {
                           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
-                        Mengirim Tugas...
+                        <span>Mengirim Tugas...</span>
                       </>
                     ) : (
                       <>
-                        Kirim Tugas <ArrowRightCircle className="w-3.5 h-3.5 text-[#E8D8C4]" />
+                        <span>Kirim Tugas</span>
+                        <ArrowRightCircle className="w-4 h-4 text-[#E8D8C4]" />
                       </>
                     )}
                   </button>
@@ -1974,6 +2016,83 @@ export default function AdminDashboard() {
             >
               <X className="w-5 h-5" />
             </button>
+          </div>
+        </div>
+      )}
+
+      {/* CUSTOM NOTIFICATION MODAL OVERLAY */}
+      {notification && (
+        <div className="fixed inset-0 bg-slate-950/60 backdrop-blur-md z-[100] flex items-center justify-center p-4 select-none animate-fadeIn">
+          <div className={`bg-white border border-slate-100 rounded-2xl max-w-sm w-full shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] overflow-hidden font-sans p-6 text-center space-y-4 border-t-4 ${
+            notification.type === 'success' ? 'border-t-emerald-500' :
+            notification.type === 'error' ? 'border-t-rose-500' :
+            notification.type === 'info' ? 'border-t-blue-500' :
+            'border-t-amber-500'
+          }`}>
+            <div className="flex justify-center">
+              {notification.type === 'success' && (
+                <div className="w-14 h-14 rounded-full bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600">
+                  <Check className="w-7 h-7" />
+                </div>
+              )}
+              {notification.type === 'error' && (
+                <div className="w-14 h-14 rounded-full bg-rose-50 border border-rose-100 flex items-center justify-center text-rose-600">
+                  <AlertTriangle className="w-7 h-7" />
+                </div>
+              )}
+              {notification.type === 'info' && (
+                <div className="w-14 h-14 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600">
+                  <Info className="w-7 h-7" />
+                </div>
+              )}
+              {notification.type === 'confirm' && (
+                <div className="w-14 h-14 rounded-full bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-600">
+                  <AlertTriangle className="w-7 h-7" />
+                </div>
+              )}
+            </div>
+
+            <div className="space-y-1.5">
+              <h4 className="text-sm font-extrabold text-slate-800 uppercase tracking-wider">
+                {notification.type === 'confirm' ? 'Konfirmasi Tindakan' : 'Informasi Sistem'}
+              </h4>
+              <p className="text-xs text-slate-500 font-semibold leading-relaxed whitespace-pre-line">
+                {notification.message}
+              </p>
+            </div>
+
+            <div className="flex gap-2.5 pt-2">
+              {notification.type === 'confirm' ? (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => setNotification(null)}
+                    className="flex-1 py-2 bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 rounded-lg text-xs font-bold transition-all cursor-pointer active:scale-95"
+                  >
+                    Batal
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const callback = notification.onConfirm;
+                      setNotification(null);
+                      if (callback) callback();
+                    }}
+                    className="flex-1 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-lg text-xs font-bold transition-all cursor-pointer active:scale-95 shadow-sm hover:shadow"
+                  >
+                    Hapus
+                  </button>
+                </>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setNotification(null)}
+                  className="w-full py-2 bg-[#561C24] hover:bg-[#6D2932] text-white rounded-lg text-xs font-bold transition-all cursor-pointer active:scale-95 shadow-sm hover:shadow"
+                >
+                  OK
+                </button>
+              )}
+            </div>
           </div>
         </div>
       )}
