@@ -68,6 +68,15 @@ const DIKLAT_COURSES = [
 export default function SdaAdmin() {
   const [activeTab, setActiveTab] = useState('personel');
   const [loading, setLoading] = useState(false);
+  const [notification, setNotification] = useState(null); // { type, message, onConfirm }
+
+  const showAlert = (message, type = 'success') => {
+    setNotification({ type, message });
+  };
+
+  const showConfirm = (message, onConfirm) => {
+    setNotification({ type: 'confirm', message, onConfirm });
+  };
 
   // Core Data States
   const [personelList, setPersonelList] = useState([]);
@@ -190,7 +199,7 @@ export default function SdaAdmin() {
   // Download PDF from Base64
   const downloadBase64Pdf = (base64String, filename) => {
     if (!base64String) {
-      alert("Berkas PDF tidak tersedia.");
+      showAlert("Berkas PDF tidak tersedia.", 'info');
       return;
     }
     try {
@@ -202,7 +211,7 @@ export default function SdaAdmin() {
       document.body.removeChild(link);
     } catch (err) {
       console.error("Gagal mengunduh PDF:", err);
-      alert("Terjadi kesalahan saat mengunduh file.");
+      showAlert("Terjadi kesalahan saat mengunduh file.", 'error');
     }
   };
 
@@ -211,12 +220,12 @@ export default function SdaAdmin() {
     const file = e.target.files[0];
     if (!file) return;
     if (file.type !== 'application/pdf') {
-      alert("Hanya file dokumen PDF yang diperbolehkan.");
+      showAlert("Hanya file dokumen PDF yang diperbolehkan.", 'error');
       e.target.value = null;
       return;
     }
     if (file.size > 3 * 1024 * 1024) {
-      alert("Ukuran file melebihi batas 3MB.");
+      showAlert("Ukuran file melebihi batas 3MB.", 'error');
       e.target.value = null;
       return;
     }
@@ -236,12 +245,12 @@ export default function SdaAdmin() {
     const file = e.target.files[0];
     if (!file) return;
     if (!file.type.startsWith('image/')) {
-      alert("Hanya file gambar yang diperbolehkan.");
+      showAlert("Hanya file gambar yang diperbolehkan.", 'error');
       e.target.value = null;
       return;
     }
     if (file.size > 2 * 1024 * 1024) {
-      alert("Ukuran file gambar melebihi batas 2MB.");
+      showAlert("Ukuran file gambar melebihi batas 2MB.", 'error');
       e.target.value = null;
       return;
     }
@@ -288,7 +297,7 @@ export default function SdaAdmin() {
   const handlePersonelSubmit = async (e) => {
     e.preventDefault();
     if (!personelForm.nip_kontrak || !personelForm.nama_lengkap) {
-      alert("NIP/Nomor Kontrak dan Nama Lengkap wajib diisi.");
+      showAlert("NIP/Nomor Kontrak dan Nama Lengkap wajib diisi.", 'error');
       return;
     }
 
@@ -302,33 +311,35 @@ export default function SdaAdmin() {
 
       const data = await res.json();
       if (res.ok) {
-        alert(data.message || "Data personel berhasil disimpan.");
+        showAlert(data.message || "Data personel berhasil disimpan.", 'success');
         setIsPersonelModalOpen(false);
         fetchPersonel();
       } else {
-        alert(data.error || "Gagal menyimpan data.");
+        showAlert(data.error || "Gagal menyimpan data.", 'error');
       }
     } catch (err) {
       console.error(err);
-      alert("Terjadi kesalahan jaringan.");
+      showAlert("Terjadi kesalahan jaringan.", 'error');
     }
   };
 
-  const handleDeletePersonel = async (id) => {
-    if (!confirm("Apakah Anda yakin ingin menghapus data personel ini?")) return;
-    try {
-      const res = await fetch(`/api/sda/personel?id=${id}`, {
-        method: 'DELETE',
-      });
-      if (res.ok) {
-        alert("Data personel berhasil dihapus.");
-        fetchPersonel();
-      } else {
-        alert("Gagal menghapus data.");
+  const handleDeletePersonel = (id) => {
+    showConfirm("Apakah Anda yakin ingin menghapus data personel ini?\n(Tindakan ini tidak dapat dibatalkan)", async () => {
+      try {
+        const res = await fetch(`/api/sda/personel?id=${id}`, {
+          method: 'DELETE',
+        });
+        if (res.ok) {
+          showAlert("Data personel berhasil dihapus.", 'success');
+          fetchPersonel();
+        } else {
+          showAlert("Gagal menghapus data.", 'error');
+        }
+      } catch (err) {
+        console.error(err);
+        showAlert("Terjadi kesalahan jaringan.", 'error');
       }
-    } catch (err) {
-      console.error(err);
-    }
+    });
   };
 
   // -------------------- TAB 2: KEGIATAN SUBMITS --------------------
@@ -360,7 +371,7 @@ export default function SdaAdmin() {
   const handleKegiatanSubmit = async (e) => {
     e.preventDefault();
     if (!kegiatanForm.tanggal_pelaksanaan || !kegiatanForm.nama_agenda || !kegiatanForm.lokasi_sasaran || !kegiatanForm.ringkasan_materi) {
-      alert("Harap isi semua field wajib (Tanggal, Agenda, Sasaran, Ringkasan Materi).");
+      showAlert("Harap isi semua field wajib (Tanggal, Agenda, Sasaran, Ringkasan Materi).", 'error');
       return;
     }
 
@@ -374,33 +385,35 @@ export default function SdaAdmin() {
 
       const data = await res.json();
       if (res.ok) {
-        alert(data.message || "Log kegiatan SDA berhasil disimpan.");
+        showAlert(data.message || "Log kegiatan SDA berhasil disimpan.", 'success');
         setIsKegiatanModalOpen(false);
         fetchKegiatan();
       } else {
-        alert(data.error || "Gagal menyimpan log.");
+        showAlert(data.error || "Gagal menyimpan log.", 'error');
       }
     } catch (err) {
       console.error(err);
-      alert("Terjadi kesalahan jaringan.");
+      showAlert("Terjadi kesalahan jaringan.", 'error');
     }
   };
 
-  const handleDeleteKegiatan = async (id) => {
-    if (!confirm("Apakah Anda yakin ingin menghapus log kegiatan ini?")) return;
-    try {
-      const res = await fetch(`/api/sda/kegiatan?id=${id}`, {
-        method: 'DELETE',
-      });
-      if (res.ok) {
-        alert("Log kegiatan berhasil dihapus.");
-        fetchKegiatan();
-      } else {
-        alert("Gagal menghapus log.");
+  const handleDeleteKegiatan = (id) => {
+    showConfirm("Apakah Anda yakin ingin menghapus log kegiatan ini?\n(Tindakan ini tidak dapat dibatalkan)", async () => {
+      try {
+        const res = await fetch(`/api/sda/kegiatan?id=${id}`, {
+          method: 'DELETE',
+        });
+        if (res.ok) {
+          showAlert("Log kegiatan berhasil dihapus.", 'success');
+          fetchKegiatan();
+        } else {
+          showAlert("Gagal menghapus log.", 'error');
+        }
+      } catch (err) {
+        console.error(err);
+        showAlert("Terjadi kesalahan jaringan.", 'error');
       }
-    } catch (err) {
-      console.error(err);
-    }
+    });
   };
 
   // -------------------- TAB 3: PUSTAKA SUBMITS --------------------
@@ -431,11 +444,11 @@ export default function SdaAdmin() {
   const handlePustakaSubmit = async (e) => {
     e.preventDefault();
     if (!pustakaForm.judul_dokumen || !pustakaForm.jenis_aturan || !pustakaForm.nomor_tahun_aturan || !pustakaForm.instansi_penerbit || !pustakaForm.ringkasan_aturan) {
-      alert("Harap lengkapi seluruh field wajib.");
+      showAlert("Harap lengkapi seluruh field wajib.", 'error');
       return;
     }
     if (pustakaFormMode === 'create' && !pustakaForm.berkas_pdf) {
-      alert("Berkas PDF aturan wajib diunggah.");
+      showAlert("Berkas PDF aturan wajib diunggah.", 'error');
       return;
     }
 
@@ -449,33 +462,35 @@ export default function SdaAdmin() {
 
       const data = await res.json();
       if (res.ok) {
-        alert(data.message || "Dokumen aturan berhasil diarsipkan.");
+        showAlert(data.message || "Dokumen aturan berhasil diarsipkan.", 'success');
         setIsPustakaModalOpen(false);
         fetchPustaka();
       } else {
-        alert(data.error || "Gagal menyimpan berkas.");
+        showAlert(data.error || "Gagal menyimpan berkas.", 'error');
       }
     } catch (err) {
       console.error(err);
-      alert("Terjadi kesalahan jaringan.");
+      showAlert("Terjadi kesalahan jaringan.", 'error');
     }
   };
 
-  const handleDeletePustaka = async (id) => {
-    if (!confirm("Hapus berkas aturan hukum ini dari arsip digital?")) return;
-    try {
-      const res = await fetch(`/api/sda/pustaka?id=${id}`, {
-        method: 'DELETE',
-      });
-      if (res.ok) {
-        alert("Dokumen berhasil dihapus dari arsip.");
-        fetchPustaka();
-      } else {
-        alert("Gagal menghapus dokumen.");
+  const handleDeletePustaka = (id) => {
+    showConfirm("Hapus berkas aturan hukum ini dari arsip digital?\n(Tindakan ini tidak dapat dibatalkan)", async () => {
+      try {
+        const res = await fetch(`/api/sda/pustaka?id=${id}`, {
+          method: 'DELETE',
+        });
+        if (res.ok) {
+          showAlert("Dokumen berhasil dihapus dari arsip.", 'success');
+          fetchPustaka();
+        } else {
+          showAlert("Gagal menghapus dokumen.", 'error');
+        }
+      } catch (err) {
+        console.error(err);
+        showAlert("Terjadi kesalahan jaringan.", 'error');
       }
-    } catch (err) {
-      console.error(err);
-    }
+    });
   };
 
   // -------------------- SEARCH & FILTER LOGIC --------------------
@@ -588,7 +603,7 @@ export default function SdaAdmin() {
           
           <div className="flex items-center gap-4">
             <button 
-              onClick={() => alert("Fitur Mode Malam akan segera hadir!")}
+              onClick={() => showAlert("Fitur Mode Malam akan segera hadir!", 'info')}
               className="p-2.5 bg-white/10 hover:bg-white/20 rounded-full transition-all text-white border border-white/20 active:scale-95 cursor-pointer"
               title="Toggle Night Mode"
               type="button"
@@ -1799,6 +1814,83 @@ export default function SdaAdmin() {
             </div>
             <div className="py-3 px-6 bg-slate-50 text-slate-650 text-xs font-bold text-center w-full border-t border-slate-200">
               Bukti Foto Dokumentasi Kegiatan Lapangan SDA
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* CUSTOM NOTIFICATION MODAL OVERLAY */}
+      {notification && (
+        <div className="fixed inset-0 bg-slate-950/60 backdrop-blur-md z-[100] flex items-center justify-center p-4 select-none animate-fadeIn">
+          <div className={`bg-white border border-slate-100 rounded-2xl max-w-sm w-full shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] overflow-hidden font-sans p-6 text-center space-y-4 border-t-4 ${
+            notification.type === 'success' ? 'border-t-emerald-500' :
+            notification.type === 'error' ? 'border-t-rose-500' :
+            notification.type === 'info' ? 'border-t-blue-500' :
+            'border-t-amber-500'
+          }`}>
+            <div className="flex justify-center">
+              {notification.type === 'success' && (
+                <div className="w-14 h-14 rounded-full bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600">
+                  <Check className="w-7 h-7" />
+                </div>
+              )}
+              {notification.type === 'error' && (
+                <div className="w-14 h-14 rounded-full bg-rose-50 border border-rose-100 flex items-center justify-center text-rose-600">
+                  <AlertTriangle className="w-7 h-7" />
+                </div>
+              )}
+              {notification.type === 'info' && (
+                <div className="w-14 h-14 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600">
+                  <Info className="w-7 h-7" />
+                </div>
+              )}
+              {notification.type === 'confirm' && (
+                <div className="w-14 h-14 rounded-full bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-600">
+                  <AlertTriangle className="w-7 h-7" />
+                </div>
+              )}
+            </div>
+
+            <div className="space-y-1.5">
+              <h4 className="text-sm font-extrabold text-slate-800 uppercase tracking-wider">
+                {notification.type === 'confirm' ? 'Konfirmasi Tindakan' : 'Informasi Sistem'}
+              </h4>
+              <p className="text-xs text-slate-500 font-semibold leading-relaxed whitespace-pre-line">
+                {notification.message}
+              </p>
+            </div>
+
+            <div className="flex gap-2.5 pt-2">
+              {notification.type === 'confirm' ? (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => setNotification(null)}
+                    className="flex-1 py-2 bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 rounded-lg text-xs font-bold transition-all cursor-pointer active:scale-95"
+                  >
+                    Batal
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const callback = notification.onConfirm;
+                      setNotification(null);
+                      if (callback) callback();
+                    }}
+                    className="flex-1 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-lg text-xs font-bold transition-all cursor-pointer active:scale-95 shadow-sm hover:shadow"
+                  >
+                    Hapus
+                  </button>
+                </>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setNotification(null)}
+                  className="w-full py-2 bg-[#561C24] hover:bg-[#6D2932] text-white rounded-lg text-xs font-bold transition-all cursor-pointer active:scale-95 shadow-sm hover:shadow"
+                >
+                  OK
+                </button>
+              )}
             </div>
           </div>
         </div>

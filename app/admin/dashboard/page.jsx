@@ -549,8 +549,8 @@ export default function AdminDashboard() {
                 window.history.pushState(null, '', '/admin/dashboard?tab=dashboard');
               }}
               className={`px-4 py-4 text-xs uppercase tracking-wider flex items-center gap-1.5 cursor-pointer transition-all outline-none ${currentSubTab === 'dashboard'
-                  ? 'text-[#561C24] bg-[#561C24]/5 border-b-2 border-[#561C24] font-black'
-                  : 'text-slate-500 hover:text-[#561C24] hover:bg-slate-50 font-bold'
+                ? 'text-[#561C24] bg-[#561C24]/5 border-b-2 border-[#561C24] font-black'
+                : 'text-slate-500 hover:text-[#561C24] hover:bg-slate-50 font-bold'
                 }`}
             >
               Dashboard
@@ -562,8 +562,8 @@ export default function AdminDashboard() {
                 window.history.pushState(null, '', '/admin/dashboard?tab=disposisi');
               }}
               className={`px-4 py-4 text-xs uppercase tracking-wider flex items-center gap-1.5 cursor-pointer transition-all outline-none ${currentSubTab === 'disposisi'
-                  ? 'text-[#561C24] bg-[#561C24]/5 border-b-2 border-[#561C24] font-black'
-                  : 'text-slate-500 hover:text-[#561C24] hover:bg-slate-50 font-bold'
+                ? 'text-[#561C24] bg-[#561C24]/5 border-b-2 border-[#561C24] font-black'
+                : 'text-slate-500 hover:text-[#561C24] hover:bg-slate-50 font-bold'
                 }`}
             >
               Disposisi
@@ -767,8 +767,8 @@ export default function AdminDashboard() {
                     {reports.filter(r => r.status_laporan === 'Pending').map((report) => {
                       const loc = getReportLocation(report);
                       return (
-                        <div 
-                          key={report.id_tiket} 
+                        <div
+                          key={report.id_tiket}
                           className="bg-white rounded-xl border border-slate-200/80 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:border-amber-300 transition-all duration-300 p-5 flex flex-col justify-between relative overflow-hidden group border-l-4 border-l-amber-500"
                         >
                           <div className="space-y-3">
@@ -783,7 +783,7 @@ export default function AdminDashboard() {
                                 </span>
                               </span>
                             </div>
-                            
+
                             <div>
                               <h4 className="text-sm font-extrabold text-slate-800 leading-snug group-hover:text-[#561C24] transition-colors duration-200 line-clamp-1">
                                 {report.kategori_masalah}
@@ -794,7 +794,7 @@ export default function AdminDashboard() {
                             </div>
 
                             <div className="flex items-center gap-1.5 text-[11px] text-slate-600 bg-slate-50 border border-slate-100 rounded-lg px-2.5 py-1 w-fit font-semibold">
-                              <MapPin className="w-3.5 h-3.5 text-[#6D2932] shrink-0" /> 
+                              <MapPin className="w-3.5 h-3.5 text-[#6D2932] shrink-0" />
                               <span className="truncate max-w-[150px]">{loc.kecamatan}, {loc.desa}</span>
                             </div>
                           </div>
@@ -838,11 +838,11 @@ export default function AdminDashboard() {
 
                 <div className="bg-white rounded-r-2xl rounded-b-2xl rounded-tl-none border border-slate-200 shadow-md p-6 flex flex-col justify-between gap-6 relative min-h-[380px]">
                   <div className="flex flex-col sm:flex-row justify-between items-center gap-6">
-                    <PeradaDonutChart 
-                      selesai={countSelesai} 
-                      sidang={countSidang} 
-                      penyelidikan={countPenyelidikan} 
-                      total={totalPerada} 
+                    <PeradaDonutChart
+                      selesai={countSelesai}
+                      sidang={countSidang}
+                      penyelidikan={countPenyelidikan}
+                      total={totalPerada}
                     />
 
                     {/* Legend & Summary Card */}
@@ -995,7 +995,7 @@ export default function AdminDashboard() {
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-100 pb-4">
                   <div>
                     <h4 className="text-sm font-extrabold text-slate-800 leading-tight">Peta Spasial Skala Kecamatan (Kabupaten Buleleng)</h4>
-                    <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mt-1">Gunakan kursor (hover) atau klik wilayah kecamatan untuk melihat detail statistik</p>
+                    <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mt-1">Gunakan kursor untuk klik wilayah kecamatan untuk melihat detail statistik</p>
                   </div>
 
                   {/* Legend */}
@@ -1119,7 +1119,7 @@ export default function AdminDashboard() {
                 {/* Map Footer Analytics */}
                 <div className="flex justify-between items-center border-t border-slate-200 pt-4 mt-2">
                   <span className="text-[9px] text-slate-400 font-bold tracking-wider italic select-none">
-                    * Klik Wilayah atau Table Row untuk mengunci detail informasi di atas.
+                    * Klik Wilayah untuk mengunci detail informasi di atas.
                   </span>
                   <div className="flex items-center gap-1 bg-[#fffbeb] px-3 py-1.5 rounded-lg border border-[#fef3c7] text-[10px] font-black text-[#d97706]">
                     <span>Total Perda Buleleng:</span>
@@ -1455,13 +1455,13 @@ export default function AdminDashboard() {
                           k.uraian_kegiatan.replace(/\n/g, ' ').replace(/"/g, '""')
                         ]);
 
-                        const csvContent = "data:text/csv;charset=utf-8,\uFEFF" 
+                        const csvContent = "data:text/csv;charset=utf-8,\uFEFF"
                           + [headers.join(","), ...rows.map(e => e.map(val => `"${val}"`).join(","))].join("\n");
 
                         const encodedUri = encodeURI(csvContent);
                         const link = document.createElement("a");
                         link.setAttribute("href", encodedUri);
-                        link.setAttribute("download", `Laporan_Jurnal_Kegiatan_Satpol_${new Date().toISOString().substring(0,10)}.csv`);
+                        link.setAttribute("download", `Laporan_Jurnal_Kegiatan_Satpol_${new Date().toISOString().substring(0, 10)}.csv`);
                         document.body.appendChild(link);
                         link.click();
                         document.body.removeChild(link);
@@ -1680,7 +1680,7 @@ export default function AdminDashboard() {
             <div className="bg-gradient-to-r from-[#561C24] via-[#6D2932] to-[#80424a] text-white px-6 py-5 flex justify-between items-center shrink-0 border-b border-[#C7B7A3]/20 relative">
               {/* Glowing Decorative Backgrounds */}
               <div className="absolute top-[-50px] right-[-50px] w-24 h-24 bg-white/10 rounded-full blur-lg pointer-events-none" />
-              
+
               <div className="flex items-center gap-3 text-left">
                 <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center border border-white/20">
                   <Shield className="w-4 h-4 text-[#E8D8C4] fill-[#E8D8C4]/10" />
@@ -1747,9 +1747,8 @@ export default function AdminDashboard() {
                           setDisposisiForm(prev => ({ ...prev, namaAdmin: e.target.value }));
                           if (formErrors.namaAdmin) setFormErrors(prev => ({ ...prev, namaAdmin: null }));
                         }}
-                        className={`w-full bg-slate-50 rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-800 outline-none border transition-all cursor-pointer focus:bg-white focus:border-[#561C24] focus:ring-4 focus:ring-[#561C24]/10 ${
-                          formErrors.namaAdmin ? 'border-rose-300 focus:ring-1 focus:ring-rose-500' : 'border-slate-200'
-                        }`}
+                        className={`w-full bg-slate-50 rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-800 outline-none border transition-all cursor-pointer focus:bg-white focus:border-[#561C24] focus:ring-4 focus:ring-[#561C24]/10 ${formErrors.namaAdmin ? 'border-rose-300 focus:ring-1 focus:ring-rose-500' : 'border-slate-200'
+                          }`}
                       >
                         <option value="" disabled>-- Pilih Nama Admin --</option>
                         <option value="Putu Wijaya">Putu Wijaya (Admin Utama)</option>
@@ -1803,11 +1802,10 @@ export default function AdminDashboard() {
                         ].map((bidang) => (
                           <label
                             key={bidang.id}
-                            className={`flex items-center gap-3 px-4 py-3 rounded-xl border transition-all duration-200 cursor-pointer select-none ${
-                              disposisiForm.bidangTujuan === bidang.id
-                                ? 'bg-white border-[#561C24] text-[#561C24] shadow-sm ring-1 ring-[#561C24]/10 font-bold scale-[1.01]'
-                                : 'bg-white/60 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-white hover:text-slate-800'
-                            }`}
+                            className={`flex items-center gap-3 px-4 py-3 rounded-xl border transition-all duration-200 cursor-pointer select-none ${disposisiForm.bidangTujuan === bidang.id
+                              ? 'bg-white border-[#561C24] text-[#561C24] shadow-sm ring-1 ring-[#561C24]/10 font-bold scale-[1.01]'
+                              : 'bg-white/60 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-white hover:text-slate-800'
+                              }`}
                           >
                             <input
                               type="radio"
@@ -1856,9 +1854,8 @@ export default function AdminDashboard() {
                         return (
                           <label
                             key={level.id}
-                            className={`flex-1 flex items-center justify-center gap-2 px-3 py-3 rounded-xl border transition-all duration-200 cursor-pointer select-none ${
-                              isSelected ? level.activeClass : 'bg-white border-slate-200 hover:border-slate-350 bg-white/60'
-                            }`}
+                            className={`flex-1 flex items-center justify-center gap-2 px-3 py-3 rounded-xl border transition-all duration-200 cursor-pointer select-none ${isSelected ? level.activeClass : 'bg-white border-slate-200 hover:border-slate-350 bg-white/60'
+                              }`}
                           >
                             <input
                               type="radio"
@@ -1876,13 +1873,12 @@ export default function AdminDashboard() {
                       })}
                     </div>
                   ) : (
-                    <div className={`w-fit px-3 py-1.5 rounded-full text-xs font-bold border shadow-sm ${
-                      selectedReport.disposisi?.kedaruratan === 'Darurat'
-                        ? 'bg-rose-50 border-rose-200 text-rose-700 shadow-rose-100/50'
-                        : selectedReport.disposisi?.kedaruratan === 'Sedang'
-                          ? 'bg-amber-50 border-amber-200 text-amber-700 shadow-amber-100/50'
-                          : 'bg-emerald-50 border-emerald-200 text-emerald-700 shadow-emerald-100/50'
-                    }`}>
+                    <div className={`w-fit px-3 py-1.5 rounded-full text-xs font-bold border shadow-sm ${selectedReport.disposisi?.kedaruratan === 'Darurat'
+                      ? 'bg-rose-50 border-rose-200 text-rose-700 shadow-rose-100/50'
+                      : selectedReport.disposisi?.kedaruratan === 'Sedang'
+                        ? 'bg-amber-50 border-amber-200 text-amber-700 shadow-amber-100/50'
+                        : 'bg-emerald-50 border-emerald-200 text-emerald-700 shadow-emerald-100/50'
+                      }`}>
                       Urgensi: {selectedReport.disposisi?.kedaruratan}
                     </div>
                   )}
@@ -1904,9 +1900,8 @@ export default function AdminDashboard() {
                           setDisposisiForm(prev => ({ ...prev, catatan: e.target.value }));
                           if (formErrors.catatan) setFormErrors(prev => ({ ...prev, catatan: null }));
                         }}
-                        className={`w-full bg-slate-50 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none border transition-all resize-y focus:bg-white focus:border-[#561C24] focus:ring-4 focus:ring-[#561C24]/10 ${
-                          formErrors.catatan ? 'border-rose-300 focus:ring-1 focus:ring-rose-500' : 'border-slate-200'
-                        }`}
+                        className={`w-full bg-slate-50 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none border transition-all resize-y focus:bg-white focus:border-[#561C24] focus:ring-4 focus:ring-[#561C24]/10 ${formErrors.catatan ? 'border-rose-300 focus:ring-1 focus:ring-rose-500' : 'border-slate-200'
+                          }`}
                       />
 
                       {/* Arahan Cepat */}
@@ -1999,17 +1994,17 @@ export default function AdminDashboard() {
       )}
 
       {isZoomModalOpen && (
-        <div 
+        <div
           className="fixed inset-0 z-[120] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 cursor-zoom-out animate-fadeIn"
           onClick={() => setIsZoomModalOpen(false)}
         >
           <div className="relative max-w-4xl max-h-[85vh] overflow-hidden rounded-2xl shadow-2xl border border-slate-800">
-            <img 
-              src={zoomImageUrl} 
-              alt="Foto Zoom" 
-              className="max-w-full max-h-[85vh] object-contain rounded-2xl" 
+            <img
+              src={zoomImageUrl}
+              alt="Foto Zoom"
+              className="max-w-full max-h-[85vh] object-contain rounded-2xl"
             />
-            <button 
+            <button
               onClick={() => setIsZoomModalOpen(false)}
               className="absolute top-4 right-4 p-2 bg-black/60 hover:bg-black/85 rounded-full text-white shadow-md transition-colors cursor-pointer"
               title="Close Image"
@@ -2023,12 +2018,11 @@ export default function AdminDashboard() {
       {/* CUSTOM NOTIFICATION MODAL OVERLAY */}
       {notification && (
         <div className="fixed inset-0 bg-slate-950/60 backdrop-blur-md z-[100] flex items-center justify-center p-4 select-none animate-fadeIn">
-          <div className={`bg-white border border-slate-100 rounded-2xl max-w-sm w-full shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] overflow-hidden font-sans p-6 text-center space-y-4 border-t-4 ${
-            notification.type === 'success' ? 'border-t-emerald-500' :
+          <div className={`bg-white border border-slate-100 rounded-2xl max-w-sm w-full shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] overflow-hidden font-sans p-6 text-center space-y-4 border-t-4 ${notification.type === 'success' ? 'border-t-emerald-500' :
             notification.type === 'error' ? 'border-t-rose-500' :
-            notification.type === 'info' ? 'border-t-blue-500' :
-            'border-t-amber-500'
-          }`}>
+              notification.type === 'info' ? 'border-t-blue-500' :
+                'border-t-amber-500'
+            }`}>
             <div className="flex justify-center">
               {notification.type === 'success' && (
                 <div className="w-14 h-14 rounded-full bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600">

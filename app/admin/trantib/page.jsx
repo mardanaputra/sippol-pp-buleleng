@@ -31,7 +31,8 @@ import {
   Maximize2,
   Printer,
   Compass,
-  Moon
+  Moon,
+  Info
 } from 'lucide-react';
 
 // Realistic Buleleng Prepopulated Data
@@ -78,6 +79,15 @@ export default function TrantibAdmin() {
   const [activeTab, setActiveTab] = useState('patroli'); // 'patroli', 'penertiban', 'disposisi'
   const [loading, setLoading] = useState(false);
   const [detectingGps, setDetectingGps] = useState(false);
+  const [notification, setNotification] = useState(null); // { type, message, onConfirm }
+
+  const showAlert = (message, type = 'success') => {
+    setNotification({ type, message });
+  };
+
+  const showConfirm = (message, onConfirm) => {
+    setNotification({ type: 'confirm', message, onConfirm });
+  };
 
   // Core Data States
   const [patrolList, setPatrolList] = useState([]);
@@ -331,7 +341,7 @@ export default function TrantibAdmin() {
             longitude: position.coords.longitude.toFixed(6)
           }));
           setDetectingGps(false);
-          alert("GPS Lock Sukses: Koordinat HP Berhasil Dikunci!");
+          showAlert("GPS Lock Sukses: Koordinat HP Berhasil Dikunci!", 'success');
         },
         (error) => {
           console.error("GPS Location Service Denied/Error:", error);
@@ -348,13 +358,13 @@ export default function TrantibAdmin() {
               longitude: simLng
             }));
             setDetectingGps(false);
-            alert("Deteksi GPS HP: Menggunakan koordinat presisi tinggi (simulasi perangkat/sandbox) di Buleleng.");
+            showAlert("Deteksi GPS HP: Menggunakan koordinat presisi tinggi (simulasi perangkat/sandbox) di Buleleng.", 'info');
           }, 600);
         },
         { enableHighAccuracy: true, timeout: 6000 }
       );
     } else {
-      alert("Browser Anda tidak mendukung layanan Geolocation GPS.");
+      showAlert("Browser Anda tidak mendukung layanan Geolocation GPS.", 'error');
       setDetectingGps(false);
     }
   };
@@ -363,7 +373,7 @@ export default function TrantibAdmin() {
     const file = e.target.files[0];
     if (!file) return;
     if (file.size > 2 * 1024 * 1024) {
-      alert("Ukuran gambar tidak boleh melebihi 2MB.");
+      showAlert("Ukuran gambar tidak boleh melebihi 2MB.", 'error');
       return;
     }
     const reader = new FileReader();
@@ -380,12 +390,12 @@ export default function TrantibAdmin() {
     const file = e.target.files[0];
     if (!file) return;
     if (file.type !== 'application/pdf') {
-      alert("Hanya file dokumen PDF yang diperbolehkan.");
+      showAlert("Hanya file dokumen PDF yang diperbolehkan.", 'error');
       e.target.value = null;
       return;
     }
     if (file.size > 3 * 1024 * 1024) {
-      alert("Ukuran file melebihi batas 3MB.");
+      showAlert("Ukuran file melebihi batas 3MB.", 'error');
       e.target.value = null;
       return;
     }
@@ -402,7 +412,7 @@ export default function TrantibAdmin() {
 
   const downloadBase64Pdf = (base64String, filename) => {
     if (!base64String) {
-      alert("Berkas PDF tidak tersedia.");
+      showAlert("Berkas PDF tidak tersedia.", 'info');
       return;
     }
     try {
@@ -414,7 +424,7 @@ export default function TrantibAdmin() {
       document.body.removeChild(link);
     } catch (err) {
       console.error("Gagal mengunduh PDF:", err);
-      alert("Terjadi kesalahan saat mengunduh file.");
+      showAlert("Terjadi kesalahan saat mengunduh file.", 'error');
     }
   };
 
@@ -440,15 +450,15 @@ export default function TrantibAdmin() {
       });
       const data = await res.json();
       if (res.ok) {
-        alert(data.message);
+        showAlert(data.message, 'success');
         setIsPatrolModalOpen(false);
         fetchPatrols();
       } else {
-        alert(data.error || "Gagal menyimpan regu patroli.");
+        showAlert(data.error || "Gagal menyimpan regu patroli.", 'error');
       }
     } catch (err) {
       console.error(err);
-      alert("Terjadi kesalahan koneksi database.");
+      showAlert("Terjadi kesalahan koneksi database.", 'error');
     }
   };
 
@@ -474,52 +484,56 @@ export default function TrantibAdmin() {
       });
       const data = await res.json();
       if (res.ok) {
-        alert(data.message);
+        showAlert(data.message, 'success');
         setIsEnforcementModalOpen(false);
         fetchEnforcements();
         if (activeTab === 'disposisi') {
           fetchDelegatedReports();
         }
       } else {
-        alert(data.error || "Gagal menyimpan log penertiban K3.");
+        showAlert(data.error || "Gagal menyimpan log penertiban K3.", 'error');
       }
     } catch (err) {
       console.error(err);
-      alert("Terjadi kesalahan koneksi database.");
+      showAlert("Terjadi kesalahan koneksi database.", 'error');
     }
   };
 
   // Delete Handlers
-  const handleDeletePatrol = async (id, no_spt) => {
-    if (!confirm(`Hapus regu patroli dengan SPT: ${no_spt}?\nTindakan ini permanen.`)) return;
-    try {
-      const res = await fetch(`/api/trantib/patroli?id=${id}`, { method: 'DELETE' });
-      if (res.ok) {
-        alert("Regu patroli berhasil dihapus.");
-        fetchPatrols();
-      } else {
-        const data = await res.json();
-        alert(data.error || "Gagal menghapus.");
+  const handleDeletePatrol = (id, no_spt) => {
+    showConfirm(`Hapus regu patroli dengan SPT: ${no_spt}?\nTindakan ini permanen.`, async () => {
+      try {
+        const res = await fetch(`/api/trantib/patroli?id=${id}`, { method: 'DELETE' });
+        if (res.ok) {
+          showAlert("Regu patroli berhasil dihapus.", 'success');
+          fetchPatrols();
+        } else {
+          const data = await res.json();
+          showAlert(data.error || "Gagal menghapus.", 'error');
+        }
+      } catch (err) {
+        console.error(err);
+        showAlert("Terjadi kesalahan jaringan.", 'error');
       }
-    } catch (err) {
-      console.error(err);
-    }
+    });
   };
 
-  const handleDeleteEnforcement = async (id) => {
-    if (!confirm("Hapus log penertiban K3 ini secara permanen?")) return;
-    try {
-      const res = await fetch(`/api/trantib/penertiban?id=${id}`, { method: 'DELETE' });
-      if (res.ok) {
-        alert("Log penertiban berhasil dihapus.");
-        fetchEnforcements();
-      } else {
-        const data = await res.json();
-        alert(data.error || "Gagal menghapus.");
+  const handleDeleteEnforcement = (id) => {
+    showConfirm("Hapus log penertiban K3 ini secara permanen?", async () => {
+      try {
+        const res = await fetch(`/api/trantib/penertiban?id=${id}`, { method: 'DELETE' });
+        if (res.ok) {
+          showAlert("Log penertiban berhasil dihapus.", 'success');
+          fetchEnforcements();
+        } else {
+          const data = await res.json();
+          showAlert(data.error || "Gagal menghapus.", 'error');
+        }
+      } catch (err) {
+        console.error(err);
+        showAlert("Terjadi kesalahan jaringan.", 'error');
       }
-    } catch (err) {
-      console.error(err);
-    }
+    });
   };
 
   const openZoom = (url) => {
@@ -659,7 +673,7 @@ export default function TrantibAdmin() {
           {/* Sisi Kanan: Night mode & Profil Admin Buleleng */}
           <div className="flex items-center gap-4">
             <button 
-              onClick={() => alert("Fitur Mode Malam akan segera hadir!")}
+              onClick={() => showAlert("Fitur Mode Malam akan segera hadir!", 'info')}
               className="p-2.5 bg-white/10 hover:bg-white/20 rounded-full transition-all text-white border border-white/20 active:scale-95 cursor-pointer"
               title="Toggle Night Mode"
               type="button"
@@ -1851,6 +1865,83 @@ export default function TrantibAdmin() {
               </button>
             </div>
 
+          </div>
+        </div>
+      )}
+
+      {/* CUSTOM NOTIFICATION MODAL OVERLAY */}
+      {notification && (
+        <div className="fixed inset-0 bg-slate-950/60 backdrop-blur-md z-[100] flex items-center justify-center p-4 select-none animate-fadeIn">
+          <div className={`bg-white border border-slate-100 rounded-2xl max-w-sm w-full shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] overflow-hidden font-sans p-6 text-center space-y-4 border-t-4 ${
+            notification.type === 'success' ? 'border-t-emerald-500' :
+            notification.type === 'error' ? 'border-t-rose-500' :
+            notification.type === 'info' ? 'border-t-blue-500' :
+            'border-t-amber-500'
+          }`}>
+            <div className="flex justify-center">
+              {notification.type === 'success' && (
+                <div className="w-14 h-14 rounded-full bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600">
+                  <Check className="w-7 h-7" />
+                </div>
+              )}
+              {notification.type === 'error' && (
+                <div className="w-14 h-14 rounded-full bg-rose-50 border border-rose-100 flex items-center justify-center text-rose-600">
+                  <AlertTriangle className="w-7 h-7" />
+                </div>
+              )}
+              {notification.type === 'info' && (
+                <div className="w-14 h-14 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600">
+                  <Info className="w-7 h-7" />
+                </div>
+              )}
+              {notification.type === 'confirm' && (
+                <div className="w-14 h-14 rounded-full bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-600">
+                  <AlertTriangle className="w-7 h-7" />
+                </div>
+              )}
+            </div>
+
+            <div className="space-y-1.5">
+              <h4 className="text-sm font-extrabold text-slate-800 uppercase tracking-wider">
+                {notification.type === 'confirm' ? 'Konfirmasi Tindakan' : 'Informasi Sistem'}
+              </h4>
+              <p className="text-xs text-slate-500 font-semibold leading-relaxed whitespace-pre-line">
+                {notification.message}
+              </p>
+            </div>
+
+            <div className="flex gap-2.5 pt-2">
+              {notification.type === 'confirm' ? (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => setNotification(null)}
+                    className="flex-1 py-2 bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 rounded-lg text-xs font-bold transition-all cursor-pointer active:scale-95"
+                  >
+                    Batal
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const callback = notification.onConfirm;
+                      setNotification(null);
+                      if (callback) callback();
+                    }}
+                    className="flex-1 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-lg text-xs font-bold transition-all cursor-pointer active:scale-95 shadow-sm hover:shadow"
+                  >
+                    Hapus
+                  </button>
+                </>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setNotification(null)}
+                  className="w-full py-2 bg-[#561C24] hover:bg-[#6D2932] text-white rounded-lg text-xs font-bold transition-all cursor-pointer active:scale-95 shadow-sm hover:shadow"
+                >
+                  OK
+                </button>
+              )}
+            </div>
           </div>
         </div>
       )}
