@@ -29,6 +29,7 @@ export async function POST(req) {
             komandan_regu,
             anggota_regu, // string atau array
             wilayah_patroli, // string atau array
+            keterangan_area,
             kendaraan_dinas,
             surat_tugas,
         } = body;
@@ -80,6 +81,7 @@ export async function POST(req) {
                 komandan_regu,
                 anggota_regu: anggotaStr,
                 wilayah_patroli: wilayahStr,
+                keterangan_area: keterangan_area || null,
                 kendaraan_dinas,
                 surat_tugas: surat_tugas || null,
             },
@@ -109,6 +111,7 @@ export async function PUT(req) {
             komandan_regu,
             anggota_regu,
             wilayah_patroli,
+            keterangan_area,
             kendaraan_dinas,
             surat_tugas,
         } = body;
@@ -131,6 +134,7 @@ export async function PUT(req) {
                 komandan_regu,
                 anggota_regu: anggotaStr,
                 wilayah_patroli: wilayahStr,
+                keterangan_area: keterangan_area !== undefined ? keterangan_area : undefined,
                 kendaraan_dinas,
                 surat_tugas: surat_tugas !== undefined ? surat_tugas : undefined,
             },

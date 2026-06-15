@@ -104,6 +104,7 @@ export default function TrantibAdmin() {
     komandan_regu: DANRU_LIST[0],
     anggota_regu: [], // Array of checked members
     wilayah_patroli: [], // Array of checked zones
+    keterangan_area: '',
     kendaraan_dinas: KENDARAAN_LIST[0],
     surat_tugas: null,
   });
@@ -228,6 +229,7 @@ export default function TrantibAdmin() {
       komandan_regu: DANRU_LIST[0],
       anggota_regu: [],
       wilayah_patroli: [],
+      keterangan_area: '',
       kendaraan_dinas: KENDARAAN_LIST[0],
       surat_tugas: null,
     });
@@ -247,6 +249,7 @@ export default function TrantibAdmin() {
       komandan_regu: patrol.komandan_regu,
       anggota_regu: anggotaArr,
       wilayah_patroli: wilayahArr,
+      keterangan_area: patrol.keterangan_area || '',
       kendaraan_dinas: patrol.kendaraan_dinas,
       surat_tugas: patrol.surat_tugas || null,
     });
@@ -861,8 +864,13 @@ export default function TrantibAdmin() {
                             <td className="py-4 px-6 max-w-[200px] text-slate-600 truncate" title={patrol.anggota_regu}>
                               {patrol.anggota_regu}
                             </td>
-                            <td className="py-4 px-6 max-w-[200px] text-slate-600 truncate" title={patrol.wilayah_patroli}>
-                              {patrol.wilayah_patroli}
+                            <td className="py-4 px-6 max-w-[240px] text-slate-600" title={patrol.wilayah_patroli}>
+                              <div className="font-semibold truncate">{patrol.wilayah_patroli}</div>
+                              {patrol.keterangan_area && (
+                                <div className="text-[10px] text-slate-400 italic mt-0.5 truncate" title={patrol.keterangan_area}>
+                                  Detail: {patrol.keterangan_area}
+                                </div>
+                              )}
                             </td>
                             <td className="py-4 px-6 text-slate-600 font-semibold flex items-center gap-1.5 mt-2.5">
                               <Car className="w-3.5 h-3.5 text-slate-500" /> {patrol.kendaraan_dinas}
@@ -1411,6 +1419,20 @@ export default function TrantibAdmin() {
                     );
                   })}
                 </div>
+              </div>
+
+              {/* Detail Keterangan Rute / Area Patroli Lebih Spesifik */}
+              <div className="space-y-1.5">
+                <label className="text-[10px] uppercase font-bold text-slate-500 block">
+                  Keterangan Detail Rute / Area Sasaran Spesifik:
+                </label>
+                <textarea
+                  rows={2}
+                  placeholder="Contoh: Depan pasar senggol, sepanjang areal trotoar Jl. Ngurah Rai, pelataran parkir pantai, dll."
+                  value={patrolForm.keterangan_area || ''}
+                  onChange={(e) => setPatrolForm({ ...patrolForm, keterangan_area: e.target.value })}
+                  className="w-full text-xs font-semibold text-slate-700 bg-white border border-slate-200 rounded-xl p-2.5 outline-none focus:border-[#561C24]/50 focus:ring-1 focus:ring-[#561C24]/10 placeholder-slate-400"
+                />
               </div>
 
               {/* Upload Surat Tugas (PDF) */}

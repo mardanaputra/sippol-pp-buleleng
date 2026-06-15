@@ -98,6 +98,7 @@
     komandan_regu     String         // Nama Danru
     anggota_regu      String         // Daftar anggota regu (Comma-separated string)
     wilayah_patroli   String         // Daftar zona wilayah sasaran (Comma-separated string)
+    keterangan_area   String?        // Detail rute/area patroli secara spesifik
     kendaraan_dinas   String         // Kendaraan dinas operasional
     surat_tugas       String?        // Berkas PDF base64 surat tugas/SPT
     createdAt         DateTime       @default(now())

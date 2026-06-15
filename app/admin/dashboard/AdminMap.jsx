@@ -6,6 +6,8 @@ import { Layers, MapPin, Shield, Info, Maximize2 } from 'lucide-react';
 export default function AdminMap({
   reports = [],
   trantibLogs = [],
+  linmasMembers = [],
+  peradaEnforcements = [],
   selectedKecamatan,
   setSelectedKecamatan,
   hoveredKecamatan,
@@ -165,12 +167,41 @@ export default function AdminMap({
         // Match config for tooltip & details
         const config = getKecConfig(isKec ? name : parentKec);
 
+        // Calculate counts dynamically for tooltips
+        const nameLower = (isKec ? name : parentKec)?.toLowerCase();
+        
+        const reklameCount = trantibLogs.filter(l => {
+          const isKecMatch = `${l.lokasi} ${l.keterangan}`.toLowerCase().includes(nameLower);
+          const isReklame = l.jenis_pelanggaran?.includes('Reklame') || l.jenis_pelanggaran?.includes('Iklan') || l.jenis_pelanggaran?.includes('Baliho');
+          return isKecMatch && isReklame;
+        }).length;
+
+        const pklCount = trantibLogs.filter(l => {
+          const isKecMatch = `${l.lokasi} ${l.keterangan}`.toLowerCase().includes(nameLower);
+          const isPkl = l.jenis_pelanggaran?.includes('PKL') || l.jenis_pelanggaran?.includes('Zonasi') || l.jenis_pelanggaran?.includes('Kaki Lima') || l.jenis_pelanggaran?.includes('Pedagang');
+          return isKecMatch && isPkl;
+        }).length;
+
+        const satlinmasCount = linmasMembers
+          .filter(m => m.kecamatan?.toLowerCase() === nameLower)
+          .reduce((acc, curr) => acc + (curr.anggota_pria || 0) + (curr.anggota_wanita || 0), 0);
+
+        const peradaCount = peradaEnforcements.filter(p => {
+          const text = `${p.lokasi_kejadian} ${p.alamat_pelanggar} ${p.kronologi_singkat}`.toLowerCase();
+          return text.includes(nameLower);
+        }).length;
+
         // Bind Tooltip
         const tooltipContent = isKec
-          ? `<div class="p-1 font-bold text-xs">
-              <span class="text-[#0B1E43] uppercase font-black">${name}</span>
-              <div class="mt-1 text-[10px] text-slate-500 font-semibold">Status: <span class="font-extrabold" style="color: ${getRawanColor(config?.rawan)}">${config?.rawan || 'Unknown'}</span></div>
-              <div class="text-[10px] text-slate-500 font-semibold">Perda: <span class="font-extrabold text-[#E28A1C]">${config?.perkada || 0} Dokumen</span></div>
+          ? `<div class="p-2 font-bold text-xs max-w-[220px]">
+              <span class="text-[#0B1E43] uppercase font-black block border-b border-slate-100 pb-1 mb-1.5">${name}</span>
+              <div class="space-y-1 text-[10px] text-slate-500 font-semibold">
+                <div>Status: <span class="font-extrabold" style="color: ${getRawanColor(config?.rawan)}">${config?.rawan || 'Unknown'}</span></div>
+                <div class="flex justify-between gap-4"><span>Reklame/Baliho:</span> <span class="font-extrabold text-[#E28A1C]">${reklameCount}</span></div>
+                <div class="flex justify-between gap-4"><span>Penertiban PKL:</span> <span class="font-extrabold text-[#E28A1C]">${pklCount}</span></div>
+                <div class="flex justify-between gap-4"><span>Satlinmas:</span> <span class="font-extrabold text-blue-600">${satlinmasCount}</span></div>
+                <div class="flex justify-between gap-4"><span>Penegakan Perda:</span> <span class="font-extrabold text-[#561C24]">${peradaCount}</span></div>
+              </div>
              </div>`
           : `<div class="p-1 font-bold text-xs">
               <span class="text-[#0B1E43] uppercase font-black">Desa ${name}</span>
