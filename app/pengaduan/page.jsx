@@ -19,8 +19,7 @@ import {
   HelpCircle,
   ArrowLeft,
   Menu,
-  X,
-  Shield
+  X
 } from 'lucide-react';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
@@ -120,8 +119,8 @@ export default function PengaduanWarga() {
   const validateForm = () => {
     const newErrors = {};
     
-    if (!formData.isAnonim && !formData.namaPelapor.trim()) {
-      newErrors.namaPelapor = "Nama pelapor wajib diisi (atau pilih opsi Anonim).";
+    if (!formData.namaPelapor.trim()) {
+      newErrors.namaPelapor = "Nama pelapor wajib diisi.";
     }
     
     if (!formData.nomorWhatsapp.trim()) {
@@ -166,8 +165,8 @@ export default function PengaduanWarga() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           id_tiket: generatedTicket,
-          nama_pelapor: formData.isAnonim ? 'Anonim' : formData.namaPelapor,
-          is_anonim: formData.isAnonim,
+          nama_pelapor: formData.namaPelapor,
+          is_anonim: false,
           nomor_whatsapp: formData.nomorWhatsapp,
           kategori_masalah: formData.kategoriMasalah,
           kronologi: formData.kronologi,
@@ -242,72 +241,31 @@ export default function PengaduanWarga() {
 
             <form onSubmit={handleSubmit} className="space-y-5">
               
-              {/* Box Anonimitas */}
-              <div className={`p-4 md:p-5 rounded-2xl border transition-all duration-300 flex items-start gap-4 ${
-                formData.isAnonim 
-                  ? 'bg-coffee-cream/10 border-coffee-light/30 shadow-sm' 
-                  : 'bg-slate-50/60 border-slate-200'
-              }`}>
-                <div className={`p-2.5 rounded-xl transition-all duration-300 ${
-                  formData.isAnonim ? 'bg-coffee-cream/25 text-coffee-dark' : 'bg-slate-100 text-slate-500'
-                }`}>
-                  <Shield className="w-5 h-5" />
-                </div>
-                <div className="space-y-2.5 flex-1">
-                  <div>
-                    <h4 className="text-xs font-black text-slate-800">Mode Kerahasiaan Laporan</h4>
-                    <p className="text-[11px] text-slate-500 font-semibold mt-0.5">
-                      Ingin mengirim pengaduan secara rahasia tanpa mengungkapkan identitas asli Anda?
-                    </p>
-                  </div>
-                  <label className="inline-flex items-center cursor-pointer gap-2.5 group">
-                    <input 
-                      type="checkbox"
-                      checked={formData.isAnonim}
-                      onChange={(e) => {
-                        setFormData(prev => ({ 
-                          ...prev, 
-                          isAnonim: e.target.checked,
-                          namaPelapor: e.target.checked ? '' : prev.namaPelapor
-                        }));
-                        if (errors.namaPelapor) setErrors(prev => ({ ...prev, namaPelapor: null }));
-                      }}
-                      className="w-4.5 h-4.5 rounded text-coffee-dark border-slate-300 focus:ring-coffee-medium cursor-pointer transition-all"
-                    />
-                    <span className="text-xs font-black text-coffee-dark select-none group-hover:text-coffee-medium transition-colors">
-                      Report as Anonymous (Laporkan sebagai Anonim)
-                    </span>
-                  </label>
-                </div>
-              </div>
-
               {/* Nama Pelapor */}
-              {!formData.isAnonim && (
-                <div className="space-y-2 text-left">
-                  <label className="text-xs font-black text-slate-700 flex items-center gap-1.5">
-                    <User className="w-3.5 h-3.5 text-slate-500" /> Nama Pelapor <span className="text-rose-600">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Masukkan nama lengkap sesuai KTP"
-                    value={formData.namaPelapor}
-                    onChange={(e) => {
-                      setFormData(prev => ({ ...prev, namaPelapor: e.target.value }));
-                      if (errors.namaPelapor) setErrors(prev => ({ ...prev, namaPelapor: null }));
-                    }}
-                    className={`w-full bg-white rounded-xl px-4 py-3 text-sm outline-none transition-all duration-200 text-slate-800 placeholder-slate-400/70 border ${
-                      errors.namaPelapor 
-                        ? 'border-rose-300 focus:ring-2 focus:ring-rose-100 focus:border-rose-500' 
-                        : 'border-slate-300 focus:ring-2 focus:ring-coffee-cream/30 focus:border-coffee-medium'
-                    }`}
-                  />
-                  {errors.namaPelapor && (
-                    <p className="text-rose-600 text-[11px] font-bold flex items-center gap-1">
-                      <AlertCircle className="w-3.5 h-3.5" /> {errors.namaPelapor}
-                    </p>
-                  )}
-                </div>
-              )}
+              <div className="space-y-2 text-left">
+                <label className="text-xs font-black text-slate-700 flex items-center gap-1.5">
+                  <User className="w-3.5 h-3.5 text-slate-500" /> Nama Pelapor <span className="text-rose-600">*</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="Masukkan nama lengkap sesuai KTP"
+                  value={formData.namaPelapor}
+                  onChange={(e) => {
+                    setFormData(prev => ({ ...prev, namaPelapor: e.target.value }));
+                    if (errors.namaPelapor) setErrors(prev => ({ ...prev, namaPelapor: null }));
+                  }}
+                  className={`w-full bg-white rounded-xl px-4 py-3 text-sm outline-none transition-all duration-200 text-slate-800 placeholder-slate-400/70 border ${
+                    errors.namaPelapor 
+                      ? 'border-rose-300 focus:ring-2 focus:ring-rose-100 focus:border-rose-500' 
+                      : 'border-slate-300 focus:ring-2 focus:ring-coffee-cream/30 focus:border-coffee-medium'
+                  }`}
+                />
+                {errors.namaPelapor && (
+                  <p className="text-rose-600 text-[11px] font-bold flex items-center gap-1">
+                    <AlertCircle className="w-3.5 h-3.5" /> {errors.namaPelapor}
+                  </p>
+                )}
+              </div>
 
               {/* WhatsApp */}
               <div className="space-y-2 text-left">
@@ -357,12 +315,15 @@ export default function PengaduanWarga() {
                   }`}
                 >
                   <option value="">-- Pilih Kategori Laporan --</option>
-                  <option value="Parkir Liar">Parkir Liar</option>
-                  <option value="Limbah">Limbah Lingkungan</option>
-                  <option value="PKL Liar">Pedagang Kaki Lima (PKL) Liar</option>
-                  <option value="Reklame Ilegal">Reklame / Baliho Ilegal</option>
-                  <option value="Bencana">Bencana Alam / Gangguan Jalan</option>
-                  <option value="Lainnya">Masalah Lainnya</option>
+                  <option value="Lingkungan">Lingkungan</option>
+                  <option value="PKL Liar">PKL Liar</option>
+                  <option value="Reklame/Baliho">Reklame/Baliho</option>
+                  <option value="ODGJ">ODGJ</option>
+                  <option value="Pengamen">Pengamen</option>
+                  <option value="Pengemis">Pengemis</option>
+                  <option value="Orang Terlantar">Orang Terlantar</option>
+                  <option value="Anak Punk">Anak Punk</option>
+                  <option value="Masalah Lainnya">Masalah Lainnya</option>
                 </select>
 
                 {errors.kategoriMasalah && (

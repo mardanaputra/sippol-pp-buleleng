@@ -87,10 +87,10 @@ export default function PeradaAdmin() {
     lokasi_kejadian: '',
     kode_regulasi: '',
     pasal_dilanggar: '',
-    jenis_tindakan: 'Tipiring', // 'Tipiring', 'Yustisial'
-    status_sidang: 'Penyelidikan / Pemanggilan', // Penyelidikan / Pemanggilan, Proses Sidang Tipiring, Kasus Selesai (Clear)
+    jenis_tindakan: 'Surat Peringatan',
+    status_sidang: 'SP-1 (Peringatan Pertama)',
     tanggal_sidang: '',
-    lokasi_sidang: 'Kantor Pengadilan Negeri Singaraja',
+    lokasi_sidang: '',
     denda_dijatuhkan: 0,
     bukti_setor_kas: null,
     no_bukti_setor: '',
@@ -319,10 +319,10 @@ export default function PeradaAdmin() {
       lokasi_kejadian: 'Singaraja, Buleleng',
       kode_regulasi: regulasiList[0]?.kode_regulasi || '',
       pasal_dilanggar: '',
-      jenis_tindakan: 'Tipiring',
-      status_sidang: 'Penyelidikan / Pemanggilan',
-      tanggal_sidang: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().substring(0, 10), // H+7
-      lokasi_sidang: 'Kantor Pengadilan Negeri Singaraja',
+      jenis_tindakan: 'Surat Peringatan',
+      status_sidang: 'SP-1 (Peringatan Pertama)',
+      tanggal_sidang: '',
+      lokasi_sidang: '',
       denda_dijatuhkan: 0,
       bukti_setor_kas: null,
       no_bukti_setor: '',
@@ -377,10 +377,10 @@ export default function PeradaAdmin() {
       lokasi_kejadian: `Singaraja, Buleleng (Tindak Lanjut Aduan)`,
       kode_regulasi: regulasiList[0]?.kode_regulasi || '',
       pasal_dilanggar: '',
-      jenis_tindakan: 'Tipiring',
-      status_sidang: 'Penyelidikan / Pemanggilan',
-      tanggal_sidang: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().substring(0, 10),
-      lokasi_sidang: 'Kantor Pengadilan Negeri Singaraja',
+      jenis_tindakan: 'Surat Peringatan',
+      status_sidang: 'SP-1 (Peringatan Pertama)',
+      tanggal_sidang: '',
+      lokasi_sidang: '',
       denda_dijatuhkan: 0,
       bukti_setor_kas: null,
       no_bukti_setor: '',
@@ -1160,13 +1160,17 @@ export default function PeradaAdmin() {
                                 <span className={`w-fit px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider border ${
                                   item.jenis_tindakan === 'Yustisial' 
                                     ? 'bg-rose-50 text-rose-700 border-rose-200' 
-                                    : 'bg-amber-50 text-amber-700 border-amber-200'
+                                    : item.jenis_tindakan === 'Surat Peringatan'
+                                    ? 'bg-amber-50 text-amber-700 border-amber-200'
+                                    : 'bg-slate-50 text-slate-700 border-slate-200'
                                 }`}>
                                   {item.jenis_tindakan}
                                 </span>
                                 <span className={`w-fit px-2 py-0.5 rounded text-[9px] font-bold border ${
                                   item.status_sidang === 'Kasus Selesai (Clear)' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' :
-                                  item.status_sidang === 'Proses Sidang Tipiring' ? 'bg-blue-50 text-blue-700 border-blue-200' :
+                                  item.status_sidang === 'SP-3 (Peringatan Ketiga)' ? 'bg-rose-50 text-rose-700 border-rose-200' :
+                                  item.status_sidang === 'SP-2 (Peringatan Kedua)' ? 'bg-orange-50 text-orange-700 border-orange-200' :
+                                  item.status_sidang === 'SP-1 (Peringatan Pertama)' ? 'bg-blue-50 text-blue-700 border-blue-200' :
                                   'bg-amber-50 text-amber-700 border-amber-200'
                                 }`}>
                                   {item.status_sidang}
@@ -1702,14 +1706,14 @@ export default function PeradaAdmin() {
 
                 {/* Jenis Tindakan (Radio) */}
                 <div className="space-y-1">
-                  <label className="text-[10px] uppercase font-bold text-slate-450 tracking-wide block">Jenis Tindakan Hukum</label>
+                  <label className="text-[10px] uppercase font-bold text-slate-450 tracking-wide block">Jenis Tindakan Penegakan</label>
                   <div className="flex gap-2 bg-slate-50 p-1.5 rounded-xl border border-slate-200">
-                    {['Tipiring', 'Yustisial'].map((tind) => (
+                    {['Surat Peringatan', 'Teguran Lisan', 'Penyitaan Barang'].map((tind) => (
                       <label 
                         key={tind} 
                         className={`flex-1 py-2 text-center rounded-lg border text-xs font-bold cursor-pointer transition select-none flex items-center justify-center gap-1.5 ${
                           penegakanForm.jenis_tindakan === tind 
-                            ? 'bg-blue-50 border-[#0B1E43] text-[#0B1E43]' 
+                            ? 'bg-blue-50 border-[#561C24] text-[#561C24]' 
                             : 'bg-white border-slate-250 text-slate-550 hover:bg-slate-50'
                         }`}
                       >
@@ -1727,50 +1731,22 @@ export default function PeradaAdmin() {
                   </div>
                 </div>
 
-                {/* 10. Status Proses Hukum */}
+                {/* 10. Status Proses Penegakan */}
                 <div className="space-y-1">
-                  <label className="text-[10px] uppercase font-bold text-slate-450 tracking-wide block">Status Proses Hukum (Visual Spec)</label>
+                  <label className="text-[10px] uppercase font-bold text-slate-450 tracking-wide block">Status Proses Penegakan / Surat Peringatan</label>
                   <select
                     value={penegakanForm.status_sidang}
                     onChange={(e) => setPenegakanForm({ ...penegakanForm, status_sidang: e.target.value })}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-bold text-slate-800 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1E43]/20 focus:border-[#0B1E43]"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-bold text-slate-800 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#561C24]/20 focus:border-[#561C24]"
                   >
-                    <option value="Penyelidikan / Pemanggilan">Penyelidikan / Pemanggilan</option>
-                    <option value="Proses Sidang Tipiring">Proses Sidang Tipiring</option>
-                    <option value="Kasus Selesai (Clear)">Kasus Selesai (Clear)</option>
+                    <option value="SP-1 (Peringatan Pertama)">SP-1 (Surat Peringatan Pertama)</option>
+                    <option value="SP-2 (Peringatan Kedua)">SP-2 (Surat Peringatan Kedua)</option>
+                    <option value="SP-3 (Peringatan Ketiga)">SP-3 (Surat Peringatan Ketiga)</option>
+                    <option value="Kasus Selesai (Clear)">Kasus Selesai / Telah Dipatuhi</option>
                   </select>
                 </div>
 
-                {/* 11. Nilai Denda Putusan Hakim */}
-                {penegakanForm.status_sidang !== 'Penyelidikan / Pemanggilan' && (
-                  <div className="space-y-1">
-                    <label className="text-[10px] uppercase font-bold text-slate-450 tracking-wide">Nilai Denda Putusan Hakim (Rp)</label>
-                    <input
-                      type="number"
-                      required
-                      min="0"
-                      value={penegakanForm.denda_dijatuhkan}
-                      onChange={(e) => setPenegakanForm({ ...penegakanForm, denda_dijatuhkan: parseFloat(e.target.value) || 0 })}
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-slate-800 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1E43]/20 focus:border-[#0B1E43]"
-                    />
-                  </div>
-                )}
-
-                {/* 12. Nomor Bukti Setor Kas Daerah */}
-                {penegakanForm.status_sidang === 'Kasus Selesai (Clear)' && (
-                  <div className="space-y-1">
-                    <label className="text-[10px] uppercase font-bold text-slate-450 tracking-wide">Nomor Bukti Setor Kas Daerah</label>
-                    <input
-                      type="text"
-                      placeholder="Contoh: TRX-188288-DKD"
-                      value={penegakanForm.no_bukti_setor}
-                      onChange={(e) => setPenegakanForm({ ...penegakanForm, no_bukti_setor: e.target.value })}
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-slate-800 placeholder:text-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1E43]/20 focus:border-[#0B1E43]"
-                    />
-                  </div>
-                )}
-
-                {/* 13. Dokumen Scan BAP & Putusan */}
+                {/* 13. Dokumen Scan SP & Surat Resmi */}
                 <div className="space-y-2 col-span-2">
                   <label className="text-[10px] uppercase font-bold text-slate-450 tracking-wide block">Dokumen Scan BAP & Putusan Resmi (Format: PDF/Gambar - Maks 5MB)</label>
                   <div className="flex flex-col sm:flex-row gap-4 items-center">

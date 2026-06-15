@@ -2,12 +2,12 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { 
-  ShieldAlert, 
-  Send, 
-  Search, 
-  Shield, 
-  Scale, 
+import {
+  ShieldAlert,
+  Send,
+  Search,
+  Shield,
+  Scale,
   ArrowRight,
   Menu,
   Accessibility,
@@ -27,11 +27,9 @@ export default function Home() {
   const [isHeroVisible, setIsHeroVisible] = useState(false);
   const [isPillarsVisible, setIsPillarsVisible] = useState(false);
   const [isTentangVisible, setIsTentangVisible] = useState(false);
-  const [isProfilVisible, setIsProfilVisible] = useState(false);
 
   const pillarsRef = useRef(null);
   const tentangRef = useRef(null);
-  const profilRef = useRef(null);
 
   useEffect(() => {
     // Reveal hero section immediately on mount
@@ -45,8 +43,6 @@ export default function Home() {
               setIsPillarsVisible(true);
             } else if (entry.target === tentangRef.current) {
               setIsTentangVisible(true);
-            } else if (entry.target === profilRef.current) {
-              setIsProfilVisible(true);
             }
             observer.unobserve(entry.target);
           }
@@ -57,7 +53,7 @@ export default function Home() {
 
     if (pillarsRef.current) observer.observe(pillarsRef.current);
     if (tentangRef.current) observer.observe(tentangRef.current);
-    if (profilRef.current) observer.observe(profilRef.current);
+
 
     return () => {
       observer.disconnect();
@@ -66,7 +62,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#F8F7F4] text-slate-800 flex flex-col justify-between relative overflow-x-hidden font-sans select-none scroll-smooth">
-      
+
       {/* Decorative Elegant Soft Gradients */}
       <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-coffee-cream/30 rounded-full blur-3xl pointer-events-none -z-10" />
       <div className="absolute bottom-10 left-0 w-[30rem] h-[30rem] bg-coffee-light/10 rounded-full blur-3xl pointer-events-none -z-10" />
@@ -76,20 +72,19 @@ export default function Home() {
 
       {/* Main Container */}
       <main className="max-w-6xl w-full mx-auto px-6 pt-28 pb-12 md:pt-32 md:pb-16 relative z-10 space-y-16 flex-1">
-        
+
         {/* HERO SECTION */}
-        <div className={`grid grid-cols-1 lg:grid-cols-12 gap-12 items-center transition-all duration-1000 ease-out transform ${
-          isHeroVisible 
-            ? "opacity-100 translate-y-0" 
+        <div className={`grid grid-cols-1 lg:grid-cols-12 gap-12 items-center transition-all duration-1000 ease-out transform ${isHeroVisible
+            ? "opacity-100 translate-y-0"
             : "opacity-0 translate-y-12"
-        }`}>
-          
+          }`}>
+
           {/* Left Text & CTA */}
           <div className="lg:col-span-7 space-y-6 text-left">
             <div className="inline-flex items-center px-4 py-1.5 bg-[#561C24]/5 text-[#561C24] border border-[#C7B7A3]/30 rounded-lg text-xs font-bold tracking-wider">
               <span className="mr-1.5">📍</span> Kabupaten Buleleng
             </div>
-            
+
             <div className="space-y-4">
               <h2 className="text-3xl md:text-5xl font-black tracking-tight leading-tight text-slate-900 uppercase">
                 Layanan Publik? <br />
@@ -121,12 +116,12 @@ export default function Home() {
             <div className="w-[18rem] h-[18rem] md:w-[22rem] md:h-[22rem] bg-white rounded-full shadow-lg border border-slate-205/50 flex items-center justify-center p-5 relative">
               {/* Outer Golden/Amber Ring */}
               <div className="absolute inset-2 rounded-full border-2 border-dashed border-[#E28A1C]/30 animate-[spin_100s_linear_infinite]" />
-              
+
               {/* Inner Rich Deep Navy Circle */}
               <div className="w-full h-full bg-[#0B1E43] rounded-full flex flex-col items-center justify-center p-6 text-center shadow-inner relative overflow-hidden">
                 {/* Subtle decorative glow in navy circle */}
                 <div className="absolute w-32 h-32 -top-10 -right-10 bg-white/5 rounded-full blur-xl pointer-events-none" />
-                
+
                 <div className="space-y-4 relative z-10">
                   <div className="w-16 h-16 rounded-full bg-white/10 mx-auto flex items-center justify-center text-[#E8D8C4] border border-white/20">
                     <ShieldAlert className="w-8 h-8" />
@@ -150,15 +145,14 @@ export default function Home() {
         </div>
 
         {/* FOUR PILLARS SECTION */}
-        <div 
+        <div
           ref={pillarsRef}
-          className={`space-y-10 pt-8 border-t border-slate-205 transition-all duration-1000 ease-out transform ${
-            isPillarsVisible 
-              ? "opacity-100 translate-y-0" 
+          className={`space-y-10 pt-8 border-t border-slate-205 transition-all duration-1000 ease-out transform ${isPillarsVisible
+              ? "opacity-100 translate-y-0"
               : "opacity-0 translate-y-12"
-          }`}
+            }`}
         >
-          
+
           <div className="text-center space-y-3 max-w-2xl mx-auto">
             <h3 className="text-2xl md:text-3xl font-black text-[#561C24] tracking-tight">
               Empat Pilar Satpol PP Buleleng
@@ -170,11 +164,11 @@ export default function Home() {
 
           {/* Pillars Cards Grid */}
           <div className="space-y-8">
-            
+
             {/* Card 1: Bidang Linmas */}
             <div className="bg-white rounded-2xl p-8 shadow-sm border border-slate-205/80 hover:shadow-md transition-all duration-200">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                <div className="lg:col-span-8 space-y-4">
+                <div className="lg:col-span-10 space-y-4">
                   <span className="inline-block px-3 py-1 bg-[#561C24]/5 border border-blue-200/60 text-[10px] font-black text-blue-900 rounded-lg uppercase tracking-wider">
                     Pilar Pertama
                   </span>
@@ -188,17 +182,11 @@ export default function Home() {
                     <li className="flex items-center gap-2">✓ Pembinaan Satlinmas Tingkat Desa</li>
                   </ul>
                 </div>
-                <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col items-center justify-center gap-6">
+                <div className="lg:col-span-2 flex items-center justify-center">
                   {/* Molded Icon Frame */}
                   <div className="w-16 h-16 rounded-xl bg-slate-100 flex items-center justify-center text-[#561C24] border border-slate-205/50">
                     <Shield className="w-8 h-8" />
                   </div>
-                  <Link
-                    href="/admin/linmas"
-                    className="w-full max-w-[240px] py-3 bg-[#561C24] hover:bg-[#6D2932] text-white text-xs font-black rounded-lg shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-[0.98]"
-                  >
-                    Masuk Dashboard Linmas <ArrowRight className="w-4 h-4" />
-                  </Link>
                 </div>
               </div>
             </div>
@@ -206,7 +194,7 @@ export default function Home() {
             {/* Card 2: Bidang Trantib */}
             <div className="bg-white rounded-2xl p-8 shadow-sm border border-slate-205/80 hover:shadow-md transition-all duration-200">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                <div className="lg:col-span-8 space-y-4">
+                <div className="lg:col-span-10 space-y-4">
                   <span className="inline-block px-3 py-1 bg-amber-50 border border-amber-200/60 text-[10px] font-black text-amber-800 rounded-lg uppercase tracking-wider">
                     Pilar Kedua
                   </span>
@@ -220,17 +208,11 @@ export default function Home() {
                     <li className="flex items-center gap-2">✓ Plotting & Manajemen Regu Patroli Harian</li>
                   </ul>
                 </div>
-                <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col items-center justify-center gap-6">
+                <div className="lg:col-span-2 flex items-center justify-center">
                   {/* Molded Icon Frame */}
                   <div className="w-16 h-16 rounded-xl bg-slate-100 flex items-center justify-center text-[#E8D8C4] border border-slate-205/50">
                     <ShieldAlert className="w-8 h-8" />
                   </div>
-                  <Link
-                    href="/admin/trantib"
-                    className="w-full max-w-[240px] py-3 bg-[#561C24] hover:bg-[#6D2932] text-white text-xs font-black rounded-lg shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-[0.98]"
-                  >
-                    Masuk Dashboard Trantib <ArrowRight className="w-4 h-4" />
-                  </Link>
                 </div>
               </div>
             </div>
@@ -238,7 +220,7 @@ export default function Home() {
             {/* Card 3: Bidang Perada */}
             <div className="bg-white rounded-2xl p-8 shadow-sm border border-slate-205/80 hover:shadow-md transition-all duration-200">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                <div className="lg:col-span-8 space-y-4">
+                <div className="lg:col-span-10 space-y-4">
                   <span className="inline-block px-3 py-1 bg-fuchsia-50 border border-fuchsia-200/60 text-[10px] font-black text-fuchsia-850 rounded-lg uppercase tracking-wider">
                     Pilar Ketiga
                   </span>
@@ -252,17 +234,37 @@ export default function Home() {
                     <li className="flex items-center gap-2">✓ Pelacakan Bukti Setor Kas Daerah (Denda)</li>
                   </ul>
                 </div>
-                <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col items-center justify-center gap-6">
+                <div className="lg:col-span-2 flex items-center justify-center">
                   {/* Molded Icon Frame */}
                   <div className="w-16 h-16 rounded-xl bg-slate-100 flex items-center justify-center text-[#561C24] border border-[#C7B7A3]/30">
                     <Scale className="w-8 h-8" />
                   </div>
-                  <Link
-                    href="/admin/perada"
-                    className="w-full max-w-[240px] py-3 bg-[#561C24] hover:bg-[#6D2932] text-white text-xs font-black rounded-lg shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-[0.98]"
-                  >
-                    Masuk Dashboard Perada <ArrowRight className="w-4 h-4" />
-                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 4: Bidang SDA */}
+            <div className="bg-white rounded-2xl p-8 shadow-sm border border-slate-205/80 hover:shadow-md transition-all duration-200">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div className="lg:col-span-10 space-y-4">
+                  <span className="inline-block px-3 py-1 bg-emerald-50 border border-emerald-200/60 text-[10px] font-black text-emerald-800 rounded-lg uppercase tracking-wider">
+                    Pilar Keempat
+                  </span>
+                  <h4 className="text-xl font-extrabold text-slate-800">Bidang SDA</h4>
+                  <p className="text-sm text-slate-550 leading-relaxed font-medium">
+                    Bertanggung jawab atas pembinaan kapasitas personel, peningkatan kedisiplinan, pelatihan taktis anggota Satpol PP dan Satlinmas, serta pengelolaan sarana dan prasarana penunjang tugas operasional di lapangan.
+                  </p>
+                  <ul className="text-[11px] sm:text-xs text-slate-500 font-semibold grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-slate-205">
+                    <li className="flex items-center gap-2">✓ Pembinaan & Peningkatan Disiplin Anggota</li>
+                    <li className="flex items-center gap-2">✓ Pengelolaan Sarana Prasarana Operasional</li>
+                    <li className="flex items-center gap-2">✓ Pelatihan Taktis & Kesiapsiagaan Personel</li>
+                  </ul>
+                </div>
+                <div className="lg:col-span-2 flex items-center justify-center">
+                  {/* Molded Icon Frame */}
+                  <div className="w-16 h-16 rounded-xl bg-slate-100 flex items-center justify-center text-[#561C24] border border-[#C7B7A3]/30">
+                    <Users className="w-8 h-8" />
+                  </div>
                 </div>
               </div>
             </div>
@@ -272,14 +274,13 @@ export default function Home() {
         </div>
 
         {/* TENTANG KAMI SECTION */}
-        <div 
+        <div
           ref={tentangRef}
-          id="tentang" 
-          className={`space-y-10 pt-12 border-t border-slate-205 scroll-mt-24 transition-all duration-1000 ease-out transform ${
-            isTentangVisible 
-              ? "opacity-100 translate-y-0" 
+          id="tentang"
+          className={`space-y-10 pt-12 border-t border-slate-205 scroll-mt-24 transition-all duration-1000 ease-out transform ${isTentangVisible
+              ? "opacity-100 translate-y-0"
               : "opacity-0 translate-y-12"
-          }`}
+            }`}
         >
           <div className="text-center space-y-3 max-w-2xl mx-auto">
             <span className="inline-block px-3 py-1 bg-amber-50 border border-amber-200/60 text-[10px] font-black text-amber-800 rounded-lg uppercase tracking-wider">
@@ -289,7 +290,7 @@ export default function Home() {
               Tentang Satpol PP Buleleng
             </h3>
             <p className="text-xs text-slate-500 leading-relaxed font-semibold">
-              Satuan Polisi Pamong Praja Kabupaten Buleleng berdedikasi tinggi menjaga ketertiban umum, menegakkan peraturan daerah, serta memberikan perlindungan maksimal bagi seluruh lapisan masyarakat.
+              Satuan Polisi Pamong Praja Kabupaten Buleleng berdedikasi tinggi menjaga ketertiban umum, menegakkan peraturan daerah, serta memberikan pelindungan maksimal bagi seluruh lapisan masyarakat.
             </p>
           </div>
 
@@ -327,130 +328,10 @@ export default function Home() {
               </ul>
             </div>
           </div>
-
-          {/* Dasar Hukum Box */}
-          <div className="bg-gradient-to-r from-[#561C24] to-[#6D2932] rounded-2xl p-6 md:p-8 text-white relative overflow-hidden shadow-md">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-2xl pointer-events-none" />
-            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-              <div className="lg:col-span-8 space-y-3 text-left">
-                <span className="inline-block px-3 py-1 bg-white/10 border border-white/20 text-[9px] font-black text-blue-250 rounded-lg uppercase tracking-wider">
-                  Landasan Konstitusional
-                </span>
-                <h4 className="text-lg md:text-xl font-black tracking-tight text-white">
-                  Dasar Hukum & Kewenangan Operasional
-                </h4>
-                <p className="text-xs text-slate-350 leading-relaxed font-medium">
-                  Eksistensi Satuan Polisi Pamong Praja Kabupaten Buleleng berlandaskan Undang-Undang Nomor 23 Tahun 2014 tentang Pemerintahan Daerah serta Peraturan Pemerintah Nomor 16 Tahun 2018 tentang Satpol PP, yang memberikan wewenang yustisial dan non-yustisial penuh untuk menegakkan ketertiban umum di daerah.
-                </p>
-              </div>
-              <div className="lg:col-span-4 flex justify-center lg:justify-end">
-                <div className="px-6 py-4 bg-white/10 rounded-xl border border-white/20 text-center max-w-[240px] backdrop-blur-sm">
-                  <Scale className="w-8 h-8 text-[#E8D8C4] mx-auto mb-2" />
-                  <span className="text-[10px] text-slate-350 font-bold block">Perda Penyelenggaraan Trantib</span>
-                  <span className="text-xs text-white font-black block mt-0.5">Perda No. 6 Tahun 2014</span>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
 
 
-        {/* PROFIL SATUAN & STRUKTUR ORGANISASI */}
-        <div 
-          ref={profilRef}
-          id="profil" 
-          className={`space-y-10 pt-12 border-t border-slate-205 scroll-mt-24 transition-all duration-1000 ease-out transform ${
-            isProfilVisible 
-              ? "opacity-100 translate-y-0" 
-              : "opacity-0 translate-y-12"
-          }`}
-        >
-          <div className="text-center space-y-3 max-w-2xl mx-auto">
-            <span className="inline-block px-3 py-1 bg-amber-50 border border-amber-200/60 text-[10px] font-black text-amber-800 rounded-lg uppercase tracking-wider">
-              Struktur Kepemimpinan
-            </span>
-            <h3 className="text-2xl md:text-3xl font-black text-[#561C24] tracking-tight">
-              Profil & Komando Struktur
-            </h3>
-            <p className="text-xs text-slate-500 leading-relaxed font-semibold">
-              Dipimpin oleh jajaran perwira berpengalaman untuk mengoordinasikan bidang ketertiban umum, penegakan regulasi daerah, serta perlindungan masyarakat.
-            </p>
-          </div>
 
-          {/* Leaders Grid */}
-          <div className="space-y-8">
-            
-            {/* Kepala Satuan - Primary Officer */}
-            <div className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-205/80 max-w-2xl mx-auto hover:shadow-md transition-all duration-350">
-              <div className="flex flex-col sm:flex-row items-center gap-6 text-center sm:text-left">
-                <div className="w-20 h-20 rounded-full bg-slate-100 text-[#561C24] border border-slate-205 flex items-center justify-center shadow-inner shrink-0 relative">
-                  <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-[#E28A1C] border-2 border-white flex items-center justify-center text-[10px] font-black text-white">
-                    ★
-                  </div>
-                  <Users className="w-10 h-10" />
-                </div>
-                
-                <div className="space-y-2">
-                  <span className="inline-block px-2.5 py-0.5 bg-[#561C24]/5 border border-[#C7B7A3]/30 text-[#561C24] text-[9px] font-black rounded-md uppercase tracking-wider">
-                    Kepala Satuan Pol PP Buleleng
-                  </span>
-                  <h4 className="text-base font-extrabold text-slate-900">
-                    Drs. I Gede Sandhiyasa, M.Si.
-                  </h4>
-                  <p className="text-xs text-slate-500 leading-relaxed font-medium">
-                    Bertanggung jawab memimpin seluruh perencanaan, pelaksanaan, serta koordinasi operasional ketenteraman masyarakat dan penegakan Perda di wilayah Kabupaten Buleleng.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Cabinet Members (Kabid) */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-4">
-              {/* Kabid Trantib */}
-              <div className="bg-white rounded-2xl p-5 border border-slate-205/80 text-left space-y-3 hover:shadow-sm transition-all duration-300">
-                <div className="w-10 h-10 rounded-xl bg-slate-100 text-[#561C24] flex items-center justify-center border border-slate-150">
-                  <ShieldAlert className="w-5 h-5" />
-                </div>
-                <div>
-                  <h5 className="text-[10px] text-[#E8D8C4] font-black uppercase tracking-wider">Kabid Trantibum</h5>
-                  <h4 className="text-xs font-bold text-slate-800 mt-0.5">I Putu Suwardika, SH</h4>
-                  <p className="text-[11px] text-slate-500 font-semibold mt-2 leading-relaxed">
-                    Mengelola tim patroli harian, operasi lapangan, penertiban PKL, serta menjaga ketenteraman masyarakat perkotaan secara berkala.
-                  </p>
-                </div>
-              </div>
-
-              {/* Kabid Linmas */}
-              <div className="bg-white rounded-2xl p-5 border border-slate-205/80 text-left space-y-3 hover:shadow-sm transition-all duration-300">
-                <div className="w-10 h-10 rounded-xl bg-slate-100 text-[#561C24] flex items-center justify-center border border-slate-150">
-                  <Shield className="w-5 h-5" />
-                </div>
-                <div>
-                  <h5 className="text-[10px] text-[#E8D8C4] font-black uppercase tracking-wider">Kabid Linmas</h5>
-                  <h4 className="text-xs font-bold text-slate-800 mt-0.5">I Ketut Yudistira, S.Sos</h4>
-                  <p className="text-[11px] text-slate-500 font-semibold mt-2 leading-relaxed">
-                    Bertanggung jawab atas administrasi, sertifikasi, pembinaan fisik, serta pengerahan kesiapsiagaan Satlinmas tingkat desa/kelurahan.
-                  </p>
-                </div>
-              </div>
-
-              {/* Kabid Perada */}
-              <div className="bg-white rounded-2xl p-5 border border-slate-205/80 text-left space-y-3 hover:shadow-sm transition-all duration-300">
-                <div className="w-10 h-10 rounded-xl bg-slate-100 text-[#561C24] flex items-center justify-center border border-slate-150">
-                  <Scale className="w-5 h-5" />
-                </div>
-                <div>
-                  <h5 className="text-[10px] text-[#E8D8C4] font-black uppercase tracking-wider">Kabid Perada</h5>
-                  <h4 className="text-xs font-bold text-slate-800 mt-0.5">Luh Gede Astuti, SH</h4>
-                  <p className="text-[11px] text-slate-500 font-semibold mt-2 leading-relaxed">
-                    Mengatur register regulasi resmi, BAP pelanggaran yustisial, pendataan denda kas daerah, serta mengoordinasikan sidang tindak pidana ringan (Tipiring).
-                  </p>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
 
       </main>
 

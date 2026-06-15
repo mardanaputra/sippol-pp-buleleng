@@ -261,7 +261,8 @@ export default function AdminDashboard() {
 
   const [formErrors, setFormErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
-  const [notification, setNotification] = useState(null); // { type: 'success' | 'error' | 'info' | 'confirm', message: string, onConfirm?: () => void }
+  const [notification, setNotification] = useState(null);
+  const [isExportPeradaOpen, setIsExportPeradaOpen] = useState(false);
 
   const showAlert = (message, type = 'success') => {
     setNotification({ type, message });
@@ -832,7 +833,7 @@ export default function AdminDashboard() {
               <div className="space-y-0 text-left">
                 <div className="inline-block bg-[#561C24] text-white px-6 py-2.5 rounded-t-2xl text-xs font-black uppercase tracking-wider shadow-sm select-none border-b-2 border-[#C7B7A3]">
                   <div className="flex items-center gap-1.5">
-                    Kasus Hukum Perada (Prisma Data)
+                    Penegakan Perda/Perkada (Prisma Data)
                   </div>
                 </div>
 
@@ -856,28 +857,15 @@ export default function AdminDashboard() {
                         </div>
                         <div className="flex justify-between items-center text-xs font-bold border-b border-slate-100 pb-1.5">
                           <span className="flex items-center gap-1.5 text-slate-600">
-                            <span className="w-2.5 h-2.5 rounded-full bg-[#8b5cf6]" /> Sidang Tipiring
+                            <span className="w-2.5 h-2.5 rounded-full bg-[#f59e0b]" /> Surat Peringatan (SP)
                           </span>
                           <span className="text-slate-800">{countSidang} <span className="text-[10px] text-slate-400 font-semibold">({pctSidang}%)</span></span>
                         </div>
                         <div className="flex justify-between items-center text-xs font-bold border-b border-slate-100 pb-1.5">
                           <span className="flex items-center gap-1.5 text-slate-600">
-                            <span className="w-2.5 h-2.5 rounded-full bg-[#f59e0b]" /> Penyelidikan
+                            <span className="w-2.5 h-2.5 rounded-full bg-[#94a3b8]" /> Penyelidikan / SP Aktif
                           </span>
                           <span className="text-slate-800">{countPenyelidikan} <span className="text-[10px] text-slate-400 font-semibold">({pctPenyelidikan}%)</span></span>
-                        </div>
-                      </div>
-
-                      {/* Total Fines collected card */}
-                      <div className="bg-[#fffbeb] border border-[#fef3c7] rounded-xl p-3 shadow-inner flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full bg-[#f59e0b]/10 text-[#d97706] flex items-center justify-center shrink-0">
-                          <Coins className="w-4.5 h-4.5" />
-                        </div>
-                        <div className="text-left">
-                          <p className="text-[9px] text-slate-400 font-extrabold uppercase tracking-widest leading-none">Denda Kas Daerah</p>
-                          <p className="text-sm font-black text-[#d97706] leading-none mt-1">
-                            Rp {totalDenda.toLocaleString('id-ID')}
-                          </p>
                         </div>
                       </div>
                     </div>
@@ -886,21 +874,52 @@ export default function AdminDashboard() {
                   {/* Actions */}
                   <div className="flex justify-between items-center border-t border-slate-100 pt-4 mt-auto">
                     <span className="text-[9px] text-slate-400 font-extrabold tracking-wider uppercase select-none">
-                      Tipiring: {countTipiring} | Yustisial: {countYustisial}
+                      SP1/SP2/SP3: {countSidang} | Selesai: {countSelesai}
                     </span>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        showAlert("Data Penegakan Perda berhasil diunduh ke perangkat Anda!", 'success');
-                        const link = document.createElement('a');
-                        link.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent('SIP POLPP Buleleng - Data Penegakan Perda Rekap');
-                        link.download = 'Grafik_Penegakan_Perda_Buleleng.txt';
-                        link.click();
-                      }}
-                      className="px-3.5 py-1.5 bg-[#212260] hover:bg-[#1b1c50] text-[#ffb800] text-[10px] font-bold rounded-lg shadow-sm transition-all duration-200 flex items-center gap-1.5 cursor-pointer active:scale-95 border border-[#ffb800]/25"
-                    >
-                      Ekspor Data Log
-                    </button>
+                    <div className="relative">
+                      <button
+                        type="button"
+                        onClick={() => setIsExportPeradaOpen(prev => !prev)}
+                        className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-2xl shadow-sm transition-all duration-200 flex items-center justify-between gap-6 cursor-pointer active:scale-95 min-w-[145px]"
+                      >
+                        <span>Ekspor Data</span>
+                        <ChevronDown className={`w-4 h-4 text-white transition-transform duration-200 ${isExportPeradaOpen ? 'rotate-180' : ''}`} />
+                      </button>
+
+                      {isExportPeradaOpen && (
+                        <>
+                          {/* Overlay to close on outside click */}
+                          <div
+                            className="fixed inset-0 z-40"
+                            onClick={() => setIsExportPeradaOpen(false)}
+                          />
+                          <div className="absolute bottom-full right-0 mb-2 w-44 bg-white border border-slate-100 rounded-[20px] shadow-[0_8px_30px_rgba(0,0,0,0.08)] z-50 p-2 flex flex-col gap-0.5 animate-in fade-in slide-in-from-bottom-2 duration-200">
+                            {[
+                              { fmt: 'Excel', ext: 'csv', mime: 'text/csv' },
+                              { fmt: 'Word', ext: 'txt', mime: 'text/plain' },
+                              { fmt: 'PDF', ext: 'txt', mime: 'text/plain' },
+                            ].map((opt) => (
+                              <button
+                                key={opt.fmt}
+                                type="button"
+                                onClick={() => {
+                                  setIsExportPeradaOpen(false);
+                                  showAlert(`Data berhasil diunduh sebagai ${opt.fmt}!`, 'success');
+                                  const content = `SIP POLPP Buleleng\nData Penegakan Perda/Perkada\n\nTotal Kasus: ${totalPerada}\nKasus Selesai: ${countSelesai}\nSurat Peringatan: ${countSidang}\nPenyelidikan Aktif: ${countPenyelidikan}`;
+                                  const link = document.createElement('a');
+                                  link.href = `data:${opt.mime};charset=utf-8,` + encodeURIComponent(content);
+                                  link.download = `Ekspor_Penegakan_Perda_Buleleng.${opt.ext}`;
+                                  link.click();
+                                }}
+                                className="w-full text-left px-4 py-2.5 text-[#4d4a6b] hover:text-emerald-700 hover:bg-[#e6f4ea] rounded-xl text-xs font-semibold transition-all duration-150 cursor-pointer"
+                              >
+                                {opt.fmt}
+                              </button>
+                            ))}
+                          </div>
+                        </>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
