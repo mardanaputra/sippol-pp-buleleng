@@ -661,7 +661,7 @@ export default function AdminDashboard() {
             <div className="space-y-0 text-left">
               <div className="inline-block bg-[#561C24] text-white px-6 py-2.5 rounded-t-2xl text-xs font-black uppercase tracking-wider shadow-sm select-none border-b-2 border-[#C7B7A3]">
                 <div className="flex items-center gap-1.5">
-                  Aduan Menunggu Aksi (Pending Actions)
+                  Aduan Menunggu Aksi
                 </div>
               </div>
 
