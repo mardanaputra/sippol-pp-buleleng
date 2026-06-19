@@ -395,48 +395,31 @@ export default function AdminMap({
   }, [reports, trantibLogs, showReports, showTrantib, LInstance]);
 
   return (
-    <div className="w-full relative bg-slate-50 rounded-2xl border border-slate-150 p-2 min-h-[360px] shadow-inner flex flex-col">
-      {/* Map Container */}
-      <div 
-        ref={mapContainerRef} 
-        className="w-full flex-1 min-h-[340px] rounded-xl overflow-hidden z-10"
-        style={{ outline: 'none' }}
-      >
-        {!mapLoaded && (
-          <div className="absolute inset-0 flex items-center justify-center bg-slate-100/80 rounded-xl z-20 font-bold text-xs text-slate-500 space-x-2">
-            <svg className="animate-spin h-5 w-5 text-slate-600" fill="none" viewBox="0 0 24 24">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            <span>Memuat Peta Spasial...</span>
-          </div>
-        )}
-      </div>
-
-      {/* Floating React Control Widget */}
-      <div className="absolute top-4 right-4 z-20 flex flex-col gap-2.5 max-w-[200px] sm:max-w-[240px]">
-        {/* Layer Boundaries Toggle */}
-        <div className="bg-white/95 backdrop-blur-md border border-slate-200 p-2.5 rounded-xl shadow-lg flex flex-col gap-2">
-          <div className="flex items-center gap-1.5 text-[9px] font-black text-slate-500 uppercase tracking-widest border-b border-slate-100 pb-1">
-            <Layers className="w-3.5 h-3.5 text-slate-400" /> Batas Wilayah
-          </div>
-          <div className="flex gap-1">
+    <div className="w-full h-[380px] sm:h-[480px] bg-white rounded-2xl border border-slate-200 shadow-sm flex flex-col overflow-hidden relative">
+      {/* Top Control Bar */}
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-3 bg-slate-50 border-b border-slate-200 text-xs font-semibold text-slate-700 select-none">
+        {/* Left: Boundary Type Toggle */}
+        <div className="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-start">
+          <span className="text-[10px] uppercase tracking-wider text-slate-400 font-extrabold flex items-center gap-1">
+            <Layers className="w-3.5 h-3.5" /> Batas Wilayah:
+          </span>
+          <div className="inline-flex rounded-lg bg-slate-200/60 p-0.5 border border-slate-200">
             <button
               onClick={() => setBoundaryType('kecamatan')}
-              className={`flex-1 py-1.5 text-[10px] font-extrabold rounded-lg transition-all cursor-pointer ${
+              className={`px-3 py-1 text-[10px] font-black rounded-md transition-all cursor-pointer ${
                 boundaryType === 'kecamatan'
                   ? 'bg-[#0B1E43] text-white shadow-sm'
-                  : 'bg-slate-50 text-slate-600 hover:bg-slate-100'
+                  : 'text-slate-500 hover:text-slate-800'
               }`}
             >
               Kecamatan
             </button>
             <button
               onClick={() => setBoundaryType('desa')}
-              className={`flex-1 py-1.5 text-[10px] font-extrabold rounded-lg transition-all cursor-pointer ${
+              className={`px-3 py-1 text-[10px] font-black rounded-md transition-all cursor-pointer ${
                 boundaryType === 'desa'
                   ? 'bg-[#0B1E43] text-white shadow-sm'
-                  : 'bg-slate-50 text-slate-600 hover:bg-slate-100'
+                  : 'text-slate-500 hover:text-slate-800'
               }`}
             >
               Desa
@@ -444,39 +427,56 @@ export default function AdminMap({
           </div>
         </div>
 
-        {/* Data Markers Toggle */}
-        <div className="bg-white/95 backdrop-blur-md border border-slate-200 p-2.5 rounded-xl shadow-lg flex flex-col gap-2">
-          <div className="flex items-center gap-1.5 text-[9px] font-black text-slate-500 uppercase tracking-widest border-b border-slate-100 pb-1">
-            <Info className="w-3.5 h-3.5 text-slate-400" /> Filter Titik Kasus
-          </div>
-          <div className="space-y-1.5 text-[10px] font-bold text-slate-700">
-            <label className="flex items-center gap-2 cursor-pointer hover:text-slate-900 select-none">
+        {/* Right: Layer Checkboxes */}
+        <div className="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end border-t sm:border-t-0 pt-2 sm:pt-0 border-slate-200/60">
+          <span className="text-[10px] uppercase tracking-wider text-slate-400 font-extrabold flex items-center gap-1">
+            <Info className="w-3.5 h-3.5" /> Filter Titik:
+          </span>
+          <div className="flex items-center gap-3">
+            <label className="flex items-center gap-1.5 cursor-pointer hover:text-slate-900 select-none">
               <input
                 type="checkbox"
                 checked={showReports}
                 onChange={(e) => setShowReports(e.target.checked)}
-                className="w-3.5 h-3.5 rounded border-slate-350 text-rose-600 focus:ring-rose-500 cursor-pointer"
+                className="w-3.5 h-3.5 rounded border-slate-300 text-rose-600 focus:ring-rose-500 cursor-pointer"
               />
-              <span className="flex items-center gap-1">
-                <span className="w-2 h-2 rounded-full bg-red-500 inline-block animate-pulse"></span>
-                Aduan Warga (${reports.length})
+              <span className="flex items-center gap-1 text-[10px] font-bold text-slate-600">
+                <span className="w-1.5 h-1.5 rounded-full bg-red-500 inline-block animate-pulse"></span>
+                Aduan Warga ({reports.length})
               </span>
             </label>
 
-            <label className="flex items-center gap-2 cursor-pointer hover:text-slate-900 select-none">
+            <label className="flex items-center gap-1.5 cursor-pointer hover:text-slate-900 select-none">
               <input
                 type="checkbox"
                 checked={showTrantib}
                 onChange={(e) => setShowTrantib(e.target.checked)}
-                className="w-3.5 h-3.5 rounded border-slate-350 text-amber-600 focus:ring-amber-500 cursor-pointer"
+                className="w-3.5 h-3.5 rounded border-slate-300 text-amber-600 focus:ring-amber-500 cursor-pointer"
               />
-              <span className="flex items-center gap-1">
-                <span className="w-2 h-2 rounded-full bg-amber-500 inline-block"></span>
-                Penertiban K3 (${trantibLogs.length})
+              <span className="flex items-center gap-1 text-[10px] font-bold text-slate-600">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-500 inline-block"></span>
+                Penertiban K3 ({trantibLogs.length})
               </span>
             </label>
           </div>
         </div>
+      </div>
+
+      {/* Map Container */}
+      <div 
+        ref={mapContainerRef} 
+        className="w-full flex-1 relative"
+        style={{ outline: 'none' }}
+      >
+        {!mapLoaded && (
+          <div className="absolute inset-0 flex items-center justify-center bg-slate-100/80 z-20 font-bold text-xs text-slate-500 space-x-2">
+            <svg className="animate-spin h-5 w-5 text-slate-600" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <span>Memuat Peta Spasial...</span>
+          </div>
+        )}
       </div>
       
       {/* Mini Leaflet Style Overrides */}
@@ -505,3 +505,4 @@ export default function AdminMap({
     </div>
   );
 }
+

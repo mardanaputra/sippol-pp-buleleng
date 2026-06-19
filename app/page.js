@@ -564,8 +564,8 @@ export default function Home() {
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             {/* Map wrapper */}
-            <div className="lg:col-span-8 bg-white border border-slate-205/80 rounded-2xl p-4 shadow-sm relative">
-              <div className="flex justify-between items-center mb-3">
+            <div className="lg:col-span-8 space-y-3 relative">
+              <div className="flex justify-between items-center px-1">
                 <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-1">
                   <Map className="w-3.5 h-3.5 text-slate-400" /> Peta Kabupaten Buleleng
                 </span>
