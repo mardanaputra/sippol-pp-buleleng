@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Footer from '../../components/Footer';
+import AdminNavbar from '../../components/AdminNavbar';
 import { 
   Shield, 
   Users, 
@@ -625,122 +626,12 @@ export default function LinmasAdmin() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8F7F4] text-slate-800 font-sans select-none relative overflow-x-hidden pt-[57px] flex flex-col justify-between">
+    <div className="min-h-screen bg-[#F8F7F4] text-slate-800 font-sans select-none relative overflow-x-hidden pt-[72px] flex flex-col justify-between">
       
       {/* 2. Horizontal Admin Navbar (Fixed / Persistent) */}
-      <nav className="bg-white border-b border-slate-200 shadow-md fixed top-0 left-0 w-full z-50">
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between overflow-x-auto whitespace-nowrap scrollbar-none">
-          <div className="flex items-center space-x-1">
-            <Link 
-              href="/" 
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#561C24] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
-              title="Kembali ke halaman utama warga"
-            >
-              Portal Warga
-            </Link>
-            
-            <Link 
-              href="/admin/dashboard" 
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#561C24] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
-            >
-              Dashboard
-            </Link>
-            
-            <Link 
-              href="/admin/dashboard?tab=disposisi" 
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#561C24] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
-            >
-              Disposisi
-            </Link>
-            
-            <Link 
-              href="/admin/trantib" 
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#561C24] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
-            >
-              Portal Trantib
-            </Link>
-
-            <Link 
-              href="/admin/perada" 
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#561C24] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
-            >
-              Portal Perada
-            </Link>
-
-            <Link 
-              href="/admin/linmas" 
-              className="px-4 py-4 text-xs font-black text-[#561C24] bg-[#561C24]/5 border-b-2 border-[#561C24] transition-all uppercase tracking-wider flex items-center gap-1.5 font-black"
-            >
-              Portal Linmas
-            </Link>
-
-            <Link 
-              href="/admin/sda" 
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#561C24] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
-            >
-              Portal SDA
-            </Link>
-            <Link 
-              href="/admin/kegiatan" 
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#561C24] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
-            >
-              Portal Kegiatan
-            </Link>
-          </div>
-        </div>
-      </nav>
-
-      {/* 1. Header Banner Top Bar (Coffee Gradient Style) */}
-      <div className="bg-gradient-to-r from-[#561C24] via-[#6D2932] to-[#80424a] text-white p-6 rounded-b-3xl shadow-lg relative overflow-hidden">
-        {/* Glowing Decorative Backgrounds */}
-        <div className="absolute top-[-50px] right-[-50px] w-48 h-48 bg-white/10 rounded-full blur-xl pointer-events-none" />
-        <div className="absolute bottom-[-50px] left-[15%] w-36 h-36 bg-[#C7B7A3]/20 rounded-full blur-xl pointer-events-none" />
-        
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 relative z-10">
-          
-          {/* Sisi Kiri: Logo bulat SIP POLPP & Identitas */}
-          <div className="flex items-center gap-4 text-center md:text-left flex-col md:flex-row">
-            <div className="w-16 h-16 rounded-full bg-white border-2 border-[#C7B7A3] p-1 flex items-center justify-center shadow-md shrink-0">
-              <div className="w-full h-full rounded-full bg-gradient-to-tr from-[#561C24] to-[#6D2932] flex items-center justify-center text-white">
-                <Shield className="w-8 h-8 text-[#E8D8C4] fill-[#E8D8C4]/15" />
-              </div>
-            </div>
-            <div>
-              <h1 className="text-2xl md:text-3xl font-black tracking-wider leading-none text-white drop-shadow-md">
-                SIP POLPP
-              </h1>
-              <p className="text-[10px] text-[#E8D8C4] font-bold uppercase tracking-widest mt-1.5">
-                Sistem Informasi Pelayanan & Operasional Pol PP Kemendagri
-              </p>
-            </div>
-          </div>
-          
-          {/* Sisi Kanan: Night mode & Profil Admin Buleleng */}
-          <div className="flex items-center gap-4">
-            <button 
-              onClick={() => showAlert("Fitur Mode Malam akan segera hadir!", 'info')}
-              className="p-2.5 bg-white/10 hover:bg-white/20 rounded-full transition-all text-white border border-white/20 active:scale-95 cursor-pointer"
-              title="Toggle Night Mode"
-              type="button"
-            >
-              <Moon className="w-5 h-5 fill-white/10" />
-            </button>
-            
-            <div className="flex items-center gap-3 bg-white/15 backdrop-blur-md px-4 py-2 rounded-2xl border border-white/20 shadow-sm">
-              <div className="w-9 h-9 rounded-full bg-slate-200 border-2 border-white/60 flex items-center justify-center text-slate-700 font-extrabold shadow-inner shrink-0">
-                KB
-              </div>
-              <div className="text-left text-white leading-none">
-                <h4 className="text-xs font-black tracking-wide">Kabupaten Buleleng</h4>
-                <span className="text-[8px] bg-[#E8D8C4] text-[#561C24] font-black uppercase tracking-widest px-1.5 py-0.5 rounded mt-1.5 inline-block">
-                  Admin
-                </span>
-              </div>
-            </div>
-          </div>
-          
-        </div>
-      </div>
+      <AdminNavbar
+        activePortal="linmas"
+      />
 
 
       {/* Main Grid Content */}

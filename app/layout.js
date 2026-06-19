@@ -12,7 +12,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata = {
-  title: "SIPP-OL PP Buleleng",
+  title: "SIPPOL PP Buleleng",
   description: "Sistem Informasi Pelayanan Publik & Operasional Satpol PP Buleleng",
 };
 

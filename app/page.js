@@ -208,7 +208,7 @@ export default function Home() {
   const getKecStats = (kecName) => {
     if (!kecName) return { reklame: 0, pkl: 0, satlinmas: 0, perada: 0 };
     const nameLower = kecName.toLowerCase();
-    
+
     const reklame = trantibLogs.filter(l => {
       const isKecMatch = `${l.lokasi} ${l.keterangan}`.toLowerCase().includes(nameLower);
       const isReklame = l.jenis_pelanggaran?.includes('Reklame') || l.jenis_pelanggaran?.includes('Iklan') || l.jenis_pelanggaran?.includes('Baliho');
@@ -345,14 +345,14 @@ export default function Home() {
 
         {/* HERO SECTION */}
         <div className={`grid grid-cols-1 lg:grid-cols-12 gap-12 items-center transition-all duration-1000 ease-out transform ${isHeroVisible
-            ? "opacity-100 translate-y-0"
-            : "opacity-0 translate-y-12"
+          ? "opacity-100 translate-y-0"
+          : "opacity-0 translate-y-12"
           }`}>
 
           {/* Left Text & CTA */}
           <div className="lg:col-span-7 space-y-6 text-left">
             <div className="inline-flex items-center px-4 py-1.5 bg-[#561C24]/5 text-[#561C24] border border-[#C7B7A3]/30 rounded-lg text-xs font-bold tracking-wider">
-              <span className="mr-1.5">ðŸ“</span> Kabupaten Buleleng
+              <span className="mr-1.5"></span> Kabupaten Buleleng
             </div>
 
             <div className="space-y-4">
@@ -387,26 +387,27 @@ export default function Home() {
               {/* Outer Golden/Amber Ring */}
               <div className="absolute inset-2 rounded-full border-2 border-dashed border-[#E28A1C]/30 animate-[spin_100s_linear_infinite]" />
 
-              {/* Inner Rich Deep Navy Circle */}
-              <div className="w-full h-full bg-[#0B1E43] rounded-full flex flex-col items-center justify-center p-6 text-center shadow-inner relative overflow-hidden">
-                {/* Subtle decorative glow in navy circle */}
+              {/* Inner Rich Deep Red Circle */}
+              <div className="w-full h-full bg-[#561C24] rounded-full flex flex-col items-center justify-center p-6 text-center shadow-inner relative overflow-hidden">
+                {/* Subtle decorative glow in red circle */}
                 <div className="absolute w-32 h-32 -top-10 -right-10 bg-white/5 rounded-full blur-xl pointer-events-none" />
 
                 <div className="space-y-4 relative z-10">
-                  <div className="w-16 h-16 rounded-full bg-white/10 mx-auto flex items-center justify-center text-[#E8D8C4] border border-white/20">
-                    <ShieldAlert className="w-8 h-8" />
+                  <div className="w-32 h-32 md:w-36 md:h-36 mx-auto flex items-center justify-center relative">
+                    <img
+                      src="/logo-satpolpp.png"
+                      alt="Logo Satpol PP"
+                      className="w-full h-full object-contain drop-shadow-md select-none pointer-events-none"
+                    />
                   </div>
                   <div>
                     <span className="text-[#E8D8C4] text-[10px] font-black tracking-widest uppercase block">
                       LAYANAN INTEGRASI ADUAN
                     </span>
                     <h3 className="text-white text-lg font-black mt-1 leading-tight">
-                      SIPP-OL PP
+                      SIPPOL PP
                     </h3>
                   </div>
-                  <p className="text-slate-350 text-[10px] max-w-[14rem] mx-auto leading-relaxed">
-                    Aman, Rahasia, & Cepat Ditanggapi Langsung Oleh Petugas Lapangan Satpol PP
-                  </p>
                 </div>
               </div>
             </div>
@@ -414,12 +415,69 @@ export default function Home() {
 
         </div>
 
+        {/* TENTANG KAMI SECTION */}
+        <div
+          ref={tentangRef}
+          id="tentang"
+          className={`space-y-10 pt-12 border-t border-slate-205 scroll-mt-24 transition-all duration-1000 ease-out transform ${isTentangVisible
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 translate-y-12"
+            }`}
+        >
+          <div className="text-center space-y-3 max-w-2xl mx-auto">
+            <span className="inline-block px-3 py-1 bg-amber-50 border border-amber-200/60 text-[10px] font-black text-amber-800 rounded-lg uppercase tracking-wider">
+              Mengenal Lebih Dekat
+            </span>
+            <h3 className="text-2xl md:text-3xl font-black text-[#561C24] tracking-tight">
+              Tentang Satpol PP Buleleng
+            </h3>
+            <p className="text-xs text-slate-500 leading-relaxed font-semibold">
+              Satuan Polisi Pamong Praja Kabupaten Buleleng berdedikasi tinggi menjaga ketertiban umum, menegakkan peraturan daerah, serta memberikan pelindungan maksimal bagi seluruh lapisan masyarakat.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Visi */}
+            <div className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-205/80 space-y-4 hover:shadow-md transition-all duration-300">
+              <div className="w-12 h-12 rounded-xl bg-[#561C24]/5 flex items-center justify-center text-[#561C24] border border-blue-100">
+                <Target className="w-6 h-6" />
+              </div>
+              <h4 className="text-lg font-black text-[#561C24]">Visi Kami</h4>
+              <p className="text-xs text-slate-600 leading-relaxed font-medium">
+                Terwujudnya ketenteraman dan ketertiban umum serta perlindungan masyarakat yang prima berbasis kearifan lokal guna mendukung pembangunan Kabupaten Buleleng yang maju, mandiri, dan sejahtera.
+              </p>
+            </div>
+
+            {/* Misi */}
+            <div className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-205/80 space-y-4 hover:shadow-md transition-all duration-300">
+              <div className="w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center text-[#E8D8C4] border border-amber-100">
+                <Eye className="w-6 h-6" />
+              </div>
+              <h4 className="text-lg font-black text-[#561C24]">Misi Kami</h4>
+              <ul className="text-xs text-slate-600 space-y-2.5 font-medium">
+                <li className="flex items-start gap-2.5">
+                  <span className="text-[#E8D8C4] mt-0.5 font-bold">1.</span>
+                  <span>Meningkatkan efektivitas penegakan Peraturan Daerah dan Peraturan Kepala Daerah secara humanis namun tegas.</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <span className="text-[#E8D8C4] mt-0.5 font-bold">2.</span>
+                  <span>Mewujudkan situasi wilayah yang kondusif, aman, tertib, dan tenteram bagi kelancaran aktivitas perekonomian dan sosial warga.</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <span className="text-[#E8D8C4] mt-0.5 font-bold">3.</span>
+                  <span>Mengoptimalkan peran Satlinmas dalam kesiapsiagaan penanggulangan bencana, ketenteraman pemilu, dan perlindungan masyarakat desa.</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
         {/* FOUR PILLARS SECTION */}
         <div
           ref={pillarsRef}
           className={`space-y-10 pt-8 border-t border-slate-205 transition-all duration-1000 ease-out transform ${isPillarsVisible
-              ? "opacity-100 translate-y-0"
-              : "opacity-0 translate-y-12"
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 translate-y-12"
             }`}
         >
 
@@ -447,9 +505,9 @@ export default function Home() {
                     Bertugas mengelola administrasi Satuan Perlindungan Masyarakat (Satlinmas) di tingkat desa dan kelurahan se-Kabupaten Buleleng. Bidang ini juga menjadi garda terdepan dalam penertiban gangguan Trantibum yang bersifat masalah sosial.
                   </p>
                   <ul className="text-[11px] sm:text-xs text-slate-500 font-semibold grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-slate-205">
-                    <li className="flex items-center gap-2">âœ“ Penanganan Orang Dengan Gangguan Jiwa (ODGJ)</li>
-                    <li className="flex items-center gap-2">âœ“ Penertiban Gepeng (Gelandangan & Pengemis)</li>
-                    <li className="flex items-center gap-2">âœ“ Pembinaan Satlinmas Tingkat Desa</li>
+                    <li className="flex items-center gap-2">Penanganan Orang Dengan Gangguan Jiwa (ODGJ)</li>
+                    <li className="flex items-center gap-2">Penertiban Gepeng (Gelandangan & Pengemis)</li>
+                    <li className="flex items-center gap-2">Pembinaan Satlinmas Tingkat Desa</li>
                   </ul>
                 </div>
                 <div className="lg:col-span-2 flex items-center justify-center">
@@ -473,9 +531,9 @@ export default function Home() {
                     Fokus pada penanganan operasional patroli berkala di wilayah rawan (seperti pusat kota dan kawasan pariwisata), serta eksekusi langsung di lapangan terhadap gangguan ketenteraman masyarakat.
                   </p>
                   <ul className="text-[11px] sm:text-xs text-slate-500 font-semibold grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-slate-205">
-                    <li className="flex items-center gap-2">âœ“ Penertiban Pedagang Kaki Lima (PKL)</li>
-                    <li className="flex items-center gap-2">âœ“ Penindakan Reklame Liar & Kedaluwarsa</li>
-                    <li className="flex items-center gap-2">âœ“ Plotting & Manajemen Regu Patroli Harian</li>
+                    <li className="flex items-center gap-2">Penertiban Pedagang Kaki Lima (PKL)</li>
+                    <li className="flex items-center gap-2">Penindakan Reklame Liar & Kedaluwarsa</li>
+                    <li className="flex items-center gap-2">Plotting & Manajemen Regu Patroli Harian</li>
                   </ul>
                 </div>
                 <div className="lg:col-span-2 flex items-center justify-center">
@@ -499,9 +557,9 @@ export default function Home() {
                     Kamus hukum digital Satpol PP Buleleng. Bertanggung jawab atas pendaftaran regulasi resmi, rincian pasal pelanggaran, serta administrasi eksekusi penegakan Peraturan Daerah (Perda) dan BAP Yustisial.
                   </p>
                   <ul className="text-[11px] sm:text-xs text-slate-500 font-semibold grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-slate-205">
-                    <li className="flex items-center gap-2">âœ“ Master Data Regulasi (Perda & Perbup)</li>
-                    <li className="flex items-center gap-2">âœ“ Penindakan Yustisial / Sidang Tipiring</li>
-                    <li className="flex items-center gap-2">âœ“ Pelacakan Bukti Setor Kas Daerah (Denda)</li>
+                    <li className="flex items-center gap-2">Master Data Regulasi (Perda & Perbup)</li>
+                    <li className="flex items-center gap-2">Penindakan Yustisial / Sidang Tipiring</li>
+                    <li className="flex items-center gap-2">Pelacakan Bukti Setor Kas Daerah (Denda)</li>
                   </ul>
                 </div>
                 <div className="lg:col-span-2 flex items-center justify-center">
@@ -525,9 +583,9 @@ export default function Home() {
                     Bertanggung jawab atas pembinaan kapasitas personel, peningkatan kedisiplinan, pelatihan taktis anggota Satpol PP dan Satlinmas, serta pengelolaan sarana dan prasarana penunjang tugas operasional di lapangan.
                   </p>
                   <ul className="text-[11px] sm:text-xs text-slate-500 font-semibold grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-slate-205">
-                    <li className="flex items-center gap-2">âœ“ Pembinaan & Peningkatan Disiplin Anggota</li>
-                    <li className="flex items-center gap-2">âœ“ Pengelolaan Sarana Prasarana Operasional</li>
-                    <li className="flex items-center gap-2">âœ“ Pelatihan Taktis & Kesiapsiagaan Personel</li>
+                    <li className="flex items-center gap-2">Pembinaan & Peningkatan Disiplin Anggota</li>
+                    <li className="flex items-center gap-2">Pengelolaan Sarana Prasarana Operasional</li>
+                    <li className="flex items-center gap-2">Pelatihan Taktis & Kesiapsiagaan Personel</li>
                   </ul>
                 </div>
                 <div className="lg:col-span-2 flex items-center justify-center">
@@ -546,9 +604,9 @@ export default function Home() {
         {/* SPATIAL MAP SECTION */}
         <div
           ref={mapSectionRef}
-          className={`space-y-10 pt-12 border-t border-slate-205 transition-all duration-1000 ease-out transform ${
-            isMapVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-          }`}
+          id="peta"
+          className={`space-y-10 pt-12 border-t border-slate-205 scroll-mt-24 transition-all duration-1000 ease-out transform ${isMapVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+            }`}
         >
           <div className="text-center space-y-3 max-w-2xl mx-auto">
             <span className="inline-block px-3 py-1 bg-[#561C24]/5 border border-[#C7B7A3]/30 text-[10px] font-black text-[#561C24] rounded-lg uppercase tracking-wider">
@@ -558,7 +616,7 @@ export default function Home() {
               Peta Informasi Ketertiban Buleleng
             </h3>
             <p className="text-xs text-slate-500 leading-relaxed font-semibold">
-              Visualisasi interaktif wilayah rawan gangguan ketertiban umum (reklame liar, PKL melanggar) serta plotting sebaran pos anggota Satlinmas di setiap Kecamatan.
+              Wilayah rawan gangguan ketertiban umum serta plotting sebaran pos anggota Satlinmas di setiap Kecamatan.
             </p>
           </div>
 
@@ -606,13 +664,12 @@ export default function Home() {
                     <div className="space-y-3">
                       <div className="flex justify-between items-center">
                         <span className="text-sm font-black text-slate-800 uppercase tracking-tight">Kec. {kec?.name}</span>
-                        <span className={`text-[9px] px-2 py-0.5 rounded-lg border font-black uppercase tracking-wider ${
-                          kec?.rawan === 'Rawan Tinggi'
-                            ? 'bg-red-50 border-red-200 text-red-700'
-                            : kec?.rawan === 'Rawan Sedang'
+                        <span className={`text-[9px] px-2 py-0.5 rounded-lg border font-black uppercase tracking-wider ${kec?.rawan === 'Rawan Tinggi'
+                          ? 'bg-red-50 border-red-200 text-red-700'
+                          : kec?.rawan === 'Rawan Sedang'
                             ? 'bg-orange-50 border-orange-200 text-orange-700'
                             : 'bg-blue-50 border-blue-200 text-blue-700'
-                        }`}>
+                          }`}>
                           {kec?.rawan}
                         </span>
                       </div>
@@ -675,9 +732,8 @@ export default function Home() {
                         return (
                           <tr
                             key={kec.id}
-                            className={`cursor-pointer hover:bg-slate-50/50 transition-colors ${
-                              isHovered || isSelected ? 'bg-slate-50/80 font-black text-[#561C24]' : ''
-                            }`}
+                            className={`cursor-pointer hover:bg-slate-50/50 transition-colors ${isHovered || isSelected ? 'bg-slate-50/80 font-black text-[#561C24]' : ''
+                              }`}
                             onMouseEnter={() => setHoveredKecamatan(kec.id)}
                             onMouseLeave={() => setHoveredKecamatan(null)}
                             onClick={() => {
@@ -707,9 +763,9 @@ export default function Home() {
         {/* PUSTAKA EDUKASI HUKUM SECTION (JDIH / BANK DATA) */}
         <div
           ref={pustakaRef}
-          className={`space-y-8 pt-12 border-t border-slate-205 transition-all duration-1000 ease-out transform ${
-            isPustakaVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-          }`}
+          id="pustaka"
+          className={`space-y-8 pt-12 border-t border-slate-205 scroll-mt-24 transition-all duration-1000 ease-out transform ${isPustakaVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+            }`}
         >
           <div className="text-center space-y-3 max-w-2xl mx-auto">
             <span className="inline-block px-3 py-1 bg-[#561C24]/5 border border-[#C7B7A3]/30 text-[10px] font-black text-[#561C24] rounded-lg uppercase tracking-wider">
@@ -719,7 +775,7 @@ export default function Home() {
               Pustaka Edukasi Hukum & Bank Data
             </h3>
             <p className="text-xs text-slate-500 leading-relaxed font-semibold">
-              Akses publik regulasi resmi, Perda/Perbup Kabupaten Buleleng, Permendagri, dan standar operasional pelayanan Satpol PP secara langsung dan terbuka.
+              Akses publik regulasi resmi, Perda/Perkada Kabupaten Buleleng, Permendagri, dan standar operasional pelayanan Satpol PP secara langsung dan terbuka.
             </p>
           </div>
 
@@ -767,11 +823,10 @@ export default function Home() {
                       <span className="px-2 py-0.5 bg-slate-100 text-slate-600 text-[9px] font-black uppercase tracking-wider rounded border border-slate-200 max-w-[180px] truncate">
                         {doc.jenis_aturan.split('/')[0].trim()}
                       </span>
-                      <span className={`px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider ${
-                        doc.status_dokumen === 'Berlaku'
-                          ? 'bg-emerald-50 border border-emerald-200 text-emerald-800'
-                          : 'bg-red-50 border border-red-200 text-red-800'
-                      }`}>
+                      <span className={`px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider ${doc.status_dokumen === 'Berlaku'
+                        ? 'bg-emerald-50 border border-emerald-200 text-emerald-800'
+                        : 'bg-red-50 border border-red-200 text-red-800'
+                        }`}>
                         {doc.status_dokumen}
                       </span>
                     </div>
@@ -808,62 +863,7 @@ export default function Home() {
           )}
         </div>
 
-        {/* TENTANG KAMI SECTION */}
-        <div
-          ref={tentangRef}
-          id="tentang"
-          className={`space-y-10 pt-12 border-t border-slate-205 scroll-mt-24 transition-all duration-1000 ease-out transform ${isTentangVisible
-              ? "opacity-100 translate-y-0"
-              : "opacity-0 translate-y-12"
-            }`}
-        >
-          <div className="text-center space-y-3 max-w-2xl mx-auto">
-            <span className="inline-block px-3 py-1 bg-amber-50 border border-amber-200/60 text-[10px] font-black text-amber-800 rounded-lg uppercase tracking-wider">
-              Mengenal Lebih Dekat
-            </span>
-            <h3 className="text-2xl md:text-3xl font-black text-[#561C24] tracking-tight">
-              Tentang Satpol PP Buleleng
-            </h3>
-            <p className="text-xs text-slate-500 leading-relaxed font-semibold">
-              Satuan Polisi Pamong Praja Kabupaten Buleleng berdedikasi tinggi menjaga ketertiban umum, menegakkan peraturan daerah, serta memberikan pelindungan maksimal bagi seluruh lapisan masyarakat.
-            </p>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Visi */}
-            <div className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-205/80 space-y-4 hover:shadow-md transition-all duration-300">
-              <div className="w-12 h-12 rounded-xl bg-[#561C24]/5 flex items-center justify-center text-[#561C24] border border-blue-100">
-                <Target className="w-6 h-6" />
-              </div>
-              <h4 className="text-lg font-black text-[#561C24]">Visi Kami</h4>
-              <p className="text-xs text-slate-600 leading-relaxed font-medium">
-                Terwujudnya ketenteraman dan ketertiban umum serta perlindungan masyarakat yang prima berbasis kearifan lokal guna mendukung pembangunan Kabupaten Buleleng yang maju, mandiri, dan sejahtera.
-              </p>
-            </div>
-
-            {/* Misi */}
-            <div className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-205/80 space-y-4 hover:shadow-md transition-all duration-300">
-              <div className="w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center text-[#E8D8C4] border border-amber-100">
-                <Eye className="w-6 h-6" />
-              </div>
-              <h4 className="text-lg font-black text-[#561C24]">Misi Kami</h4>
-              <ul className="text-xs text-slate-600 space-y-2.5 font-medium">
-                <li className="flex items-start gap-2.5">
-                  <span className="text-[#E8D8C4] mt-0.5 font-bold">1.</span>
-                  <span>Meningkatkan efektivitas penegakan Peraturan Daerah dan Peraturan Kepala Daerah secara humanis namun tegas.</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="text-[#E8D8C4] mt-0.5 font-bold">2.</span>
-                  <span>Mewujudkan situasi wilayah yang kondusif, aman, tertib, dan tenteram bagi kelancaran aktivitas perekonomian dan sosial warga.</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="text-[#E8D8C4] mt-0.5 font-bold">3.</span>
-                  <span>Mengoptimalkan peran Satlinmas dalam kesiapsiagaan penanggulangan bencana, ketenteraman pemilu, dan perlindungan masyarakat desa.</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
 
 
 

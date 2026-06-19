@@ -3,23 +3,24 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Footer from '../../components/Footer';
-import { 
-  Shield, 
-  Users, 
-  MapPin, 
-  AlertOctagon, 
-  FileText, 
-  Clipboard, 
-  Plus, 
-  Trash2, 
+import AdminNavbar from '../../components/AdminNavbar';
+import {
+  Shield,
+  Users,
+  MapPin,
+  AlertOctagon,
+  FileText,
+  Clipboard,
+  Plus,
+  Trash2,
   Download,
-  Edit3, 
-  Eye, 
-  Calendar, 
-  UserCheck, 
-  X, 
-  Check, 
-  Map, 
+  Edit3,
+  Eye,
+  Calendar,
+  UserCheck,
+  X,
+  Check,
+  Map,
   AlertTriangle,
   RefreshCw,
   Clock,
@@ -353,7 +354,7 @@ export default function TrantibAdmin() {
           const randomOffsetLng = (Math.random() - 0.5) * 0.005;
           const simLat = (-8.113912 + randomOffsetLat).toFixed(6);
           const simLng = (115.088624 + randomOffsetLng).toFixed(6);
-          
+
           setTimeout(() => {
             setEnforcementForm(prev => ({
               ...prev,
@@ -557,7 +558,7 @@ export default function TrantibAdmin() {
   const triggerReceiptPrint = () => {
     const printContent = document.getElementById('thermal-receipt-container').innerHTML;
     const originalContent = document.body.innerHTML;
-    
+
     // Simple window printing styling logic
     document.body.innerHTML = `
       <div style="background-color: white; color: black; font-family: 'Courier New', Courier, monospace; padding: 20px; max-width: 320px; margin: auto;">
@@ -571,144 +572,28 @@ export default function TrantibAdmin() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8F7F4] text-slate-800 font-sans select-none relative overflow-x-hidden pt-[57px] flex flex-col justify-between">
-      
+    <div className="min-h-screen bg-[#F8F7F4] text-slate-800 font-sans select-none relative overflow-x-hidden pt-[72px] flex flex-col justify-between">
+
       {/* 2. Horizontal Admin Navbar (Fixed / Persistent) */}
-      <nav className="bg-white border-b border-slate-200 shadow-md fixed top-0 left-0 w-full z-50">
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between overflow-x-auto whitespace-nowrap scrollbar-none">
-          <div className="flex items-center space-x-1">
-            <Link 
-              href="/" 
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#561C24] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
-              title="Kembali ke halaman utama warga"
-            >
-              Portal Warga
-            </Link>
-            
-            <Link 
-              href="/admin/dashboard" 
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#561C24] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
-            >
-              Dashboard
-            </Link>
-            
-            <Link 
-              href="/admin/dashboard?tab=disposisi" 
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#561C24] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
-            >
-              Disposisi
-            </Link>
-            
-            <Link 
-              href="/admin/trantib" 
-              className="px-4 py-4 text-xs font-black text-[#561C24] bg-[#561C24]/5 transition-all uppercase tracking-wider border-b-2 border-[#561C24] flex items-center gap-1.5"
-            >
-              Portal Trantib
-            </Link>
-
-            <Link 
-              href="/admin/perada" 
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#561C24] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
-            >
-              Portal Perada
-            </Link>
-
-            <Link 
-              href="/admin/linmas" 
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#561C24] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
-            >
-              Portal Linmas
-            </Link>
-
-            <Link 
-              href="/admin/sda" 
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#561C24] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
-            >
-              Portal SDA
-            </Link>
-            <Link 
-              href="/admin/kegiatan" 
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#561C24] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
-            >
-              Portal Kegiatan
-            </Link>
-          </div>
-          
-          <button
-            onClick={() => {
-              if (activeTab === 'patroli') fetchPatrols();
-              else if (activeTab === 'penertiban') { fetchEnforcements(); fetchPatrols(); fetchDelegatedReports(); }
-              else if (activeTab === 'disposisi') fetchDelegatedReports();
-            }}
-            className="px-3.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 rounded-lg transition-all flex items-center gap-1.5 text-[11px] font-bold cursor-pointer active:scale-95 my-2"
-            type="button"
-          >
-            <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} /> Refresh Portal
-          </button>
-        </div>
-      </nav>
-
-      {/* 1. Header Banner Top Bar (Coffee Gradient Style) */}
-      <div className="bg-gradient-to-r from-[#561C24] via-[#6D2932] to-[#80424a] text-white p-6 rounded-b-3xl shadow-lg relative overflow-hidden">
-        {/* Glowing Decorative Backgrounds */}
-        <div className="absolute top-[-50px] right-[-50px] w-48 h-48 bg-white/10 rounded-full blur-xl pointer-events-none" />
-        <div className="absolute bottom-[-50px] left-[15%] w-36 h-36 bg-[#C7B7A3]/20 rounded-full blur-xl pointer-events-none" />
-        
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 relative z-10">
-          
-          {/* Sisi Kiri: Logo bulat SIP POLPP & Identitas */}
-          <div className="flex items-center gap-4 text-center md:text-left flex-col md:flex-row">
-            <div className="w-16 h-16 rounded-full bg-white border-2 border-[#C7B7A3] p-1 flex items-center justify-center shadow-md shrink-0">
-              <div className="w-full h-full rounded-full bg-gradient-to-tr from-[#561C24] to-[#6D2932] flex items-center justify-center text-white">
-                <Shield className="w-8 h-8 text-[#E8D8C4] fill-[#E8D8C4]/15" />
-              </div>
-            </div>
-            <div>
-              <h1 className="text-2xl md:text-3xl font-black tracking-wider leading-none text-white drop-shadow-md">
-                SIP POLPP
-              </h1>
-              <p className="text-[10px] text-[#E8D8C4] font-bold uppercase tracking-widest mt-1.5">
-                Sistem Informasi Pelayanan & Operasional Pol PP Kemendagri
-              </p>
-            </div>
-          </div>
-          
-          {/* Sisi Kanan: Night mode & Profil Admin Buleleng */}
-          <div className="flex items-center gap-4">
-            <button 
-              onClick={() => showAlert("Fitur Mode Malam akan segera hadir!", 'info')}
-              className="p-2.5 bg-white/10 hover:bg-white/20 rounded-full transition-all text-white border border-white/20 active:scale-95 cursor-pointer"
-              title="Toggle Night Mode"
-              type="button"
-            >
-              <Moon className="w-5 h-5 fill-white/10" />
-            </button>
-            
-            <div className="flex items-center gap-3 bg-white/15 backdrop-blur-md px-4 py-2 rounded-2xl border border-white/20 shadow-sm">
-              <div className="w-9 h-9 rounded-full bg-slate-200 border-2 border-white/60 flex items-center justify-center text-slate-700 font-extrabold shadow-inner shrink-0">
-                KB
-              </div>
-              <div className="text-left text-white leading-none">
-                <h4 className="text-xs font-black tracking-wide">Kabupaten Buleleng</h4>
-                <span className="text-[8px] bg-[#E8D8C4] text-[#561C24] font-black uppercase tracking-widest px-1.5 py-0.5 rounded mt-1.5 inline-block">
-                  Admin
-                </span>
-              </div>
-            </div>
-          </div>
-          
-        </div>
-      </div>
+      <AdminNavbar
+        activePortal="trantib"
+        onRefresh={() => {
+          if (activeTab === 'patroli') fetchPatrols();
+          else if (activeTab === 'penertiban') { fetchEnforcements(); fetchPatrols(); fetchDelegatedReports(); }
+          else if (activeTab === 'disposisi') fetchDelegatedReports();
+        }}
+        loading={loading}
+      />
 
       {/* Main Grid Content */}
       <div className="max-w-7xl w-full mx-auto px-6 mt-8 space-y-6 flex-1">
-        
+
         {/* Page Title & Actions */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-left">
           <div>
             <h2 className="text-2xl font-black text-slate-900 uppercase tracking-tight">PORTAL BIDANG TRANTIB</h2>
             <p className="text-xs text-slate-550 font-bold uppercase tracking-wider mt-1">
-              PENGENDALIAN OPERASIONAL & K3 â€¢ SEKSI KETENTERAMAN DAN KETERTIBAN UMUM
+              PENGENDALIAN OPERASIONAL & K3 SEKSI KETENTERAMAN DAN KETERTIBAN UMUM
             </p>
           </div>
           <button
@@ -717,9 +602,8 @@ export default function TrantibAdmin() {
               if (activeTab === 'patroli') openCreatePatrol();
               else if (activeTab === 'penertiban') openCreateEnforcement();
             }}
-            className={`w-full sm:w-auto px-5 py-2.5 bg-[#561C24] hover:bg-[#6D2932] text-white rounded-xl transition-all flex items-center justify-center gap-2 text-xs font-bold shadow-md cursor-pointer active:scale-95 ${
-              activeTab === 'disposisi' ? 'opacity-0 pointer-events-none' : ''
-            }`}
+            className={`w-full sm:w-auto px-5 py-2.5 bg-[#561C24] hover:bg-[#6D2932] text-white rounded-xl transition-all flex items-center justify-center gap-2 text-xs font-bold shadow-md cursor-pointer active:scale-95 ${activeTab === 'disposisi' ? 'opacity-0 pointer-events-none' : ''
+              }`}
           >
             <Plus className="w-4.5 h-4.5" />
             {activeTab === 'patroli' ? 'Plotting Regu Baru' : 'Catat Penertiban K3'}
@@ -730,31 +614,28 @@ export default function TrantibAdmin() {
         <div className="flex border border-slate-200 bg-white p-1 rounded-2xl shadow-sm gap-2">
           <button
             onClick={() => setActiveTab('patroli')}
-            className={`flex-1 py-3 text-xs md:text-sm font-bold rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer ${
-              activeTab === 'patroli' 
-                ? 'bg-[#561C24] text-white font-extrabold shadow-sm' 
+            className={`flex-1 py-3 text-xs md:text-sm font-bold rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer ${activeTab === 'patroli'
+                ? 'bg-[#561C24] text-white font-extrabold shadow-sm'
                 : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
-            }`}
+              }`}
           >
             <Users className="w-4 h-4" /> Plotting & Regu Patroli
           </button>
           <button
             onClick={() => setActiveTab('penertiban')}
-            className={`flex-1 py-3 text-xs md:text-sm font-bold rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer ${
-              activeTab === 'penertiban' 
-                ? 'bg-[#561C24] text-white font-extrabold shadow-sm' 
+            className={`flex-1 py-3 text-xs md:text-sm font-bold rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer ${activeTab === 'penertiban'
+                ? 'bg-[#561C24] text-white font-extrabold shadow-sm'
                 : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
-            }`}
+              }`}
           >
             <AlertOctagon className="w-4 h-4" /> Log Penertiban K3
           </button>
           <button
             onClick={() => setActiveTab('disposisi')}
-            className={`flex-1 py-3 text-xs md:text-sm font-bold rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer relative ${
-              activeTab === 'disposisi' 
-                ? 'bg-[#561C24] text-white font-extrabold shadow-sm' 
+            className={`flex-1 py-3 text-xs md:text-sm font-bold rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer relative ${activeTab === 'disposisi'
+                ? 'bg-[#561C24] text-white font-extrabold shadow-sm'
                 : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
-            }`}
+              }`}
           >
             <Clipboard className="w-4 h-4" /> Disposisi Aduan
             {delegatedReports.length > 0 && (
@@ -776,7 +657,7 @@ export default function TrantibAdmin() {
         {/* TAB 1: REGU PATROLI */}
         {!loading && activeTab === 'patroli' && (
           <div className="space-y-6">
-            
+
             {/* Stats Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div className="bg-white border border-slate-200 shadow-sm rounded-xl p-4 flex items-center justify-between hover:shadow-md transition">
@@ -823,7 +704,7 @@ export default function TrantibAdmin() {
               ) : (
                 <div className="overflow-x-auto">
                   <table className="w-full text-left border-collapse">
-                     <thead>
+                    <thead>
                       <tr className="border-b border-slate-200 bg-slate-50 text-[10px] uppercase font-bold text-slate-500 tracking-wider">
                         <th className="py-4 px-6">No. SPT / Tanggal</th>
                         <th className="py-4 px-6">Shift Kerja</th>
@@ -842,7 +723,7 @@ export default function TrantibAdmin() {
                           month: 'short',
                           day: 'numeric'
                         });
-                        
+
                         return (
                           <tr key={patrol.id} className="hover:bg-slate-50/80 transition-colors border-b border-slate-100 last:border-0">
                             <td className="py-4 px-6 space-y-1">
@@ -852,11 +733,10 @@ export default function TrantibAdmin() {
                               <div className="text-[10px] text-slate-500 font-semibold">{dateFormatted}</div>
                             </td>
                             <td className="py-4 px-6">
-                              <span className={`px-2.5 py-0.5 rounded text-[10px] font-bold border ${
-                                patrol.shift_kerja === 'Pagi' ? 'bg-amber-50 text-amber-700 border-amber-200' :
-                                patrol.shift_kerja === 'Siang' ? 'bg-orange-50 text-orange-700 border-orange-200' :
-                                'bg-blue-50 text-blue-700 border-blue-200'
-                              }`}>
+                              <span className={`px-2.5 py-0.5 rounded text-[10px] font-bold border ${patrol.shift_kerja === 'Pagi' ? 'bg-amber-50 text-amber-700 border-amber-200' :
+                                  patrol.shift_kerja === 'Siang' ? 'bg-orange-50 text-orange-700 border-orange-200' :
+                                    'bg-blue-50 text-blue-700 border-blue-200'
+                                }`}>
                                 {patrol.shift_kerja}
                               </span>
                             </td>
@@ -917,7 +797,7 @@ export default function TrantibAdmin() {
         {/* TAB 2: LOG PENERTIBAN LAPANGAN (K3) */}
         {!loading && activeTab === 'penertiban' && (
           <div className="space-y-6">
-            
+
             {/* Stats Cards */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="bg-white border border-slate-200 shadow-sm rounded-xl p-4 flex items-center justify-between hover:shadow-md transition">
@@ -984,27 +864,25 @@ export default function TrantibAdmin() {
                   });
 
                   return (
-                    <div 
-                      key={item.id} 
+                    <div
+                      key={item.id}
                       className="bg-white border border-slate-200 shadow-sm rounded-2xl p-5 hover:shadow-md transition duration-300 flex flex-col justify-between"
                     >
                       <div className="space-y-4">
-                        
+
                         {/* Badges / Top bar */}
                         <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
-                          <span className={`px-2.5 py-0.5 rounded text-[10px] font-bold border ${
-                            item.jenis_pelanggaran?.includes('PKL') || item.jenis_pelanggaran?.includes('Kaki Lima') ? 'bg-rose-50 text-rose-700 border-rose-200' :
-                            item.jenis_pelanggaran?.includes('Reklame') ? 'bg-amber-50 text-amber-700 border-amber-200' :
-                            'bg-purple-50 text-purple-700 border-purple-200'
-                          }`}>
+                          <span className={`px-2.5 py-0.5 rounded text-[10px] font-bold border ${item.jenis_pelanggaran?.includes('PKL') || item.jenis_pelanggaran?.includes('Kaki Lima') ? 'bg-rose-50 text-rose-700 border-rose-200' :
+                              item.jenis_pelanggaran?.includes('Reklame') ? 'bg-amber-50 text-amber-700 border-amber-200' :
+                                'bg-purple-50 text-purple-700 border-purple-200'
+                            }`}>
                             {item.jenis_pelanggaran}
                           </span>
 
-                          <span className={`px-2 py-0.5 rounded text-[10px] font-bold border ${
-                            item.tindakan_diambil === 'Teguran Lisan' ? 'bg-cyan-50 text-cyan-700 border-cyan-200' :
-                            item.tindakan_diambil?.includes('Tertulis') ? 'bg-amber-50 text-amber-750 border-amber-200' :
-                            'bg-rose-50 text-rose-700 border-rose-200'
-                          }`}>
+                          <span className={`px-2 py-0.5 rounded text-[10px] font-bold border ${item.tindakan_diambil === 'Teguran Lisan' ? 'bg-cyan-50 text-cyan-700 border-cyan-200' :
+                              item.tindakan_diambil?.includes('Tertulis') ? 'bg-amber-50 text-amber-750 border-amber-200' :
+                                'bg-rose-50 text-rose-700 border-rose-200'
+                            }`}>
                             {item.tindakan_diambil}
                           </span>
                         </div>
@@ -1015,7 +893,7 @@ export default function TrantibAdmin() {
                             <span className="text-[8px] uppercase font-bold text-slate-400">Nomor Formulir Teguran (Cetak)</span>
                             <p className="text-xs font-mono font-bold text-slate-700">{item.no_formulir}</p>
                           </div>
-                          
+
                           <button
                             onClick={() => openPrinterModal(item)}
                             className="p-1.5 bg-[#561C24] hover:bg-[#561C24]/90 text-white rounded-lg transition-all flex items-center justify-center gap-1 text-[10px] font-bold shadow-sm cursor-pointer"
@@ -1052,7 +930,7 @@ export default function TrantibAdmin() {
                               <p className="text-slate-750 mt-0.5 font-bold">{item.jumlah_pelanggar || 1} Pelanggar</p>
                             </div>
                           </div>
-                          
+
                           <div className="text-[11px] font-semibold text-slate-450 flex items-center gap-1">
                             <Clock className="w-3.5 h-3.5 text-slate-400" /> Waktu Eksekusi Riil: {itemDate}
                           </div>
@@ -1080,13 +958,13 @@ export default function TrantibAdmin() {
 
                           {/* Photo Evidence */}
                           {item.foto_bukti ? (
-                            <div 
+                            <div
                               className="relative h-44 rounded-xl overflow-hidden bg-slate-100 border border-slate-200 group cursor-zoom-in"
                               onClick={() => openZoom(item.foto_bukti)}
                             >
-                              <img 
-                                src={item.foto_bukti} 
-                                alt="Dokumentasi Penertiban" 
+                              <img
+                                src={item.foto_bukti}
+                                alt="Dokumentasi Penertiban"
                                 className="w-full h-full object-cover transition duration-300 group-hover:scale-105"
                               />
                               <div className="absolute inset-0 bg-black/35 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
@@ -1132,7 +1010,7 @@ export default function TrantibAdmin() {
         {/* TAB 3: DISPOSISI ADUAN WARGA */}
         {!loading && activeTab === 'disposisi' && (
           <div className="space-y-6">
-            
+
             {/* Header info */}
             <div className="bg-purple-50 border border-purple-100 p-5 rounded-2xl flex items-start gap-4">
               <div className="p-3 bg-purple-100 border border-purple-200 text-purple-600 rounded-xl shrink-0">
@@ -1141,8 +1019,8 @@ export default function TrantibAdmin() {
               <div>
                 <h3 className="text-sm font-black text-[#561C24]">PENUGASAN RESMI DISPOSISI (SQLite)</h3>
                 <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-                  Daftar laporan pengaduan masyarakat yang dialihkan atau didelegasikan oleh administrator pusat ke 
-                  **Seksi Ketenteraman dan Ketertiban Umum (Trantib)** untuk diselesaikan secara langsung di lapangan. 
+                  Daftar laporan pengaduan masyarakat yang dialihkan atau didelegasikan oleh administrator pusat ke
+                  **Seksi Ketenteraman dan Ketertiban Umum (Trantib)** untuk diselesaikan secara langsung di lapangan.
                   Gunakan tindakan tindak lanjut cepat untuk menyalin GPS & mengisi berita acara K3 secara instan.
                 </p>
               </div>
@@ -1170,7 +1048,7 @@ export default function TrantibAdmin() {
                   });
 
                   return (
-                    <div 
+                    <div
                       key={report.id_tiket}
                       className="bg-white border border-slate-200 shadow-sm rounded-2xl p-5 md:p-6 grid grid-cols-1 md:grid-cols-3 gap-6 hover:shadow-md transition duration-300"
                     >
@@ -1195,13 +1073,13 @@ export default function TrantibAdmin() {
                         </div>
 
                         {report.foto_bukti && (
-                          <div 
+                          <div
                             className="relative h-28 rounded-lg overflow-hidden border border-slate-200 cursor-zoom-in group"
                             onClick={() => openZoom(report.foto_bukti)}
                           >
-                            <img 
-                              src={report.foto_bukti} 
-                              alt="Bukti Laporan Warga" 
+                            <img
+                              src={report.foto_bukti}
+                              alt="Bukti Laporan Warga"
                               className="w-full h-full object-cover group-hover:scale-105 transition"
                             />
                             <div className="absolute inset-0 bg-black/35 opacity-0 group-hover:opacity-100 flex items-center justify-center transition">
@@ -1273,7 +1151,7 @@ export default function TrantibAdmin() {
       {isPatrolModalOpen && (
         <div className="fixed inset-0 bg-black/55 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden shadow-2xl flex flex-col">
-            
+
             <div className="bg-[#561C24] text-white px-6 py-4 flex justify-between items-center shrink-0">
               <div className="text-left">
                 <h3 className="text-sm font-black uppercase tracking-wider text-white">
@@ -1291,9 +1169,9 @@ export default function TrantibAdmin() {
             </div>
 
             <form onSubmit={handlePatrolSubmit} className="flex-1 overflow-y-auto p-6 space-y-4 text-left">
-              
+
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                
+
                 {/* Tanggal Penugasan */}
                 <div className="space-y-1">
                   <label className="text-[10px] uppercase font-bold text-slate-500">Tanggal Penugasan</label>
@@ -1311,13 +1189,12 @@ export default function TrantibAdmin() {
                   <label className="text-[10px] uppercase font-bold text-slate-500">Shift Kerja</label>
                   <div className="flex gap-2">
                     {['Pagi', 'Siang', 'Malam'].map((shift) => (
-                      <label 
-                        key={shift} 
-                        className={`flex-1 py-2 text-center rounded-xl border text-xs font-bold cursor-pointer transition ${
-                          patrolForm.shift_kerja === shift 
-                            ? 'bg-blue-50 border-[#561C24] text-[#561C24]' 
+                      <label
+                        key={shift}
+                        className={`flex-1 py-2 text-center rounded-xl border text-xs font-bold cursor-pointer transition ${patrolForm.shift_kerja === shift
+                            ? 'bg-blue-50 border-[#561C24] text-[#561C24]'
                             : 'bg-white border-slate-200 text-slate-500 hover:bg-slate-50 hover:text-slate-750'
-                        }`}
+                          }`}
                       >
                         <input
                           type="radio"
@@ -1373,11 +1250,10 @@ export default function TrantibAdmin() {
                   {ANGGOTA_POOL.map((member) => {
                     const isChecked = patrolForm.anggota_regu.includes(member);
                     return (
-                      <label 
+                      <label
                         key={member}
-                        className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg border text-[11px] font-semibold cursor-pointer transition select-none ${
-                          isChecked ? 'bg-blue-50 border-[#561C24]/40 text-[#561C24]' : 'bg-white border-slate-200 text-slate-500 hover:bg-slate-100/50'
-                        }`}
+                        className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg border text-[11px] font-semibold cursor-pointer transition select-none ${isChecked ? 'bg-blue-50 border-[#561C24]/40 text-[#561C24]' : 'bg-white border-slate-200 text-slate-500 hover:bg-slate-100/50'
+                          }`}
                       >
                         <input
                           type="checkbox"
@@ -1402,11 +1278,10 @@ export default function TrantibAdmin() {
                   {WILAYAH_PATROLI_POOL.map((zone) => {
                     const isChecked = patrolForm.wilayah_patroli.includes(zone);
                     return (
-                      <label 
+                      <label
                         key={zone}
-                        className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg border text-[10px] font-semibold cursor-pointer transition select-none ${
-                          isChecked ? 'bg-blue-50 border-[#561C24]/40 text-[#561C24]' : 'bg-white border-slate-200 text-slate-500 hover:bg-slate-100/50'
-                        }`}
+                        className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg border text-[10px] font-semibold cursor-pointer transition select-none ${isChecked ? 'bg-blue-50 border-[#561C24]/40 text-[#561C24]' : 'bg-white border-slate-200 text-slate-500 hover:bg-slate-100/50'
+                          }`}
                       >
                         <input
                           type="checkbox"
@@ -1498,7 +1373,7 @@ export default function TrantibAdmin() {
       {isEnforcementModalOpen && (
         <div className="fixed inset-0 bg-black/55 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden shadow-2xl flex flex-col">
-            
+
             <div className="bg-[#561C24] text-white px-6 py-4 flex justify-between items-center shrink-0">
               <div className="text-left">
                 <h3 className="text-sm font-black uppercase tracking-wider text-white">
@@ -1516,9 +1391,9 @@ export default function TrantibAdmin() {
             </div>
 
             <form onSubmit={handleEnforcementSubmit} className="flex-1 overflow-y-auto p-6 space-y-4 text-left">
-              
+
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                
+
                 {/* Hubungkan ke Regu Patroli (no_spt) */}
                 <div className="space-y-1">
                   <label className="text-[10px] uppercase font-bold text-slate-500 block">Hubungkan ke Regu Patroli (SPT)</label>
@@ -1628,11 +1503,10 @@ export default function TrantibAdmin() {
                         key={act.value}
                         type="button"
                         onClick={() => setEnforcementForm({ ...enforcementForm, tindakan_diambil: act.value })}
-                        className={`flex-1 py-2 px-3 rounded-lg border text-xs font-bold transition select-none flex items-center justify-center gap-1.5 cursor-pointer ${
-                          isSelected 
-                            ? 'bg-blue-50 border-[#561C24] text-[#561C24]' 
+                        className={`flex-1 py-2 px-3 rounded-lg border text-xs font-bold transition select-none flex items-center justify-center gap-1.5 cursor-pointer ${isSelected
+                            ? 'bg-blue-50 border-[#561C24] text-[#561C24]'
                             : 'bg-white border-slate-200 text-slate-500 hover:bg-slate-100/50'
-                        }`}
+                          }`}
                       >
                         {isSelected && <Check className="w-3.5 h-3.5 text-[#561C24]" />}
                         {act.label}
@@ -1711,7 +1585,7 @@ export default function TrantibAdmin() {
               {/* Upload Foto Bukti Base64 */}
               <div className="space-y-2">
                 <label className="text-[10px] uppercase font-bold text-slate-500 block">Foto Bukti Tindakan (Kamera HP - Max 2MB)</label>
-                
+
                 <div className="flex flex-col sm:flex-row gap-4 items-center">
                   <input
                     type="file"
@@ -1719,7 +1593,7 @@ export default function TrantibAdmin() {
                     onChange={handleEnforcementPhotoChange}
                     className="block w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-slate-100 file:text-[#561C24] hover:file:bg-slate-200 cursor-pointer"
                   />
-                  
+
                   {enforcementForm.foto_bukti && (
                     <div className="relative w-20 h-20 rounded-lg overflow-hidden border border-slate-200">
                       <img src={enforcementForm.foto_bukti} alt="Preview Bukti" className="w-full h-full object-cover" />
@@ -1776,7 +1650,7 @@ export default function TrantibAdmin() {
       {/* ======================================================== */}
       {/* MODAL 3: ZOOM FOTO DOKUMENTASI */}
       {isZoomModalOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black/90 backdrop-blur-md z-55 flex items-center justify-center p-4 cursor-zoom-out"
           onClick={() => setIsZoomModalOpen(false)}
         >
@@ -1787,9 +1661,9 @@ export default function TrantibAdmin() {
             >
               <X className="w-5 h-5" />
             </button>
-            <img 
-              src={zoomImageUrl} 
-              alt="Zoomed Dokumentasi" 
+            <img
+              src={zoomImageUrl}
+              alt="Zoomed Dokumentasi"
               className="max-w-full max-h-[85vh] object-contain mx-auto rounded-lg"
             />
           </div>
@@ -1801,7 +1675,7 @@ export default function TrantibAdmin() {
       {isPrinterModalOpen && selectedEnforcementForPrint && (
         <div className="fixed inset-0 bg-black/55 backdrop-blur-sm z-55 flex items-center justify-center p-4">
           <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-md shadow-2xl overflow-hidden flex flex-col">
-            
+
             <div className="bg-[#561C24] text-white px-6 py-4 flex justify-between items-center shrink-0">
               <div className="text-left">
                 <h3 className="text-sm font-black uppercase tracking-wider text-white">
@@ -1832,7 +1706,7 @@ export default function TrantibAdmin() {
                 <div className="text-center font-extrabold text-xs tracking-wide">SURAT TEGURAN DIGITAL</div>
                 <p className="text-[9px] text-center font-bold">{selectedEnforcementForPrint.no_formulir}</p>
                 <p className="border-b border-dashed border-slate-950 py-0.5"></p>
-                
+
                 <div className="space-y-1">
                   <p><span className="font-bold">Waktu Eksekusi :</span> {new Date(selectedEnforcementForPrint.tanggal_kejadian).toLocaleString('id-ID')}</p>
                   <p><span className="font-bold">Spt Referensi :</span> {selectedEnforcementForPrint.no_spt || 'Mandiri / Insidentil'}</p>
@@ -1840,28 +1714,28 @@ export default function TrantibAdmin() {
                     <p><span className="font-bold">Tiket Referensi:</span> {selectedEnforcementForPrint.id_tiket}</p>
                   )}
                   <p className="border-b border-dotted border-slate-950 py-0.5"></p>
-                  
+
                   <p><span className="font-bold">Kategori Pelanggar:</span></p>
                   <p className="pl-2.5 italic">{selectedEnforcementForPrint.jenis_pelanggaran}</p>
-                  
+
                   <p><span className="font-bold">Nama Pelanggar   :</span> {selectedEnforcementForPrint.nama_pelanggar}</p>
                   <p><span className="font-bold">Jumlah Pelanggar :</span> {selectedEnforcementForPrint.jumlah_pelanggar || 1} Lapak/Usaha</p>
                   <p className="border-b border-dotted border-slate-950 py-0.5"></p>
-                  
+
                   <p><span className="font-bold">Lokasi Kejadian  :</span></p>
                   <p className="pl-2.5">{selectedEnforcementForPrint.lokasi}</p>
                   <p><span className="font-bold">Kunci Peta (GPS) :</span> {selectedEnforcementForPrint.latitude}, {selectedEnforcementForPrint.longitude}</p>
                   <p className="border-b border-dotted border-slate-950 py-0.5"></p>
-                  
+
                   <p><span className="font-bold">Tindakan Diambil :</span></p>
                   <p className="pl-2.5 font-bold tracking-wider uppercase text-xs">*** {selectedEnforcementForPrint.tindakan_diambil} ***</p>
-                  
+
                   <p className="pt-1.5"><span className="font-bold">Uraian Lapangan  :</span></p>
                   <p className="pl-2.5 italic text-slate-700">{selectedEnforcementForPrint.keterangan}</p>
                 </div>
 
                 <p className="border-b border-dashed border-slate-950 py-1.5"></p>
-                
+
                 <div className="text-center text-[9px] pt-1 space-y-1.5">
                   <p className="font-bold uppercase">Dokumen Resmi Elektronik</p>
                   <p>Dicetak melalui mobile printer lapangan Satpol PP Buleleng. Harap patuhi aturan zonasi demi ketenteraman bersama.</p>
@@ -1894,12 +1768,11 @@ export default function TrantibAdmin() {
       {/* CUSTOM NOTIFICATION MODAL OVERLAY */}
       {notification && (
         <div className="fixed inset-0 bg-slate-950/60 backdrop-blur-md z-[100] flex items-center justify-center p-4 select-none animate-fadeIn">
-          <div className={`bg-white border border-slate-100 rounded-2xl max-w-sm w-full shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] overflow-hidden font-sans p-6 text-center space-y-4 border-t-4 ${
-            notification.type === 'success' ? 'border-t-emerald-500' :
-            notification.type === 'error' ? 'border-t-rose-500' :
-            notification.type === 'info' ? 'border-t-blue-500' :
-            'border-t-amber-500'
-          }`}>
+          <div className={`bg-white border border-slate-100 rounded-2xl max-w-sm w-full shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] overflow-hidden font-sans p-6 text-center space-y-4 border-t-4 ${notification.type === 'success' ? 'border-t-emerald-500' :
+              notification.type === 'error' ? 'border-t-rose-500' :
+                notification.type === 'info' ? 'border-t-blue-500' :
+                  'border-t-amber-500'
+            }`}>
             <div className="flex justify-center">
               {notification.type === 'success' && (
                 <div className="w-14 h-14 rounded-full bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600">

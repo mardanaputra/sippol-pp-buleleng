@@ -136,11 +136,11 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/admin/perada"
+                  href="/#pustaka"
                   className="inline-flex items-center gap-2 text-xs text-slate-300 hover:text-white font-bold transition-all hover:translate-x-1 cursor-pointer"
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-[#C7B7A3] shrink-0" />
-                  Regulasi Perda &amp; Perbup
+                  Regulasi Perda &amp; Perkada
                 </Link>
               </li>
               <li>

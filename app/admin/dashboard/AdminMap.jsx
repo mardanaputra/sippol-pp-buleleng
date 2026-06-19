@@ -481,6 +481,13 @@ export default function AdminMap({
       
       {/* Mini Leaflet Style Overrides */}
       <style jsx global>{`
+        .leaflet-pane {
+          z-index: 5 !important;
+        }
+        .leaflet-top,
+        .leaflet-bottom {
+          z-index: 10 !important;
+        }
         .custom-leaflet-tooltip {
           font-family: inherit;
           color: #1e293b;

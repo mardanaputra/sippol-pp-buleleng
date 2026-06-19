@@ -5,6 +5,7 @@ import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import 'leaflet/dist/leaflet.css';
 import Footer from '../../components/Footer';
+import AdminNavbar from '../../components/AdminNavbar';
 
 const AdminMap = dynamic(() => import('./AdminMap'), {
   ssr: false,
@@ -520,12 +521,12 @@ export default function AdminDashboard() {
   const countLinmasC = reports.filter(r => r.kategori_masalah?.includes('Linmas') || r.bidang_disposisi?.includes('Linmas')).length;
   const countTrantibC = reports.filter(r => r.kategori_masalah?.includes('Trantib') || r.bidang_disposisi?.includes('Trantib') || r.kategori_masalah?.includes('K3')).length;
   const countPeradaC = reports.filter(r => r.kategori_masalah?.includes('Perada') || r.bidang_disposisi?.includes('Perada') || r.kategori_masalah?.includes('Perda')).length;
-  
+
   // 5. Helper function to aggregate stats for a specific Kecamatan
   const getKecStats = (kecName) => {
     if (!kecName) return { reklame: 0, pkl: 0, satlinmas: 0, perada: 0 };
     const nameLower = kecName.toLowerCase();
-    
+
     const reklame = trantibLogs.filter(l => {
       const isKecMatch = `${l.lokasi} ${l.keterangan}`.toLowerCase().includes(nameLower);
       const isReklame = l.jenis_pelanggaran?.includes('Reklame') || l.jenis_pelanggaran?.includes('Iklan') || l.jenis_pelanggaran?.includes('Baliho');
@@ -564,139 +565,16 @@ export default function AdminDashboard() {
     <div className="min-h-screen bg-[#F8F7F4] text-slate-800 font-sans select-none relative overflow-x-hidden pt-[57px] flex flex-col justify-between">
 
       {/* 2. Horizontal Admin Navbar */}
-      <nav className="bg-white border-b border-slate-200 shadow-md fixed top-0 left-0 w-full z-50">
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between overflow-x-auto whitespace-nowrap scrollbar-none">
-          <div className="flex items-center space-x-1">
-            <Link
-              href="/"
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#561C24] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
-              title="Kembali ke halaman utama warga"
-            >
-              Portal Warga
-            </Link>
-
-            <button
-              onClick={() => {
-                setCurrentSubTab('dashboard');
-                window.history.pushState(null, '', '/admin/dashboard?tab=dashboard');
-              }}
-              className={`px-4 py-4 text-xs uppercase tracking-wider flex items-center gap-1.5 cursor-pointer transition-all outline-none ${currentSubTab === 'dashboard'
-                ? 'text-[#561C24] bg-[#561C24]/5 border-b-2 border-[#561C24] font-black'
-                : 'text-slate-500 hover:text-[#561C24] hover:bg-slate-50 font-bold'
-                }`}
-            >
-              Dashboard
-            </button>
-
-            <button
-              onClick={() => {
-                setCurrentSubTab('disposisi');
-                window.history.pushState(null, '', '/admin/dashboard?tab=disposisi');
-              }}
-              className={`px-4 py-4 text-xs uppercase tracking-wider flex items-center gap-1.5 cursor-pointer transition-all outline-none ${currentSubTab === 'disposisi'
-                ? 'text-[#561C24] bg-[#561C24]/5 border-b-2 border-[#561C24] font-black'
-                : 'text-slate-500 hover:text-[#561C24] hover:bg-slate-50 font-bold'
-                }`}
-            >
-              Disposisi
-            </button>
-
-            <Link
-              href="/admin/trantib"
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#561C24] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
-            >
-              Portal Trantib
-            </Link>
-
-            <Link
-              href="/admin/perada"
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#561C24] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
-            >
-              Portal Perada
-            </Link>
-
-            <Link
-              href="/admin/linmas"
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#561C24] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
-            >
-              Portal Linmas
-            </Link>
-
-            <Link
-              href="/admin/sda"
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#561C24] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
-            >
-              Portal SDA
-            </Link>
-
-            <Link
-              href="/admin/kegiatan"
-              className="px-4 py-4 text-xs font-bold text-slate-500 hover:text-[#561C24] hover:bg-slate-50 transition-all uppercase tracking-wider flex items-center gap-1.5"
-            >
-              Portal Kegiatan
-            </Link>
-          </div>
-
-          <button
-            onClick={fetchAllData}
-            className="px-3.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 rounded-lg transition-all flex items-center gap-1.5 text-[11px] font-bold cursor-pointer active:scale-95 my-2"
-          >
-            <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} /> Refresh Database
-          </button>
-        </div>
-      </nav>
-
-      {/* 1. Header Banner Top Bar (Coffee Gradient Style) */}
-      <div className="bg-gradient-to-r from-[#561C24] via-[#6D2932] to-[#80424a] text-white p-6 rounded-b-3xl shadow-lg relative overflow-hidden">
-        {/* Glowing Decorative Backgrounds */}
-        <div className="absolute top-[-50px] right-[-50px] w-48 h-48 bg-white/10 rounded-full blur-xl pointer-events-none" />
-        <div className="absolute bottom-[-50px] left-[15%] w-36 h-36 bg-[#C7B7A3]/20 rounded-full blur-xl pointer-events-none" />
-
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 relative z-10">
-
-          {/* Sisi Kiri: Logo bulat SIP POLPP & Identitas */}
-          <div className="flex items-center gap-4 text-center md:text-left flex-col md:flex-row">
-            <div className="w-16 h-16 rounded-full bg-white border-2 border-[#C7B7A3] p-1 flex items-center justify-center shadow-md shrink-0">
-              <div className="w-full h-full rounded-full bg-gradient-to-tr from-[#561C24] to-[#6D2932] flex items-center justify-center text-white">
-                <Shield className="w-8 h-8 text-[#E8D8C4] fill-[#E8D8C4]/15" />
-              </div>
-            </div>
-            <div>
-              <h1 className="text-2xl md:text-3xl font-black tracking-wider leading-none text-white drop-shadow-md">
-                SIP POLPP
-              </h1>
-              <p className="text-[10px] text-[#E8D8C4] font-bold uppercase tracking-widest mt-1.5">
-                Sistem Informasi Pelayanan & Operasional Pol PP Kemendagri
-              </p>
-            </div>
-          </div>
-
-          {/* Sisi Kanan: Night mode & Profil Admin Buleleng */}
-          <div className="flex items-center gap-4">
-            <button
-              onClick={() => showAlert("Fitur Mode Malam akan segera hadir!", 'info')}
-              className="p-2.5 bg-white/10 hover:bg-white/20 rounded-full transition-all text-white border border-white/20 active:scale-95 cursor-pointer"
-              title="Toggle Night Mode"
-              type="button"
-            >
-              <Moon className="w-5 h-5 fill-white/10" />
-            </button>
-
-            <div className="flex items-center gap-3 bg-white/15 backdrop-blur-md px-4 py-2 rounded-2xl border border-white/20 shadow-sm">
-              <div className="w-9 h-9 rounded-full bg-slate-200 border-2 border-white/60 flex items-center justify-center text-slate-700 font-extrabold shadow-inner shrink-0">
-                KB
-              </div>
-              <div className="text-left text-white leading-none">
-                <h4 className="text-xs font-black tracking-wide">Kabupaten Buleleng</h4>
-                <span className="text-[8px] bg-[#E8D8C4] text-[#561C24] font-black uppercase tracking-widest px-1.5 py-0.5 rounded mt-1.5 inline-block">
-                  Admin
-                </span>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
+      <AdminNavbar
+        activePortal={currentSubTab}
+        onSubTabChange={(subTab) => {
+          setCurrentSubTab(subTab);
+          window.history.pushState(null, '', `/admin/dashboard?tab=${subTab}`);
+        }}
+        onRefresh={fetchAllData}
+        loading={loading}
+        refreshText="Refresh Database"
+      />
 
       {/* Main Grid Content */}
       <div className="max-w-7xl w-full mx-auto px-6 mt-8 space-y-6 flex-1">
