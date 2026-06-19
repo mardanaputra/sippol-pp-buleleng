@@ -389,8 +389,8 @@ export default function PengaduanWarga() {
                     if (errors.namaPelapor) setErrors(prev => ({ ...prev, namaPelapor: null }));
                   }}
                   className={`w-full bg-white rounded-xl px-4 py-3 text-sm outline-none transition-all duration-200 text-slate-800 placeholder-slate-400/70 border ${errors.namaPelapor
-                      ? 'border-rose-300 focus:ring-2 focus:ring-rose-100 focus:border-rose-500'
-                      : 'border-slate-300 focus:ring-2 focus:ring-coffee-cream/30 focus:border-coffee-medium'
+                    ? 'border-rose-300 focus:ring-2 focus:ring-rose-100 focus:border-rose-500'
+                    : 'border-slate-300 focus:ring-2 focus:ring-coffee-cream/30 focus:border-coffee-medium'
                     }`}
                 />
                 {errors.namaPelapor && (
@@ -414,8 +414,8 @@ export default function PengaduanWarga() {
                     if (errors.nomorWhatsapp) setErrors(prev => ({ ...prev, nomorWhatsapp: null }));
                   }}
                   className={`w-full bg-white rounded-xl px-4 py-3 text-sm outline-none transition-all duration-200 text-slate-800 placeholder-slate-400/70 border ${errors.nomorWhatsapp
-                      ? 'border-rose-300 focus:ring-2 focus:ring-rose-100 focus:border-rose-500'
-                      : 'border-slate-300 focus:ring-2 focus:ring-coffee-cream/30 focus:border-coffee-medium'
+                    ? 'border-rose-300 focus:ring-2 focus:ring-rose-100 focus:border-rose-500'
+                    : 'border-slate-300 focus:ring-2 focus:ring-coffee-cream/30 focus:border-coffee-medium'
                     }`}
                 />
                 {errors.nomorWhatsapp ? (
@@ -441,8 +441,8 @@ export default function PengaduanWarga() {
                     if (errors.kategoriMasalah) setErrors(prev => ({ ...prev, kategoriMasalah: null }));
                   }}
                   className={`w-full bg-white rounded-xl px-4 py-3 text-sm outline-none transition-all duration-200 text-slate-800 border cursor-pointer ${errors.kategoriMasalah
-                      ? 'border-rose-300 focus:ring-2 focus:ring-rose-100 focus:border-rose-500'
-                      : 'border-slate-300 focus:ring-2 focus:ring-coffee-cream/30 focus:border-coffee-medium'
+                    ? 'border-rose-300 focus:ring-2 focus:ring-rose-100 focus:border-rose-500'
+                    : 'border-slate-300 focus:ring-2 focus:ring-coffee-cream/30 focus:border-coffee-medium'
                     }`}
                 >
                   <option value="">-- Pilih Kategori Laporan --</option>
@@ -478,8 +478,8 @@ export default function PengaduanWarga() {
                     if (errors.kronologi) setErrors(prev => ({ ...prev, kronologi: null }));
                   }}
                   className={`w-full bg-white rounded-xl px-4 py-3 text-sm outline-none transition-all duration-200 text-slate-800 placeholder-slate-400/70 resize-y border ${errors.kronologi
-                      ? 'border-rose-300 focus:ring-2 focus:ring-rose-100 focus:border-rose-500'
-                      : 'border-slate-300 focus:ring-2 focus:ring-coffee-cream/30 focus:border-coffee-medium'
+                    ? 'border-rose-300 focus:ring-2 focus:ring-rose-100 focus:border-rose-500'
+                    : 'border-slate-300 focus:ring-2 focus:ring-coffee-cream/30 focus:border-coffee-medium'
                     }`}
                 />
                 {errors.kronologi ? (
@@ -499,7 +499,7 @@ export default function PengaduanWarga() {
                 <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-250/65 pb-2.5">
                   <div className="space-y-0.5">
                     <label className="text-xs font-black text-slate-700 flex items-center gap-1.5">
-                      <MapPin className="w-4 h-4 text-slate-500" /> Lokasi Geografis (GPS) <span className="text-rose-600">*</span>
+                      <MapPin className="w-4 h-4 text-slate-500" /> Lokasi (GPS) <span className="text-rose-600">*</span>
                     </label>
                     <p className="text-[10px] text-slate-500 font-semibold">Petugas memerlukan koordinat presisi untuk peninjauan lapangan.</p>
                   </div>
@@ -511,7 +511,7 @@ export default function PengaduanWarga() {
                     className="px-3.5 py-2 bg-white hover:bg-slate-50 active:bg-slate-100 text-slate-700 rounded-xl text-xs font-bold flex items-center gap-1.5 border border-slate-300 transition-all disabled:opacity-50 cursor-pointer active:scale-[0.97]"
                   >
                     <Map className={`w-3.5 h-3.5 text-coffee-medium ${locationLoading ? 'animate-spin' : ''}`} />
-                    {locationLoading ? "Mencari Lokasi..." : "Dapatkan Lokasi Saat Ini"}
+                    {locationLoading ? "Mencari Lokasi..." : "Dapatkan Lokasi Anda"}
                   </button>
                 </div>
 
@@ -519,7 +519,7 @@ export default function PengaduanWarga() {
                 <div className="relative w-full h-60 rounded-xl overflow-hidden border border-slate-300 shadow-inner mt-2 z-0">
                   <div ref={mapContainerRef} className="w-full h-full" />
                   <div className="absolute bottom-2 left-2 bg-white/95 px-2 py-1 rounded shadow-sm border border-slate-200 pointer-events-none text-[9px] font-black text-slate-600 z-[1000]">
-                    Klik peta atau geser pin untuk menentukan lokasi
+                    Geser untuk menentukan lokasi anda
                   </div>
                 </div>
 
