@@ -144,7 +144,7 @@ export default function Navbar({ activePage = 'home' }) {
         {/* Right Action Menu */}
         <div className="flex items-center gap-3">
           <Link
-            href="/admin/dashboard"
+            href="/admin/login"
             className="hidden sm:inline-flex px-5 py-2.5 bg-coffee-dark hover:bg-coffee-medium text-white text-xs font-black rounded-lg shadow-sm transition-all duration-200 items-center gap-1.5 cursor-pointer active:scale-[0.97]"
           >
             Login Admin
@@ -224,7 +224,7 @@ export default function Navbar({ activePage = 'home' }) {
             Lacak Status
           </Link>
           <Link
-            href="/admin/dashboard"
+            href="/admin/login"
             onClick={() => setIsMenuOpen(false)}
             className="sm:hidden mx-3 py-2.5 bg-coffee-dark hover:bg-coffee-medium text-white text-center text-xs font-bold rounded-lg shadow-sm transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-[0.97]"
           >

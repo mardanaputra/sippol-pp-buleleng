@@ -58,22 +58,22 @@ const socialLinks = [
 export default function Footer() {
   return (
     <footer className="w-full bg-[#561C24] mt-12 relative z-10 text-white shadow-inner border-t border-[#3d1015]">
-      
+
       {/* Molded Orange Accent Line at Top */}
       <div className="w-full h-1.5 bg-[#C7B7A3] relative">
         <div className="absolute top-0 left-0 w-full h-[1px] bg-white/20" />
       </div>
 
       <div className="max-w-6xl mx-auto px-6 pt-12 pb-8">
-        
+
         {/* Main Footer Content Grid */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8 items-start">
-          
+
           {/* Column 1: SATPOL PP BRANDING + SOCIAL MEDIA */}
           <div className="md:col-span-4 space-y-5">
             <div className="flex items-center gap-3.5">
-              <div className="w-14 h-14 bg-white rounded-full shadow-md flex items-center justify-center text-[#561C24] border border-slate-100/50">
-                <Shield className="w-8 h-8 fill-[#561C24]/10" />
+              <div className="w-14 h-14 bg-white rounded-full shadow-md flex items-center justify-center border border-slate-100/50 p-1 overflow-hidden">
+                <img src="/logo-satpolpp.png" alt="Logo Satpol PP" className="w-full h-full object-contain" />
               </div>
               <div>
                 <h4 className="font-black text-base md:text-lg tracking-wider text-white leading-none">

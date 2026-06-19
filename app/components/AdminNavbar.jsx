@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import { RefreshCw, Moon } from 'lucide-react';
+import { RefreshCw, Moon, LogOut } from 'lucide-react';
+
 
 export default function AdminNavbar({
   activePortal,
@@ -145,6 +146,22 @@ export default function AdminNavbar({
           >
             <Moon className="w-3.5 h-3.5 fill-white/10" />
           </button>
+
+          {/* Logout Button */}
+          <button
+            onClick={() => {
+              if (confirm("Apakah Anda yakin ingin keluar dari portal admin?")) {
+                localStorage.removeItem('isAdminLoggedIn');
+                window.location.href = '/admin/login';
+              }
+            }}
+            className="p-1.5 bg-rose-950/40 hover:bg-rose-900/60 rounded-xl transition-all text-rose-200 border border-rose-900/40 active:scale-95 cursor-pointer shadow-sm"
+            title="Keluar (Logout)"
+            type="button"
+          >
+            <LogOut className="w-3.5 h-3.5" />
+          </button>
+
 
           {/* Mini Profile Card */}
           <div className="flex items-center gap-2 bg-white/10 px-3 py-1 rounded-xl border border-white/10 shadow-sm select-none">
