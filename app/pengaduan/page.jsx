@@ -1,28 +1,31 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import { 
-  ShieldAlert, 
-  Send, 
-  MapPin, 
+import {
+  ShieldAlert,
+  Send,
+  MapPin,
   Map,
-  Camera, 
-  Copy, 
-  Check, 
-  Info, 
-  User, 
-  Phone, 
-  FileText, 
-  Trash2, 
+  Camera,
+  Copy,
+  Check,
+  Info,
+  User,
+  Phone,
+  FileText,
+  Trash2,
   AlertCircle,
   HelpCircle,
   ArrowLeft,
   Menu,
-  X
+  X,
+  Lock
 } from 'lucide-react';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
+import 'leaflet/dist/leaflet.css';
+
 
 export default function PengaduanWarga() {
   const [formData, setFormData] = useState({
@@ -43,8 +46,108 @@ export default function PengaduanWarga() {
   const [copied, setCopied] = useState(false);
   const [locationLoading, setLocationLoading] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);
-  
+
   const fileInputRef = useRef(null);
+  const mapContainerRef = useRef(null);
+  const mapInstanceRef = useRef(null);
+  const markerInstanceRef = useRef(null);
+  const [LInstance, setLInstance] = useState(null);
+
+  // Initialize Leaflet Map
+  useEffect(() => {
+    if (typeof window === 'undefined' || !mapContainerRef.current) return;
+
+    let map;
+    import('leaflet').then((L) => {
+      setLInstance(L);
+
+      // Fix standard leaflet icon path issues in Next.js
+      delete L.Icon.Default.prototype._getIconUrl;
+      L.Icon.Default.mergeOptions({
+        iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
+        iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+      });
+
+      // Default center centered on Buleleng
+      const initLat = formData.latitude ? parseFloat(formData.latitude) : -8.114712;
+      const initLng = formData.longitude ? parseFloat(formData.longitude) : 115.090124;
+      const initZoom = formData.latitude && formData.longitude ? 15 : 11;
+
+      map = L.map(mapContainerRef.current, {
+        zoomControl: true,
+        attributionControl: true
+      }).setView([initLat, initLng], initZoom);
+
+      mapInstanceRef.current = map;
+
+      // Add CartoDB Positron Tile Layer (sleek light theme map)
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; OpenStreetMap contributors &copy; CartoDB',
+        subdomains: 'abcd',
+        maxZoom: 19
+      }).addTo(map);
+
+      // Force size recalculation to fix initial white screen issues in Next.js
+      setTimeout(() => {
+        map.invalidateSize();
+      }, 250);
+
+      // Create marker if coordinates exist initially
+      if (formData.latitude && formData.longitude) {
+        const marker = L.marker([initLat, initLng], { draggable: true }).addTo(map);
+        markerInstanceRef.current = marker;
+
+        marker.on('dragend', function (event) {
+          const m = event.target;
+          const position = m.getLatLng();
+          setFormData(prev => ({
+            ...prev,
+            latitude: position.lat.toFixed(6).toString(),
+            longitude: position.lng.toFixed(6).toString()
+          }));
+          if (errors.lokasi) setErrors(prev => ({ ...prev, lokasi: null }));
+        });
+      }
+
+      // Handle map click to place/move marker
+      map.on('click', function (e) {
+        const { lat, lng } = e.latlng;
+        setFormData(prev => ({
+          ...prev,
+          latitude: lat.toFixed(6).toString(),
+          longitude: lng.toFixed(6).toString()
+        }));
+        if (errors.lokasi) setErrors(prev => ({ ...prev, lokasi: null }));
+
+        if (markerInstanceRef.current) {
+          markerInstanceRef.current.setLatLng([lat, lng]);
+        } else {
+          const marker = L.marker([lat, lng], { draggable: true }).addTo(map);
+          markerInstanceRef.current = marker;
+
+          marker.on('dragend', function (event) {
+            const m = event.target;
+            const position = m.getLatLng();
+            setFormData(prev => ({
+              ...prev,
+              latitude: position.lat.toFixed(6).toString(),
+              longitude: position.lng.toFixed(6).toString()
+            }));
+            if (errors.lokasi) setErrors(prev => ({ ...prev, lokasi: null }));
+          });
+        }
+      });
+    });
+
+    return () => {
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.remove();
+        mapInstanceRef.current = null;
+        markerInstanceRef.current = null;
+      }
+    };
+  }, []);
 
   // Fungsi mengambil koordinat GPS
   const handleGetLocation = () => {
@@ -58,19 +161,50 @@ export default function PengaduanWarga() {
 
     navigator.geolocation.getCurrentPosition(
       (position) => {
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+        const latStr = lat.toFixed(6).toString();
+        const lngStr = lng.toFixed(6).toString();
+
         setFormData(prev => ({
           ...prev,
-          latitude: position.coords.latitude.toFixed(6).toString(),
-          longitude: position.coords.longitude.toFixed(6).toString(),
+          latitude: latStr,
+          longitude: lngStr,
         }));
         setLocationLoading(false);
+
+        // Update Map view and Marker position
+        const map = mapInstanceRef.current;
+        const L = LInstance;
+        if (map && L) {
+          map.setView([lat, lng], 15);
+          map.invalidateSize();
+
+          if (markerInstanceRef.current) {
+            markerInstanceRef.current.setLatLng([lat, lng]);
+          } else {
+            const marker = L.marker([lat, lng], { draggable: true }).addTo(map);
+            markerInstanceRef.current = marker;
+
+            marker.on('dragend', function (event) {
+              const m = event.target;
+              const pos = m.getLatLng();
+              setFormData(prev => ({
+                ...prev,
+                latitude: pos.lat.toFixed(6).toString(),
+                longitude: pos.lng.toFixed(6).toString()
+              }));
+              if (errors.lokasi) setErrors(prev => ({ ...prev, lokasi: null }));
+            });
+          }
+        }
       },
       (error) => {
         console.error(error);
         setLocationLoading(false);
-        setErrors(prev => ({ 
-          ...prev, 
-          lokasi: "Gagal mendapatkan lokasi. Pastikan izin GPS diizinkan oleh browser." 
+        setErrors(prev => ({
+          ...prev,
+          lokasi: "Gagal mendapatkan lokasi. Pastikan izin GPS diizinkan oleh browser."
         }));
       },
       { enableHighAccuracy: true, timeout: 10000 }
@@ -118,11 +252,11 @@ export default function PengaduanWarga() {
   // Validasi Form sebelum kirim
   const validateForm = () => {
     const newErrors = {};
-    
+
     if (!formData.namaPelapor.trim()) {
       newErrors.namaPelapor = "Nama pelapor wajib diisi.";
     }
-    
+
     if (!formData.nomorWhatsapp.trim()) {
       newErrors.nomorWhatsapp = "Nomor WhatsApp wajib diisi untuk koordinasi.";
     } else if (!/^[0-9+]{9,15}$/.test(formData.nomorWhatsapp.trim())) {
@@ -150,7 +284,7 @@ export default function PengaduanWarga() {
   // Kirim Pengaduan
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) return;
 
     setIsSubmitting(true);
@@ -212,7 +346,7 @@ export default function PengaduanWarga() {
 
   return (
     <div className="min-h-screen bg-background text-slate-800 flex flex-col justify-between relative overflow-x-hidden font-sans select-none">
-      
+
       {/* Decorative Elegant Soft Gradients */}
       <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-coffee-cream/15 rounded-full blur-3xl pointer-events-none -z-10" />
       <div className="absolute bottom-10 left-0 w-[30rem] h-[30rem] bg-coffee-light/10 rounded-full blur-3xl pointer-events-none -z-10" />
@@ -222,11 +356,11 @@ export default function PengaduanWarga() {
 
       {/* Main Container */}
       <main className="max-w-2xl w-full mx-auto px-4 pt-28 pb-12 flex-1 relative z-10 transition-all duration-500 space-y-6">
-        
+
         {/* Conditional Screen View */}
         {!isSubmitted ? (
           <div className="bg-white rounded-2xl p-6 md:p-8 shadow-md border border-coffee-light/20 space-y-6">
-            
+
             <div className="border-b border-slate-200/85 pb-5">
               <h2 className="text-xl font-black text-coffee-dark flex items-center gap-2.5">
                 <div className="p-2 bg-coffee-cream/25 rounded-xl border border-coffee-light/35 text-coffee-medium">
@@ -240,7 +374,7 @@ export default function PengaduanWarga() {
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-5">
-              
+
               {/* Nama Pelapor */}
               <div className="space-y-2 text-left">
                 <label className="text-xs font-black text-slate-700 flex items-center gap-1.5">
@@ -254,11 +388,10 @@ export default function PengaduanWarga() {
                     setFormData(prev => ({ ...prev, namaPelapor: e.target.value }));
                     if (errors.namaPelapor) setErrors(prev => ({ ...prev, namaPelapor: null }));
                   }}
-                  className={`w-full bg-white rounded-xl px-4 py-3 text-sm outline-none transition-all duration-200 text-slate-800 placeholder-slate-400/70 border ${
-                    errors.namaPelapor 
-                      ? 'border-rose-300 focus:ring-2 focus:ring-rose-100 focus:border-rose-500' 
+                  className={`w-full bg-white rounded-xl px-4 py-3 text-sm outline-none transition-all duration-200 text-slate-800 placeholder-slate-400/70 border ${errors.namaPelapor
+                      ? 'border-rose-300 focus:ring-2 focus:ring-rose-100 focus:border-rose-500'
                       : 'border-slate-300 focus:ring-2 focus:ring-coffee-cream/30 focus:border-coffee-medium'
-                  }`}
+                    }`}
                 />
                 {errors.namaPelapor && (
                   <p className="text-rose-600 text-[11px] font-bold flex items-center gap-1">
@@ -280,11 +413,10 @@ export default function PengaduanWarga() {
                     setFormData(prev => ({ ...prev, nomorWhatsapp: e.target.value }));
                     if (errors.nomorWhatsapp) setErrors(prev => ({ ...prev, nomorWhatsapp: null }));
                   }}
-                  className={`w-full bg-white rounded-xl px-4 py-3 text-sm outline-none transition-all duration-200 text-slate-800 placeholder-slate-400/70 border ${
-                    errors.nomorWhatsapp 
-                      ? 'border-rose-300 focus:ring-2 focus:ring-rose-100 focus:border-rose-500' 
+                  className={`w-full bg-white rounded-xl px-4 py-3 text-sm outline-none transition-all duration-200 text-slate-800 placeholder-slate-400/70 border ${errors.nomorWhatsapp
+                      ? 'border-rose-300 focus:ring-2 focus:ring-rose-100 focus:border-rose-500'
                       : 'border-slate-300 focus:ring-2 focus:ring-coffee-cream/30 focus:border-coffee-medium'
-                  }`}
+                    }`}
                 />
                 {errors.nomorWhatsapp ? (
                   <p className="text-rose-600 text-[11px] font-bold flex items-center gap-1">
@@ -308,11 +440,10 @@ export default function PengaduanWarga() {
                     setFormData(prev => ({ ...prev, kategoriMasalah: e.target.value }));
                     if (errors.kategoriMasalah) setErrors(prev => ({ ...prev, kategoriMasalah: null }));
                   }}
-                  className={`w-full bg-white rounded-xl px-4 py-3 text-sm outline-none transition-all duration-200 text-slate-800 border cursor-pointer ${
-                    errors.kategoriMasalah 
-                      ? 'border-rose-300 focus:ring-2 focus:ring-rose-100 focus:border-rose-500' 
+                  className={`w-full bg-white rounded-xl px-4 py-3 text-sm outline-none transition-all duration-200 text-slate-800 border cursor-pointer ${errors.kategoriMasalah
+                      ? 'border-rose-300 focus:ring-2 focus:ring-rose-100 focus:border-rose-500'
                       : 'border-slate-300 focus:ring-2 focus:ring-coffee-cream/30 focus:border-coffee-medium'
-                  }`}
+                    }`}
                 >
                   <option value="">-- Pilih Kategori Laporan --</option>
                   <option value="Lingkungan">Lingkungan</option>
@@ -346,11 +477,10 @@ export default function PengaduanWarga() {
                     setFormData(prev => ({ ...prev, kronologi: e.target.value }));
                     if (errors.kronologi) setErrors(prev => ({ ...prev, kronologi: null }));
                   }}
-                  className={`w-full bg-white rounded-xl px-4 py-3 text-sm outline-none transition-all duration-200 text-slate-800 placeholder-slate-400/70 resize-y border ${
-                    errors.kronologi 
-                      ? 'border-rose-300 focus:ring-2 focus:ring-rose-100 focus:border-rose-500' 
+                  className={`w-full bg-white rounded-xl px-4 py-3 text-sm outline-none transition-all duration-200 text-slate-800 placeholder-slate-400/70 resize-y border ${errors.kronologi
+                      ? 'border-rose-300 focus:ring-2 focus:ring-rose-100 focus:border-rose-500'
                       : 'border-slate-300 focus:ring-2 focus:ring-coffee-cream/30 focus:border-coffee-medium'
-                  }`}
+                    }`}
                 />
                 {errors.kronologi ? (
                   <p className="text-rose-600 text-[11px] font-bold flex items-center gap-1">
@@ -373,7 +503,7 @@ export default function PengaduanWarga() {
                     </label>
                     <p className="text-[10px] text-slate-500 font-semibold">Petugas memerlukan koordinat presisi untuk peninjauan lapangan.</p>
                   </div>
-                  
+
                   <button
                     type="button"
                     onClick={handleGetLocation}
@@ -385,37 +515,49 @@ export default function PengaduanWarga() {
                   </button>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {/* Mini Map Container */}
+                <div className="relative w-full h-60 rounded-xl overflow-hidden border border-slate-300 shadow-inner mt-2 z-0">
+                  <div ref={mapContainerRef} className="w-full h-full" />
+                  <div className="absolute bottom-2 left-2 bg-white/95 px-2 py-1 rounded shadow-sm border border-slate-200 pointer-events-none text-[9px] font-black text-slate-600 z-[1000]">
+                    Klik peta atau geser pin untuk menentukan lokasi
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2">
                   <div className="space-y-1">
                     <span className="text-[10px] font-bold text-slate-500 block">Latitude</span>
-                    <input
-                      type="text"
-                      placeholder="Contoh: -8.114712"
-                      value={formData.latitude}
-                      onChange={(e) => {
-                        setFormData(prev => ({ ...prev, latitude: e.target.value }));
-                        if (errors.lokasi) setErrors(prev => ({ ...prev, lokasi: null }));
-                      }}
-                      className="w-full bg-white rounded-xl px-3.5 py-2.5 text-xs outline-none border border-slate-300 text-slate-800 font-mono font-bold transition-all focus:ring-2 focus:ring-coffee-cream/30 focus:border-coffee-medium"
-                    />
+                    <div className="relative">
+                      <input
+                        type="text"
+                        placeholder="Pilih lokasi di peta..."
+                        value={formData.latitude}
+                        readOnly
+                        className="w-full bg-slate-100/70 border border-slate-250 rounded-xl pl-3.5 pr-8 py-2.5 text-xs outline-none text-slate-500 font-mono font-bold cursor-not-allowed"
+                      />
+                      <span className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                        <Lock className="w-3.5 h-3.5 text-slate-400" />
+                      </span>
+                    </div>
                   </div>
                   <div className="space-y-1">
                     <span className="text-[10px] font-bold text-slate-500 block">Longitude</span>
-                    <input
-                      type="text"
-                      placeholder="Contoh: 115.090124"
-                      value={formData.longitude}
-                      onChange={(e) => {
-                        setFormData(prev => ({ ...prev, longitude: e.target.value }));
-                        if (errors.lokasi) setErrors(prev => ({ ...prev, lokasi: null }));
-                      }}
-                      className="w-full bg-white rounded-xl px-3.5 py-2.5 text-xs outline-none border border-slate-300 text-slate-800 font-mono font-bold transition-all focus:ring-2 focus:ring-coffee-cream/30 focus:border-coffee-medium"
-                    />
+                    <div className="relative">
+                      <input
+                        type="text"
+                        placeholder="Pilih lokasi di peta..."
+                        value={formData.longitude}
+                        readOnly
+                        className="w-full bg-slate-100/70 border border-slate-250 rounded-xl pl-3.5 pr-8 py-2.5 text-xs outline-none text-slate-500 font-mono font-bold cursor-not-allowed"
+                      />
+                      <span className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                        <Lock className="w-3.5 h-3.5 text-slate-400" />
+                      </span>
+                    </div>
                   </div>
                 </div>
 
                 {formData.latitude && formData.longitude && (
-                  <div className="flex items-center justify-between bg-emerald-50/70 border border-emerald-250/80 rounded-xl p-3 text-[10px] font-bold text-emerald-800 shadow-sm">
+                  <div className="flex items-center justify-between bg-emerald-50/70 border border-emerald-250/80 rounded-xl p-3 text-[10px] font-bold text-emerald-800 shadow-sm mt-1">
                     <span className="flex items-center gap-1.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-550 animate-pulse" />
                       Koordinat GPS Terkunci
@@ -428,7 +570,7 @@ export default function PengaduanWarga() {
                       }}
                       className="text-coffee-medium hover:underline cursor-pointer"
                     >
-                      Buka Google Maps →
+                      Buka Google Maps
                     </button>
                   </div>
                 )}
@@ -445,7 +587,7 @@ export default function PengaduanWarga() {
                 <label className="text-xs font-black text-slate-700 flex items-center gap-1.5">
                   <Camera className="w-4 h-4 text-slate-500" /> Foto Bukti Kejadian <span className="text-slate-400 font-semibold">(Opsional)</span>
                 </label>
-                
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
                   {/* File Input Box */}
                   <div className="relative">
@@ -462,7 +604,7 @@ export default function PengaduanWarga() {
                       className="flex flex-col items-center justify-center p-6 bg-white hover:bg-slate-50 rounded-2xl cursor-pointer border-2 border-dashed border-slate-350 hover:border-coffee-medium/60 hover:shadow-sm transition-all duration-300 text-center group relative overflow-hidden"
                     >
                       <div className="absolute inset-0 bg-coffee-cream/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-                      
+
                       <div className="p-2 bg-slate-50 rounded-xl shadow-sm border border-slate-150 group-hover:scale-105 transition-transform duration-300 mb-2 text-slate-400 group-hover:text-coffee-medium group-hover:border-coffee-cream/30">
                         <Camera className="w-5 h-5 transition-colors" />
                       </div>
@@ -470,14 +612,14 @@ export default function PengaduanWarga() {
                       <span className="text-[9px] text-slate-500 mt-1 font-semibold">Format JPG, PNG (Maksimal 2MB)</span>
                     </label>
                   </div>
-                  
+
                   {/* Image Preview Box */}
                   <div className="h-28 bg-slate-50 rounded-2xl flex items-center justify-center relative overflow-hidden border border-slate-200 shadow-inner group">
                     {imagePreview ? (
                       <>
-                        <img 
-                          src={imagePreview} 
-                          alt="Preview Laporan" 
+                        <img
+                          src={imagePreview}
+                          alt="Preview Laporan"
                           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                         />
                         <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -498,7 +640,7 @@ export default function PengaduanWarga() {
                     )}
                   </div>
                 </div>
-                
+
                 {errors.foto && (
                   <p className="text-rose-600 text-[11px] font-bold flex items-center gap-1">
                     <AlertCircle className="w-3.5 h-3.5" /> {errors.foto}
@@ -532,7 +674,7 @@ export default function PengaduanWarga() {
         ) : (
           /* SUCCESS SCREEN STATE */
           <div className="bg-white rounded-2xl p-8 shadow-md border border-slate-200/80 text-center space-y-6 relative overflow-hidden">
-            
+
             <div className="inline-flex p-4 bg-emerald-50 border border-emerald-100 rounded-full text-emerald-600 mx-auto">
               <Check className="w-12 h-12" />
             </div>
@@ -553,7 +695,7 @@ export default function PengaduanWarga() {
               <div className="text-2xl font-mono font-black text-coffee-dark tracking-wider select-text">
                 {ticketNumber}
               </div>
-              
+
               <button
                 onClick={handleCopyTicket}
                 className="mt-2 inline-flex items-center gap-1.5 px-3 py-1.5 bg-white text-xs text-slate-700 font-extrabold rounded-lg shadow-sm border border-slate-200 transition-all cursor-pointer hover:bg-slate-50 active:scale-[0.97]"
