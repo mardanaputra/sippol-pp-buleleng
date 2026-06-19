@@ -769,10 +769,10 @@ export default function Home() {
         >
           <div className="text-center space-y-3 max-w-2xl mx-auto">
             <span className="inline-block px-3 py-1 bg-[#561C24]/5 border border-[#C7B7A3]/30 text-[10px] font-black text-[#561C24] rounded-lg uppercase tracking-wider">
-              Edukasi Hukum & JDIH
+              Edukasi Hukum
             </span>
             <h3 className="text-2xl md:text-3xl font-black text-[#561C24] tracking-tight">
-              Pustaka Edukasi Hukum & Bank Data
+              Pustaka Edukasi Hukum
             </h3>
             <p className="text-xs text-slate-500 leading-relaxed font-semibold">
               Akses publik regulasi resmi, Perda/Perkada Kabupaten Buleleng, Permendagri, dan standar operasional pelayanan Satpol PP secara langsung dan terbuka.
