@@ -742,7 +742,7 @@ export default function AdminDashboard() {
               <div className="space-y-0 text-left">
                 <div className="inline-block bg-[#561C24] text-white px-6 py-2.5 rounded-t-2xl text-xs font-black uppercase tracking-wider shadow-sm select-none border-b-2 border-[#C7B7A3]">
                   <div className="flex items-center gap-1.5">
-                    Penegakan Perda/Perkada (Prisma Data)
+                    Penegakan Perda/Perkada
                   </div>
                 </div>
 
@@ -837,7 +837,7 @@ export default function AdminDashboard() {
               <div className="space-y-0 text-left">
                 <div className="inline-block bg-[#561C24] text-white px-6 py-2.5 rounded-t-2xl text-xs font-black uppercase tracking-wider shadow-sm select-none border-b-2 border-[#C7B7A3]">
                   <div className="flex items-center gap-1.5">
-                    Penertiban K3 (Trantibum)
+                    Penertiban K3
                   </div>
                 </div>
 
@@ -1082,7 +1082,7 @@ export default function AdminDashboard() {
             <div className="space-y-0 text-left">
               <div className="inline-block bg-[#561C24] text-white px-6 py-2.5 rounded-t-2xl text-xs font-black uppercase tracking-wider shadow-sm select-none border-b-2 border-[#C7B7A3]">
                 <div className="flex items-center gap-1.5">
-                  Kekuatan & Perlengkapan Satlinmas Buleleng (Linmas)
+                  Kekuatan & Perlengkapan Satlinmas Buleleng
                 </div>
               </div>
 
@@ -1319,8 +1319,7 @@ export default function AdminDashboard() {
             {/* SECTION: Riwayat Kegiatan & Jurnal Terpadu Satpol PP */}
             <div className="space-y-0 text-left">
               <div className="inline-block bg-[#561C24] text-white px-6 py-2.5 rounded-t-2xl text-xs font-black uppercase tracking-wider shadow-sm select-none border-b-2 border-[#C7B7A3]">
-                <div className="flex items-center gap-1.5">
-                  <ClipboardList className="w-4 h-4 text-[#E8D8C4]" /> Jurnal & Kegiatan Terkini Satpol PP
+                <div className="flex items-center gap-1.5">Jurnal & Kegiatan Terkini Satpol PP
                 </div>
               </div>
 

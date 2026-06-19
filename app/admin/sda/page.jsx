@@ -4,21 +4,21 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Footer from '../../components/Footer';
 import AdminNavbar from '../../components/AdminNavbar';
-import { 
-  Shield, 
-  Users, 
-  BookOpen, 
-  FileText, 
-  Plus, 
-  Trash2, 
-  Edit3, 
-  Eye, 
-  Calendar, 
-  UserCheck, 
-  Info, 
-  Download, 
-  X, 
-  Check, 
+import {
+  Shield,
+  Users,
+  BookOpen,
+  FileText,
+  Plus,
+  Trash2,
+  Edit3,
+  Eye,
+  Calendar,
+  UserCheck,
+  Info,
+  Download,
+  X,
+  Check,
   AlertTriangle,
   RefreshCw,
   Search,
@@ -134,7 +134,7 @@ export default function SdaAdmin() {
     pangkat_golongan: 'Penata - III/c',
     jabatan: 'Anggota Operasional',
     penempatan_bidang: 'SDA',
-    rekam_pelatihan: [], 
+    rekam_pelatihan: [],
     nomor_sertifikat: '',
     status_keaktifan: 'Aktif',
   });
@@ -305,7 +305,7 @@ export default function SdaAdmin() {
         status_keaktifan: 'Aktif',
       });
     } else if (record) {
-      const activeDiklat = record.rekam_pelatihan 
+      const activeDiklat = record.rekam_pelatihan
         ? record.rekam_pelatihan.split(',').map(s => s.trim()).filter(Boolean)
         : [];
       setPersonelForm({
@@ -517,33 +517,33 @@ export default function SdaAdmin() {
 
   // -------------------- SEARCH & FILTER LOGIC --------------------
   const filteredPersonel = personelList.filter(p => {
-    const matchQuery = p.nama_lengkap.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                       p.nip_kontrak.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                       p.id_personel.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchQuery = p.nama_lengkap.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      p.nip_kontrak.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      p.id_personel.toLowerCase().includes(searchQuery.toLowerCase());
     const matchFilter = !filterType || p.status_kepegawaian === filterType || p.penempatan_bidang === filterType || p.status_keaktifan === filterType;
     return matchQuery && matchFilter;
   });
 
   const filteredKegiatan = kegiatanList.filter(k => {
-    const matchQuery = k.nama_agenda.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                       k.lokasi_sasaran.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                       k.no_laporan.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchQuery = k.nama_agenda.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      k.lokasi_sasaran.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      k.no_laporan.toLowerCase().includes(searchQuery.toLowerCase());
     const matchFilter = !filterType || k.jenis_kegiatan === filterType;
     return matchQuery && matchFilter;
   });
 
   const filteredPustaka = pustakaList.filter(d => {
-    const matchQuery = d.judul_dokumen.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                       d.nomor_tahun_aturan.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                       d.no_arsip.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                       (d.tags && d.tags.toLowerCase().includes(searchQuery.toLowerCase()));
+    const matchQuery = d.judul_dokumen.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      d.nomor_tahun_aturan.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      d.no_arsip.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (d.tags && d.tags.toLowerCase().includes(searchQuery.toLowerCase()));
     const matchFilter = !filterType || d.jenis_aturan === filterType || d.status_dokumen === filterType;
     return matchQuery && matchFilter;
   });
 
   return (
     <div className="min-h-screen bg-[#F8F7F4] text-slate-800 font-sans select-none relative overflow-x-hidden pt-[72px] flex flex-col justify-between">
-      
+
       {/* Horizontal Navbar */}
       <AdminNavbar
         activePortal="sda"
@@ -551,13 +551,13 @@ export default function SdaAdmin() {
 
       {/* Main Grid Content */}
       <div className="max-w-7xl w-full mx-auto px-6 mt-8 space-y-6 flex-1">
-        
+
         {/* Title */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-left">
           <div>
             <h2 className="text-2xl font-black text-slate-900 uppercase tracking-tight">MANAJEMEN INTERNAL BIDANG SDA</h2>
             <p className="text-xs text-slate-500 font-bold uppercase tracking-wider mt-1">
-              Sumber Daya Aparatur • Administrasi • Log Jurnal • Edukasi Hukum
+              Sumber Daya Aparatur, Administrasi, Log Jurnal & Edukasi Hukum
             </p>
           </div>
         </div>
@@ -566,31 +566,28 @@ export default function SdaAdmin() {
         <div className="flex bg-white p-1.5 rounded-2xl border border-slate-200 shadow-sm gap-1.5">
           <button
             onClick={() => { setActiveTab('personel'); setSearchQuery(''); setFilterType(''); }}
-            className={`flex-1 py-3 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer ${
-              activeTab === 'personel'
+            className={`flex-1 py-3 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer ${activeTab === 'personel'
                 ? 'bg-[#561C24] text-white shadow-sm'
                 : 'text-slate-600 bg-transparent hover:bg-slate-50 hover:text-[#561C24]'
-            }`}
+              }`}
           >
             <Users className="w-4 h-4" /> Manajemen Aparatur ({personelList.length})
           </button>
           <button
             onClick={() => { setActiveTab('kegiatan'); setSearchQuery(''); setFilterType(''); }}
-            className={`flex-1 py-3 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer ${
-              activeTab === 'kegiatan'
+            className={`flex-1 py-3 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer ${activeTab === 'kegiatan'
                 ? 'bg-[#561C24] text-white shadow-sm'
                 : 'text-slate-600 bg-transparent hover:bg-slate-50 hover:text-[#561C24]'
-            }`}
+              }`}
           >
             <FileText className="w-4 h-4" /> Log Jurnal Kegiatan ({kegiatanList.length})
           </button>
           <button
             onClick={() => { setActiveTab('pustaka'); setSearchQuery(''); setFilterType(''); }}
-            className={`flex-1 py-3 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer ${
-              activeTab === 'pustaka'
+            className={`flex-1 py-3 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer ${activeTab === 'pustaka'
                 ? 'bg-[#561C24] text-white shadow-sm'
                 : 'text-slate-600 bg-transparent hover:bg-slate-50 hover:text-[#561C24]'
-            }`}
+              }`}
           >
             <BookOpen className="w-4 h-4" /> Pustaka Edukasi Hukum ({pustakaList.length})
           </button>
@@ -599,7 +596,7 @@ export default function SdaAdmin() {
         {/* -------------------- TAB 1: MANAJEMEN APARATUR -------------------- */}
         {activeTab === 'personel' && (
           <div className="space-y-6">
-            
+
             {/* Quick Stats Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-left">
               <div className="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm hover:shadow-md transition-all">
@@ -702,11 +699,10 @@ export default function SdaAdmin() {
                           <td className="px-4 py-3.5 font-bold text-slate-800">{p.nama_lengkap}</td>
                           <td className="px-4 py-3.5 whitespace-nowrap">{p.nip_kontrak}</td>
                           <td className="px-4 py-3.5">
-                            <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                              p.status_kepegawaian === 'PNS' || p.status_kepegawaian.startsWith('PPPK') || p.status_kepegawaian.startsWith('ASN') 
-                                ? 'bg-purple-100 text-purple-750' 
+                            <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${p.status_kepegawaian === 'PNS' || p.status_kepegawaian.startsWith('PPPK') || p.status_kepegawaian.startsWith('ASN')
+                                ? 'bg-purple-100 text-purple-750'
                                 : 'bg-orange-100 text-orange-750'
-                            }`}>
+                              }`}>
                               {p.status_kepegawaian}
                             </span>
                           </td>
@@ -714,11 +710,10 @@ export default function SdaAdmin() {
                           <td className="px-4 py-3.5">{p.jabatan}</td>
                           <td className="px-4 py-3.5">{p.penempatan_bidang}</td>
                           <td className="px-4 py-3.5 text-center">
-                            <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                              p.status_keaktifan === 'Aktif' 
-                                ? 'bg-emerald-100 text-emerald-800' 
+                            <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${p.status_keaktifan === 'Aktif'
+                                ? 'bg-emerald-100 text-emerald-800'
                                 : 'bg-red-100 text-red-800'
-                            }`}>
+                              }`}>
                               {p.status_keaktifan}
                             </span>
                           </td>
@@ -760,7 +755,7 @@ export default function SdaAdmin() {
         {/* -------------------- TAB 2: LOG JURNAL KEGIATAN -------------------- */}
         {activeTab === 'kegiatan' && (
           <div className="space-y-6">
-            
+
             {/* Stats */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-left">
               <div className="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm hover:shadow-md transition-all">
@@ -858,7 +853,7 @@ export default function SdaAdmin() {
                       filteredKegiatan.map((k) => (
                         <tr key={k.id} className="hover:bg-slate-50/70 transition-colors">
                           <td className="px-4 py-3.5 text-center font-bold text-[#ad1457] whitespace-nowrap">{k.no_laporan}</td>
-                          <td className="px-4 py-3.5 whitespace-nowrap">{k.tanggal_pelaksanaan ? new Date(k.tanggal_pelaksanaan).toLocaleDateString('id-ID', {day: 'numeric', month: 'short', year: 'numeric'}) : '-'}</td>
+                          <td className="px-4 py-3.5 whitespace-nowrap">{k.tanggal_pelaksanaan ? new Date(k.tanggal_pelaksanaan).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }) : '-'}</td>
                           <td className="px-4 py-3.5 font-bold text-slate-800">{k.nama_agenda}</td>
                           <td className="px-4 py-3.5">{k.jenis_kegiatan}</td>
                           <td className="px-4 py-3.5">{k.lokasi_sasaran}</td>
@@ -925,7 +920,7 @@ export default function SdaAdmin() {
         {/* -------------------- TAB 3: PUSTAKA EDUKASI HUKUM -------------------- */}
         {activeTab === 'pustaka' && (
           <div className="space-y-6">
-            
+
             {/* Stats */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-left">
               <div className="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm hover:shadow-md transition-all">
@@ -1003,15 +998,14 @@ export default function SdaAdmin() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 text-left">
                   {filteredPustaka.map((doc) => (
                     <div key={doc.id} className="bg-slate-50 border border-slate-200 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between relative group">
-                      
+
                       {/* Document Meta */}
                       <div className="space-y-3">
                         <div className="flex justify-between items-start gap-2">
-                          <span className={`px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-wider ${
-                            doc.status_dokumen === 'Berlaku'
+                          <span className={`px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-wider ${doc.status_dokumen === 'Berlaku'
                               ? 'bg-emerald-100 text-emerald-800'
                               : 'bg-rose-100 text-rose-800'
-                          }`}>
+                            }`}>
                             {doc.status_dokumen}
                           </span>
                           <span className="text-[9px] text-[#ad1457] font-bold">{doc.no_arsip}</span>
@@ -1100,9 +1094,9 @@ export default function SdaAdmin() {
                 </h3>
                 <p className="text-[10px] text-rose-200/80 font-bold uppercase tracking-widest mt-0.5">SIP POLPP BULELENG</p>
               </div>
-              <button 
+              <button
                 type="button"
-                onClick={() => setIsPersonelModalOpen(false)} 
+                onClick={() => setIsPersonelModalOpen(false)}
                 className="p-1.5 hover:bg-white/10 rounded-full transition-colors cursor-pointer text-white"
               >
                 <X className="w-4 h-4" />
@@ -1130,7 +1124,7 @@ export default function SdaAdmin() {
                     type="text"
                     disabled={personelFormMode === 'view'}
                     value={personelForm.nama_lengkap}
-                    onChange={(e) => setPersonelForm({...personelForm, nama_lengkap: e.target.value})}
+                    onChange={(e) => setPersonelForm({ ...personelForm, nama_lengkap: e.target.value })}
                     placeholder="Contoh: I Gede Suardika, S.H."
                     className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium text-slate-700 outline-none focus:bg-white focus:ring-2 focus:ring-blue-150 disabled:opacity-65"
                   />
@@ -1141,7 +1135,7 @@ export default function SdaAdmin() {
                     type="text"
                     disabled={personelFormMode === 'view'}
                     value={personelForm.nip_kontrak}
-                    onChange={(e) => setPersonelForm({...personelForm, nip_kontrak: e.target.value})}
+                    onChange={(e) => setPersonelForm({ ...personelForm, nip_kontrak: e.target.value })}
                     placeholder="Masukkan NIP atau Nomor Kontrak kerja..."
                     className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium text-slate-700 outline-none focus:bg-white focus:ring-2 focus:ring-blue-150 disabled:opacity-65"
                   />
@@ -1159,10 +1153,10 @@ export default function SdaAdmin() {
                       setPersonelForm({
                         ...personelForm,
                         status_kepegawaian: val,
-                        pangkat_golongan: val === 'Kontrak (Non-ASN)' 
-                          ? 'Non-ASN' 
-                          : val.startsWith('PPPK') 
-                            ? 'Golongan IX' 
+                        pangkat_golongan: val === 'Kontrak (Non-ASN)'
+                          ? 'Non-ASN'
+                          : val.startsWith('PPPK')
+                            ? 'Golongan IX'
                             : 'Penata - III/c'
                       });
                     }}
@@ -1186,7 +1180,7 @@ export default function SdaAdmin() {
                   <select
                     disabled={personelFormMode === 'view' || personelForm.status_kepegawaian === 'Kontrak (Non-ASN)'}
                     value={personelForm.pangkat_golongan}
-                    onChange={(e) => setPersonelForm({...personelForm, pangkat_golongan: e.target.value})}
+                    onChange={(e) => setPersonelForm({ ...personelForm, pangkat_golongan: e.target.value })}
                     className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium text-slate-700 outline-none focus:bg-white focus:ring-2 focus:ring-blue-150 disabled:opacity-65 cursor-pointer"
                   >
                     {personelForm.status_kepegawaian === 'Kontrak (Non-ASN)' ? (
@@ -1220,7 +1214,7 @@ export default function SdaAdmin() {
                   <select
                     disabled={personelFormMode === 'view'}
                     value={personelForm.jabatan}
-                    onChange={(e) => setPersonelForm({...personelForm, jabatan: e.target.value})}
+                    onChange={(e) => setPersonelForm({ ...personelForm, jabatan: e.target.value })}
                     className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium text-slate-700 outline-none focus:bg-white focus:ring-2 focus:ring-blue-150 disabled:opacity-65 cursor-pointer"
                   >
                     {JABATAN_OPTIONS.map(j => (
@@ -1238,7 +1232,7 @@ export default function SdaAdmin() {
                           type="radio"
                           disabled={personelFormMode === 'view'}
                           checked={personelForm.penempatan_bidang === bidang}
-                          onChange={() => setPersonelForm({...personelForm, penempatan_bidang: bidang})}
+                          onChange={() => setPersonelForm({ ...personelForm, penempatan_bidang: bidang })}
                           className="text-[#212260]"
                         />
                         {bidang}
@@ -1281,7 +1275,7 @@ export default function SdaAdmin() {
                     type="text"
                     disabled={personelFormMode === 'view'}
                     value={personelForm.nomor_sertifikat || ''}
-                    onChange={(e) => setPersonelForm({...personelForm, nomor_sertifikat: e.target.value})}
+                    onChange={(e) => setPersonelForm({ ...personelForm, nomor_sertifikat: e.target.value })}
                     placeholder="Masukkan nomor sertifikat diklat..."
                     className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium text-slate-700 outline-none focus:bg-white focus:ring-2 focus:ring-blue-150 disabled:opacity-65"
                   />
@@ -1296,7 +1290,7 @@ export default function SdaAdmin() {
                           type="radio"
                           disabled={personelFormMode === 'view'}
                           checked={personelForm.status_keaktifan === st}
-                          onChange={() => setPersonelForm({...personelForm, status_keaktifan: st})}
+                          onChange={() => setPersonelForm({ ...personelForm, status_keaktifan: st })}
                           className="text-[#212260]"
                         />
                         {st}
@@ -1340,9 +1334,9 @@ export default function SdaAdmin() {
                 </h3>
                 <p className="text-[10px] text-rose-200/80 font-bold uppercase tracking-widest mt-0.5">SIP POLPP BULELENG</p>
               </div>
-              <button 
+              <button
                 type="button"
-                onClick={() => setIsKegiatanModalOpen(false)} 
+                onClick={() => setIsKegiatanModalOpen(false)}
                 className="p-1.5 hover:bg-white/10 rounded-full transition-colors cursor-pointer text-white"
               >
                 <X className="w-4 h-4" />
@@ -1370,7 +1364,7 @@ export default function SdaAdmin() {
                     type="date"
                     disabled={kegiatanFormMode === 'view'}
                     value={kegiatanForm.tanggal_pelaksanaan}
-                    onChange={(e) => setKegiatanForm({...kegiatanForm, tanggal_pelaksanaan: e.target.value})}
+                    onChange={(e) => setKegiatanForm({ ...kegiatanForm, tanggal_pelaksanaan: e.target.value })}
                     className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium text-slate-700 outline-none focus:bg-white focus:ring-2 focus:ring-blue-150 disabled:opacity-65 cursor-pointer"
                   />
                 </div>
@@ -1380,7 +1374,7 @@ export default function SdaAdmin() {
                     type="text"
                     disabled={kegiatanFormMode === 'view'}
                     value={kegiatanForm.nama_agenda}
-                    onChange={(e) => setKegiatanForm({...kegiatanForm, nama_agenda: e.target.value})}
+                    onChange={(e) => setKegiatanForm({ ...kegiatanForm, nama_agenda: e.target.value })}
                     placeholder="Contoh: Satpol PP Goes to School"
                     className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium text-slate-700 outline-none focus:bg-white focus:ring-2 focus:ring-blue-150 disabled:opacity-65"
                   />
@@ -1394,7 +1388,7 @@ export default function SdaAdmin() {
                     type="text"
                     disabled={kegiatanFormMode === 'view'}
                     value={kegiatanForm.lokasi_sasaran}
-                    onChange={(e) => setKegiatanForm({...kegiatanForm, lokasi_sasaran: e.target.value})}
+                    onChange={(e) => setKegiatanForm({ ...kegiatanForm, lokasi_sasaran: e.target.value })}
                     placeholder="Contoh: SMK Negeri 3 Singaraja"
                     className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium text-slate-700 outline-none focus:bg-white focus:ring-2 focus:ring-blue-150 disabled:opacity-65"
                   />
@@ -1404,7 +1398,7 @@ export default function SdaAdmin() {
                   <select
                     disabled={kegiatanFormMode === 'view'}
                     value={kegiatanForm.jenis_kegiatan}
-                    onChange={(e) => setKegiatanForm({...kegiatanForm, jenis_kegiatan: e.target.value})}
+                    onChange={(e) => setKegiatanForm({ ...kegiatanForm, jenis_kegiatan: e.target.value })}
                     className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium text-slate-700 outline-none focus:bg-white focus:ring-2 focus:ring-blue-150 disabled:opacity-65 cursor-pointer"
                   >
                     <option value="Penyuluhan ke Sekolah / Lembaga">Penyuluhan ke Sekolah / Lembaga</option>
@@ -1422,7 +1416,7 @@ export default function SdaAdmin() {
                     type="number"
                     disabled={kegiatanFormMode === 'view'}
                     value={kegiatanForm.jumlah_peserta}
-                    onChange={(e) => setKegiatanForm({...kegiatanForm, jumlah_peserta: parseInt(e.target.value) || 0})}
+                    onChange={(e) => setKegiatanForm({ ...kegiatanForm, jumlah_peserta: parseInt(e.target.value) || 0 })}
                     className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium text-slate-700 outline-none focus:bg-white focus:ring-2 focus:ring-blue-150 disabled:opacity-65"
                   />
                 </div>
@@ -1432,7 +1426,7 @@ export default function SdaAdmin() {
                     type="text"
                     disabled={kegiatanFormMode === 'view'}
                     value={kegiatanForm.narasumber || ''}
-                    onChange={(e) => setKegiatanForm({...kegiatanForm, narasumber: e.target.value})}
+                    onChange={(e) => setKegiatanForm({ ...kegiatanForm, narasumber: e.target.value })}
                     placeholder="Nama pejabat / pemateri..."
                     className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium text-slate-700 outline-none focus:bg-white focus:ring-2 focus:ring-blue-150 disabled:opacity-65"
                   />
@@ -1444,7 +1438,7 @@ export default function SdaAdmin() {
                 <textarea
                   disabled={kegiatanFormMode === 'view'}
                   value={kegiatanForm.ringkasan_materi}
-                  onChange={(e) => setKegiatanForm({...kegiatanForm, ringkasan_materi: e.target.value})}
+                  onChange={(e) => setKegiatanForm({ ...kegiatanForm, ringkasan_materi: e.target.value })}
                   rows="3"
                   placeholder="Deskripsikan secara singkat materi yang disampaikan dan tanggapan dari sasaran penyuluhan..."
                   className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-medium text-slate-700 outline-none focus:bg-white focus:ring-2 focus:ring-blue-150 disabled:opacity-65 resize-none"
@@ -1488,9 +1482,9 @@ export default function SdaAdmin() {
                   {kegiatanFormMode === 'view' ? (
                     kegiatanForm.foto_dokumentasi ? (
                       <div className="relative w-36 h-24 border border-slate-200 rounded-xl overflow-hidden shadow-inner group">
-                        <img 
-                          src={kegiatanForm.foto_dokumentasi} 
-                          alt="Dokumentasi" 
+                        <img
+                          src={kegiatanForm.foto_dokumentasi}
+                          alt="Dokumentasi"
                           className="w-full h-full object-cover"
                         />
                         <button
@@ -1557,9 +1551,9 @@ export default function SdaAdmin() {
                 </h3>
                 <p className="text-[10px] text-rose-200/80 font-bold uppercase tracking-widest mt-0.5">SIP POLPP BULELENG</p>
               </div>
-              <button 
+              <button
                 type="button"
-                onClick={() => setIsPustakaModalOpen(false)} 
+                onClick={() => setIsPustakaModalOpen(false)}
                 className="p-1.5 hover:bg-white/10 rounded-full transition-colors cursor-pointer text-white"
               >
                 <X className="w-4 h-4" />
@@ -1585,7 +1579,7 @@ export default function SdaAdmin() {
                 <textarea
                   disabled={pustakaFormMode === 'view'}
                   value={pustakaForm.judul_dokumen}
-                  onChange={(e) => setPustakaForm({...pustakaForm, judul_dokumen: e.target.value})}
+                  onChange={(e) => setPustakaForm({ ...pustakaForm, judul_dokumen: e.target.value })}
                   rows="2"
                   placeholder="Contoh: Peraturan Bupati Buleleng Nomor 45 Tahun 2022 tentang Kedudukan, Susunan Organisasi..."
                   className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-medium text-slate-700 outline-none focus:bg-white focus:ring-2 focus:ring-blue-150 disabled:opacity-65 resize-none"
@@ -1598,7 +1592,7 @@ export default function SdaAdmin() {
                   <select
                     disabled={pustakaFormMode === 'view'}
                     value={pustakaForm.jenis_aturan}
-                    onChange={(e) => setPustakaForm({...pustakaForm, jenis_aturan: e.target.value})}
+                    onChange={(e) => setPustakaForm({ ...pustakaForm, jenis_aturan: e.target.value })}
                     className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium text-slate-700 outline-none focus:bg-white focus:ring-2 focus:ring-blue-150 disabled:opacity-65 cursor-pointer"
                   >
                     <option value="Undang-Undang / Peraturan Pemerintah (Pusat)">Undang-Undang / Peraturan Pemerintah (Pusat)</option>
@@ -1613,7 +1607,7 @@ export default function SdaAdmin() {
                     type="text"
                     disabled={pustakaFormMode === 'view'}
                     value={pustakaForm.nomor_tahun_aturan}
-                    onChange={(e) => setPustakaForm({...pustakaForm, nomor_tahun_aturan: e.target.value})}
+                    onChange={(e) => setPustakaForm({ ...pustakaForm, nomor_tahun_aturan: e.target.value })}
                     placeholder="Contoh: No. 45 Tahun 2022"
                     className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium text-slate-700 outline-none focus:bg-white focus:ring-2 focus:ring-blue-150 disabled:opacity-65"
                   />
@@ -1627,7 +1621,7 @@ export default function SdaAdmin() {
                     type="text"
                     disabled={pustakaFormMode === 'view'}
                     value={pustakaForm.instansi_penerbit}
-                    onChange={(e) => setPustakaForm({...pustakaForm, instansi_penerbit: e.target.value})}
+                    onChange={(e) => setPustakaForm({ ...pustakaForm, instansi_penerbit: e.target.value })}
                     placeholder="Contoh: Bupati Buleleng atau Mendagri"
                     className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium text-slate-700 outline-none focus:bg-white focus:ring-2 focus:ring-blue-150 disabled:opacity-65"
                   />
@@ -1641,7 +1635,7 @@ export default function SdaAdmin() {
                           type="radio"
                           disabled={pustakaFormMode === 'view'}
                           checked={pustakaForm.status_dokumen === val}
-                          onChange={() => setPustakaForm({...pustakaForm, status_dokumen: val})}
+                          onChange={() => setPustakaForm({ ...pustakaForm, status_dokumen: val })}
                           className="text-[#6a1b9a]"
                         />
                         {val}
@@ -1656,7 +1650,7 @@ export default function SdaAdmin() {
                 <textarea
                   disabled={pustakaFormMode === 'view'}
                   value={pustakaForm.ringkasan_aturan}
-                  onChange={(e) => setPustakaForm({...pustakaForm, ringkasan_aturan: e.target.value})}
+                  onChange={(e) => setPustakaForm({ ...pustakaForm, ringkasan_aturan: e.target.value })}
                   rows="3"
                   placeholder="Jelaskan secara ringkas poin-poin utama regulasi agar personil di lapangan mudah memahaminya..."
                   className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-medium text-slate-700 outline-none focus:bg-white focus:ring-2 focus:ring-blue-150 disabled:opacity-65 resize-none"
@@ -1670,7 +1664,7 @@ export default function SdaAdmin() {
                     type="text"
                     disabled={pustakaFormMode === 'view'}
                     value={pustakaForm.tags || ''}
-                    onChange={(e) => setPustakaForm({...pustakaForm, tags: e.target.value})}
+                    onChange={(e) => setPustakaForm({ ...pustakaForm, tags: e.target.value })}
                     placeholder="Contoh: tupoksi, sop patroli, seragam"
                     className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium text-slate-700 outline-none focus:bg-white focus:ring-2 focus:ring-blue-150 disabled:opacity-65"
                   />
@@ -1744,17 +1738,17 @@ export default function SdaAdmin() {
       {isZoomModalOpen && (
         <div className="fixed inset-0 z-[100] bg-slate-900/80 backdrop-blur-md flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl overflow-hidden shadow-2xl max-w-3xl w-full border border-slate-350 relative flex flex-col items-center">
-            <button 
-              onClick={() => setIsZoomModalOpen(false)} 
+            <button
+              onClick={() => setIsZoomModalOpen(false)}
               className="absolute top-3 right-3 p-2 bg-slate-900/60 hover:bg-slate-900/80 rounded-full transition-colors cursor-pointer text-white z-10"
               type="button"
             >
               <X className="w-5 h-5" />
             </button>
             <div className="w-full max-h-[80vh] overflow-auto p-4 flex items-center justify-center bg-slate-950">
-              <img 
-                src={zoomImageUrl} 
-                alt="Foto Dokumentasi Zoomed" 
+              <img
+                src={zoomImageUrl}
+                alt="Foto Dokumentasi Zoomed"
                 className="max-w-full max-h-[75vh] object-contain rounded-lg shadow-md"
               />
             </div>
@@ -1768,12 +1762,11 @@ export default function SdaAdmin() {
       {/* CUSTOM NOTIFICATION MODAL OVERLAY */}
       {notification && (
         <div className="fixed inset-0 bg-slate-950/60 backdrop-blur-md z-[100] flex items-center justify-center p-4 select-none animate-fadeIn">
-          <div className={`bg-white border border-slate-100 rounded-2xl max-w-sm w-full shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] overflow-hidden font-sans p-6 text-center space-y-4 border-t-4 ${
-            notification.type === 'success' ? 'border-t-emerald-500' :
-            notification.type === 'error' ? 'border-t-rose-500' :
-            notification.type === 'info' ? 'border-t-blue-500' :
-            'border-t-amber-500'
-          }`}>
+          <div className={`bg-white border border-slate-100 rounded-2xl max-w-sm w-full shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] overflow-hidden font-sans p-6 text-center space-y-4 border-t-4 ${notification.type === 'success' ? 'border-t-emerald-500' :
+              notification.type === 'error' ? 'border-t-rose-500' :
+                notification.type === 'info' ? 'border-t-blue-500' :
+                  'border-t-amber-500'
+            }`}>
             <div className="flex justify-center">
               {notification.type === 'success' && (
                 <div className="w-14 h-14 rounded-full bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600">

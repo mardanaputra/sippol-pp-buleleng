@@ -4,26 +4,26 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Footer from '../../components/Footer';
 import AdminNavbar from '../../components/AdminNavbar';
-import { 
-  Shield, 
-  Users, 
-  MapPin, 
-  AlertOctagon, 
-  FileText, 
-  Clipboard, 
-  Plus, 
-  Trash2, 
-  Edit3, 
-  Eye, 
-  Calendar, 
-  UserCheck, 
-  Info, 
-  DollarSign, 
-  Smartphone, 
-  ChevronRight, 
-  X, 
-  Check, 
-  Map, 
+import {
+  Shield,
+  Users,
+  MapPin,
+  AlertOctagon,
+  FileText,
+  Clipboard,
+  Plus,
+  Trash2,
+  Edit3,
+  Eye,
+  Calendar,
+  UserCheck,
+  Info,
+  DollarSign,
+  Smartphone,
+  ChevronRight,
+  X,
+  Check,
+  Map,
   AlertTriangle,
   RefreshCw,
   Clock,
@@ -342,7 +342,7 @@ export default function LinmasAdmin() {
   // Open Trantibum Modal for CRUD operations
   const handleOpenTrantibumModal = (mode = 'create', record = null) => {
     setTrantibumFormMode(mode);
-    
+
     if (mode === 'create') {
       setTrantibumForm({
         id_tiket: '',
@@ -386,7 +386,7 @@ export default function LinmasAdmin() {
   // Trigger Trantibum creation with citizen report auto-filled
   const handleOpenTrantibumFromReport = (report) => {
     handleOpenTrantibumModal('create');
-    
+
     // Attempt to map category to checkboxes
     const cats = [];
     const lowerCategory = report.kategori_masalah.toLowerCase();
@@ -418,15 +418,15 @@ export default function LinmasAdmin() {
   const handleOpenDelegatedActivity = (report) => {
     setSelectedReportForActivity(report);
     setActivityFormMode('create');
-    
+
     // Auto-fill from citizen report
-    const reportKec = Object.keys(BULELENG_REGENCY).find(kec => 
-      report.kronologi?.toLowerCase().includes(kec.toLowerCase()) || 
+    const reportKec = Object.keys(BULELENG_REGENCY).find(kec =>
+      report.kronologi?.toLowerCase().includes(kec.toLowerCase()) ||
       report.disposisi?.catatan?.toLowerCase().includes(kec.toLowerCase())
     ) || Object.keys(BULELENG_REGENCY)[0];
-    
-    const reportDesa = BULELENG_REGENCY[reportKec].find(desa => 
-      report.kronologi?.toLowerCase().includes(desa.toLowerCase()) || 
+
+    const reportDesa = BULELENG_REGENCY[reportKec].find(desa =>
+      report.kronologi?.toLowerCase().includes(desa.toLowerCase()) ||
       report.disposisi?.catatan?.toLowerCase().includes(desa.toLowerCase())
     ) || BULELENG_REGENCY[reportKec][0];
 
@@ -627,7 +627,7 @@ export default function LinmasAdmin() {
 
   return (
     <div className="min-h-screen bg-[#F8F7F4] text-slate-800 font-sans select-none relative overflow-x-hidden pt-[72px] flex flex-col justify-between">
-      
+
       {/* 2. Horizontal Admin Navbar (Fixed / Persistent) */}
       <AdminNavbar
         activePortal="linmas"
@@ -636,13 +636,13 @@ export default function LinmasAdmin() {
 
       {/* Main Grid Content */}
       <div className="max-w-7xl w-full mx-auto px-6 mt-8 space-y-6 flex-1">
-        
+
         {/* Page Title & Actions */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-left">
           <div>
             <h2 className="text-2xl font-black text-slate-900 uppercase tracking-tight">PORTAL BIDANG LINMAS</h2>
-            <p className="text-xs text-slate-550 font-bold uppercase tracking-wider mt-1">
-              ADMINISTRASI SATLINMAS & PEMBINAAN DESA • KABUPATEN BULELENG
+            <p className="text-xs text-slate-500 font-bold uppercase tracking-wider mt-1">
+              ADMINISTRASI SATLINMAS & PEMBINAAN DESA KABUPATEN BULELENG
             </p>
           </div>
         </div>
@@ -651,31 +651,28 @@ export default function LinmasAdmin() {
         <div className="flex bg-white p-1.5 rounded-2xl border border-slate-200 shadow-sm gap-1.5">
           <button
             onClick={() => setActiveTab('satlinmas')}
-            className={`flex-1 py-3 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer ${
-              activeTab === 'satlinmas'
-                ? 'bg-[#561C24] text-white shadow-sm'
-                : 'text-slate-650 bg-transparent hover:bg-slate-50 hover:text-[#561C24]'
-            }`}
+            className={`flex-1 py-3 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer ${activeTab === 'satlinmas'
+              ? 'bg-[#561C24] text-white shadow-sm'
+              : 'text-slate-650 bg-transparent hover:bg-slate-50 hover:text-[#561C24]'
+              }`}
           >
             <Users className="w-4 h-4" /> Administrasi Satlinmas ({satlinmasList.length})
           </button>
           <button
             onClick={() => setActiveTab('trantibum')}
-            className={`flex-1 py-3 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer ${
-              activeTab === 'trantibum'
-                ? 'bg-[#561C24] text-white shadow-sm'
-                : 'text-slate-650 bg-transparent hover:bg-slate-50 hover:text-[#561C24]'
-            }`}
+            className={`flex-1 py-3 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer ${activeTab === 'trantibum'
+              ? 'bg-[#561C24] text-white shadow-sm'
+              : 'text-slate-650 bg-transparent hover:bg-slate-50 hover:text-[#561C24]'
+              }`}
           >
             <AlertOctagon className="w-4 h-4" /> Penertiban Trantibum ({trantibumList.length})
           </button>
           <button
             onClick={() => setActiveTab('activities')}
-            className={`flex-1 py-3 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer ${
-              activeTab === 'activities'
-                ? 'bg-[#561C24] text-white shadow-sm'
-                : 'text-slate-650 bg-transparent hover:bg-slate-50 hover:text-[#561C24]'
-            }`}
+            className={`flex-1 py-3 px-4 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer ${activeTab === 'activities'
+              ? 'bg-[#561C24] text-white shadow-sm'
+              : 'text-slate-650 bg-transparent hover:bg-slate-50 hover:text-[#561C24]'
+              }`}
           >
             <FileText className="w-4 h-4" /> Kegiatan & Aduan Warga ({activitiesList.length})
           </button>
@@ -684,7 +681,7 @@ export default function LinmasAdmin() {
         {/* -------------------- TAB 1: SATLINMAS -------------------- */}
         {activeTab === 'satlinmas' && (
           <div className="space-y-6">
-            
+
             {/* Quick Stats Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div className="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm hover:shadow-md transition-all">
@@ -766,11 +763,10 @@ export default function LinmasAdmin() {
                           </td>
                           <td className="p-3">
                             <div className="flex items-center gap-1.5">
-                              <span className={`px-2 py-0.5 rounded text-[9px] font-bold border ${
-                                record.status_sk_satlinmas === 'Ada' 
-                                  ? 'bg-emerald-50 text-emerald-700 border-emerald-200' 
-                                  : 'bg-rose-50 text-rose-700 border-rose-200'
-                              }`}>
+                              <span className={`px-2 py-0.5 rounded text-[9px] font-bold border ${record.status_sk_satlinmas === 'Ada'
+                                ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                                : 'bg-rose-50 text-rose-700 border-rose-200'
+                                }`}>
                                 SK: {record.status_sk_satlinmas}
                               </span>
                               <span className="text-[10px] text-slate-500 max-w-[120px] truncate animate-none" title={record.peraturan_desa}>
@@ -816,7 +812,7 @@ export default function LinmasAdmin() {
         {/* -------------------- TAB 2: TRANTIBUM -------------------- */}
         {activeTab === 'trantibum' && (
           <div className="space-y-6">
-            
+
             {/* Quick Stats Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
               <div className="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm hover:shadow-md transition-all">
@@ -869,8 +865,8 @@ export default function LinmasAdmin() {
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {trantibumList.map((log) => (
-                    <div 
-                      key={log.id} 
+                    <div
+                      key={log.id}
                       className="bg-white border border-slate-200 hover:border-blue-200 rounded-xl p-5 flex flex-col justify-between gap-4 hover:shadow-md transition-all group"
                     >
                       <div className="space-y-3">
@@ -879,11 +875,10 @@ export default function LinmasAdmin() {
                           <div className="space-y-1">
                             <div className="flex items-center gap-2 flex-wrap">
                               <span className="font-bold text-sm text-slate-800">{log.nama_pelaku || "Tanpa Nama"}</span>
-                              <span className={`px-2 py-0.5 rounded-full text-[9px] font-bold border ${
-                                log.jenis_kelamin === 'Laki-laki' 
-                                  ? 'bg-blue-50 text-blue-700 border-blue-200' 
-                                  : 'bg-pink-50 text-pink-700 border-pink-200'
-                              }`}>
+                              <span className={`px-2 py-0.5 rounded-full text-[9px] font-bold border ${log.jenis_kelamin === 'Laki-laki'
+                                ? 'bg-blue-50 text-blue-700 border-blue-200'
+                                : 'bg-pink-50 text-pink-700 border-pink-200'
+                                }`}>
                                 {log.jenis_kelamin}
                               </span>
                             </div>
@@ -912,7 +907,7 @@ export default function LinmasAdmin() {
                             else if (c === "Pengemis") colorClass = "bg-emerald-50 text-emerald-700 border-emerald-200";
                             else if (c === "Orang Terlantar") colorClass = "bg-indigo-50 text-indigo-700 border-indigo-200";
                             else if (c === "Anak Punk") colorClass = "bg-yellow-50 text-yellow-750 border-yellow-250";
-                            
+
                             return (
                               <span key={idx} className={`px-2 py-0.5 rounded text-[10px] font-bold border ${colorClass}`}>
                                 {c}
@@ -993,10 +988,10 @@ export default function LinmasAdmin() {
         {/* -------------------- TAB 3: ACTIVITIES & CITIZEN DELEGATION -------------------- */}
         {activeTab === 'activities' && (
           <div className="space-y-6">
-            
+
             {/* Split Screen: Left = Citizen Reports Delegated to Linmas, Right = logged activities */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              
+
               {/* Left Column: Delegated Citizen Reports */}
               <div className="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm space-y-4">
                 <div>
@@ -1018,8 +1013,8 @@ export default function LinmasAdmin() {
                 ) : (
                   <div className="space-y-3.5 overflow-y-auto max-h-[500px] pr-1">
                     {delegatedReports.map((report) => (
-                      <div 
-                        key={report.id_tiket} 
+                      <div
+                        key={report.id_tiket}
                         className="bg-slate-50 border border-slate-200 hover:border-slate-300 rounded-xl p-4 space-y-3 transition-colors relative"
                       >
                         <div className="flex justify-between items-start">
@@ -1063,7 +1058,7 @@ export default function LinmasAdmin() {
                           >
                             <Map className="w-3.5 h-3.5" /> Google Maps
                           </button>
-                          
+
                           <div className="flex items-center gap-1.5">
                             <button
                               onClick={() => handleOpenTrantibumFromReport(report)}
@@ -1094,7 +1089,7 @@ export default function LinmasAdmin() {
                     <h3 className="text-sm font-bold text-slate-800">Log Kegiatan Bidang Linmas</h3>
                     <p className="text-[11px] text-slate-500">Riwayat penyuluhan, pembinaan, dan tindak lanjut aduan</p>
                   </div>
-                  
+
                   {/* Create Kegiatan manually (not from a report) */}
                   <button
                     onClick={() => handleOpenActivityModal('create')}
@@ -1111,8 +1106,8 @@ export default function LinmasAdmin() {
                 ) : (
                   <div className="space-y-3.5 overflow-y-auto max-h-[500px] pr-1">
                     {activitiesList.map((act) => (
-                      <div 
-                        key={act.id} 
+                      <div
+                        key={act.id}
                         className="bg-slate-50 border border-slate-200 hover:border-blue-200 rounded-xl p-4 flex flex-col sm:flex-row justify-between gap-4 transition-all group"
                       >
                         <div className="space-y-2.5 flex-1">
@@ -1120,15 +1115,14 @@ export default function LinmasAdmin() {
                             <span className="text-[10px] font-bold text-indigo-755 bg-indigo-50 border border-indigo-200 px-2 py-0.5 rounded-lg">
                               LOG-{act.id}
                             </span>
-                            <span className={`px-2 py-0.5 rounded text-[10px] font-bold border ${
-                              act.jenis_kegiatan === 'Patroli Wilayah'
-                                ? 'bg-blue-50 text-blue-700 border-blue-200'
-                                : act.jenis_kegiatan === 'Penertiban Masalah Sosial (ODGJ, Gepeng, dll)'
+                            <span className={`px-2 py-0.5 rounded text-[10px] font-bold border ${act.jenis_kegiatan === 'Patroli Wilayah'
+                              ? 'bg-blue-50 text-blue-700 border-blue-200'
+                              : act.jenis_kegiatan === 'Penertiban Masalah Sosial (ODGJ, Gepeng, dll)'
                                 ? 'bg-rose-50 text-rose-700 border-rose-200'
                                 : act.jenis_kegiatan === 'Pembinaan Satlinmas Desa/Kelurahan'
-                                ? 'bg-purple-50 text-purple-700 border-purple-200'
-                                : 'bg-emerald-50 text-emerald-700 border-emerald-200'
-                            }`}>
+                                  ? 'bg-purple-50 text-purple-700 border-purple-200'
+                                  : 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                              }`}>
                               {act.jenis_kegiatan}
                             </span>
                             <span className="text-[10px] text-slate-500 flex items-center gap-1">
@@ -1174,9 +1168,9 @@ export default function LinmasAdmin() {
                         <div className="flex flex-row sm:flex-col justify-between items-end gap-3 border-t sm:border-t-0 sm:border-l border-slate-200 pt-3 sm:pt-0 sm:pl-4 min-w-[120px]">
                           <div>
                             {act.foto_kegiatan ? (
-                              <img 
-                                src={act.foto_kegiatan} 
-                                alt="Dokumentasi Kegiatan" 
+                              <img
+                                src={act.foto_kegiatan}
+                                alt="Dokumentasi Kegiatan"
                                 onClick={() => {
                                   setZoomImageUrl(act.foto_kegiatan);
                                   setIsZoomModalOpen(true);
@@ -1189,7 +1183,7 @@ export default function LinmasAdmin() {
                               </div>
                             )}
                           </div>
-                          
+
                           {/* Action Buttons */}
                           <div className="flex gap-1.5 mt-auto pt-2">
                             <button
@@ -1230,14 +1224,14 @@ export default function LinmasAdmin() {
               <div>
                 <span className="text-[10px] text-rose-200/80 font-black uppercase tracking-widest block">Formulir 21 Field Administrasi</span>
                 <h3 className="text-sm font-black text-white">
-                  {satlinmasFormMode === 'view' 
-                    ? `Detail Satlinmas Desa ${satlinmasForm.desa}` 
-                    : satlinmasFormMode === 'edit' 
-                    ? `Edit Administrasi Satlinmas` 
-                    : 'Tambah Administrasi Satlinmas Baru'}
+                  {satlinmasFormMode === 'view'
+                    ? `Detail Satlinmas Desa ${satlinmasForm.desa}`
+                    : satlinmasFormMode === 'edit'
+                      ? `Edit Administrasi Satlinmas`
+                      : 'Tambah Administrasi Satlinmas Baru'}
                 </h3>
               </div>
-              <button 
+              <button
                 type="button"
                 onClick={() => setIsSatlinmasModalOpen(false)}
                 className="p-1.5 hover:bg-white/10 text-white/80 hover:text-white rounded-lg cursor-pointer transition-colors"
@@ -1247,7 +1241,7 @@ export default function LinmasAdmin() {
             </div>
 
             <form onSubmit={handleSatlinmasSubmit} className="p-6 space-y-4 max-h-[70vh] overflow-y-auto text-xs">
-              
+
               {/* SECTION A: GEOGRAFI & STAF KEPEMIMPINAN */}
               <div className="space-y-3.5">
                 <span className="text-[10px] font-black text-[#561C24] uppercase tracking-widest block border-b border-slate-200 pb-1.5">
@@ -1550,7 +1544,7 @@ export default function LinmasAdmin() {
       {isActivityModalOpen && (
         <div className="fixed inset-0 bg-black/55 backdrop-blur-sm flex items-center justify-center z-50 p-4 overflow-y-auto">
           <div className="bg-white border border-slate-200 w-full max-w-2xl rounded-2xl shadow-2xl relative my-8 overflow-hidden transition-all text-slate-800">
-            
+
             {/* Header */}
             <div className="flex justify-between items-center p-4 border-b border-slate-200 bg-slate-50 rounded-t-2xl">
               <div>
@@ -1560,12 +1554,12 @@ export default function LinmasAdmin() {
                 <h3 className="text-sm font-black text-slate-850">
                   {activityFormMode === 'edit'
                     ? 'Edit Catatan Kegiatan Linmas'
-                    : selectedReportForActivity 
-                    ? 'Buat Tindak Lanjut Laporan Aduan' 
-                    : 'Catat Kegiatan Lapangan Baru'}
+                    : selectedReportForActivity
+                      ? 'Buat Tindak Lanjut Laporan Aduan'
+                      : 'Catat Kegiatan Lapangan Baru'}
                 </h3>
               </div>
-              <button 
+              <button
                 onClick={() => {
                   setIsActivityModalOpen(false);
                   setSelectedReportForActivity(null);
@@ -1577,7 +1571,7 @@ export default function LinmasAdmin() {
             </div>
 
             <form onSubmit={handleActivitySubmit} className="p-6 space-y-4 max-h-[75vh] overflow-y-auto text-xs">
-              
+
               {/* Linked Ticket Callout */}
               {selectedReportForActivity && (
                 <div className="bg-blue-50/60 border border-blue-200 p-3.5 rounded-xl space-y-1 text-slate-750">
@@ -1597,7 +1591,7 @@ export default function LinmasAdmin() {
                 <span className="text-[10px] font-black text-[#561C24] uppercase tracking-widest block border-b border-slate-200 pb-1.5">
                   A. Integrasi Aduan & Waktu Kegiatan
                 </span>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-1">
                     <label className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">Nomor Tiket Aduan</label>
@@ -1763,11 +1757,10 @@ export default function LinmasAdmin() {
                           key={jenis}
                           type="button"
                           onClick={() => setActivityForm(prev => ({ ...prev, jenis_kegiatan: jenis }))}
-                          className={`py-2 px-3 text-left text-[11px] font-bold rounded-xl border transition-all cursor-pointer ${
-                            isChecked
-                              ? 'bg-blue-50 border-[#561C24]/40 text-[#561C24] shadow-sm'
-                              : 'bg-white border-slate-200 text-slate-500 hover:bg-slate-100/50'
-                          }`}
+                          className={`py-2 px-3 text-left text-[11px] font-bold rounded-xl border transition-all cursor-pointer ${isChecked
+                            ? 'bg-blue-50 border-[#561C24]/40 text-[#561C24] shadow-sm'
+                            : 'bg-white border-slate-200 text-slate-500 hover:bg-slate-100/50'
+                            }`}
                         >
                           {jenis}
                         </button>
@@ -1819,9 +1812,9 @@ export default function LinmasAdmin() {
                     <div className="relative">
                       {activityForm.foto_kegiatan ? (
                         <div className="relative group">
-                          <img 
-                            src={activityForm.foto_kegiatan} 
-                            alt="Preview Dokumentasi" 
+                          <img
+                            src={activityForm.foto_kegiatan}
+                            alt="Preview Dokumentasi"
                             className="h-20 w-28 rounded-lg object-cover border border-slate-200 shadow-md"
                           />
                           <button
@@ -1847,7 +1840,7 @@ export default function LinmasAdmin() {
                         onChange={handleActivityPhotoChange}
                         className="hidden"
                       />
-                      <label 
+                      <label
                         htmlFor="foto_kegiatan_input"
                         className="inline-flex items-center gap-1.5 px-3 py-2 bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 hover:text-slate-900 rounded-xl text-[11px] font-bold cursor-pointer transition-colors shadow-sm"
                       >
@@ -1903,7 +1896,7 @@ export default function LinmasAdmin() {
       {isZoomModalOpen && (
         <div className="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center z-[100] p-4">
           <div className="relative max-w-4xl w-full flex flex-col items-center">
-            <button 
+            <button
               onClick={() => {
                 setIsZoomModalOpen(false);
                 setZoomImageUrl('');
@@ -1912,9 +1905,9 @@ export default function LinmasAdmin() {
             >
               <X className="w-6 h-6" />
             </button>
-            <img 
-              src={zoomImageUrl} 
-              alt="Zoom Dokumentasi" 
+            <img
+              src={zoomImageUrl}
+              alt="Zoom Dokumentasi"
               className="max-h-[80vh] max-w-full rounded-2xl border border-slate-850 shadow-2xl object-contain bg-slate-950"
             />
           </div>
@@ -1925,7 +1918,7 @@ export default function LinmasAdmin() {
       {isTrantibumModalOpen && (
         <div className="fixed inset-0 bg-black/55 backdrop-blur-md flex items-center justify-center z-50 p-4 overflow-y-auto">
           <div className="bg-white border border-slate-200 w-full max-w-2xl rounded-2xl shadow-2xl relative my-8 overflow-hidden transition-all text-slate-800">
-            
+
             {/* Header */}
             <div className="flex justify-between items-center p-4 border-b border-slate-200 bg-slate-50 rounded-t-2xl">
               <div>
@@ -1933,14 +1926,14 @@ export default function LinmasAdmin() {
                   Administrasi Penertiban PMKS & Trantibum
                 </span>
                 <h3 className="text-sm font-black text-slate-850">
-                  {trantibumFormMode === 'view' 
-                    ? `Detail Penertiban: ${trantibumForm.nama_pelaku}` 
-                    : trantibumFormMode === 'edit' 
-                    ? `Edit Catatan Penertiban PMKS` 
-                    : 'Catat Operasi Penertiban Baru'}
+                  {trantibumFormMode === 'view'
+                    ? `Detail Penertiban: ${trantibumForm.nama_pelaku}`
+                    : trantibumFormMode === 'edit'
+                      ? `Edit Catatan Penertiban PMKS`
+                      : 'Catat Operasi Penertiban Baru'}
                 </h3>
               </div>
-              <button 
+              <button
                 onClick={() => setIsTrantibumModalOpen(false)}
                 className="p-1.5 bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-850 rounded-lg cursor-pointer transition-colors"
               >
@@ -1949,7 +1942,7 @@ export default function LinmasAdmin() {
             </div>
 
             <form onSubmit={handleTrantibumSubmit} className="p-6 space-y-5 max-h-[75vh] overflow-y-auto text-xs">
-              
+
               {/* Connected Ticket Summary Callout */}
               {trantibumForm.id_tiket && (
                 <div className="bg-blue-50/60 border border-blue-250 p-3 rounded-xl space-y-1.5 text-slate-750">
@@ -1983,7 +1976,7 @@ export default function LinmasAdmin() {
                 <span className="text-[10px] font-black text-[#561C24] uppercase tracking-widest block border-b border-slate-200 pb-1.5">
                   A. Identitas Pelaku (By Name & By Gender)
                 </span>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-1">
                     <label className="text-[10px] text-slate-550 font-bold block uppercase tracking-wider">Nama Pelaku <span className="text-rose-500">*</span></label>
@@ -2009,11 +2002,10 @@ export default function LinmasAdmin() {
                             type="button"
                             disabled={trantibumFormMode === 'view'}
                             onClick={() => setTrantibumForm(prev => ({ ...prev, jenis_kelamin: gender }))}
-                            className={`py-2 px-3 text-xs font-bold rounded-xl border transition-all cursor-pointer text-center ${
-                              isChecked
-                                ? 'bg-blue-50 border-[#561C24]/40 text-[#561C24] shadow-sm'
-                                : 'bg-white border-slate-200 text-slate-500 hover:bg-slate-100/50 disabled:opacity-60 disabled:cursor-not-allowed'
-                            }`}
+                            className={`py-2 px-3 text-xs font-bold rounded-xl border transition-all cursor-pointer text-center ${isChecked
+                              ? 'bg-blue-50 border-[#561C24]/40 text-[#561C24] shadow-sm'
+                              : 'bg-white border-slate-200 text-slate-500 hover:bg-slate-100/50 disabled:opacity-60 disabled:cursor-not-allowed'
+                              }`}
                           >
                             {gender}
                           </button>
@@ -2053,16 +2045,15 @@ export default function LinmasAdmin() {
                             key={status}
                             type="button"
                             disabled={trantibumFormMode === 'view'}
-                            onClick={() => setTrantibumForm(prev => ({ 
-                              ...prev, 
+                            onClick={() => setTrantibumForm(prev => ({
+                              ...prev,
                               status_identitas: status,
                               no_ktp: status === 'Tidak Ada' ? '-' : (prev.no_ktp === '-' ? '' : prev.no_ktp)
                             }))}
-                            className={`py-2 px-3 text-xs font-bold rounded-xl border transition-all cursor-pointer text-center ${
-                              isChecked
-                                ? 'bg-blue-50 border-[#561C24]/40 text-[#561C24] shadow-sm'
-                                : 'bg-white border-slate-200 text-slate-500 hover:bg-slate-100/50 disabled:opacity-60 disabled:cursor-not-allowed'
-                            }`}
+                            className={`py-2 px-3 text-xs font-bold rounded-xl border transition-all cursor-pointer text-center ${isChecked
+                              ? 'bg-blue-50 border-[#561C24]/40 text-[#561C24] shadow-sm'
+                              : 'bg-white border-slate-200 text-slate-500 hover:bg-slate-100/50 disabled:opacity-60 disabled:cursor-not-allowed'
+                              }`}
                           >
                             {status}
                           </button>
@@ -2083,13 +2074,12 @@ export default function LinmasAdmin() {
                         const val = e.target.value.replace(/\D/g, ''); // keep numbers only
                         setTrantibumForm(prev => ({ ...prev, no_ktp: val }));
                       }}
-                      className={`w-full border rounded-xl px-3 py-2 text-xs font-semibold text-slate-750 outline-none focus:ring-2 focus:ring-[#561C24]/15 transition-all ${
-                        trantibumForm.status_identitas === 'Tidak Ada' 
-                          ? 'bg-slate-50 border-slate-200 opacity-60 text-slate-400 cursor-not-allowed' 
-                          : trantibumForm.no_ktp.length === 16 
-                          ? 'bg-white border-emerald-500/50 focus:border-emerald-500 font-bold' 
+                      className={`w-full border rounded-xl px-3 py-2 text-xs font-semibold text-slate-750 outline-none focus:ring-2 focus:ring-[#561C24]/15 transition-all ${trantibumForm.status_identitas === 'Tidak Ada'
+                        ? 'bg-slate-50 border-slate-200 opacity-60 text-slate-400 cursor-not-allowed'
+                        : trantibumForm.no_ktp.length === 16
+                          ? 'bg-white border-emerald-500/50 focus:border-emerald-500 font-bold'
                           : 'bg-white border-slate-200 focus:border-[#561C24]'
-                      }`}
+                        }`}
                     />
                     {trantibumForm.status_identitas === 'Ada' && trantibumForm.no_ktp.length > 0 && trantibumForm.no_ktp.length !== 16 && (
                       <span className="text-[10px] text-amber-500 flex items-center gap-1 mt-1 font-semibold">
@@ -2122,17 +2112,16 @@ export default function LinmasAdmin() {
                             setTrantibumForm(prev => {
                               const current = prev.kategori_masalah || [];
                               if (current.includes(cat)) {
-                                  return { ...prev, kategori_masalah: current.filter(x => x !== cat) };
+                                return { ...prev, kategori_masalah: current.filter(x => x !== cat) };
                               } else {
-                                  return { ...prev, kategori_masalah: [...current, cat] };
+                                return { ...prev, kategori_masalah: [...current, cat] };
                               }
                             });
                           }}
-                          className={`py-2 px-3 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
-                            isSelected
-                              ? 'bg-blue-50 border-[#561C24]/40 text-[#561C24] shadow-sm'
-                              : 'bg-white border-slate-200 text-slate-500 hover:bg-slate-100/50 disabled:opacity-60 disabled:cursor-not-allowed'
-                          }`}
+                          className={`py-2 px-3 rounded-xl border text-xs font-bold transition-all cursor-pointer ${isSelected
+                            ? 'bg-blue-50 border-[#561C24]/40 text-[#561C24] shadow-sm'
+                            : 'bg-white border-slate-200 text-slate-500 hover:bg-slate-100/50 disabled:opacity-60 disabled:cursor-not-allowed'
+                            }`}
                         >
                           {cat}
                         </button>
@@ -2299,12 +2288,11 @@ export default function LinmasAdmin() {
       {/* CUSTOM NOTIFICATION MODAL OVERLAY */}
       {notification && (
         <div className="fixed inset-0 bg-slate-950/60 backdrop-blur-md z-[100] flex items-center justify-center p-4 select-none animate-fadeIn">
-          <div className={`bg-white border border-slate-100 rounded-2xl max-w-sm w-full shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] overflow-hidden font-sans p-6 text-center space-y-4 border-t-4 ${
-            notification.type === 'success' ? 'border-t-emerald-500' :
+          <div className={`bg-white border border-slate-100 rounded-2xl max-w-sm w-full shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] overflow-hidden font-sans p-6 text-center space-y-4 border-t-4 ${notification.type === 'success' ? 'border-t-emerald-500' :
             notification.type === 'error' ? 'border-t-rose-500' :
-            notification.type === 'info' ? 'border-t-blue-500' :
-            'border-t-amber-500'
-          }`}>
+              notification.type === 'info' ? 'border-t-blue-500' :
+                'border-t-amber-500'
+            }`}>
             <div className="flex justify-center">
               {notification.type === 'success' && (
                 <div className="w-14 h-14 rounded-full bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600">
