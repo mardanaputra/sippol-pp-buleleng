@@ -626,7 +626,7 @@ export default function LinmasAdmin() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8F7F4] text-slate-800 font-sans select-none relative overflow-x-hidden pt-[72px] flex flex-col justify-between">
+    <div className="min-h-screen bg-background text-foreground font-sans select-none relative overflow-x-hidden pt-[72px] flex flex-col justify-between">
 
       {/* 2. Horizontal Admin Navbar (Fixed / Persistent) */}
       <AdminNavbar
@@ -712,7 +712,7 @@ export default function LinmasAdmin() {
             <div className="bg-white border border-slate-200 rounded-2xl p-6 space-y-4 shadow-sm">
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
-                  <h3 className="text-sm font-bold text-slate-800">Daftar Administrasi Satlinmas</h3>
+                  <h3 className="text-sm font-bold text-foreground">Daftar Administrasi Satlinmas</h3>
                   <p className="text-[11px] text-slate-500">Tabel manajemen logistik dan perlengkapan Satlinmas per desa</p>
                 </div>
                 <button
@@ -749,7 +749,7 @@ export default function LinmasAdmin() {
                           <td className="p-3 font-semibold text-slate-700">{record.kecamatan}</td>
                           <td className="p-3 font-bold text-blue-900">{record.desa}</td>
                           <td className="p-3">
-                            <div className="font-semibold text-slate-800">
+                            <div className="font-semibold text-foreground">
                               {record.anggota_pria + record.anggota_wanita} Orang
                             </div>
                             <div className="text-[10px] text-slate-500">
@@ -847,7 +847,7 @@ export default function LinmasAdmin() {
             <div className="bg-white border border-slate-200 p-6 rounded-2xl shadow-sm space-y-4">
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
-                  <h3 className="text-sm font-bold text-slate-800">Riwayat Penertiban PMKS & Trantibum</h3>
+                  <h3 className="text-sm font-bold text-foreground">Riwayat Penertiban PMKS & Trantibum</h3>
                   <p className="text-[11px] text-slate-500">Daftar tindakan penertiban Penyandang Masalah Kesejahteraan Sosial (PMKS) Bidang Linmas</p>
                 </div>
                 <button
@@ -874,7 +874,7 @@ export default function LinmasAdmin() {
                         <div className="flex justify-between items-start gap-2">
                           <div className="space-y-1">
                             <div className="flex items-center gap-2 flex-wrap">
-                              <span className="font-bold text-sm text-slate-800">{log.nama_pelaku || "Tanpa Nama"}</span>
+                              <span className="font-bold text-sm text-foreground">{log.nama_pelaku || "Tanpa Nama"}</span>
                               <span className={`px-2 py-0.5 rounded-full text-[9px] font-bold border ${log.jenis_kelamin === 'Laki-laki'
                                 ? 'bg-blue-50 text-blue-700 border-blue-200'
                                 : 'bg-pink-50 text-pink-700 border-pink-200'
@@ -922,7 +922,7 @@ export default function LinmasAdmin() {
                         <div className="grid grid-cols-2 gap-3 text-[11px] text-slate-600">
                           <div>
                             <span className="text-[9px] text-slate-400 block uppercase tracking-wider">Identitas & KTP</span>
-                            <span className="font-bold text-slate-800">
+                            <span className="font-bold text-foreground">
                               {log.status_identitas === 'Ada' ? `NIK: ${log.no_ktp}` : 'Tanpa KTP (Identitas N/A)'}
                             </span>
                           </div>
@@ -934,7 +934,7 @@ export default function LinmasAdmin() {
                           </div>
                           <div className="col-span-2">
                             <span className="text-[9px] text-slate-400 block uppercase tracking-wider">Waktu & Tempat Penemuan</span>
-                            <span className="font-semibold text-slate-800 flex items-center gap-1 mt-0.5">
+                            <span className="font-semibold text-foreground flex items-center gap-1 mt-0.5">
                               <Calendar className="w-3.5 h-3.5 text-slate-400" />
                               {new Date(log.tanggal_ditemukan).toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' })}
                             </span>
@@ -996,7 +996,7 @@ export default function LinmasAdmin() {
               <div className="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm space-y-4">
                 <div>
                   <div className="flex items-center justify-between">
-                    <h3 className="text-sm font-bold text-slate-800">Aduan Warga yang Didisposisikan</h3>
+                    <h3 className="text-sm font-bold text-foreground">Aduan Warga yang Didisposisikan</h3>
                     <span className="px-2.5 py-0.5 bg-amber-50 text-amber-700 border border-amber-250 text-[10px] font-bold rounded-full animate-pulse">
                       {delegatedReports.length} Tertunda
                     </span>
@@ -1022,7 +1022,7 @@ export default function LinmasAdmin() {
                             <div className="text-[9px] text-[#0B1E43] font-bold uppercase tracking-wider">
                               TIKET: #{report.id_tiket}
                             </div>
-                            <h4 className="text-xs font-bold text-slate-800">{report.kategori_masalah}</h4>
+                            <h4 className="text-xs font-bold text-foreground">{report.kategori_masalah}</h4>
                           </div>
                           <span className="text-[10px] text-rose-700 bg-rose-50 border border-rose-250 px-1.5 py-0.5 rounded font-bold">
                             {report.disposisi?.kedaruratan}
@@ -1086,7 +1086,7 @@ export default function LinmasAdmin() {
               <div className="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm space-y-4">
                 <div className="flex justify-between items-center">
                   <div>
-                    <h3 className="text-sm font-bold text-slate-800">Log Kegiatan Bidang Linmas</h3>
+                    <h3 className="text-sm font-bold text-foreground">Log Kegiatan Bidang Linmas</h3>
                     <p className="text-[11px] text-slate-500">Riwayat penyuluhan, pembinaan, dan tindak lanjut aduan</p>
                   </div>
 
@@ -1219,7 +1219,7 @@ export default function LinmasAdmin() {
       {/* ==================== 1. MODAL DETAIL & FORM SATLINMAS (21 FIELDS) ==================== */}
       {isSatlinmasModalOpen && (
         <div className="fixed inset-0 bg-black/55 backdrop-blur-sm flex items-center justify-center z-50 p-4 overflow-y-auto">
-          <div className="bg-white border border-slate-200 w-full max-w-2xl rounded-2xl shadow-2xl relative my-8 text-slate-800">
+          <div className="bg-white border border-slate-200 w-full max-w-2xl rounded-2xl shadow-2xl relative my-8 text-foreground">
             <div className="flex justify-between items-center p-4 bg-[#561C24] text-white rounded-t-2xl">
               <div>
                 <span className="text-[10px] text-rose-200/80 font-black uppercase tracking-widest block">Formulir 21 Field Administrasi</span>
@@ -1543,7 +1543,7 @@ export default function LinmasAdmin() {
       {/* ==================== 2. MODAL KEGIATAN & TINDAK LANJUT ADUAN (8 FIELDS LENGKAP) ==================== */}
       {isActivityModalOpen && (
         <div className="fixed inset-0 bg-black/55 backdrop-blur-sm flex items-center justify-center z-50 p-4 overflow-y-auto">
-          <div className="bg-white border border-slate-200 w-full max-w-2xl rounded-2xl shadow-2xl relative my-8 overflow-hidden transition-all text-slate-800">
+          <div className="bg-white border border-slate-200 w-full max-w-2xl rounded-2xl shadow-2xl relative my-8 overflow-hidden transition-all text-foreground">
 
             {/* Header */}
             <div className="flex justify-between items-center p-4 border-b border-slate-200 bg-slate-50 rounded-t-2xl">
@@ -1581,7 +1581,7 @@ export default function LinmasAdmin() {
                       Tiket: #{selectedReportForActivity.id_tiket}
                     </span>
                   </div>
-                  <div className="font-bold text-slate-800 text-[11px]">{selectedReportForActivity.kategori_masalah}</div>
+                  <div className="font-bold text-foreground text-[11px]">{selectedReportForActivity.kategori_masalah}</div>
                   <p className="text-[10px] text-slate-500 italic line-clamp-2">"{selectedReportForActivity.kronologi}"</p>
                 </div>
               )}
@@ -1917,7 +1917,7 @@ export default function LinmasAdmin() {
       {/* ==================== 3. PREMIUM MODAL DRAWER FOR TRANTIBUM (11 FIELDS) ==================== */}
       {isTrantibumModalOpen && (
         <div className="fixed inset-0 bg-black/55 backdrop-blur-md flex items-center justify-center z-50 p-4 overflow-y-auto">
-          <div className="bg-white border border-slate-200 w-full max-w-2xl rounded-2xl shadow-2xl relative my-8 overflow-hidden transition-all text-slate-800">
+          <div className="bg-white border border-slate-200 w-full max-w-2xl rounded-2xl shadow-2xl relative my-8 overflow-hidden transition-all text-foreground">
 
             {/* Header */}
             <div className="flex justify-between items-center p-4 border-b border-slate-200 bg-slate-50 rounded-t-2xl">
@@ -1957,7 +1957,7 @@ export default function LinmasAdmin() {
                     if (report) {
                       return (
                         <div className="space-y-1 text-slate-600">
-                          <div className="font-bold text-[11px] text-slate-800">{report.kategori_masalah}</div>
+                          <div className="font-bold text-[11px] text-foreground">{report.kategori_masalah}</div>
                           <p className="text-[10px] text-slate-500 italic line-clamp-2">"{report.kronologi}"</p>
                           <div className="text-[9px] text-slate-450 flex justify-between pt-0.5 font-semibold">
                             <span>Pelapor: <strong className="text-slate-750 font-bold">{report.nama_pelapor}</strong></span>
@@ -2317,7 +2317,7 @@ export default function LinmasAdmin() {
             </div>
 
             <div className="space-y-1.5">
-              <h4 className="text-sm font-extrabold text-slate-800 uppercase tracking-wider">
+              <h4 className="text-sm font-extrabold text-foreground uppercase tracking-wider">
                 {notification.type === 'confirm' ? 'Konfirmasi Tindakan' : 'Informasi Sistem'}
               </h4>
               <p className="text-xs text-slate-500 font-semibold leading-relaxed whitespace-pre-line">
@@ -2366,3 +2366,4 @@ export default function LinmasAdmin() {
     </div>
   );
 }
+

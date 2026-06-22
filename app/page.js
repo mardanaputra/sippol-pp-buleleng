@@ -331,7 +331,7 @@ export default function Home() {
   });
 
   return (
-    <div className="min-h-screen bg-[#F8F7F4] text-slate-800 flex flex-col justify-between relative overflow-x-hidden font-sans select-none scroll-smooth">
+    <div className="min-h-screen bg-background text-foreground flex flex-col justify-between relative overflow-x-hidden font-sans select-none scroll-smooth">
 
       {/* Decorative Elegant Soft Gradients */}
       <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-coffee-cream/30 rounded-full blur-3xl pointer-events-none -z-10" />
@@ -500,7 +500,7 @@ export default function Home() {
                   <span className="inline-block px-3 py-1 bg-[#561C24]/5 border border-blue-200/60 text-[10px] font-black text-blue-900 rounded-lg uppercase tracking-wider">
                     Pilar Pertama
                   </span>
-                  <h4 className="text-xl font-extrabold text-slate-800">Bidang Linmas</h4>
+                  <h4 className="text-xl font-extrabold text-foreground">Bidang Linmas</h4>
                   <p className="text-sm text-slate-550 leading-relaxed font-medium">
                     Bertugas mengelola administrasi Satuan Perlindungan Masyarakat (Satlinmas) di tingkat desa dan kelurahan se-Kabupaten Buleleng. Bidang ini juga menjadi garda terdepan dalam penertiban gangguan Trantibum yang bersifat masalah sosial.
                   </p>
@@ -526,7 +526,7 @@ export default function Home() {
                   <span className="inline-block px-3 py-1 bg-amber-50 border border-amber-200/60 text-[10px] font-black text-amber-800 rounded-lg uppercase tracking-wider">
                     Pilar Kedua
                   </span>
-                  <h4 className="text-xl font-extrabold text-slate-800">Bidang Trantib</h4>
+                  <h4 className="text-xl font-extrabold text-foreground">Bidang Trantib</h4>
                   <p className="text-sm text-slate-550 leading-relaxed font-medium">
                     Fokus pada penanganan operasional patroli berkala di wilayah rawan (seperti pusat kota dan kawasan pariwisata), serta eksekusi langsung di lapangan terhadap gangguan ketenteraman masyarakat.
                   </p>
@@ -552,7 +552,7 @@ export default function Home() {
                   <span className="inline-block px-3 py-1 bg-fuchsia-50 border border-fuchsia-200/60 text-[10px] font-black text-fuchsia-850 rounded-lg uppercase tracking-wider">
                     Pilar Ketiga
                   </span>
-                  <h4 className="text-xl font-extrabold text-slate-800">Bidang Perada</h4>
+                  <h4 className="text-xl font-extrabold text-foreground">Bidang Perada</h4>
                   <p className="text-sm text-slate-550 leading-relaxed font-medium">
                     Kamus hukum digital Satpol PP Buleleng. Bertanggung jawab atas pendaftaran regulasi resmi, rincian pasal pelanggaran, serta administrasi eksekusi penegakan Peraturan Daerah (Perda) dan BAP Yustisial.
                   </p>
@@ -578,7 +578,7 @@ export default function Home() {
                   <span className="inline-block px-3 py-1 bg-emerald-50 border border-emerald-200/60 text-[10px] font-black text-emerald-800 rounded-lg uppercase tracking-wider">
                     Pilar Keempat
                   </span>
-                  <h4 className="text-xl font-extrabold text-slate-800">Bidang SDA</h4>
+                  <h4 className="text-xl font-extrabold text-foreground">Bidang SDA</h4>
                   <p className="text-sm text-slate-550 leading-relaxed font-medium">
                     Bertanggung jawab atas pembinaan kapasitas personel, peningkatan kedisiplinan, pelatihan taktis anggota Satpol PP dan Satlinmas, serta pengelolaan sarana dan prasarana penunjang tugas operasional di lapangan.
                   </p>
@@ -663,7 +663,7 @@ export default function Home() {
                   return (
                     <div className="space-y-3">
                       <div className="flex justify-between items-center">
-                        <span className="text-sm font-black text-slate-800 uppercase tracking-tight">Kec. {kec?.name}</span>
+                        <span className="text-sm font-black text-foreground uppercase tracking-tight">Kec. {kec?.name}</span>
                         <span className={`text-[9px] px-2 py-0.5 rounded-lg border font-black uppercase tracking-wider ${kec?.rawan === 'Rawan Tinggi'
                           ? 'bg-red-50 border-red-200 text-red-700'
                           : kec?.rawan === 'Rawan Sedang'
@@ -681,11 +681,11 @@ export default function Home() {
                       <div className="grid grid-cols-2 gap-2 text-left pt-1">
                         <div className="bg-slate-50 border border-slate-200/80 rounded-xl p-2.5 shadow-sm">
                           <div className="text-[8px] font-black uppercase tracking-wider text-slate-400 leading-none">Reklame/Baliho</div>
-                          <div className="text-xs font-black text-slate-800 mt-1">{stats.reklame} Kasus</div>
+                          <div className="text-xs font-black text-foreground mt-1">{stats.reklame} Kasus</div>
                         </div>
                         <div className="bg-slate-50 border border-slate-200/80 rounded-xl p-2.5 shadow-sm">
                           <div className="text-[8px] font-black uppercase tracking-wider text-slate-400 leading-none">Penertiban PKL</div>
-                          <div className="text-xs font-black text-slate-800 mt-1">{stats.pkl} Kasus</div>
+                          <div className="text-xs font-black text-foreground mt-1">{stats.pkl} Kasus</div>
                         </div>
                         <div className="bg-slate-50 border border-slate-200/80 rounded-xl p-2.5 shadow-sm">
                           <div className="text-[8px] font-black uppercase tracking-wider text-slate-400 leading-none">Satlinmas</div>
@@ -831,7 +831,7 @@ export default function Home() {
                       </span>
                     </div>
 
-                    <h4 className="text-sm font-extrabold text-slate-800 leading-snug line-clamp-2">
+                    <h4 className="text-sm font-extrabold text-foreground leading-snug line-clamp-2">
                       {doc.judul_dokumen}
                     </h4>
 
@@ -883,3 +883,4 @@ export default function Home() {
     </div>
   );
 }
+

@@ -628,7 +628,7 @@ export default function PeradaAdmin() {
   );
 
   return (
-    <div className="min-h-screen bg-[#F8F7F4] text-slate-800 font-sans select-none relative overflow-x-hidden pt-[72px] flex flex-col justify-between">
+    <div className="min-h-screen bg-background text-foreground font-sans select-none relative overflow-x-hidden pt-[72px] flex flex-col justify-between">
 
       {/* 2. Horizontal Admin Navbar (Fixed / Persistent) */}
       <AdminNavbar
@@ -799,7 +799,7 @@ export default function PeradaAdmin() {
                               </span>
                             </div>
                           </td>
-                          <td className="py-4 px-6 font-bold text-slate-800">
+                          <td className="py-4 px-6 font-bold text-foreground">
                             No. {reg.nomor_peraturan} Tahun {reg.tahun_peraturan}
                           </td>
                           <td className="py-4 px-6 max-w-[320px] text-slate-650 leading-relaxed font-semibold italic">
@@ -972,7 +972,7 @@ export default function PeradaAdmin() {
                       <div key={report.id_tiket} className="bg-white p-3.5 rounded-xl border border-slate-200 flex items-center justify-between gap-4 shadow-xs">
                         <div className="truncate space-y-0.5">
                           <span className="text-[9px] font-mono font-bold text-[#0B1E43] bg-[#0B1E43]/10 px-2 py-0.5 rounded border border-[#0B1E43]/15">{report.id_tiket}</span>
-                          <p className="text-[11px] font-bold text-slate-800 truncate mt-1">{report.kategori_masalah}</p>
+                          <p className="text-[11px] font-bold text-foreground truncate mt-1">{report.kategori_masalah}</p>
                           <p className="text-[9px] text-slate-450 truncate">Pelapor: {report.nama_pelapor}</p>
                         </div>
                         <button
@@ -1022,7 +1022,7 @@ export default function PeradaAdmin() {
                               {item.no_kejadian}
                             </td>
                             <td className="py-4 px-4">
-                              <div className="font-extrabold text-slate-800">{item.nama_pelanggar}</div>
+                              <div className="font-extrabold text-foreground">{item.nama_pelanggar}</div>
                               {item.nik_pelanggar && (
                                 <div className="text-[10px] text-slate-450 font-mono mt-0.5">NIK: {item.nik_pelanggar}</div>
                               )}
@@ -1164,7 +1164,7 @@ export default function PeradaAdmin() {
                     placeholder="Contoh: Nomor 6, Nomor 12/A, dll"
                     value={regulasiForm.nomor_peraturan}
                     onChange={(e) => setRegulasiForm({ ...regulasiForm, nomor_peraturan: e.target.value })}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-slate-800 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1E43]/20 focus:border-[#0B1E43]"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-foreground focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1E43]/20 focus:border-[#0B1E43]"
                   />
                   {formErrors.nomor_peraturan && <p className="text-[9px] text-red-500 font-bold">{formErrors.nomor_peraturan}</p>}
                 </div>
@@ -1177,7 +1177,7 @@ export default function PeradaAdmin() {
                     required
                     value={regulasiForm.tahun_peraturan}
                     onChange={(e) => setRegulasiForm({ ...regulasiForm, tahun_peraturan: parseInt(e.target.value) || new Date().getFullYear() })}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-slate-800 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1E43]/20 focus:border-[#0B1E43]"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-foreground focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1E43]/20 focus:border-[#0B1E43]"
                   />
                 </div>
 
@@ -1190,7 +1190,7 @@ export default function PeradaAdmin() {
                     placeholder="Tulis judul lengkap peraturan (Contoh: Tentang Ketertiban Umum dan Ketentraman Masyarakat serta Perlindungan Masyarakat)"
                     value={regulasiForm.judul_tentang}
                     onChange={(e) => setRegulasiForm({ ...regulasiForm, judul_tentang: e.target.value })}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-slate-800 placeholder:text-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1E43]/20 focus:border-[#0B1E43] resize-y"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-foreground placeholder:text-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1E43]/20 focus:border-[#0B1E43] resize-y"
                   />
                   {formErrors.judul_tentang && <p className="text-[9px] text-red-500 font-bold">{formErrors.judul_tentang}</p>}
                 </div>
@@ -1275,7 +1275,7 @@ export default function PeradaAdmin() {
                   <select
                     value={pelanggaranForm.kode_regulasi}
                     onChange={(e) => setPelanggaranForm({ ...pelanggaranForm, kode_regulasi: e.target.value })}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-bold text-slate-800 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1E43]/20 focus:border-[#0B1E43]"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-bold text-foreground focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1E43]/20 focus:border-[#0B1E43]"
                   >
                     <option value="" disabled>-- Pilih Regulasi --</option>
                     {regulasiList.map((reg) => (
@@ -1296,7 +1296,7 @@ export default function PeradaAdmin() {
                     placeholder="Contoh: Pasal 5 Ayat (1), Pasal 12 Huruf b, dll"
                     value={pelanggaranForm.pasal}
                     onChange={(e) => setPelanggaranForm({ ...pelanggaranForm, pasal: e.target.value })}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-slate-800 placeholder:text-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1E43]/20 focus:border-[#0B1E43]"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-foreground placeholder:text-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1E43]/20 focus:border-[#0B1E43]"
                   />
                   {formErrors.pasal && <p className="text-[9px] text-red-500 font-bold">{formErrors.pasal}</p>}
                 </div>
@@ -1310,7 +1310,7 @@ export default function PeradaAdmin() {
                     placeholder="Tulis rincian perbuatan yang dilarang (Contoh: Menaruh barang dagangan di atas trotoar yang mengganggu hak pejalan kaki)"
                     value={pelanggaranForm.jenis_pelanggaran}
                     onChange={(e) => setPelanggaranForm({ ...pelanggaranForm, jenis_pelanggaran: e.target.value })}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-slate-800 placeholder:text-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1E43]/20 focus:border-[#0B1E43] resize-y"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-foreground placeholder:text-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1E43]/20 focus:border-[#0B1E43] resize-y"
                   />
                   {formErrors.jenis_pelanggaran && <p className="text-[9px] text-red-500 font-bold">{formErrors.jenis_pelanggaran}</p>}
                 </div>
@@ -1328,7 +1328,7 @@ export default function PeradaAdmin() {
                         denda_maksimal: val === 'Denda' ? prev.denda_maksimal : 0
                       }));
                     }}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-bold text-slate-800 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1E43]/20 focus:border-[#0B1E43]"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-bold text-foreground focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1E43]/20 focus:border-[#0B1E43]"
                   >
                     <option value="Denda">Denda (Uang Rupiah)</option>
                     <option value="Kurungan">Kurungan (Pidana Penjara)</option>
@@ -1347,7 +1347,7 @@ export default function PeradaAdmin() {
                       placeholder="Contoh: 5000000"
                       value={pelanggaranForm.denda_maksimal}
                       onChange={(e) => setPelanggaranForm({ ...pelanggaranForm, denda_maksimal: parseFloat(e.target.value) || 0 })}
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-slate-800 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1E43]/20 focus:border-[#0B1E43]"
+                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-foreground focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1E43]/20 focus:border-[#0B1E43]"
                     />
                   </div>
                 )}
@@ -1418,7 +1418,7 @@ export default function PeradaAdmin() {
                   <select
                     value={penegakanForm.id_tiket}
                     onChange={(e) => setPenegakanForm({ ...penegakanForm, id_tiket: e.target.value })}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-bold text-slate-800 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1E43]/20 focus:border-[#0B1E43]"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-bold text-foreground focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1E43]/20 focus:border-[#0B1E43]"
                   >
                     <option value="">-- Tindakan Mandiri / Pengawasan Lapangan --</option>
                     {delegatedReports.map((report) => (
@@ -1440,7 +1440,7 @@ export default function PeradaAdmin() {
                     required
                     value={penegakanForm.tanggal_tindakan}
                     onChange={(e) => setPenegakanForm({ ...penegakanForm, tanggal_tindakan: e.target.value })}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-slate-800 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1E43]/20 focus:border-[#0B1E43]"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-foreground focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1E43]/20 focus:border-[#0B1E43]"
                   />
                 </div>
 
@@ -1453,7 +1453,7 @@ export default function PeradaAdmin() {
                     placeholder="Contoh: Budi Santoso / CV Maju Bersama"
                     value={penegakanForm.nama_pelanggar}
                     onChange={(e) => setPenegakanForm({ ...penegakanForm, nama_pelanggar: e.target.value })}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-slate-800 placeholder:text-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1E43]/20 focus:border-[#0B1E43]"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-foreground placeholder:text-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1E43]/20 focus:border-[#0B1E43]"
                   />
                   {formErrors.nama_pelanggar && <p className="text-[9px] text-red-500 font-bold">{formErrors.nama_pelanggar}</p>}
                 </div>
@@ -1470,7 +1470,7 @@ export default function PeradaAdmin() {
                       const val = e.target.value.replace(/\D/g, ''); // numbers only
                       setPenegakanForm({ ...penegakanForm, nik_pelanggar: val });
                     }}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-slate-800 placeholder:text-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1E43]/20 focus:border-[#0B1E43]"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-foreground placeholder:text-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1E43]/20 focus:border-[#0B1E43]"
                   />
                   {formErrors.nik_pelanggar && <p className="text-[9px] text-red-500 font-bold">{formErrors.nik_pelanggar}</p>}
                 </div>
@@ -1483,7 +1483,7 @@ export default function PeradaAdmin() {
                     placeholder="Contoh: Jl. Diponegoro No. 45, Singaraja"
                     value={penegakanForm.alamat_pelanggar}
                     onChange={(e) => setPenegakanForm({ ...penegakanForm, alamat_pelanggar: e.target.value })}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-slate-800 placeholder:text-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1E43]/20 focus:border-[#0B1E43]"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-foreground placeholder:text-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1E43]/20 focus:border-[#0B1E43]"
                   />
                 </div>
 
@@ -1496,7 +1496,7 @@ export default function PeradaAdmin() {
                     placeholder="Contoh: Trotoar depan Ruko Jalan Ngurah Rai, Singaraja"
                     value={penegakanForm.lokasi_kejadian}
                     onChange={(e) => setPenegakanForm({ ...penegakanForm, lokasi_kejadian: e.target.value })}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-slate-800 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1E43]/20 focus:border-[#0B1E43]"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-foreground focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1E43]/20 focus:border-[#0B1E43]"
                   />
                   {formErrors.lokasi_kejadian && <p className="text-[9px] text-red-500 font-bold">{formErrors.lokasi_kejadian}</p>}
                 </div>
@@ -1540,7 +1540,7 @@ export default function PeradaAdmin() {
                   <select
                     value={penegakanForm.pasal_dilanggar}
                     onChange={(e) => setPenegakanForm({ ...penegakanForm, pasal_dilanggar: e.target.value })}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-bold text-slate-800 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#561C24]/20 focus:border-[#561C24]"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-bold text-foreground focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#561C24]/20 focus:border-[#561C24]"
                   >
                     <option value="">-- Pilih Pasal/Ketentuan --</option>
                     {pelanggaranList
@@ -1565,7 +1565,7 @@ export default function PeradaAdmin() {
                     placeholder="Contoh: Petugas menemukan lapak PKL liar berjualan di atas trotoar menghalangi pejalan kaki..."
                     value={penegakanForm.kronologi_singkat}
                     onChange={(e) => setPenegakanForm({ ...penegakanForm, kronologi_singkat: e.target.value })}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-slate-800 placeholder:text-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1E43]/20 focus:border-[#0B1E43] resize-y"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-foreground placeholder:text-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1E43]/20 focus:border-[#0B1E43] resize-y"
                   />
                 </div>
 
@@ -1577,7 +1577,7 @@ export default function PeradaAdmin() {
                     placeholder="Contoh: 1 buah rombong kayu, 3 buah kursi plastik warna biru..."
                     value={penegakanForm.barang_bukti}
                     onChange={(e) => setPenegakanForm({ ...penegakanForm, barang_bukti: e.target.value })}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-slate-800 placeholder:text-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1E43]/20 focus:border-[#0B1E43] resize-y"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-foreground placeholder:text-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1E43]/20 focus:border-[#0B1E43] resize-y"
                   />
                 </div>
 
@@ -1613,7 +1613,7 @@ export default function PeradaAdmin() {
                   <select
                     value={penegakanForm.status_sidang}
                     onChange={(e) => setPenegakanForm({ ...penegakanForm, status_sidang: e.target.value })}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-bold text-slate-800 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#561C24]/20 focus:border-[#561C24]"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-bold text-foreground focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#561C24]/20 focus:border-[#561C24]"
                   >
                     <option value="SP-1 (Peringatan Pertama)">SP-1 (Surat Peringatan Pertama)</option>
                     <option value="SP-2 (Peringatan Kedua)">SP-2 (Surat Peringatan Kedua)</option>
@@ -1685,7 +1685,7 @@ export default function PeradaAdmin() {
                     placeholder="Uraian tuntutan, denda kumulatif, data penyidik PNS, atau detail putusan sidang pengadilan..."
                     value={penegakanForm.catatan}
                     onChange={(e) => setPenegakanForm({ ...penegakanForm, catatan: e.target.value })}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-slate-800 placeholder:text-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1E43]/20 focus:border-[#0B1E43] resize-y"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-foreground placeholder:text-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#0B1E43]/20 focus:border-[#0B1E43] resize-y"
                   />
                   {formErrors.catatan && <p className="text-[9px] text-red-500 font-bold">{formErrors.catatan}</p>}
                 </div>
@@ -1785,7 +1785,7 @@ export default function PeradaAdmin() {
               </div>
 
               {/* Body Lembaran Daerah */}
-              <div className="my-6 space-y-4 text-xs md:text-sm font-serif text-slate-800 max-w-2xl mx-auto leading-loose">
+              <div className="my-6 space-y-4 text-xs md:text-sm font-serif text-foreground max-w-2xl mx-auto leading-loose">
                 {selectedPdfTitle.includes("Scan BAP") ? (
                   <div className="space-y-4 py-8">
                     <p className="text-center font-bold tracking-wide text-lg text-slate-900 underline">BERITA ACARA PENINDAKAN & PUTUSAN PENGADILAN</p>
@@ -1818,7 +1818,7 @@ export default function PeradaAdmin() {
 
                     <div className="pt-12 text-right font-sans text-xs text-slate-500 space-y-1">
                       <p>Disahkan di Singaraja</p>
-                      <p className="font-bold text-slate-800">Sekretaris Daerah Kabupaten Buleleng</p>
+                      <p className="font-bold text-foreground">Sekretaris Daerah Kabupaten Buleleng</p>
                       <p className="text-[10px]">Telah Terdaftar Secara Elektronik</p>
                     </div>
                   </>
@@ -1941,7 +1941,7 @@ export default function PeradaAdmin() {
                 </p>
 
                 {/* Dasar Hukum */}
-                <div className="pl-6 bg-slate-50 p-3 rounded border border-slate-350 italic font-sans font-semibold space-y-1.5 text-slate-800">
+                <div className="pl-6 bg-slate-50 p-3 rounded border border-slate-350 italic font-sans font-semibold space-y-1.5 text-foreground">
                   <p>• Dasar Peraturan: {selectedVerdictForPrint.kode_regulasi}</p>
                   <p>• Ketentuan Hukum: {selectedVerdictForPrint.pasal_dilanggar}</p>
                   {selectedVerdictForPrint.kronologi_singkat && (
@@ -2059,11 +2059,11 @@ export default function PeradaAdmin() {
                 <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 grid grid-cols-2 gap-4">
                   <div>
                     <p className="text-[10px] uppercase font-bold text-slate-450 tracking-wider">No. Registrasi Perkara</p>
-                    <p className="text-xs font-mono font-bold text-slate-800 mt-0.5">{selectedPenegakanDetails.no_kejadian}</p>
+                    <p className="text-xs font-mono font-bold text-foreground mt-0.5">{selectedPenegakanDetails.no_kejadian}</p>
                   </div>
                   <div>
                     <p className="text-[10px] uppercase font-bold text-slate-455 tracking-wider">Jenis Penindakan / Sidang</p>
-                    <p className="text-xs font-bold text-slate-800 mt-0.5">{selectedPenegakanDetails.jenis_tindakan} ({selectedPenegakanDetails.status_sidang})</p>
+                    <p className="text-xs font-bold text-foreground mt-0.5">{selectedPenegakanDetails.jenis_tindakan} ({selectedPenegakanDetails.status_sidang})</p>
                   </div>
                 </div>
 
@@ -2079,7 +2079,7 @@ export default function PeradaAdmin() {
                     {selectedPenegakanDetails.nik_pelanggar && (
                       <div className="flex justify-between border-b border-slate-100 pb-1">
                         <span className="text-slate-450 font-semibold">NIK / No. KTP:</span>
-                        <span className="font-mono font-bold text-slate-800">{selectedPenegakanDetails.nik_pelanggar}</span>
+                        <span className="font-mono font-bold text-foreground">{selectedPenegakanDetails.nik_pelanggar}</span>
                       </div>
                     )}
                     {selectedPenegakanDetails.alamat_pelanggar && (
@@ -2098,11 +2098,11 @@ export default function PeradaAdmin() {
                   <div className="p-4 space-y-2">
                     <div className="flex justify-between border-b border-slate-100 pb-1">
                       <span className="text-slate-450 font-semibold">Regulasi Dilanggar:</span>
-                      <span className="font-bold text-slate-800">{selectedPenegakanDetails.kode_regulasi}</span>
+                      <span className="font-bold text-foreground">{selectedPenegakanDetails.kode_regulasi}</span>
                     </div>
                     <div className="flex justify-between border-b border-slate-100 pb-1">
                       <span className="text-slate-455 font-semibold">Pasal Terlanggar:</span>
-                      <span className="font-bold text-slate-800">{selectedPenegakanDetails.pasal_dilanggar}</span>
+                      <span className="font-bold text-foreground">{selectedPenegakanDetails.pasal_dilanggar}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-slate-450 font-semibold">Lokasi Kejadian (TKP):</span>
@@ -2131,7 +2131,7 @@ export default function PeradaAdmin() {
                 <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 grid grid-cols-2 gap-4">
                   <div>
                     <p className="text-[10px] uppercase font-bold text-slate-450 tracking-wider font-sans">Tanggal Sidang</p>
-                    <p className="text-xs font-bold text-slate-800 mt-0.5 font-mono">
+                    <p className="text-xs font-bold text-foreground mt-0.5 font-mono">
                       {selectedPenegakanDetails.tanggal_sidang ? new Date(selectedPenegakanDetails.tanggal_sidang).toLocaleDateString('id-ID', { dateStyle: 'long' }) : 'Belum Ditentukan'}
                     </p>
                   </div>
@@ -2252,7 +2252,7 @@ export default function PeradaAdmin() {
             </div>
 
             <div className="space-y-1.5">
-              <h4 className="text-sm font-extrabold text-slate-800 uppercase tracking-wider">
+              <h4 className="text-sm font-extrabold text-foreground uppercase tracking-wider">
                 {notification.type === 'confirm' ? 'Konfirmasi Tindakan' : 'Informasi Sistem'}
               </h4>
               <p className="text-xs text-slate-500 font-semibold leading-relaxed whitespace-pre-line">
@@ -2301,3 +2301,4 @@ export default function PeradaAdmin() {
     </div>
   );
 }
+

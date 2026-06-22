@@ -27,8 +27,8 @@ export default function AdminNavbar({
   const getLinkClass = (portalName) => {
     const isActive = activePortal === portalName;
     return `px-3.5 py-3.5 text-[11px] uppercase tracking-wider flex items-center gap-1.5 cursor-pointer transition-all outline-none border-b-2 ${isActive
-        ? 'text-white border-[#E8D8C4] bg-white/10 font-black'
-        : 'text-[#E8D8C4]/70 border-transparent hover:text-white hover:bg-white/5 font-bold'
+      ? 'text-white border-[#E8D8C4] bg-white/10 font-black'
+      : 'text-[#E8D8C4]/70 border-transparent hover:text-white hover:bg-white/5 font-bold'
       }`;
   };
 
@@ -137,15 +137,6 @@ export default function AdminNavbar({
             </button>
           )}
 
-          {/* Night Mode Button */}
-          <button
-            onClick={() => alert("Fitur Mode Malam akan segera hadir!")}
-            className="p-1.5 bg-white/10 hover:bg-white/20 rounded-xl transition-all text-white border border-white/10 active:scale-95 cursor-pointer shadow-sm"
-            title="Toggle Night Mode"
-            type="button"
-          >
-            <Moon className="w-3.5 h-3.5 fill-white/10" />
-          </button>
 
           {/* Logout Button */}
           <button

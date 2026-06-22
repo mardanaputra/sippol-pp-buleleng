@@ -542,7 +542,7 @@ export default function SdaAdmin() {
   });
 
   return (
-    <div className="min-h-screen bg-[#F8F7F4] text-slate-800 font-sans select-none relative overflow-x-hidden pt-[72px] flex flex-col justify-between">
+    <div className="min-h-screen bg-background text-foreground font-sans select-none relative overflow-x-hidden pt-[72px] flex flex-col justify-between">
 
       {/* Horizontal Navbar */}
       <AdminNavbar
@@ -627,7 +627,7 @@ export default function SdaAdmin() {
             <div className="bg-white border border-slate-200 rounded-2xl p-6 space-y-4 shadow-sm">
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-left">
                 <div>
-                  <h3 className="text-sm font-bold text-slate-800">Database Profil & Kompetensi Aparatur</h3>
+                  <h3 className="text-sm font-bold text-foreground">Database Profil & Kompetensi Aparatur</h3>
                   <p className="text-[11px] text-slate-500">Manajemen kredensial, diklat kedinasan, dan status kepegawaian Satpol PP</p>
                 </div>
                 <button
@@ -696,7 +696,7 @@ export default function SdaAdmin() {
                       filteredPersonel.map((p) => (
                         <tr key={p.id} className="hover:bg-slate-50/70 transition-colors">
                           <td className="px-4 py-3.5 text-center font-bold text-[#212260] whitespace-nowrap">{p.id_personel}</td>
-                          <td className="px-4 py-3.5 font-bold text-slate-800">{p.nama_lengkap}</td>
+                          <td className="px-4 py-3.5 font-bold text-foreground">{p.nama_lengkap}</td>
                           <td className="px-4 py-3.5 whitespace-nowrap">{p.nip_kontrak}</td>
                           <td className="px-4 py-3.5">
                             <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${p.status_kepegawaian === 'PNS' || p.status_kepegawaian.startsWith('PPPK') || p.status_kepegawaian.startsWith('ASN')
@@ -784,7 +784,7 @@ export default function SdaAdmin() {
             <div className="bg-white border border-slate-200 rounded-2xl p-6 space-y-4 shadow-sm">
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-left">
                 <div>
-                  <h3 className="text-sm font-bold text-slate-800">Log Jurnal Kegiatan Bidang SDA</h3>
+                  <h3 className="text-sm font-bold text-foreground">Log Jurnal Kegiatan Bidang SDA</h3>
                   <p className="text-[11px] text-slate-500">Rekapitulasi agenda penyuluhan, bimbingan teknis, dan sosialisasi non-tindakan</p>
                 </div>
                 <button
@@ -854,10 +854,10 @@ export default function SdaAdmin() {
                         <tr key={k.id} className="hover:bg-slate-50/70 transition-colors">
                           <td className="px-4 py-3.5 text-center font-bold text-[#ad1457] whitespace-nowrap">{k.no_laporan}</td>
                           <td className="px-4 py-3.5 whitespace-nowrap">{k.tanggal_pelaksanaan ? new Date(k.tanggal_pelaksanaan).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }) : '-'}</td>
-                          <td className="px-4 py-3.5 font-bold text-slate-800">{k.nama_agenda}</td>
+                          <td className="px-4 py-3.5 font-bold text-foreground">{k.nama_agenda}</td>
                           <td className="px-4 py-3.5">{k.jenis_kegiatan}</td>
                           <td className="px-4 py-3.5">{k.lokasi_sasaran}</td>
-                          <td className="px-4 py-3.5 text-center font-semibold text-slate-800">{k.jumlah_peserta} orang</td>
+                          <td className="px-4 py-3.5 text-center font-semibold text-foreground">{k.jumlah_peserta} orang</td>
                           <td className="px-4 py-3.5">{k.narasumber || '-'}</td>
                           <td className="px-4 py-3.5 text-center whitespace-nowrap">
                             <div className="flex items-center justify-center gap-1.5">
@@ -939,7 +939,7 @@ export default function SdaAdmin() {
               </div>
               <div className="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm hover:shadow-md transition-all">
                 <div className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Tipe Dokumen Terbanyak</div>
-                <div className="text-base font-black text-slate-800 mt-2 truncate">
+                <div className="text-base font-black text-foreground mt-2 truncate">
                   Perda / Perbup / Perkada
                 </div>
               </div>
@@ -949,7 +949,7 @@ export default function SdaAdmin() {
             <div className="bg-white border border-slate-200 rounded-2xl p-6 space-y-4 shadow-sm">
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-left">
                 <div>
-                  <h3 className="text-sm font-bold text-slate-800">Galeri Pengetahuan & Pustaka Edukasi Hukum</h3>
+                  <h3 className="text-sm font-bold text-foreground">Galeri Pengetahuan & Pustaka Edukasi Hukum</h3>
                   <p className="text-[11px] text-slate-500">Pusat arsip regulasi, perbup, dan SOP operasional non-penindakan bagi petugas</p>
                 </div>
                 <button
@@ -1012,7 +1012,7 @@ export default function SdaAdmin() {
                         </div>
 
                         <div className="space-y-1">
-                          <h4 className="text-xs font-black text-slate-800 line-clamp-2 leading-snug group-hover:text-purple-950 transition-colors" title={doc.judul_dokumen}>
+                          <h4 className="text-xs font-black text-foreground line-clamp-2 leading-snug group-hover:text-purple-950 transition-colors" title={doc.judul_dokumen}>
                             {doc.judul_dokumen}
                           </h4>
                           <p className="text-[10px] text-slate-500 font-extrabold uppercase tracking-wide">
@@ -1791,7 +1791,7 @@ export default function SdaAdmin() {
             </div>
 
             <div className="space-y-1.5">
-              <h4 className="text-sm font-extrabold text-slate-800 uppercase tracking-wider">
+              <h4 className="text-sm font-extrabold text-foreground uppercase tracking-wider">
                 {notification.type === 'confirm' ? 'Konfirmasi Tindakan' : 'Informasi Sistem'}
               </h4>
               <p className="text-xs text-slate-500 font-semibold leading-relaxed whitespace-pre-line">
@@ -1840,3 +1840,4 @@ export default function SdaAdmin() {
     </div>
   );
 }
+

@@ -572,7 +572,7 @@ export default function TrantibAdmin() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8F7F4] text-slate-800 font-sans select-none relative overflow-x-hidden pt-[72px] flex flex-col justify-between">
+    <div className="min-h-screen bg-background text-foreground font-sans select-none relative overflow-x-hidden pt-[72px] flex flex-col justify-between">
 
       {/* 2. Horizontal Admin Navbar (Fixed / Persistent) */}
       <AdminNavbar
@@ -968,7 +968,7 @@ export default function TrantibAdmin() {
                                 className="w-full h-full object-cover transition duration-300 group-hover:scale-105"
                               />
                               <div className="absolute inset-0 bg-black/35 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                                <span className="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-bold flex items-center gap-1.5 text-slate-800 shadow-sm">
+                                <span className="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-bold flex items-center gap-1.5 text-foreground shadow-sm">
                                   <Maximize2 className="w-3.5 h-3.5 text-[#561C24]" /> Zoom Dokumentasi
                                 </span>
                               </div>
@@ -1063,7 +1063,7 @@ export default function TrantibAdmin() {
                               Disposisi Trantib
                             </span>
                           </div>
-                          <h4 className="text-base font-black text-slate-800">{report.kategori_masalah}</h4>
+                          <h4 className="text-base font-black text-foreground">{report.kategori_masalah}</h4>
                           <p className="text-xs text-slate-500">
                             Waktu Kirim: <span className="font-bold text-slate-700">{sentDate}</span>
                           </p>
@@ -1797,7 +1797,7 @@ export default function TrantibAdmin() {
             </div>
 
             <div className="space-y-1.5">
-              <h4 className="text-sm font-extrabold text-slate-800 uppercase tracking-wider">
+              <h4 className="text-sm font-extrabold text-foreground uppercase tracking-wider">
                 {notification.type === 'confirm' ? 'Konfirmasi Tindakan' : 'Informasi Sistem'}
               </h4>
               <p className="text-xs text-slate-500 font-semibold leading-relaxed whitespace-pre-line">
@@ -1846,3 +1846,4 @@ export default function TrantibAdmin() {
     </div>
   );
 }
+

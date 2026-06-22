@@ -562,7 +562,7 @@ export default function AdminDashboard() {
 
 
   return (
-    <div className="min-h-screen bg-[#F8F7F4] text-slate-800 font-sans select-none relative overflow-x-hidden pt-[57px] flex flex-col justify-between">
+    <div className="min-h-screen bg-background text-foreground font-sans select-none relative overflow-x-hidden pt-[57px] flex flex-col justify-between">
 
       {/* 2. Horizontal Admin Navbar */}
       <AdminNavbar
@@ -607,7 +607,7 @@ export default function AdminDashboard() {
                 <select
                   value={filterKecamatan}
                   onChange={(e) => handleKecamatanChange(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-slate-800 outline-none focus:bg-white focus:ring-2 focus:ring-[#561C24]/20 cursor-pointer"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-foreground outline-none focus:bg-white focus:ring-2 focus:ring-[#561C24]/20 cursor-pointer"
                 >
                   <option value="">Semua Kecamatan</option>
                   {Object.keys(BULELENG_REGENCY).map((kec) => (
@@ -623,7 +623,7 @@ export default function AdminDashboard() {
                   value={filterDesa}
                   onChange={(e) => setFilterDesa(e.target.value)}
                   disabled={!filterKecamatan}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-slate-800 outline-none focus:bg-white focus:ring-2 focus:ring-[#561C24]/20 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-foreground outline-none focus:bg-white focus:ring-2 focus:ring-[#561C24]/20 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   <option value="">{filterKecamatan ? 'Semua Desa' : 'Pilih Kecamatan'}</option>
                   {filteredDesasList.map((desa) => (
@@ -695,7 +695,7 @@ export default function AdminDashboard() {
                             </div>
 
                             <div>
-                              <h4 className="text-sm font-extrabold text-slate-800 leading-snug group-hover:text-[#561C24] transition-colors duration-200 line-clamp-1">
+                              <h4 className="text-sm font-extrabold text-foreground leading-snug group-hover:text-[#561C24] transition-colors duration-200 line-clamp-1">
                                 {report.kategori_masalah}
                               </h4>
                               <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed mt-1">
@@ -762,19 +762,19 @@ export default function AdminDashboard() {
                           <span className="flex items-center gap-1.5 text-slate-600">
                             <span className="w-2.5 h-2.5 rounded-full bg-[#10b981]" /> Kasus Selesai
                           </span>
-                          <span className="text-slate-800">{countSelesai} <span className="text-[10px] text-slate-400 font-semibold">({pctSelesai}%)</span></span>
+                          <span className="text-foreground">{countSelesai} <span className="text-[10px] text-slate-400 font-semibold">({pctSelesai}%)</span></span>
                         </div>
                         <div className="flex justify-between items-center text-xs font-bold border-b border-slate-100 pb-1.5">
                           <span className="flex items-center gap-1.5 text-slate-600">
                             <span className="w-2.5 h-2.5 rounded-full bg-[#f59e0b]" /> Surat Peringatan (SP)
                           </span>
-                          <span className="text-slate-800">{countSidang} <span className="text-[10px] text-slate-400 font-semibold">({pctSidang}%)</span></span>
+                          <span className="text-foreground">{countSidang} <span className="text-[10px] text-slate-400 font-semibold">({pctSidang}%)</span></span>
                         </div>
                         <div className="flex justify-between items-center text-xs font-bold border-b border-slate-100 pb-1.5">
                           <span className="flex items-center gap-1.5 text-slate-600">
                             <span className="w-2.5 h-2.5 rounded-full bg-[#94a3b8]" /> Penyelidikan / SP Aktif
                           </span>
-                          <span className="text-slate-800">{countPenyelidikan} <span className="text-[10px] text-slate-400 font-semibold">({pctPenyelidikan}%)</span></span>
+                          <span className="text-foreground">{countPenyelidikan} <span className="text-[10px] text-slate-400 font-semibold">({pctPenyelidikan}%)</span></span>
                         </div>
                       </div>
                     </div>
@@ -857,7 +857,7 @@ export default function AdminDashboard() {
                           <div key={idx} className="space-y-1">
                             <div className="flex justify-between items-center text-xs font-bold">
                               <span className="text-slate-600">{item.label}</span>
-                              <span className="text-slate-800">{item.value} <span className="text-[10px] text-slate-400 font-semibold">Kasus</span></span>
+                              <span className="text-foreground">{item.value} <span className="text-[10px] text-slate-400 font-semibold">Kasus</span></span>
                             </div>
                             <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden border border-slate-200">
                               <div className={`${item.color} h-full rounded-full transition-all duration-1000 ease-out`} style={{ width: `${pct}%` }} />
@@ -922,7 +922,7 @@ export default function AdminDashboard() {
                 {/* Visual Header / Subtitle */}
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-100 pb-4">
                   <div>
-                    <h4 className="text-sm font-extrabold text-slate-800 leading-tight">Peta Spasial Skala Kecamatan (Kabupaten Buleleng)</h4>
+                    <h4 className="text-sm font-extrabold text-foreground leading-tight">Peta Spasial Skala Kecamatan (Kabupaten Buleleng)</h4>
                     <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mt-1">Gunakan kursor untuk klik wilayah kecamatan untuk melihat detail statistik</p>
                   </div>
 
@@ -970,7 +970,7 @@ export default function AdminDashboard() {
                         return (
                           <div className="space-y-3">
                             <div className="flex justify-between items-center">
-                              <span className="text-sm font-black text-slate-800 uppercase tracking-tight">Kec. {kec.name}</span>
+                              <span className="text-sm font-black text-foreground uppercase tracking-tight">Kec. {kec.name}</span>
                               <span className={`text-[9px] px-2 py-0.5 rounded-lg border font-black uppercase tracking-wider ${kec.rawan === 'Rawan Tinggi' ? 'bg-red-50 border-red-200 text-red-700' : kec.rawan === 'Rawan Sedang' ? 'bg-orange-50 border-orange-200 text-orange-700' : 'bg-blue-50 border-blue-200 text-blue-700'
                                 }`}>
                                 {kec.rawan}
@@ -985,11 +985,11 @@ export default function AdminDashboard() {
                             <div className="grid grid-cols-2 gap-2 text-left pt-1">
                               <div className="bg-white border border-slate-200/80 rounded-xl p-2 shadow-sm">
                                 <div className="text-[8px] font-black uppercase tracking-wider text-slate-400 leading-none">Reklame/Baliho</div>
-                                <div className="text-xs font-black text-slate-800 mt-1">{stats.reklame} Tertib</div>
+                                <div className="text-xs font-black text-foreground mt-1">{stats.reklame} Tertib</div>
                               </div>
                               <div className="bg-white border border-slate-200/80 rounded-xl p-2 shadow-sm">
                                 <div className="text-[8px] font-black uppercase tracking-wider text-slate-400 leading-none">Penertiban PKL</div>
-                                <div className="text-xs font-black text-slate-800 mt-1">{stats.pkl} Lapak</div>
+                                <div className="text-xs font-black text-foreground mt-1">{stats.pkl} Lapak</div>
                               </div>
                               <div className="bg-white border border-slate-200/80 rounded-xl p-2 shadow-sm col-span-2 flex justify-between items-center">
                                 <span className="text-[8px] font-black uppercase tracking-wider text-slate-400 leading-none">Jumlah Satlinmas</span>
@@ -1013,7 +1013,7 @@ export default function AdminDashboard() {
                     {/* Table View "Data Kabupaten/Kota di Provinsi Bali" khusus untuk kecamatan di Buleleng */}
                     <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden text-left">
                       <div className="bg-slate-100 px-4 py-2 border-b border-slate-200 text-[10px] font-black text-slate-700 uppercase tracking-wider">
-                        Sebaran Data Kecamatan (Buleleng)
+                        Data Kecamatan di Kab.Buleleng
                       </div>
 
                       <div className="max-h-[220px] overflow-y-auto">
@@ -1122,28 +1122,28 @@ export default function AdminDashboard() {
                         <div className="text-slate-400 flex items-center gap-1 text-[9px] font-extrabold uppercase tracking-wider mb-1">
                           <Map className="w-3.5 h-3.5 text-slate-400" /> Pos Kamling
                         </div>
-                        <span className="text-base font-black text-slate-800 leading-none">{totalPosKamling} Unit</span>
+                        <span className="text-base font-black text-foreground leading-none">{totalPosKamling} Unit</span>
                       </div>
 
                       <div className="bg-slate-50 border border-slate-200 rounded-xl p-2.5 shadow-sm">
                         <div className="text-slate-400 flex items-center gap-1 text-[9px] font-extrabold uppercase tracking-wider mb-1">
                           <Radio className="w-3.5 h-3.5 text-blue-500" /> Handy Talky
                         </div>
-                        <span className="text-base font-black text-slate-800 leading-none">{totalHt} Unit</span>
+                        <span className="text-base font-black text-foreground leading-none">{totalHt} Unit</span>
                       </div>
 
                       <div className="bg-slate-50 border border-slate-200 rounded-xl p-2.5 shadow-sm">
                         <div className="text-slate-400 flex items-center gap-1 text-[9px] font-extrabold uppercase tracking-wider mb-1">
                           <Info className="w-3.5 h-3.5 text-amber-500" /> Senter LED
                         </div>
-                        <span className="text-base font-black text-slate-800 leading-none">{totalSenter} Pcs</span>
+                        <span className="text-base font-black text-foreground leading-none">{totalSenter} Pcs</span>
                       </div>
 
                       <div className="bg-slate-50 border border-slate-200 rounded-xl p-2.5 shadow-sm">
                         <div className="text-slate-400 flex items-center gap-1 text-[9px] font-extrabold uppercase tracking-wider mb-1">
                           <Clipboard className="w-3.5 h-3.5 text-rose-500" /> Pentungan
                         </div>
-                        <span className="text-base font-black text-slate-800 leading-none">{totalPentungan} Pcs</span>
+                        <span className="text-base font-black text-foreground leading-none">{totalPentungan} Pcs</span>
                       </div>
                     </div>
 
@@ -1186,7 +1186,7 @@ export default function AdminDashboard() {
                           className="bg-white border border-slate-200 rounded-xl p-3 shadow-sm hover:border-emerald-400 hover:shadow-md hover:scale-[1.01] active:scale-[0.99] transition-all flex flex-col justify-between gap-2.5 cursor-pointer text-left group"
                         >
                           <div className="flex justify-between items-center border-b border-slate-100 pb-1.5">
-                            <span className="text-xs font-black text-slate-800 uppercase tracking-tight group-hover:text-emerald-700 transition-colors">{item.kecamatan}</span>
+                            <span className="text-xs font-black text-foreground uppercase tracking-tight group-hover:text-emerald-700 transition-colors">{item.kecamatan}</span>
                             <span className="text-[10px] bg-emerald-50 text-emerald-700 font-extrabold border border-emerald-150 px-2 py-0.5 rounded">
                               {totalAnggota} Personel
                             </span>
@@ -1255,7 +1255,7 @@ export default function AdminDashboard() {
                         <div key={idx} className="space-y-1">
                           <div className="flex justify-between text-xs font-bold">
                             <span className="text-slate-600">{item.name}</span>
-                            <span className="text-slate-800">{item.count} <span className="text-[10px] text-slate-400 font-semibold">Tiket</span></span>
+                            <span className="text-foreground">{item.count} <span className="text-[10px] text-slate-400 font-semibold">Tiket</span></span>
                           </div>
                           <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden border border-slate-200">
                             <div className={`${item.color} h-full rounded-full transition-all duration-1000 ease-out`} style={{ width: `${item.pct}%` }} />
@@ -1360,7 +1360,7 @@ export default function AdminDashboard() {
                                   {k.bidang}
                                 </span>
                               </div>
-                              <h4 className="text-xs font-black text-slate-800 leading-snug">{k.jenis_kegiatan}</h4>
+                              <h4 className="text-xs font-black text-foreground leading-snug">{k.jenis_kegiatan}</h4>
                               <p className="text-[10px] text-slate-500 font-medium line-clamp-2 italic leading-relaxed">
                                 "{k.uraian_kegiatan}"
                               </p>
@@ -1494,7 +1494,7 @@ export default function AdminDashboard() {
                             )}
                           </div>
 
-                          <h3 className="text-base font-extrabold text-slate-800 leading-tight">{report.kategori_masalah}</h3>
+                          <h3 className="text-base font-extrabold text-foreground leading-tight">{report.kategori_masalah}</h3>
 
                           <div className="space-y-1 text-xs text-slate-500 font-medium">
                             <p>Pelapor: <span className="font-extrabold text-slate-700">{report.nama_pelapor}</span></p>
@@ -1667,7 +1667,7 @@ export default function AdminDashboard() {
                       type="text"
                       readOnly
                       value={modalMode === 'create' ? "No. [Otomatis System]" : `No. ${String(selectedReport.disposisi?.no_urut || '').padStart(4, '0')}`}
-                      className="w-full bg-slate-50/70 border border-slate-200/80 rounded-xl px-3 py-2.5 text-xs text-slate-800 font-mono font-bold outline-none cursor-not-allowed"
+                      className="w-full bg-slate-50/70 border border-slate-200/80 rounded-xl px-3 py-2.5 text-xs text-foreground font-mono font-bold outline-none cursor-not-allowed"
                     />
                   </div>
 
@@ -1680,7 +1680,7 @@ export default function AdminDashboard() {
                       type="text"
                       readOnly
                       value={selectedReport.id_tiket}
-                      className="w-full bg-slate-50/70 border border-slate-200/80 rounded-xl px-3 py-2.5 text-xs text-slate-800 font-mono font-bold outline-none cursor-not-allowed"
+                      className="w-full bg-slate-50/70 border border-slate-200/80 rounded-xl px-3 py-2.5 text-xs text-foreground font-mono font-bold outline-none cursor-not-allowed"
                     />
                   </div>
                 </div>
@@ -1698,7 +1698,7 @@ export default function AdminDashboard() {
                           setDisposisiForm(prev => ({ ...prev, namaAdmin: e.target.value }));
                           if (formErrors.namaAdmin) setFormErrors(prev => ({ ...prev, namaAdmin: null }));
                         }}
-                        className={`w-full bg-slate-50 rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-800 outline-none border transition-all cursor-pointer focus:bg-white focus:border-[#561C24] focus:ring-4 focus:ring-[#561C24]/10 ${formErrors.namaAdmin ? 'border-rose-300 focus:ring-1 focus:ring-rose-500' : 'border-slate-200'
+                        className={`w-full bg-slate-50 rounded-xl px-3.5 py-2.5 text-xs font-bold text-foreground outline-none border transition-all cursor-pointer focus:bg-white focus:border-[#561C24] focus:ring-4 focus:ring-[#561C24]/10 ${formErrors.namaAdmin ? 'border-rose-300 focus:ring-1 focus:ring-rose-500' : 'border-slate-200'
                           }`}
                       >
                         <option value="" disabled>-- Pilih Nama Admin --</option>
@@ -1755,7 +1755,7 @@ export default function AdminDashboard() {
                             key={bidang.id}
                             className={`flex items-center gap-3 px-4 py-3 rounded-xl border transition-all duration-200 cursor-pointer select-none ${disposisiForm.bidangTujuan === bidang.id
                               ? 'bg-white border-[#561C24] text-[#561C24] shadow-sm ring-1 ring-[#561C24]/10 font-bold scale-[1.01]'
-                              : 'bg-white/60 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-white hover:text-slate-800'
+                              : 'bg-white/60 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-white hover:text-foreground'
                               }`}
                           >
                             <input
@@ -1851,7 +1851,7 @@ export default function AdminDashboard() {
                           setDisposisiForm(prev => ({ ...prev, catatan: e.target.value }));
                           if (formErrors.catatan) setFormErrors(prev => ({ ...prev, catatan: null }));
                         }}
-                        className={`w-full bg-slate-50 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 outline-none border transition-all resize-y focus:bg-white focus:border-[#561C24] focus:ring-4 focus:ring-[#561C24]/10 ${formErrors.catatan ? 'border-rose-300 focus:ring-1 focus:ring-rose-500' : 'border-slate-200'
+                        className={`w-full bg-slate-50 rounded-xl px-3.5 py-2.5 text-xs text-foreground outline-none border transition-all resize-y focus:bg-white focus:border-[#561C24] focus:ring-4 focus:ring-[#561C24]/10 ${formErrors.catatan ? 'border-rose-300 focus:ring-1 focus:ring-rose-500' : 'border-slate-200'
                           }`}
                       />
 
@@ -1909,7 +1909,7 @@ export default function AdminDashboard() {
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4.5 py-2 bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 hover:text-slate-800 rounded-lg text-xs font-bold transition-all duration-200 cursor-pointer active:scale-[0.97]"
+                  className="px-4.5 py-2 bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 hover:text-foreground rounded-lg text-xs font-bold transition-all duration-200 cursor-pointer active:scale-[0.97]"
                 >
                   {modalMode === 'create' ? "Batal" : "Tutup Lembar"}
                 </button>
@@ -1998,7 +1998,7 @@ export default function AdminDashboard() {
             </div>
 
             <div className="space-y-1.5">
-              <h4 className="text-sm font-extrabold text-slate-800 uppercase tracking-wider">
+              <h4 className="text-sm font-extrabold text-foreground uppercase tracking-wider">
                 {notification.type === 'confirm' ? 'Konfirmasi Tindakan' : 'Informasi Sistem'}
               </h4>
               <p className="text-xs text-slate-500 font-semibold leading-relaxed whitespace-pre-line">
@@ -2137,7 +2137,7 @@ export default function AdminDashboard() {
                         className="flex justify-between items-center bg-slate-50 border border-slate-150 rounded-xl p-3 hover:bg-slate-100/70 transition-colors"
                       >
                         <div className="space-y-0.5 text-left">
-                          <span className="text-[11px] font-black text-slate-800 uppercase tracking-tight">{index + 1}. {desaName}</span>
+                          <span className="text-[11px] font-black text-foreground uppercase tracking-tight">{index + 1}. {desaName}</span>
                           <div className="flex items-center gap-2 text-[9px] text-slate-400 font-bold">
                             <span>Pria: {defaultDesaPria}</span>
                             <span>•</span>

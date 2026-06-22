@@ -280,7 +280,7 @@ export default function PortalKegiatan() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8F7F4] text-slate-800 font-sans select-none relative overflow-x-hidden pt-[72px] flex flex-col justify-between">
+    <div className="min-h-screen bg-background text-foreground font-sans select-none relative overflow-x-hidden pt-[72px] flex flex-col justify-between">
       
       {/* Horizontal Navbar */}
       <AdminNavbar
@@ -304,31 +304,31 @@ export default function PortalKegiatan() {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4 text-left">
           <div className="bg-white border border-slate-200 p-4 rounded-2xl shadow-sm hover:shadow-md transition-all col-span-2 md:col-span-1">
             <div className="text-[10px] text-slate-450 font-bold uppercase tracking-widest leading-none">Total Kegiatan</div>
-            <div className="text-2xl font-black text-slate-800 mt-2 flex items-baseline gap-1">
+            <div className="text-2xl font-black text-foreground mt-2 flex items-baseline gap-1">
               {kegiatanList.length} <span className="text-[10px] text-slate-450 font-bold">Log</span>
             </div>
           </div>
           <div className="bg-white border border-[#e67e22]/20 p-4 rounded-2xl shadow-sm hover:shadow-md transition-all">
             <div className="text-[10px] text-[#e67e22] font-bold uppercase tracking-widest leading-none">Trantibum</div>
-            <div className="text-2xl font-black text-slate-800 mt-2 flex items-baseline gap-1">
+            <div className="text-2xl font-black text-foreground mt-2 flex items-baseline gap-1">
               {kegiatanList.filter(k => k.bidang === 'Trantibum').length} <span className="text-[10px] text-slate-450 font-bold">Log</span>
             </div>
           </div>
           <div className="bg-white border border-blue-200 p-4 rounded-2xl shadow-sm hover:shadow-md transition-all">
             <div className="text-[10px] text-blue-650 font-bold uppercase tracking-widest leading-none">Perada</div>
-            <div className="text-2xl font-black text-slate-800 mt-2 flex items-baseline gap-1">
+            <div className="text-2xl font-black text-foreground mt-2 flex items-baseline gap-1">
               {kegiatanList.filter(k => k.bidang === 'Perada').length} <span className="text-[10px] text-slate-450 font-bold">Log</span>
             </div>
           </div>
           <div className="bg-white border border-emerald-200 p-4 rounded-2xl shadow-sm hover:shadow-md transition-all">
             <div className="text-[10px] text-emerald-750 font-bold uppercase tracking-widest leading-none">Linmas</div>
-            <div className="text-2xl font-black text-slate-800 mt-2 flex items-baseline gap-1">
+            <div className="text-2xl font-black text-foreground mt-2 flex items-baseline gap-1">
               {kegiatanList.filter(k => k.bidang === 'Linmas').length} <span className="text-[10px] text-slate-450 font-bold">Log</span>
             </div>
           </div>
           <div className="bg-white border border-purple-200 p-4 rounded-2xl shadow-sm hover:shadow-md transition-all">
             <div className="text-[10px] text-purple-750 font-bold uppercase tracking-widest leading-none">SDA</div>
-            <div className="text-2xl font-black text-slate-800 mt-2 flex items-baseline gap-1">
+            <div className="text-2xl font-black text-foreground mt-2 flex items-baseline gap-1">
               {kegiatanList.filter(k => k.bidang === 'SDA').length} <span className="text-[10px] text-slate-450 font-bold">Log</span>
             </div>
           </div>
@@ -338,7 +338,7 @@ export default function PortalKegiatan() {
         <div className="bg-white border border-slate-200 rounded-2xl p-6 space-y-4 shadow-sm">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-left">
             <div>
-              <h3 className="text-sm font-black text-slate-800 uppercase tracking-tight">Log & Kegiatan Aktif</h3>
+              <h3 className="text-sm font-black text-foreground uppercase tracking-tight">Log & Kegiatan Aktif</h3>
               <p className="text-[11px] text-slate-500">Gunakan filter untuk menyaring riwayat kegiatan lapangan dan mengunduh berkas laporan</p>
             </div>
             
@@ -458,7 +458,7 @@ export default function PortalKegiatan() {
                             {k.bidang}
                           </span>
                         </td>
-                        <td className="px-4 py-3 font-extrabold text-slate-800">{k.jenis_kegiatan}</td>
+                        <td className="px-4 py-3 font-extrabold text-foreground">{k.jenis_kegiatan}</td>
                         <td className="px-4 py-3 truncate max-w-[180px]">{k.lokasi}</td>
                         <td className="px-4 py-3 text-center">{k.jumlah_personel} orang</td>
                         <td className="px-4 py-3 text-center whitespace-nowrap">
@@ -755,7 +755,7 @@ export default function PortalKegiatan() {
             </div>
 
             <div className="space-y-1.5">
-              <h4 className="text-sm font-extrabold text-slate-800 uppercase tracking-wider">
+              <h4 className="text-sm font-extrabold text-foreground uppercase tracking-wider">
                 {notification.type === 'confirm' ? 'Konfirmasi Tindakan' : 'Informasi Sistem'}
               </h4>
               <p className="text-xs text-slate-500 font-semibold leading-relaxed whitespace-pre-line">
@@ -803,3 +803,4 @@ export default function PortalKegiatan() {
     </div>
   );
 }
+

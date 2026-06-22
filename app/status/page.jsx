@@ -100,7 +100,7 @@ export default function PengaduanTracking() {
   const progressStep = complaint ? getProgressStep(complaint.status_laporan) : 0;
 
   return (
-    <div className="min-h-screen bg-[#F8F7F4] text-slate-800 flex flex-col justify-between relative overflow-x-hidden font-sans select-none">
+    <div className="min-h-screen bg-background text-foreground flex flex-col justify-between relative overflow-x-hidden font-sans select-none">
       
       {/* Decorative Elegant Soft Gradients */}
       <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-coffee-cream/30 rounded-full blur-3xl pointer-events-none -z-10" />
@@ -131,7 +131,7 @@ export default function PengaduanTracking() {
                   placeholder="Contoh: TKT-2026-12345"
                   value={ticketId}
                   onChange={(e) => setTicketId(e.target.value)}
-                  className="w-full bg-white rounded-xl px-4 py-3.5 text-sm outline-none transition-all font-mono tracking-widest text-slate-800 uppercase border border-slate-300 focus:ring-2 focus:ring-coffee-medium focus:border-coffee-medium shadow-sm"
+                  className="w-full bg-white rounded-xl px-4 py-3.5 text-sm outline-none transition-all font-mono tracking-widest text-foreground uppercase border border-slate-300 focus:ring-2 focus:ring-coffee-medium focus:border-coffee-medium shadow-sm"
                   id="ticket-search-input"
                   required
                 />
@@ -206,7 +206,7 @@ export default function PengaduanTracking() {
                       }`}>
                         {progressStep >= 0 && <CheckCircle2 className="w-3.5 h-3.5 text-white" />}
                       </div>
-                      <span className={`text-xs font-black ${progressStep >= 0 ? 'text-slate-800' : 'text-slate-400'}`}>1. Laporan Diterima</span>
+                      <span className={`text-xs font-black ${progressStep >= 0 ? 'text-foreground' : 'text-slate-400'}`}>1. Laporan Diterima</span>
                     </div>
                     <div className="pl-6 text-[11px] text-slate-500 space-y-1 font-semibold">
                       <p className="text-slate-650">Laporan warga masuk ke sistem SIPP-OL.</p>
@@ -226,7 +226,7 @@ export default function PengaduanTracking() {
                           <Clock3 className="w-3 h-3 text-slate-400" />
                         )}
                       </div>
-                      <span className={`text-xs font-black ${progressStep >= 1 ? 'text-slate-800' : 'text-slate-400'}`}>2. Diverifikasi & Didisposisi</span>
+                      <span className={`text-xs font-black ${progressStep >= 1 ? 'text-foreground' : 'text-slate-400'}`}>2. Diverifikasi & Didisposisi</span>
                     </div>
                     <div className="pl-6 text-[11px] text-slate-500 space-y-1 font-semibold">
                       <p className="text-slate-650">Laporan disetujui admin dan ditugaskan ke bidang operasional.</p>
@@ -257,7 +257,7 @@ export default function PengaduanTracking() {
                           <Clock3 className="w-3 h-3 text-slate-400" />
                         )}
                       </div>
-                      <span className={`text-xs font-black ${progressStep >= 2 ? 'text-slate-800' : 'text-slate-400'}`}>3. Selesai Ditangani</span>
+                      <span className={`text-xs font-black ${progressStep >= 2 ? 'text-foreground' : 'text-slate-400'}`}>3. Selesai Ditangani</span>
                     </div>
                     <div className="pl-6 text-[11px] text-slate-500 space-y-1 font-semibold">
                       <p className="text-slate-650">Kasus telah tuntas ditindaklanjuti di lapangan.</p>
@@ -279,28 +279,28 @@ export default function PengaduanTracking() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-semibold">
                   <div className="space-y-1">
                     <span className="text-[10px] text-slate-500 font-bold uppercase">Nama Pelapor</span>
-                    <p className="font-black text-slate-800 flex items-center gap-1.5">
+                    <p className="font-black text-foreground flex items-center gap-1.5">
                       <User className="w-3.5 h-3.5 text-slate-500" />
                       {complaint.is_anonim ? 'Anonim (Dirahasiakan)' : complaint.nama_pelapor}
                     </p>
                   </div>
                   <div className="space-y-1">
                     <span className="text-[10px] text-slate-500 font-bold uppercase">Kategori Pengaduan</span>
-                    <p className="font-black text-slate-800 flex items-center gap-1.5">
+                    <p className="font-black text-foreground flex items-center gap-1.5">
                       <Tag className="w-3.5 h-3.5 text-coffee-medium" />
                       {complaint.kategori_masalah}
                     </p>
                   </div>
                   <div className="space-y-1">
                     <span className="text-[10px] text-slate-500 font-bold uppercase">Waktu Pengiriman</span>
-                    <p className="font-black text-slate-800 flex items-center gap-1.5">
+                    <p className="font-black text-foreground flex items-center gap-1.5">
                       <Calendar className="w-3.5 h-3.5 text-slate-500" />
                       {formatDate(complaint.waktu_kirim)}
                     </p>
                   </div>
                   <div className="space-y-1">
                     <span className="text-[10px] text-slate-500 font-bold uppercase">Koordinat Lokasi (GPS)</span>
-                    <p className="font-black text-slate-800 flex items-center gap-1.5">
+                    <p className="font-black text-foreground flex items-center gap-1.5">
                       <MapPin className="w-3.5 h-3.5 text-coffee-medium" />
                       {complaint.latitude}, {complaint.longitude}
                     </p>
@@ -350,3 +350,4 @@ export default function PengaduanTracking() {
     </div>
   );
 }
+
