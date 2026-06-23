@@ -22,7 +22,7 @@ export default function AdminLogin() {
     }
   }, [router]);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     setError('');
 
@@ -33,19 +33,37 @@ export default function AdminLogin() {
 
     setIsLoading(true);
 
-    // Simulate backend authorization delay for polished premium feel
-    setTimeout(() => {
-      if (username.trim() === 'admin' && password === 'admin') {
+    try {
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          username: username.trim(),
+          password: password,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
         localStorage.setItem('isAdminLoggedIn', 'true');
+        localStorage.setItem('adminToken', data.token);
         if (rememberMe) {
           localStorage.setItem('rememberAdmin', 'true');
         }
         router.push('/admin/dashboard');
       } else {
-        setIsLoading(false);
-        setError('Username atau Password yang Anda masukkan salah.');
+        setError(data.message || 'Username atau Password yang Anda masukkan salah.');
       }
-    }, 1200);
+    } catch (err) {
+      console.error('Login error:', err);
+      setError('Terjadi kesalahan saat menghubungkan ke server.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (

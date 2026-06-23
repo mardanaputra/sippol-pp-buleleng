@@ -287,28 +287,34 @@ export default function AdminDashboard() {
   const fetchAllData = async () => {
     setLoading(true);
     try {
+      const token = localStorage.getItem('adminToken');
+      const headers = {
+        'Accept': 'application/json',
+        ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+      };
+
       // 1. Fetch Pengaduan
-      const res1 = await fetch('/api/pengaduan');
+      const res1 = await fetch('/api/pengaduan', { headers });
       const data1 = await res1.json();
       if (res1.ok) setReports(data1);
 
       // 2. Fetch Trantib K3
-      const res2 = await fetch('/api/trantib/penertiban');
+      const res2 = await fetch('/api/trantib/penertiban', { headers });
       const data2 = await res2.json();
       if (res2.ok) setTrantibLogs(data2);
 
       // 3. Fetch Linmas Satlinmas
-      const res3 = await fetch('/api/linmas/satlinmas');
+      const res3 = await fetch('/api/linmas/satlinmas', { headers });
       const data3 = await res3.json();
       if (res3.ok) setLinmasMembers(data3);
 
       // 4. Fetch Perada Penegakan
-      const res4 = await fetch('/api/perada/penegakan');
+      const res4 = await fetch('/api/perada/penegakan', { headers });
       const data4 = await res4.json();
       if (res4.ok) setPeradaEnforcements(data4);
 
       // 5. Fetch Satpol Kegiatan
-      const res5 = await fetch('/api/admin/kegiatan');
+      const res5 = await fetch('/api/admin/kegiatan', { headers });
       const data5 = await res5.json();
       if (res5.ok) setSatpolKegiatanList(data5);
 
@@ -360,8 +366,13 @@ export default function AdminDashboard() {
       `Apakah Anda yakin ingin menghapus secara permanen laporan dengan Tiket: ${id_tiket}?\n(Tindakan ini tidak dapat dibatalkan)`,
       async () => {
         try {
-          const res = await fetch(`/api/pengaduan?id_tiket=${id_tiket}`, {
+          const token = localStorage.getItem('adminToken');
+          const res = await fetch(`/api/pengaduan/${id_tiket}`, {
             method: 'DELETE',
+            headers: {
+              'Accept': 'application/json',
+              ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+            }
           });
           const data = await res.json();
 
@@ -419,9 +430,14 @@ export default function AdminDashboard() {
 
     setSubmitting(true);
     try {
+      const token = localStorage.getItem('adminToken');
       const res = await fetch('/api/disposisi', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+        },
         body: JSON.stringify({
           id_tiket: selectedReport.id_tiket,
           nama_admin: disposisiForm.namaAdmin,
