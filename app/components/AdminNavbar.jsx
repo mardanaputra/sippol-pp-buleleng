@@ -122,6 +122,14 @@ export default function AdminNavbar({
           >
             Portal Kegiatan
           </Link>
+
+          {/* Portal Users */}
+          <Link
+            href="/admin/manajemen-user"
+            className={getLinkClass('manajemen-user')}
+          >
+            Manajemen User
+          </Link>
         </div>
 
         {/* Right Side: Refresh, Night Mode & Profile */}

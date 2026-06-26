@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { User, Lock, Eye, EyeOff, AlertCircle, ArrowLeft, ShieldCheck } from 'lucide-react';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 export default function AdminLogin() {
   const router = useRouter();
@@ -13,6 +14,7 @@ export default function AdminLogin() {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState(null);
 
   useEffect(() => {
     // Check if redirect is due to session expiration
@@ -53,6 +55,7 @@ export default function AdminLogin() {
         body: JSON.stringify({
           username: username.trim(),
           password: password,
+          captcha_token: captchaToken,
         }),
       });
 
@@ -62,6 +65,7 @@ export default function AdminLogin() {
         // Save to localStorage
         localStorage.setItem('isAdminLoggedIn', 'true');
         localStorage.setItem('adminToken', data.token);
+        localStorage.setItem('adminUser', JSON.stringify(data.user));
         if (rememberMe) {
           localStorage.setItem('rememberAdmin', 'true');
         }
@@ -85,17 +89,17 @@ export default function AdminLogin() {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800 flex items-center justify-center p-4 relative overflow-hidden font-sans select-none">
-      
+
       {/* Soft Elegant Background Gradients */}
       <div className="absolute top-[-10rem] left-[-10rem] w-[35rem] h-[35rem] bg-[#561C24]/5 rounded-full blur-3xl pointer-events-none -z-10" />
       <div className="absolute bottom-[-10rem] right-[-10rem] w-[35rem] h-[35rem] bg-[#80424a]/5 rounded-full blur-3xl pointer-events-none -z-10" />
 
       {/* Main Card Container */}
       <div className="max-w-md w-full bg-white rounded-2xl p-8 border border-slate-200 shadow-xl relative z-10 transition-all duration-300">
-        
+
         {/* Back Link to Home */}
-        <Link 
-          href="/" 
+        <Link
+          href="/"
           className="inline-flex items-center gap-1.5 text-[10px] font-bold text-slate-500 hover:text-coffee-dark transition-colors absolute top-6 left-6"
         >
           <ArrowLeft className="w-3.5 h-3.5" /> Portal Warga
@@ -104,9 +108,9 @@ export default function AdminLogin() {
         {/* Brand Header */}
         <div className="text-center mt-4 mb-8 space-y-3.5">
           <div className="mx-auto w-16 h-16 rounded-full bg-white p-1 flex items-center justify-center shadow-md border-2 border-[#561C24]/20 animate-pulse">
-            <img 
-              src="/logo-satpolpp.png" 
-              alt="Logo Satpol PP" 
+            <img
+              src="/logo-satpolpp.png"
+              alt="Logo Satpol PP"
               className="w-full h-full object-contain"
             />
           </div>
@@ -184,6 +188,14 @@ export default function AdminLogin() {
             </div>
           </div>
 
+          {/* Google reCAPTCHA v2 */}
+          <div className="flex justify-center py-1">
+            <ReCAPTCHA
+              sitekey="6LfNrjYtAAAAACTzDq41xhx2sj-19GKt_fgxp57x"
+              onChange={(token) => setCaptchaToken(token)}
+            />
+          </div>
+
           {/* Remember Me & Help Text */}
           <div className="flex items-center justify-between text-[11px] font-bold text-slate-500 select-none py-1">
             <label className="flex items-center gap-2 cursor-pointer hover:text-slate-700">
@@ -204,7 +216,7 @@ export default function AdminLogin() {
           {/* Submit Button */}
           <button
             type="submit"
-            disabled={isLoading}
+            disabled={isLoading || !captchaToken}
             className="w-full mt-4 py-3 bg-gradient-to-r from-coffee-dark to-coffee-medium hover:from-coffee-medium hover:to-coffee-dark text-white text-xs font-black uppercase rounded-xl tracking-wider shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 active:scale-[0.98] select-none"
           >
             {isLoading ? (
