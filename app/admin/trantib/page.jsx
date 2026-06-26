@@ -650,7 +650,7 @@ export default function TrantibAdmin() {
         {loading && (
           <div className="text-center py-16 bg-white border border-slate-200 shadow-sm rounded-2xl flex flex-col items-center justify-center gap-3">
             <RefreshCw className="w-8 h-8 text-[#561C24] animate-spin" />
-            <div className="text-sm font-semibold text-slate-500">Sinkronisasi data SQLite dev.db...</div>
+            <div className="text-sm font-semibold text-slate-500">Sinkronisasi data dengan server...</div>
           </div>
         )}
 
@@ -1017,7 +1017,7 @@ export default function TrantibAdmin() {
                 <Clipboard className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="text-sm font-black text-[#561C24]">PENUGASAN RESMI DISPOSISI (SQLite)</h3>
+                <h3 className="text-sm font-black text-[#561C24]">PENUGASAN RESMI DISPOSISI</h3>
                 <p className="text-xs text-slate-600 mt-1 leading-relaxed">
                   Daftar laporan pengaduan masyarakat yang dialihkan atau didelegasikan oleh administrator pusat ke
                   **Seksi Ketenteraman dan Ketertiban Umum (Trantib)** untuk diselesaikan secara langsung di lapangan.
@@ -1032,7 +1032,7 @@ export default function TrantibAdmin() {
                 <Check className="w-12 h-12 text-emerald-600 mx-auto bg-emerald-50 p-2 border border-emerald-100 rounded-full" />
                 <p className="font-bold text-slate-700">Semua disposisi aduan telah terselesaikan</p>
                 <p className="text-xs text-slate-450 max-w-sm mx-auto">
-                  Belum ada aduan warga baru yang didelegasikan ke Bidang Trantib dalam database `dev.db`.
+                  Belum ada aduan warga baru yang didelegasikan ke Bidang Trantib.
                 </p>
               </div>
             ) : (

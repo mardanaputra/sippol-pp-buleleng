@@ -1,6 +1,7 @@
 import { Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import "leaflet/dist/leaflet.css";
 import "./globals.css";
+import FetchInterceptor from "./components/FetchInterceptor";
 
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -24,7 +25,10 @@ export default function RootLayout({ children }) {
       lang="id"
       className={`${plusJakartaSans.variable} ${jetbrainsMono.variable} h-full antialiased scroll-smooth`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <FetchInterceptor />
+        {children}
+      </body>
     </html>
   );
 }

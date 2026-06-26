@@ -57,8 +57,21 @@ export default function PengaduanWarga() {
   useEffect(() => {
     if (typeof window === 'undefined' || !mapContainerRef.current) return;
 
+    let isDestroyed = false;
     let map;
     import('leaflet').then((L) => {
+      if (isDestroyed) return;
+
+      // Clean up map container if already initialized by a previous run
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.remove();
+        mapInstanceRef.current = null;
+      }
+
+      if (mapContainerRef.current && mapContainerRef.current._leaflet_id) {
+        mapContainerRef.current._leaflet_id = null;
+      }
+
       setLInstance(L);
 
       // Fix standard leaflet icon path issues in Next.js
@@ -90,7 +103,9 @@ export default function PengaduanWarga() {
 
       // Force size recalculation to fix initial white screen issues in Next.js
       setTimeout(() => {
-        map.invalidateSize();
+        if (!isDestroyed && mapInstanceRef.current === map) {
+          map.invalidateSize();
+        }
       }, 250);
 
       // Create marker if coordinates exist initially
@@ -141,6 +156,7 @@ export default function PengaduanWarga() {
     });
 
     return () => {
+      isDestroyed = true;
       if (mapInstanceRef.current) {
         mapInstanceRef.current.remove();
         mapInstanceRef.current = null;

@@ -46,15 +46,23 @@ export default function AdminMap({
   useEffect(() => {
     if (typeof window === 'undefined' || !mapContainerRef.current) return;
 
+    let isDestroyed = false;
     let map;
     // Dynamically import Leaflet to avoid SSR window errors
     import('leaflet').then((L) => {
-      setLInstance(L);
+      if (isDestroyed) return;
 
       // Clean up existing map if any
       if (mapInstanceRef.current) {
         mapInstanceRef.current.remove();
+        mapInstanceRef.current = null;
       }
+
+      if (mapContainerRef.current && mapContainerRef.current._leaflet_id) {
+        mapContainerRef.current._leaflet_id = null;
+      }
+
+      setLInstance(L);
 
       // Initialize Map centered on Buleleng
       map = L.map(mapContainerRef.current, {
@@ -82,6 +90,7 @@ export default function AdminMap({
     });
 
     return () => {
+      isDestroyed = true;
       if (mapInstanceRef.current) {
         mapInstanceRef.current.remove();
         mapInstanceRef.current = null;

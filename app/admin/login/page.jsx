@@ -15,6 +15,16 @@ export default function AdminLogin() {
   const [rememberMe, setRememberMe] = useState(false);
 
   useEffect(() => {
+    // Check if redirect is due to session expiration
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('expired') === 'true') {
+        setError('Sesi Anda telah berakhir. Silakan masuk kembali.');
+        // Clean URL to avoid showing the message repeatedly if refreshed
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+    }
+
     // If already logged in, redirect directly to dashboard
     const isLoggedIn = localStorage.getItem('isAdminLoggedIn') === 'true';
     if (isLoggedIn) {
@@ -49,11 +59,18 @@ export default function AdminLogin() {
       const data = await res.json();
 
       if (res.ok && data.success) {
+        // Save to localStorage
         localStorage.setItem('isAdminLoggedIn', 'true');
         localStorage.setItem('adminToken', data.token);
         if (rememberMe) {
           localStorage.setItem('rememberAdmin', 'true');
         }
+
+        // Save to Cookie for better reliability (e.g. CSRF/SSR/Session)
+        const maxAge = rememberMe ? 30 * 24 * 60 * 60 : 2 * 60 * 60; // 30 days or 2 hours
+        document.cookie = `adminToken=${data.token}; path=/; max-age=${maxAge}; SameSite=Lax`;
+        document.cookie = `isAdminLoggedIn=true; path=/; max-age=${maxAge}; SameSite=Lax`;
+
         router.push('/admin/dashboard');
       } else {
         setError(data.message || 'Username atau Password yang Anda masukkan salah.');
