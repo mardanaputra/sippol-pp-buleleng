@@ -240,6 +240,44 @@ export default function AdminDashboard() {
   const [selectedKecamatan, setSelectedKecamatan] = useState(null);
   const [mapTooltip, setMapTooltip] = useState({ show: false, x: 0, y: 0, data: null });
 
+  // Satlinmas Kecamatan Distribution Master & State
+  const MASTER_KECAMATAN = [
+    { kecamatan: 'Kec. Buleleng', pria: 0, wanita: 0, total: 0 },
+    { kecamatan: 'Kec. Banjar', pria: 0, wanita: 0, total: 0 },
+    { kecamatan: 'Kec. Seririt', pria: 0, wanita: 0, total: 0 },
+    { kecamatan: 'Kec. Sukasada', pria: 0, wanita: 0, total: 0 },
+    { kecamatan: 'Kec. Sawan', pria: 0, wanita: 0, total: 0 },
+    { kecamatan: 'Kec. Kubutambahan', pria: 0, wanita: 0, total: 0 },
+    { kecamatan: 'Kec. Busungbiu', pria: 0, wanita: 0, total: 0 },
+    { kecamatan: 'Kec. Gerokgak', pria: 0, wanita: 0, total: 0 },
+    { kecamatan: 'Kec. Tejakula', pria: 0, wanita: 0, total: 0 },
+  ];
+
+  const [sebaranData, setSebaranData] = useState(MASTER_KECAMATAN);
+
+  useEffect(() => {
+    const aggregated = MASTER_KECAMATAN.map(item => {
+      if (!linmasMembers || linmasMembers.length === 0) return item;
+
+      const nameClean = item.kecamatan.replace('Kec. ', '').toUpperCase();
+      const matches = linmasMembers.filter(m => m.kecamatan?.toUpperCase() === nameClean);
+
+      if (matches.length > 0) {
+        const pria = matches.reduce((acc, curr) => acc + (curr.anggota_pria || 0), 0);
+        const wanita = matches.reduce((acc, curr) => acc + (curr.anggota_wanita || 0), 0);
+        return {
+          kecamatan: item.kecamatan,
+          pria: pria,
+          wanita: wanita,
+          total: pria + wanita
+        };
+      }
+      return item;
+    });
+
+    setSebaranData(aggregated);
+  }, [linmasMembers]);
+
   // Filter States
   const [filterKecamatan, setFilterKecamatan] = useState('');
   const [filterDesa, setFilterDesa] = useState('');
@@ -1175,25 +1213,9 @@ export default function AdminDashboard() {
                   <h4 className="text-xs font-black text-slate-700 uppercase tracking-wider mb-4">Peta Sebaran Force Satlinmas per Kecamatan</h4>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4.5">
-                    {[
-                      { kecamatan: 'Kec. Buleleng', pria: 120, wanita: 22, total: 142 },
-                      { kecamatan: 'Kec. Banjar', pria: 100, wanita: 15, total: 115 },
-                      { kecamatan: 'Kec. Seririt', pria: 85, wanita: 13, total: 98 },
-                      { kecamatan: 'Kec. Sukasada', pria: 78, wanita: 10, total: 88 },
-                      { kecamatan: 'Kec. Sawan', pria: 68, wanita: 8, total: 76 },
-                      { kecamatan: 'Kec. Kubutambahan', pria: 58, wanita: 7, total: 65 },
-                      { kecamatan: 'Kec. Busungbiu', pria: 49, wanita: 5, total: 54 },
-                      { kecamatan: 'Kec. Gerokgak', pria: 42, wanita: 6, total: 48 },
-                      { kecamatan: 'Kec. Tejakula', pria: 35, wanita: 5, total: 40 },
-                    ].map((item, idx) => {
-                      // Check for real database overrides
-                      const realRecord = linmasMembers.filter(m => m.kecamatan?.toUpperCase() === item.kecamatan.replace('Kec. ', '').toUpperCase());
-                      const totalPria = realRecord.reduce((acc, curr) => acc + (curr.anggota_pria || 0), 0) || item.pria;
-                      const totalWanita = realRecord.reduce((acc, curr) => acc + (curr.anggota_wanita || 0), 0) || item.wanita;
-                      const totalAnggota = totalPria + totalWanita;
-
+                    {sebaranData.map((item, idx) => {
                       const maxTotal = 150;
-                      const pct = Math.min((totalAnggota / maxTotal) * 100, 100);
+                      const pct = Math.min((item.total / maxTotal) * 100, 100);
 
                       return (
                         <div
@@ -1204,7 +1226,7 @@ export default function AdminDashboard() {
                           <div className="flex justify-between items-center border-b border-slate-100 pb-1.5">
                             <span className="text-xs font-black text-foreground uppercase tracking-tight group-hover:text-emerald-700 transition-colors">{item.kecamatan}</span>
                             <span className="text-[10px] bg-emerald-50 text-emerald-700 font-extrabold border border-emerald-150 px-2 py-0.5 rounded">
-                              {totalAnggota} Personel
+                              {item.total} Personel
                             </span>
                           </div>
 
@@ -1212,9 +1234,9 @@ export default function AdminDashboard() {
                             <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden border border-slate-200">
                               <div className="bg-emerald-500 h-full rounded-full transition-all duration-1000 ease-out" style={{ width: `${pct}%` }} />
                             </div>
-                            <div className="flex justify-between text-[9px] text-slate-400 font-bold">
-                              <span>Pria: {totalPria}</span>
-                              <span>Wanita: {totalWanita}</span>
+                            <div className="flex justify-between text-[9px] text-slate-450 font-bold">
+                              <span>Pria: {item.pria}</span>
+                              <span>Wanita: {item.wanita}</span>
                             </div>
                           </div>
                         </div>
@@ -2062,24 +2084,27 @@ export default function AdminDashboard() {
       {selectedKecamatanDetail && (() => {
         const kecName = selectedKecamatanDetail;
         const cleanKecName = kecName.replace('Kec. ', '');
-        const villagesList = BULELENG_REGENCY[cleanKecName] || [];
-
-        // Filter villages by search query
-        const filteredVillages = villagesList.filter(desa =>
-          desa.toLowerCase().includes(searchVillageQuery.toLowerCase())
+        // Filter database records for the selected kecamatan
+        const dbRecords = linmasMembers.filter(m =>
+          m.kecamatan?.toUpperCase() === cleanKecName.toUpperCase()
         );
 
-        // Calculate aggregate sums for this Kecamatan
-        const realRecords = linmasMembers.filter(m => m.kecamatan?.toUpperCase() === cleanKecName.toUpperCase());
+        // Filter database records by search query
+        const filteredRecords = dbRecords.filter(record =>
+          record.desa?.toLowerCase().includes(searchVillageQuery.toLowerCase())
+        );
 
-        // Get fallback values from BULELENG_MAP_DATA if database is empty
-        const mapKec = BULELENG_MAP_DATA.find(k => k.name.toLowerCase() === cleanKecName.toLowerCase());
-        const fallbackPria = mapKec?.perkada ? Math.round(mapKec.perkada * 6) : 50;
-        const fallbackWanita = mapKec?.perkada ? Math.round(mapKec.perkada * 0.8) : 5;
-
-        const totalPriaKec = realRecords.reduce((acc, curr) => acc + (curr.anggota_pria || 0), 0) || fallbackPria;
-        const totalWanitaKec = realRecords.reduce((acc, curr) => acc + (curr.anggota_wanita || 0), 0) || fallbackWanita;
-        const totalKec = totalPriaKec + totalWanitaKec;
+        // Map to dataDesa format
+        const dataDesa = filteredRecords.map(record => {
+          const pria = record.anggota_pria || 0;
+          const wanita = record.anggota_wanita || 0;
+          return {
+            name: record.desa,
+            pria,
+            wanita,
+            total_personel: pria + wanita
+          };
+        });
 
         return (
           <div className="fixed inset-0 bg-slate-950/60 backdrop-blur-md z-[100] flex items-center justify-center p-4 animate-fadeIn">
@@ -2105,10 +2130,10 @@ export default function AdminDashboard() {
 
               {/* Quick stats banner */}
               <div className="px-6 py-3 bg-emerald-50/50 border-b border-emerald-100/50 flex justify-between items-center text-xs font-bold text-slate-700">
-                <span>Total Kecamatan: <span className="text-emerald-700 font-extrabold">{totalKec} Personel</span></span>
+                <span>Total Kecamatan: <span className="text-emerald-700 font-extrabold">{dataDesa ? dataDesa.reduce((sum, item) => sum + (item.total_personel || item.personel || 0), 0) : 0} Personel</span></span>
                 <div className="flex gap-3 text-[10px]">
-                  <span className="bg-white px-2 py-0.5 rounded border border-slate-200">Pria: {totalPriaKec}</span>
-                  <span className="bg-white px-2 py-0.5 rounded border border-slate-200">Wanita: {totalWanitaKec}</span>
+                  <span className="bg-white px-2 py-0.5 rounded border border-slate-200">Pria: {dataDesa ? dataDesa.reduce((sum, item) => sum + (item.pria || 0), 0) : 0}</span>
+                  <span className="bg-white px-2 py-0.5 rounded border border-slate-200">Wanita: {dataDesa ? dataDesa.reduce((sum, item) => sum + (item.wanita || 0), 0) : 0}</span>
                 </div>
               </div>
 
@@ -2135,33 +2160,23 @@ export default function AdminDashboard() {
 
               {/* Village List Area */}
               <div className="flex-1 overflow-y-auto p-4 space-y-2">
-                {filteredVillages.length > 0 ? (
-                  filteredVillages.map((desaName, index) => {
-                    const dbRecord = linmasMembers.find(m =>
-                      m.kecamatan?.toUpperCase() === cleanKecName.toUpperCase() &&
-                      m.desa?.toLowerCase() === desaName.toLowerCase()
-                    );
-
-                    const keyCharVal = (desaName.charCodeAt(0) + desaName.charCodeAt(desaName.length - 1)) || 10;
-                    const defaultDesaPria = dbRecord ? dbRecord.anggota_pria : (keyCharVal % 15) + 5;
-                    const defaultDesaWanita = dbRecord ? dbRecord.anggota_wanita : (keyCharVal % 4);
-                    const totalDesa = defaultDesaPria + defaultDesaWanita;
-
+                {dataDesa.length > 0 ? (
+                  dataDesa.map((desa, index) => {
                     return (
                       <div
                         key={index}
                         className="flex justify-between items-center bg-slate-50 border border-slate-150 rounded-xl p-3 hover:bg-slate-100/70 transition-colors"
                       >
                         <div className="space-y-0.5 text-left">
-                          <span className="text-[11px] font-black text-foreground uppercase tracking-tight">{index + 1}. {desaName}</span>
+                          <span className="text-[11px] font-black text-foreground uppercase tracking-tight">{index + 1}. {desa.name}</span>
                           <div className="flex items-center gap-2 text-[9px] text-slate-400 font-bold">
-                            <span>Pria: {defaultDesaPria}</span>
+                            <span>Pria: {desa.pria}</span>
                             <span>•</span>
-                            <span>Wanita: {defaultDesaWanita}</span>
+                            <span>Wanita: {desa.wanita}</span>
                           </div>
                         </div>
                         <span className="text-xs font-black text-emerald-700 bg-white border border-slate-200 px-2.5 py-1 rounded-lg shadow-sm">
-                          {totalDesa} Personel
+                          {desa.total_personel} Personel
                         </span>
                       </div>
                     );
