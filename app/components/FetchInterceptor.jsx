@@ -68,6 +68,7 @@ export default function FetchInterceptor() {
             if (!headers.has('Accept')) {
               headers.set('Accept', 'application/json');
             }
+            headers.set('ngrok-skip-browser-warning', 'true');
             init.headers = headers;
           } else {
             // Input is a string or URL object
@@ -78,6 +79,7 @@ export default function FetchInterceptor() {
               if (!init.headers.has('Accept')) {
                 init.headers.set('Accept', 'application/json');
               }
+              init.headers.set('ngrok-skip-browser-warning', 'true');
             } else if (Array.isArray(init.headers)) {
               const headers = new Headers(init.headers);
               if (token && !headers.has('Authorization')) {
@@ -86,10 +88,12 @@ export default function FetchInterceptor() {
               if (!headers.has('Accept')) {
                 headers.set('Accept', 'application/json');
               }
+              headers.set('ngrok-skip-browser-warning', 'true');
               init.headers = Object.fromEntries(headers.entries());
             } else {
               init.headers = {
                 'Accept': 'application/json',
+                'ngrok-skip-browser-warning': 'true',
                 ...init.headers,
                 ...(token ? { 'Authorization': `Bearer ${token}` } : {})
               };
