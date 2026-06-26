@@ -351,13 +351,6 @@ export default function PortalKegiatan() {
                 <Download className="w-3.5 h-3.5" /> Ekspor CSV
               </button>
               <button
-                onClick={exportToJSON}
-                className="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-lg border border-slate-200 transition-all flex items-center gap-1.5 cursor-pointer active:scale-95"
-                title="Unduh rekapitulasi data format JSON"
-              >
-                <Download className="w-3.5 h-3.5" /> Ekspor JSON
-              </button>
-              <button
                 onClick={() => handleOpenModal('create')}
                 className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black rounded-lg shadow-sm transition-all duration-200 flex items-center gap-1.5 cursor-pointer active:scale-95"
               >

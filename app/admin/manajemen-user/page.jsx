@@ -53,13 +53,13 @@ export default function AdminUsersPage() {
   const showMatchError = passwordConfirmation.length > 0 && !passwordsMatch;
 
   // Disable submit check
-  const isSubmitDisabled = 
-    !name.trim() || 
-    !username.trim() || 
-    !email.trim() || 
-    !password || 
-    !isPasswordStrong || 
-    !passwordsMatch || 
+  const isSubmitDisabled =
+    !name.trim() ||
+    !username.trim() ||
+    !email.trim() ||
+    !password ||
+    !isPasswordStrong ||
+    !passwordsMatch ||
     submitLoading;
 
   // Fetch users list
@@ -283,17 +283,21 @@ export default function AdminUsersPage() {
   };
 
   const getActionBadge = (action) => {
-    switch (action) {
+    const formattedAction = action ? action.replace(/_/g, ' ') : '';
+    switch (formattedAction) {
       case 'LOGIN':
         return <span className="px-2 py-0.5 rounded text-[8px] font-black bg-emerald-100 text-emerald-800 border border-emerald-200 tracking-wider">LOGIN</span>;
-      case 'TAMBAH_USER':
-        return <span className="px-2 py-0.5 rounded text-[8px] font-black bg-sky-100 text-sky-800 border border-sky-200 tracking-wider">TAMBAH USER</span>;
-      case 'HAPUS_USER':
-        return <span className="px-2 py-0.5 rounded text-[8px] font-black bg-rose-100 text-rose-800 border border-rose-200 tracking-wider">HAPUS USER</span>;
-      case 'UBAH_ROLE':
-        return <span className="px-2 py-0.5 rounded text-[8px] font-black bg-amber-100 text-amber-800 border border-amber-200 tracking-wider">UBAH ROLE</span>;
+      case 'TAMBAH USER':
+      case 'TAMBAH DATA':
+        return <span className="px-2 py-0.5 rounded text-[8px] font-black bg-sky-100 text-sky-800 border border-sky-200 tracking-wider">{formattedAction}</span>;
+      case 'HAPUS USER':
+      case 'HAPUS DATA':
+        return <span className="px-2 py-0.5 rounded text-[8px] font-black bg-rose-100 text-rose-800 border border-rose-200 tracking-wider">{formattedAction}</span>;
+      case 'UBAH ROLE':
+      case 'UPDATE DATA':
+        return <span className="px-2 py-0.5 rounded text-[8px] font-black bg-amber-100 text-amber-800 border border-amber-200 tracking-wider">{formattedAction}</span>;
       default:
-        return <span className="px-2 py-0.5 rounded text-[8px] font-black bg-slate-100 text-slate-800 border border-slate-200 tracking-wider">{action}</span>;
+        return <span className="px-2 py-0.5 rounded text-[8px] font-black bg-slate-100 text-slate-800 border border-slate-200 tracking-wider">{formattedAction}</span>;
     }
   };
 
@@ -337,13 +341,13 @@ export default function AdminUsersPage() {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800 font-sans select-none relative overflow-x-hidden pt-[72px] flex flex-col justify-between">
-      
+
       {/* Horizontal Navbar */}
       <AdminNavbar activePortal="manajemen-user" />
 
       {/* Main Container */}
       <div className="max-w-7xl w-full mx-auto px-6 mt-8 space-y-6 flex-1">
-        
+
         {/* Header Title */}
         <div className="text-left">
           <h2 className="text-2xl font-black text-slate-900 uppercase tracking-tight flex items-center gap-2.5">
@@ -377,16 +381,16 @@ export default function AdminUsersPage() {
 
         {/* Dual Grid Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 animate-fadeIn">
-          
+
           {/* Left Column: Form Tambah Admin */}
           <div className="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
             <div className="text-left space-y-4">
               <h3 className="text-sm font-black text-[#561C24] uppercase tracking-wider flex items-center gap-2 pb-3 border-b border-slate-100">
                 <UserPlus className="w-4 h-4" /> Tambah Akun Admin Baru
               </h3>
-              
+
               <form onSubmit={handleRegister} className="space-y-4">
-                
+
                 {/* Nama Lengkap */}
                 <div className="space-y-1.5">
                   <label className="text-[10px] font-black uppercase tracking-wider text-slate-500 block">

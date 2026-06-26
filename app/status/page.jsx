@@ -2,20 +2,20 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { 
-  ShieldAlert, 
-  Search, 
-  Calendar, 
-  MapPin, 
-  Tag, 
-  Clock, 
-  CheckCircle2, 
-  AlertCircle, 
-  ArrowLeft, 
-  User, 
-  ShieldCheck, 
-  ChevronRight, 
-  Phone, 
+import {
+  ShieldAlert,
+  Search,
+  Calendar,
+  MapPin,
+  Tag,
+  Clock,
+  CheckCircle2,
+  AlertCircle,
+  ArrowLeft,
+  User,
+  ShieldCheck,
+  ChevronRight,
+  Phone,
   Info,
   HelpCircle,
   Clock3,
@@ -101,7 +101,7 @@ export default function PengaduanTracking() {
 
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col justify-between relative overflow-x-hidden font-sans select-none">
-      
+
       {/* Decorative Elegant Soft Gradients */}
       <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-coffee-cream/30 rounded-full blur-3xl pointer-events-none -z-10" />
       <div className="absolute bottom-10 left-0 w-[30rem] h-[30rem] bg-coffee-light/10 rounded-full blur-3xl pointer-events-none -z-10" />
@@ -111,7 +111,7 @@ export default function PengaduanTracking() {
 
       {/* Main Content Area */}
       <main className="max-w-3xl w-full mx-auto px-4 pt-28 pb-12 flex-1 relative z-10 transition-all duration-500 space-y-6">
-        
+
         {/* Search Ticket Card */}
         <div className="bg-white rounded-2xl p-6 md:p-8 shadow-md border border-slate-200/80 space-y-6">
           <div className="border-b border-slate-200 pb-4 text-center md:text-left">
@@ -171,7 +171,7 @@ export default function PengaduanTracking() {
           {/* Result Card & Timeline */}
           {complaint && (
             <div className="space-y-6 pt-2 animate-fadeIn animate-duration-500" id="tracking-result-block">
-              
+
               {/* Divider */}
               <div className="border-t border-slate-200 pt-6">
                 <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
@@ -179,11 +179,10 @@ export default function PengaduanTracking() {
                     <span className="text-[9px] uppercase font-black text-slate-500 tracking-wider">Nomor Resi Pengaduan</span>
                     <h3 className="text-sm md:text-base font-mono font-black text-coffee-dark tracking-wide select-text">{complaint.id_tiket}</h3>
                   </div>
-                  <div className={`px-4 py-1.5 rounded-full text-xs font-extrabold ${
-                    complaint.status_laporan === 'Selesai' ? 'bg-emerald-50 border border-emerald-200 text-emerald-700' :
-                    complaint.status_laporan === 'Disposisi' ? 'bg-blue-50 border border-blue-200 text-blue-800' :
-                    'bg-orange-50 border border-orange-200 text-orange-700'
-                  }`}>
+                  <div className={`px-4 py-1.5 rounded-full text-xs font-extrabold ${complaint.status_laporan === 'Selesai' ? 'bg-emerald-50 border border-emerald-200 text-emerald-700' :
+                      complaint.status_laporan === 'Disposisi' ? 'bg-blue-50 border border-blue-200 text-blue-800' :
+                        'bg-orange-50 border border-orange-200 text-orange-700'
+                    }`}>
                     Status: {complaint.status_laporan === 'Pending' ? 'Mengantre Verifikasi' : complaint.status_laporan === 'Disposisi' ? 'Dalam Proses / Disposisi' : 'Selesai Ditindaklanjuti'}
                   </div>
                 </div>
@@ -192,18 +191,17 @@ export default function PengaduanTracking() {
               {/* Progress Timeline */}
               <div className="bg-slate-50 rounded-xl p-5 md:p-6 space-y-6 border border-slate-200/80 text-left">
                 <h4 className="text-xs font-black uppercase text-coffee-dark tracking-widest">Garis Waktu Progres Penanganan</h4>
-                
+
                 <div className="relative pl-6 md:pl-0 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-4">
-                  
+
                   {/* Vertical Line on Mobile, Horizontal on Desktop */}
                   <div className="absolute left-[7px] top-2 bottom-2 w-0.5 bg-slate-200 md:hidden z-0" />
-                  
+
                   {/* Step 1: Pending (Diterima) */}
                   <div className="relative flex flex-col items-start space-y-2 z-10">
                     <div className="flex items-center gap-2">
-                      <div className={`w-4 h-4 rounded-full flex items-center justify-center ${
-                        progressStep >= 0 ? 'bg-emerald-600 text-white shadow-sm' : 'bg-slate-100 border border-slate-200 text-slate-400'
-                      }`}>
+                      <div className={`w-4 h-4 rounded-full flex items-center justify-center ${progressStep >= 0 ? 'bg-emerald-600 text-white shadow-sm' : 'bg-slate-100 border border-slate-200 text-slate-400'
+                        }`}>
                         {progressStep >= 0 && <CheckCircle2 className="w-3.5 h-3.5 text-white" />}
                       </div>
                       <span className={`text-xs font-black ${progressStep >= 0 ? 'text-foreground' : 'text-slate-400'}`}>1. Laporan Diterima</span>
@@ -217,9 +215,8 @@ export default function PengaduanTracking() {
                   {/* Step 2: Disposisi (Verifikasi) */}
                   <div className="relative flex flex-col items-start space-y-2 z-10">
                     <div className="flex items-center gap-2">
-                      <div className={`w-4 h-4 rounded-full flex items-center justify-center ${
-                        progressStep >= 1 ? 'bg-coffee-medium text-white shadow-sm' : 'bg-slate-100 border border-slate-200 text-slate-400'
-                      }`}>
+                      <div className={`w-4 h-4 rounded-full flex items-center justify-center ${progressStep >= 1 ? 'bg-coffee-medium text-white shadow-sm' : 'bg-slate-100 border border-slate-200 text-slate-400'
+                        }`}>
                         {progressStep >= 1 ? (
                           <CheckCircle2 className="w-3.5 h-3.5 text-white" />
                         ) : (
@@ -248,9 +245,8 @@ export default function PengaduanTracking() {
                   {/* Step 3: Selesai */}
                   <div className="relative flex flex-col items-start space-y-2 z-10">
                     <div className="flex items-center gap-2">
-                      <div className={`w-4 h-4 rounded-full flex items-center justify-center ${
-                        progressStep >= 2 ? 'bg-emerald-600 text-white shadow-sm' : 'bg-slate-100 border border-slate-200 text-slate-400'
-                      }`}>
+                      <div className={`w-4 h-4 rounded-full flex items-center justify-center ${progressStep >= 2 ? 'bg-emerald-600 text-white shadow-sm' : 'bg-slate-100 border border-slate-200 text-slate-400'
+                        }`}>
                         {progressStep >= 2 ? (
                           <CheckCheck className="w-3.5 h-3.5 text-white" />
                         ) : (
@@ -263,7 +259,7 @@ export default function PengaduanTracking() {
                       <p className="text-slate-650">Kasus telah tuntas ditindaklanjuti di lapangan.</p>
                       {complaint.status_laporan === 'Selesai' && (
                         <span className="inline-block mt-1 px-2.5 py-0.5 bg-emerald-50 border border-emerald-100 text-emerald-700 rounded-md text-[9px] font-black uppercase tracking-wider">
-                          CLEAR / LUNAS KAS DAERAH
+                          CLEAR / SELESAI
                         </span>
                       )}
                     </div>
@@ -275,7 +271,7 @@ export default function PengaduanTracking() {
               {/* Detail Laporan Content */}
               <div className="bg-slate-50 rounded-xl p-5 md:p-6 space-y-4 border border-slate-200/80 text-left">
                 <h4 className="text-xs font-black uppercase text-slate-550 tracking-widest border-b border-slate-200 pb-2">Rincian Informasi Pengaduan</h4>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-semibold">
                   <div className="space-y-1">
                     <span className="text-[10px] text-slate-500 font-bold uppercase">Nama Pelapor</span>
@@ -319,9 +315,9 @@ export default function PengaduanTracking() {
                   <div className="space-y-2 border-t border-slate-200 pt-3">
                     <span className="text-[10px] text-slate-500 font-bold uppercase">Foto Bukti Lampiran</span>
                     <div className="relative max-w-sm rounded-xl overflow-hidden border border-slate-200 shadow-sm">
-                      <img 
-                        src={complaint.foto_bukti} 
-                        alt="Foto Bukti Kejadian Warga" 
+                      <img
+                        src={complaint.foto_bukti}
+                        alt="Foto Bukti Kejadian Warga"
                         className="w-full h-auto object-cover max-h-60"
                       />
                     </div>

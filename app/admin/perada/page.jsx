@@ -2152,7 +2152,7 @@ export default function PeradaAdmin() {
                     </div>
                     {selectedPenegakanDetails.status_sidang === 'Kasus Selesai (Clear)' && (
                       <span className="px-2.5 py-0.5 bg-emerald-100 text-emerald-800 border border-emerald-200 rounded text-[10px] font-black uppercase tracking-wider">
-                        LUNAS KAS DAERAH
+                        SELESAI
                       </span>
                     )}
                   </div>
