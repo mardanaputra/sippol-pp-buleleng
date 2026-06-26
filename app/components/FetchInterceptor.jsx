@@ -23,7 +23,7 @@ export default function FetchInterceptor() {
 
         if (isApiCall) {
           // Redirect relative /api/ calls directly to the Laravel backend local server
-          const backendOrigin = 'http://127.0.0.1:8000';
+          const backendOrigin = (process.env.NEXT_PUBLIC_API_URL || 'https://managing-idiom-rack.ngrok-free.dev').replace(/\/$/, '');
           if (typeof input === 'string') {
             if (input.startsWith('/api/')) {
               input = backendOrigin + input;
@@ -109,14 +109,14 @@ export default function FetchInterceptor() {
           // Do not redirect for login calls to prevent infinite loops
           if (!urlStr.includes('/api/login')) {
             console.warn('Unauthorized! Token expired or invalid. Redirecting to login...');
-            
+
             // Clear auth state
             localStorage.removeItem('isAdminLoggedIn');
             localStorage.removeItem('adminToken');
             localStorage.removeItem('rememberAdmin');
             document.cookie = 'adminToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
             document.cookie = 'isAdminLoggedIn=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
-            
+
             // Redirect to login page
             window.location.href = '/admin/login?expired=true';
           }
