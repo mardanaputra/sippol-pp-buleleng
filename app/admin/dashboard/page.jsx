@@ -5,7 +5,7 @@ import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import 'leaflet/dist/leaflet.css';
 import Footer from '../../components/Footer';
-import AdminNavbar from '../../components/AdminNavbar';
+import { useAdminLayout } from '../layout';
 
 const AdminMap = dynamic(() => import('./AdminMap'), {
   ssr: false,
@@ -232,8 +232,26 @@ export default function AdminDashboard() {
   const [zoomImageUrl, setZoomImageUrl] = useState('');
   const [loading, setLoading] = useState(true);
 
-  // View States
-  const [currentSubTab, setCurrentSubTab] = useState('dashboard'); // 'dashboard' or 'disposisi'
+  // View States from Global Layout Context
+  const {
+    setActivePortal,
+    setOnRefresh,
+    setLoading: setLayoutLoading,
+    currentSubTab,
+    setCurrentSubTab
+  } = useAdminLayout();
+
+  useEffect(() => {
+    setActivePortal(currentSubTab);
+    setOnRefresh(() => fetchAllData);
+    return () => {
+      setOnRefresh(null);
+    };
+  }, [currentSubTab, setActivePortal, setOnRefresh]);
+
+  useEffect(() => {
+    setLayoutLoading(loading);
+  }, [loading, setLayoutLoading]);
 
   // Thematic Map States
   const [hoveredKecamatan, setHoveredKecamatan] = useState(null);
@@ -616,19 +634,7 @@ export default function AdminDashboard() {
 
 
   return (
-    <div className="min-h-screen bg-background text-foreground font-sans select-none relative overflow-x-hidden pt-[57px] flex flex-col justify-between">
-
-      {/* 2. Horizontal Admin Navbar */}
-      <AdminNavbar
-        activePortal={currentSubTab}
-        onSubTabChange={(subTab) => {
-          setCurrentSubTab(subTab);
-          window.history.pushState(null, '', `/admin/dashboard?tab=${subTab}`);
-        }}
-        onRefresh={fetchAllData}
-        loading={loading}
-        refreshText="Refresh Database"
-      />
+    <div className="w-full">
 
       {/* Main Grid Content */}
       <div className="max-w-7xl w-full mx-auto px-6 mt-8 space-y-6 flex-1">

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Footer from '../../components/Footer';
-import AdminNavbar from '../../components/AdminNavbar';
+import { useAdminLayout } from '../layout';
 import {
   Users,
   UserPlus,
@@ -20,8 +20,30 @@ import {
 } from 'lucide-react';
 
 export default function AdminUsersPage() {
+  const { setActivePortal, setOnRefresh, setLoading: setLayoutLoading } = useAdminLayout();
+
+  const fetchUserData = async () => {
+    await Promise.all([
+      fetchUsers(),
+      fetchActivityLogs()
+    ]);
+  };
+
+  useEffect(() => {
+    setActivePortal('manajemen-user');
+    setOnRefresh(() => fetchUserData);
+    return () => {
+      setOnRefresh(null);
+    };
+  }, [setActivePortal, setOnRefresh]);
+
   const [usersList, setUsersList] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLayoutLoading(loading);
+  }, [loading, setLayoutLoading]);
+
   const [submitLoading, setSubmitLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -312,38 +334,31 @@ export default function AdminUsersPage() {
 
   if (userRole !== 'super_admin') {
     return (
-      <div className="min-h-screen bg-slate-50 text-slate-800 font-sans select-none relative overflow-x-hidden pt-[72px] flex flex-col justify-between">
-        <AdminNavbar activePortal="manajemen-user" />
-        <div className="flex-1 flex items-center justify-center px-6 my-10">
-          <div className="max-w-md w-full bg-white border border-slate-200 rounded-2xl p-8 shadow-sm text-center space-y-4">
-            <div className="w-16 h-16 rounded-full bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-600 mx-auto">
-              <Shield className="w-8 h-8" />
-            </div>
-            <h2 className="text-2xl font-black text-slate-900 tracking-tight">403 - Akses Ditolak</h2>
-            <p className="text-sm font-bold text-slate-500">
-              Anda Tidak Memiliki Akses ke Halaman Ini.
-            </p>
-            <p className="text-xs text-slate-400">
-              Hanya akun dengan hak akses Super Admin yang diperbolehkan masuk ke halaman manajemen user.
-            </p>
-            <Link
-              href="/admin/dashboard"
-              className="inline-block mt-2 px-6 py-2.5 bg-[#561C24] hover:bg-[#6D2932] text-white text-xs font-black uppercase rounded-xl tracking-wider shadow-md hover:shadow-lg transition-all"
-            >
-              Kembali ke Dashboard
-            </Link>
+      <div className="flex-1 flex items-center justify-center px-6 my-10">
+        <div className="max-w-md w-full bg-white border border-slate-200 rounded-2xl p-8 shadow-sm text-center space-y-4">
+          <div className="w-16 h-16 rounded-full bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-600 mx-auto">
+            <Shield className="w-8 h-8" />
           </div>
+          <h2 className="text-2xl font-black text-slate-900 tracking-tight">403 - Akses Ditolak</h2>
+          <p className="text-sm font-bold text-slate-500">
+            Anda Tidak Memiliki Akses ke Halaman Ini.
+          </p>
+          <p className="text-xs text-slate-400">
+            Hanya akun dengan hak akses Super Admin yang diperbolehkan masuk ke halaman manajemen user.
+          </p>
+          <Link
+            href="/admin/dashboard"
+            className="inline-block mt-2 px-6 py-2.5 bg-[#561C24] hover:bg-[#6D2932] text-white text-xs font-black uppercase rounded-xl tracking-wider shadow-md hover:shadow-lg transition-all"
+          >
+            Kembali ke Dashboard
+          </Link>
         </div>
-        <Footer />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800 font-sans select-none relative overflow-x-hidden pt-[72px] flex flex-col justify-between">
-
-      {/* Horizontal Navbar */}
-      <AdminNavbar activePortal="manajemen-user" />
+    <div className="w-full">
 
       {/* Main Container */}
       <div className="max-w-7xl w-full mx-auto px-6 mt-8 space-y-6 flex-1">

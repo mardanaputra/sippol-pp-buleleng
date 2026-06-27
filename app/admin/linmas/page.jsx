@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Footer from '../../components/Footer';
-import AdminNavbar from '../../components/AdminNavbar';
+import { useAdminLayout } from '../layout';
 import {
   Shield,
   Users,
@@ -44,8 +44,32 @@ const BULELENG_REGENCY = {
 };
 
 export default function LinmasAdmin() {
+  const { setActivePortal, setOnRefresh, setLoading: setLayoutLoading } = useAdminLayout();
+
+  const fetchLinmasData = async () => {
+    await Promise.all([
+      fetchSatlinmas(),
+      fetchTrantibum(),
+      fetchActivities(),
+      fetchDelegatedReports()
+    ]);
+  };
+
+  useEffect(() => {
+    setActivePortal('linmas');
+    setOnRefresh(() => fetchLinmasData);
+    return () => {
+      setOnRefresh(null);
+    };
+  }, [setActivePortal, setOnRefresh]);
+
   const [activeTab, setActiveTab] = useState('satlinmas');
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLayoutLoading(loading);
+  }, [loading, setLayoutLoading]);
+
   const [notification, setNotification] = useState(null); // { type, message, onConfirm }
 
   const showAlert = (message, type = 'success') => {
@@ -626,13 +650,7 @@ export default function LinmasAdmin() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground font-sans select-none relative overflow-x-hidden pt-[72px] flex flex-col justify-between">
-
-      {/* 2. Horizontal Admin Navbar (Fixed / Persistent) */}
-      <AdminNavbar
-        activePortal="linmas"
-      />
-
+    <div className="w-full">
 
       {/* Main Grid Content */}
       <div className="max-w-7xl w-full mx-auto px-6 mt-8 space-y-6 flex-1">

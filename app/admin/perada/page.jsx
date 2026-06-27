@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Footer from '../../components/Footer';
-import AdminNavbar from '../../components/AdminNavbar';
+import { useAdminLayout } from '../layout';
 import {
   Shield,
   Scale,
@@ -34,8 +34,32 @@ import {
 } from 'lucide-react';
 
 export default function PeradaAdmin() {
+  const { setActivePortal, setOnRefresh, setLoading: setLayoutLoading } = useAdminLayout();
+
+  const fetchPeradaData = async () => {
+    await Promise.all([
+      fetchRegulasi(),
+      fetchPelanggaran(),
+      fetchPenegakan(),
+      fetchDelegatedReports()
+    ]);
+  };
+
+  useEffect(() => {
+    setActivePortal('perada');
+    setOnRefresh(() => fetchPeradaData);
+    return () => {
+      setOnRefresh(null);
+    };
+  }, [setActivePortal, setOnRefresh]);
+
   const [activeTab, setActiveTab] = useState('regulasi'); // 'regulasi', 'pelanggaran', 'penegakan'
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLayoutLoading(loading);
+  }, [loading, setLayoutLoading]);
+
   const [searchQuery, setSearchQuery] = useState('');
   const [notification, setNotification] = useState(null); // { type, message, onConfirm }
 
@@ -628,20 +652,7 @@ export default function PeradaAdmin() {
   );
 
   return (
-    <div className="min-h-screen bg-background text-foreground font-sans select-none relative overflow-x-hidden pt-[72px] flex flex-col justify-between">
-
-      {/* 2. Horizontal Admin Navbar (Fixed / Persistent) */}
-      <AdminNavbar
-        activePortal="perada"
-        onRefresh={() => {
-          if (activeTab === 'regulasi') fetchRegulasi();
-          else if (activeTab === 'pelanggaran') { fetchPelanggaran(); fetchRegulasi(); }
-          else if (activeTab === 'penegakan') { fetchPenegakan(); fetchRegulasi(); fetchPelanggaran(); fetchDelegatedReports(); }
-        }}
-        loading={loading}
-      />
-
-
+    <div className="w-full">
 
       {/* Main Grid Content */}
       <div className="max-w-7xl w-full mx-auto px-6 mt-8 space-y-6 flex-1">

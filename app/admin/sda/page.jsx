@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Footer from '../../components/Footer';
-import AdminNavbar from '../../components/AdminNavbar';
+import { useAdminLayout } from '../layout';
 import {
   Shield,
   Users,
@@ -88,8 +88,30 @@ const DIKLAT_COURSES = [
 ];
 
 export default function SdaAdmin() {
-  const [activeTab, setActiveTab] = useState('personel');
+  const { setActivePortal, setOnRefresh, setLoading: setLayoutLoading } = useAdminLayout();
+
+  const fetchSdaData = async () => {
+    await Promise.all([
+      fetchPersonel(),
+      fetchKegiatan(),
+      fetchPustaka()
+    ]);
+  };
+
+  useEffect(() => {
+    setActivePortal('sda');
+    setOnRefresh(() => fetchSdaData);
+    return () => {
+      setOnRefresh(null);
+    };
+  }, [setActivePortal, setOnRefresh]);
+
+  const [activeTab, setActiveTab] = useState('personel'); // 'personel', 'kegiatan', 'pustaka'
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLayoutLoading(loading);
+  }, [loading, setLayoutLoading]);
   const [notification, setNotification] = useState(null); // { type, message, onConfirm }
 
   const showAlert = (message, type = 'success') => {
@@ -542,12 +564,7 @@ export default function SdaAdmin() {
   });
 
   return (
-    <div className="min-h-screen bg-background text-foreground font-sans select-none relative overflow-x-hidden pt-[72px] flex flex-col justify-between">
-
-      {/* Horizontal Navbar */}
-      <AdminNavbar
-        activePortal="sda"
-      />
+    <div className="w-full">
 
       {/* Main Grid Content */}
       <div className="max-w-7xl w-full mx-auto px-6 mt-8 space-y-6 flex-1">
