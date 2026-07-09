@@ -36,6 +36,7 @@ export default function AdminLayout({ children }) {
   const [loading, setLoading] = useState(false);
   const [refreshText, setRefreshText] = useState('Refresh Portal');
   const [currentSubTab, setCurrentSubTab] = useState('dashboard');
+  const [userRole, setUserRole] = useState(null);
 
   useEffect(() => {
     // If it's the login page, bypass authorization check
@@ -49,6 +50,12 @@ export default function AdminLayout({ children }) {
       router.replace('/admin/login');
     } else {
       setAuthorized(true);
+      const storedUser = localStorage.getItem('adminUser');
+      if (storedUser) {
+        try {
+          setUserRole(JSON.parse(storedUser).role);
+        } catch (e) {}
+      }
     }
   }, [pathname, router]);
 
@@ -96,6 +103,7 @@ export default function AdminLayout({ children }) {
         setRefreshText,
         currentSubTab,
         setCurrentSubTab,
+        userRole,
       }}
     >
       <div className="min-h-screen bg-background text-foreground font-sans relative overflow-x-hidden flex flex-col justify-between">
@@ -205,53 +213,61 @@ export default function AdminLayout({ children }) {
                 <AlertTriangle className="w-4 h-4 text-[#E8D8C4]" /> Disposisi
               </Link>
 
-              <Link
-                href="/admin/trantib"
-                onClick={() => setIsSidebarOpen(false)}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-bold transition-all uppercase tracking-wider ${
-                  activePortal === 'trantib'
-                    ? 'bg-white/10 text-white font-black border-l-4 border-[#E8D8C4]'
-                    : 'text-[#E8D8C4]/80 hover:bg-white/10 hover:text-white'
-                }`}
-              >
-                <Shield className="w-4 h-4 text-[#E8D8C4]" /> Portal Trantib
-              </Link>
+              {(userRole === 'super_admin' || userRole === 'admin' || userRole === 'bidang_trantib') && (
+                <Link
+                  href="/admin/trantib"
+                  onClick={() => setIsSidebarOpen(false)}
+                  className={`flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-bold transition-all uppercase tracking-wider ${
+                    activePortal === 'trantib'
+                      ? 'bg-white/10 text-white font-black border-l-4 border-[#E8D8C4]'
+                      : 'text-[#E8D8C4]/80 hover:bg-white/10 hover:text-white'
+                  }`}
+                >
+                  <Shield className="w-4 h-4 text-[#E8D8C4]" /> Portal Trantib
+                </Link>
+              )}
 
-              <Link
-                href="/admin/perada"
-                onClick={() => setIsSidebarOpen(false)}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-bold transition-all uppercase tracking-wider ${
-                  activePortal === 'perada'
-                    ? 'bg-white/10 text-white font-black border-l-4 border-[#E8D8C4]'
-                    : 'text-[#E8D8C4]/80 hover:bg-white/10 hover:text-white'
-                }`}
-              >
-                <Shield className="w-4 h-4 text-[#E8D8C4]" /> Portal Perada
-              </Link>
+              {(userRole === 'super_admin' || userRole === 'admin' || userRole === 'bidang_perada') && (
+                <Link
+                  href="/admin/perada"
+                  onClick={() => setIsSidebarOpen(false)}
+                  className={`flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-bold transition-all uppercase tracking-wider ${
+                    activePortal === 'perada'
+                      ? 'bg-white/10 text-white font-black border-l-4 border-[#E8D8C4]'
+                      : 'text-[#E8D8C4]/80 hover:bg-white/10 hover:text-white'
+                  }`}
+                >
+                  <Shield className="w-4 h-4 text-[#E8D8C4]" /> Portal Perada
+                </Link>
+              )}
 
-              <Link
-                href="/admin/linmas"
-                onClick={() => setIsSidebarOpen(false)}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-bold transition-all uppercase tracking-wider ${
-                  activePortal === 'linmas'
-                    ? 'bg-white/10 text-white font-black border-l-4 border-[#E8D8C4]'
-                    : 'text-[#E8D8C4]/80 hover:bg-white/10 hover:text-white'
-                }`}
-              >
-                <Users className="w-4 h-4 text-[#E8D8C4]" /> Portal Linmas
-              </Link>
+              {(userRole === 'super_admin' || userRole === 'admin' || userRole === 'bidang_linmas') && (
+                <Link
+                  href="/admin/linmas"
+                  onClick={() => setIsSidebarOpen(false)}
+                  className={`flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-bold transition-all uppercase tracking-wider ${
+                    activePortal === 'linmas'
+                      ? 'bg-white/10 text-white font-black border-l-4 border-[#E8D8C4]'
+                      : 'text-[#E8D8C4]/80 hover:bg-white/10 hover:text-white'
+                  }`}
+                >
+                  <Users className="w-4 h-4 text-[#E8D8C4]" /> Portal Linmas
+                </Link>
+              )}
 
-              <Link
-                href="/admin/sda"
-                onClick={() => setIsSidebarOpen(false)}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-bold transition-all uppercase tracking-wider ${
-                  activePortal === 'sda'
-                    ? 'bg-white/10 text-white font-black border-l-4 border-[#E8D8C4]'
-                    : 'text-[#E8D8C4]/80 hover:bg-white/10 hover:text-white'
-                }`}
-              >
-                <MapPin className="w-4 h-4 text-[#E8D8C4]" /> Portal SDA
-              </Link>
+              {(userRole === 'super_admin' || userRole === 'admin' || userRole === 'bidang_sda') && (
+                <Link
+                  href="/admin/sda"
+                  onClick={() => setIsSidebarOpen(false)}
+                  className={`flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-bold transition-all uppercase tracking-wider ${
+                    activePortal === 'sda'
+                      ? 'bg-white/10 text-white font-black border-l-4 border-[#E8D8C4]'
+                      : 'text-[#E8D8C4]/80 hover:bg-white/10 hover:text-white'
+                  }`}
+                >
+                  <MapPin className="w-4 h-4 text-[#E8D8C4]" /> Portal SDA
+                </Link>
+              )}
 
               <Link
                 href="/admin/kegiatan"
@@ -265,17 +281,19 @@ export default function AdminLayout({ children }) {
                 <FileText className="w-4 h-4 text-[#E8D8C4]" /> Portal Kegiatan
               </Link>
 
-              <Link
-                href="/admin/manajemen-user"
-                onClick={() => setIsSidebarOpen(false)}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-bold transition-all uppercase tracking-wider ${
-                  activePortal === 'manajemen-user'
-                    ? 'bg-white/10 text-white font-black border-l-4 border-[#E8D8C4]'
-                    : 'text-[#E8D8C4]/80 hover:bg-white/10 hover:text-white'
-                }`}
-              >
-                <Users className="w-4 h-4 text-[#E8D8C4]" /> Manajemen User
-              </Link>
+              {(userRole === 'super_admin' || userRole === 'admin') && (
+                <Link
+                  href="/admin/manajemen-user"
+                  onClick={() => setIsSidebarOpen(false)}
+                  className={`flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-bold transition-all uppercase tracking-wider ${
+                    activePortal === 'manajemen-user'
+                      ? 'bg-white/10 text-white font-black border-l-4 border-[#E8D8C4]'
+                      : 'text-[#E8D8C4]/80 hover:bg-white/10 hover:text-white'
+                  }`}
+                >
+                  <Users className="w-4 h-4 text-[#E8D8C4]" /> Manajemen User
+                </Link>
+              )}
             </nav>
 
             {/* Sidebar Footer Log Out Button */}

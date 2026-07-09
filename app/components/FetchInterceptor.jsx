@@ -108,17 +108,21 @@ export default function FetchInterceptor() {
         if (response.status === 401 && isApiCall) {
           // Do not redirect for login calls to prevent infinite loops
           if (!urlStr.includes('/api/login')) {
-            console.warn('Unauthorized! Token expired or invalid. Redirecting to login...');
+            if (window.location.pathname.startsWith('/admin')) {
+              console.warn('Unauthorized! Token expired or invalid. Redirecting to login...');
 
-            // Clear auth state
-            localStorage.removeItem('isAdminLoggedIn');
-            localStorage.removeItem('adminToken');
-            localStorage.removeItem('rememberAdmin');
-            document.cookie = 'adminToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
-            document.cookie = 'isAdminLoggedIn=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+              // Clear auth state
+              localStorage.removeItem('isAdminLoggedIn');
+              localStorage.removeItem('adminToken');
+              localStorage.removeItem('rememberAdmin');
+              document.cookie = 'adminToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+              document.cookie = 'isAdminLoggedIn=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
 
-            // Redirect to login page
-            window.location.href = '/admin/login?expired=true';
+              // Redirect to login page
+              window.location.href = '/admin/login?expired=true';
+            } else {
+              console.warn('API returned 401, but ignoring redirect since we are on a public page.');
+            }
           }
         }
 

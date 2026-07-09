@@ -60,6 +60,7 @@ export default function AdminUsersPage() {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
+  const [role, setRole] = useState('admin');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
 
@@ -144,7 +145,7 @@ export default function AdminUsersPage() {
       if (storedUser && storedUser.role) {
         roleFound = storedUser.role;
         setUserRole(roleFound);
-        if (roleFound === 'super_admin') {
+        if (roleFound === 'super_admin' || roleFound === 'admin') {
           fetchUsers();
           fetchActivityLogs();
         } else {
@@ -168,7 +169,7 @@ export default function AdminUsersPage() {
         if (res.ok && data.success && data.user) {
           setUserRole(data.user.role);
           localStorage.setItem('adminUser', JSON.stringify(data.user));
-          if (data.user.role === 'super_admin' && roleFound !== 'super_admin') {
+          if ((data.user.role === 'super_admin' || data.user.role === 'admin') && roleFound !== 'super_admin' && roleFound !== 'admin') {
             fetchUsers();
             fetchActivityLogs();
           }
@@ -206,6 +207,7 @@ export default function AdminUsersPage() {
           name: name.trim(),
           username: username.trim(),
           email: email.trim(),
+          role: role,
           password: password,
         })
       });
@@ -218,6 +220,7 @@ export default function AdminUsersPage() {
         setName('');
         setUsername('');
         setEmail('');
+        setRole('admin');
         setPassword('');
         setPasswordConfirmation('');
         // Re-fetch users and logs
@@ -332,7 +335,7 @@ export default function AdminUsersPage() {
     );
   }
 
-  if (userRole !== 'super_admin') {
+  if (userRole !== 'super_admin' && userRole !== 'admin') {
     return (
       <div className="flex-1 flex items-center justify-center px-6 my-10">
         <div className="max-w-md w-full bg-white border border-slate-200 rounded-2xl p-8 shadow-sm text-center space-y-4">
@@ -344,7 +347,7 @@ export default function AdminUsersPage() {
             Anda Tidak Memiliki Akses ke Halaman Ini.
           </p>
           <p className="text-xs text-slate-400">
-            Hanya akun dengan hak akses Super Admin yang diperbolehkan masuk ke halaman manajemen user.
+            Hanya akun dengan hak akses Admin yang diperbolehkan masuk ke halaman manajemen user.
           </p>
           <Link
             href="/admin/dashboard"
@@ -398,7 +401,8 @@ export default function AdminUsersPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 animate-fadeIn">
 
           {/* Left Column: Form Tambah Admin */}
-          <div className="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
+          {userRole === 'super_admin' && (
+            <div className="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
             <div className="text-left space-y-4">
               <h3 className="text-sm font-black text-[#561C24] uppercase tracking-wider flex items-center gap-2 pb-3 border-b border-slate-100">
                 <UserPlus className="w-4 h-4" /> Tambah Akun Admin Baru
@@ -463,6 +467,31 @@ export default function AdminUsersPage() {
                       required
                       className="w-full bg-white border border-slate-300 rounded-xl pl-10 pr-4 py-2.5 text-xs font-semibold text-slate-800 placeholder-slate-400 outline-none focus:border-[#561C24] focus:ring-2 focus:ring-[#561C24]/10 transition-all"
                     />
+                  </div>
+                </div>
+
+                {/* Role */}
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-black uppercase tracking-wider text-slate-500 block">
+                    Hak Akses (Role)
+                  </label>
+                  <div className="relative">
+                    <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                      <Shield className="w-4 h-4" />
+                    </span>
+                    <select
+                      value={role}
+                      onChange={(e) => setRole(e.target.value)}
+                      required
+                      className="w-full bg-white border border-slate-300 rounded-xl pl-10 pr-4 py-2.5 text-xs font-semibold text-slate-800 outline-none focus:border-[#561C24] focus:ring-2 focus:ring-[#561C24]/10 transition-all appearance-none"
+                    >
+                      <option value="admin">Admin Umum</option>
+                      <option value="super_admin">Super Admin</option>
+                      <option value="bidang_trantib">Bidang Trantibum</option>
+                      <option value="bidang_linmas">Bidang Linmas</option>
+                      <option value="bidang_perada">Bidang Perada</option>
+                      <option value="bidang_sda">Bidang SDA</option>
+                    </select>
                   </div>
                 </div>
 
@@ -553,9 +582,10 @@ export default function AdminUsersPage() {
               </form>
             </div>
           </div>
+          )}
 
           {/* Right Column: List Admin Aktif */}
-          <div className="lg:col-span-7 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
+          <div className={`${userRole === 'super_admin' ? 'lg:col-span-7' : 'lg:col-span-12'} bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col justify-between`}>
             <div className="text-left space-y-4">
               <h3 className="text-sm font-black text-slate-800 uppercase tracking-wider flex items-center justify-between pb-3 border-b border-slate-100">
                 <span className="flex items-center gap-2"><Users className="w-4 h-4 text-slate-500" /> Daftar Admin Aktif</span>
@@ -596,15 +626,39 @@ export default function AdminUsersPage() {
                                 <Shield className="w-2.5 h-2.5 text-amber-700 shrink-0" />
                                 Super Admin
                               </span>
+                            ) : user.role === 'bidang_trantib' ? (
+                              <span className="px-2 py-0.5 rounded-full text-[9px] font-black bg-blue-100 text-blue-800 border border-blue-200 inline-flex items-center gap-1">
+                                <Shield className="w-2.5 h-2.5 text-blue-500 shrink-0" />
+                                Bidang Trantib
+                              </span>
+                            ) : user.role === 'bidang_linmas' ? (
+                              <span className="px-2 py-0.5 rounded-full text-[9px] font-black bg-emerald-100 text-emerald-800 border border-emerald-200 inline-flex items-center gap-1">
+                                <Shield className="w-2.5 h-2.5 text-emerald-500 shrink-0" />
+                                Bidang Linmas
+                              </span>
+                            ) : user.role === 'bidang_perada' ? (
+                              <span className="px-2 py-0.5 rounded-full text-[9px] font-black bg-purple-100 text-purple-800 border border-purple-200 inline-flex items-center gap-1">
+                                <Shield className="w-2.5 h-2.5 text-purple-500 shrink-0" />
+                                Bidang Perada
+                              </span>
+                            ) : user.role === 'bidang_sda' ? (
+                              <span className="px-2 py-0.5 rounded-full text-[9px] font-black bg-indigo-100 text-indigo-800 border border-indigo-200 inline-flex items-center gap-1">
+                                <Shield className="w-2.5 h-2.5 text-indigo-500 shrink-0" />
+                                Bidang SDA
+                              </span>
                             ) : (
                               <span className="px-2 py-0.5 rounded-full text-[9px] font-black bg-slate-100 text-slate-600 border border-slate-200 inline-flex items-center gap-1">
                                 <User className="w-2.5 h-2.5 text-slate-500 shrink-0" />
-                                Admin
+                                Admin Umum
                               </span>
                             )}
                           </td>
                           <td className="py-3 text-xs text-right pr-2 space-x-1.5 whitespace-nowrap">
-                            {user.username !== 'admin' ? (
+                            {user.username === 'admin' ? (
+                              <span className="text-[9px] font-black text-slate-400 bg-slate-50 border border-slate-200 px-2 py-0.5 rounded-md uppercase tracking-wider select-none pr-1 inline-block">
+                                Super Utama
+                              </span>
+                            ) : userRole === 'super_admin' ? (
                               <>
                                 {user.role === 'super_admin' ? (
                                   <button
@@ -629,8 +683,8 @@ export default function AdminUsersPage() {
                                 </button>
                               </>
                             ) : (
-                              <span className="text-[9px] font-black text-slate-400 bg-slate-50 border border-slate-200 px-2 py-0.5 rounded-md uppercase tracking-wider select-none pr-1 inline-block">
-                                Super Utama
+                              <span className="text-[9px] font-black text-slate-400 bg-slate-50 px-2 py-0.5 rounded-md uppercase tracking-wider select-none pr-1 inline-block border border-transparent">
+                                Lihat Saja
                               </span>
                             )}
                           </td>

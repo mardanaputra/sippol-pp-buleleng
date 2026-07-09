@@ -43,6 +43,11 @@ export default function AdminLogin() {
       return;
     }
 
+    if (!captchaToken) {
+      setError('Silakan selesaikan verifikasi reCAPTCHA terlebih dahulu.');
+      return;
+    }
+
     setIsLoading(true);
 
     try {
@@ -216,7 +221,7 @@ export default function AdminLogin() {
           {/* Submit Button */}
           <button
             type="submit"
-            disabled={isLoading || !captchaToken}
+            disabled={isLoading}
             className="w-full mt-4 py-3 bg-gradient-to-r from-coffee-dark to-coffee-medium hover:from-coffee-medium hover:to-coffee-dark text-white text-xs font-black uppercase rounded-xl tracking-wider shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 active:scale-[0.98] select-none"
           >
             {isLoading ? (

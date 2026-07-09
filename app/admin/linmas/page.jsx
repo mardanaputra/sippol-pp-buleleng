@@ -44,7 +44,7 @@ const BULELENG_REGENCY = {
 };
 
 export default function LinmasAdmin() {
-  const { setActivePortal, setOnRefresh, setLoading: setLayoutLoading } = useAdminLayout();
+  const { setActivePortal, setOnRefresh, setLoading: setLayoutLoading, userRole } = useAdminLayout();
 
   const fetchLinmasData = async () => {
     await Promise.all([
@@ -69,6 +69,29 @@ export default function LinmasAdmin() {
   useEffect(() => {
     setLayoutLoading(loading);
   }, [loading, setLayoutLoading]);
+
+  // Role Protection Check
+  if (userRole !== null && !['super_admin', 'admin', 'bidang_linmas'].includes(userRole)) {
+    return (
+      <div className="flex-1 flex items-center justify-center px-6 my-10">
+        <div className="max-w-md w-full bg-white border border-slate-200 rounded-2xl p-8 shadow-sm text-center space-y-4">
+          <div className="w-16 h-16 rounded-full bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-600 mx-auto">
+            <Shield className="w-8 h-8" />
+          </div>
+          <h2 className="text-2xl font-black text-slate-900 tracking-tight">403 - Akses Ditolak</h2>
+          <p className="text-sm font-bold text-slate-500">
+            Anda Tidak Memiliki Akses ke Portal Linmas.
+          </p>
+          <Link
+            href="/admin/dashboard"
+            className="inline-block mt-2 px-6 py-2.5 bg-[#561C24] hover:bg-[#6D2932] text-white text-xs font-black uppercase rounded-xl tracking-wider shadow-md hover:shadow-lg transition-all"
+          >
+            Kembali ke Dashboard
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   const [notification, setNotification] = useState(null); // { type, message, onConfirm }
 
